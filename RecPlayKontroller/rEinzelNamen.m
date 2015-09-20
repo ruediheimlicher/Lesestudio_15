@@ -183,6 +183,7 @@ if (index>=0)
 			}//while
 			//NSLog(@"tempZeilenstring sauber: %@",tempZeilenstring);
 
+         
 
          
 			NSArray* tempArray=[tempZeilenstring componentsSeparatedByString:@" "];
