@@ -22,8 +22,6 @@ enum
 
 - (BOOL)Leseboxvorbereiten
 {
-   
-   
    NSArray* NetworkCompArray=[Utils checkNetzwerkVolumes];
    
    NSLog(@"Leseboxvorbereiten	NetworkCompArray: %@",[NetworkCompArray description]);
@@ -34,8 +32,6 @@ enum
    
    //	LeseboxDa=YES;
    //	LeseboxPfad=@"/Users/sysadmin/Documents/Lesebox";
-   
-   
    if (!self.LeseboxDa)
    {
       //NSLog(@"User nach gewuenschter Lesebox fragen");
@@ -56,6 +52,7 @@ enum
    NSString* KommentarString=[NSString stringWithString:@"Anmerkungen"];
    //istSystemVolume=[Utils istSystemVolumeAnPfad:LeseboxPfad];
    //NSLog(@"Leseboxvorbereiten vor LeseboxOK");
+   
    
    self.LeseboxOK=[Utils LeseboxValidAnPfad:self.LeseboxPfad aufSystemVolume:self.istSystemVolume];//Lesebox checken, ev einrichten
    NSLog(@"Leseboxvorbereiten nach LeseboxOK: LeseboxOK: %d  self.istSystemVolume: %d",self.LeseboxOK,self.istSystemVolume);
@@ -183,13 +180,50 @@ enum
       }
       
       NSLog(@"ProjektArray: %@",[self.ProjektArray description]);
-      if ([self.PListDic objectForKey:@"projektarray"] && [[self.PListDic objectForKey:@"projektarray"]count])
+      if ([self.PListDic objectForKey:@"projektarray"])// && [[self.PListDic objectForKey:@"projektarray"]count])
       {
-         //NSLog(@"LB vorbereiten: ProjektArray: %@",[[self.PListDic objectForKey:@"projektarray"] description]);
-         [self.ProjektArray setArray:[self.PListDic objectForKey:@"projektarray"]];
-         
-         
-         //NSLog(@"LB vorbereiten vor update: ProjektArray: %@",[[self.ProjektArray valueForKey:@"projekt"]description]);
+         if ([[self.PListDic objectForKey:@"projektarray"]count]) // Projekte vorhanden
+         {
+            //NSLog(@"LB vorbereiten: ProjektArray: %@",[[self.PListDic objectForKey:@"projektarray"] description]);
+            [self.ProjektArray setArray:[self.PListDic objectForKey:@"projektarray"]];
+            
+            
+            //NSLog(@"LB vorbereiten vor update: ProjektArray: %@",[[self.ProjektArray valueForKey:@"projekt"]description]);
+         }
+         else // in Archiv nachschauen
+         {
+            NSError* err;
+            BOOL istOrdner;
+            NSString* tempArchivPfad = [self.LeseboxPfad stringByAppendingPathComponent:@"Archiv"];
+            if ([[NSFileManager defaultManager]fileExistsAtPath:tempArchivPfad isDirectory: &istOrdner] && istOrdner) // Archiv da
+            {
+               // Sind Projektordner vorhanden? -> In PList Projektarray eintragen
+               NSMutableArray* tempProjektArray = (NSMutableArray*)[[NSFileManager defaultManager]contentsOfDirectoryAtPath:tempArchivPfad error: &err];
+               [tempProjektArray removeObject:@".DS_Store"];
+               NSLog(@"LB vorbereiten neuer ProjektArray tempProjektArray: %@",[tempProjektArray description]);
+               NSMutableArray* PListProjektarray = [[NSMutableArray alloc]initWithCapacity:0];
+               if ([tempProjektArray count])
+               {
+                  for (int projektindex=0;projektindex < [tempProjektArray count]; projektindex++)
+                  {
+                     NSLog(@"tempProjektArray index: %d Projekt:  %@",projektindex,[[tempProjektArray objectAtIndex:projektindex]description]);
+                     NSMutableDictionary* tempZeilenDic = [self PListProjektDicVonProjekt: [tempProjektArray objectAtIndex:projektindex]];
+                     NSLog(@"tempZeilenDic: %@",tempZeilenDic);
+                     [PListProjektarray addObject:tempZeilenDic];
+                  }
+                  [self.PListDic setObject:PListProjektarray forKey:@"projektarray"];
+                  NSString* PListName=@"Lesebox.plist";
+                  NSString* PListPfad = [[self.LeseboxPfad stringByAppendingPathComponent:@"Data"]stringByAppendingPathComponent:PListName];;
+                  self.ProjektPfad = [tempArchivPfad stringByAppendingPathComponent:[tempProjektArray objectAtIndex:0]];
+                  [self saveProjektArrayInPList:self.PListDic anPfad:self.LeseboxPfad];
+               }
+               else
+               {
+                  NSLog(@"LB vorbereiten Archiv ist leer");
+                  
+               }
+            }
+         }
          
          [self updateProjektArray];
          [self updatePasswortListe];
@@ -940,7 +974,32 @@ enum
 }
 
 
-
+- (NSMutableDictionary*)PListProjektDicVonProjekt:(NSString*)dasProjekt
+{
+   NSString* tempProjektPfad =[[self.LeseboxPfad stringByAppendingPathComponent:@"Archiv"]stringByAppendingPathComponent:dasProjekt];
+   NSMutableDictionary* tempProjektDic=[[NSMutableDictionary alloc]initWithCapacity:0];
+   
+   if ([[NSFileManager defaultManager]fileExistsAtPath:tempProjektPfad])
+   {
+      NSLog(@"PListProjektDicVonProjekt Projektordner da");
+      
+     // NSMutableDictionary* tempProjektDic=[[NSMutableDictionary alloc]initWithCapacity:0];
+      [tempProjektDic setObject:tempProjektPfad forKey:@"projektpfad"]; //Projektpfad einsetzen
+      [tempProjektDic setObject:dasProjekt forKey:@"projekt"];
+      [tempProjektDic setObject: [NSNumber numberWithInt:1] forKey:@"ok"];
+      [tempProjektDic setObject: [NSNumber numberWithInt:1] forKey:@"extern"];
+      [tempProjektDic setObject: [NSNumber numberWithInt:0] forKey:@"fix"];
+      [tempProjektDic setObject: [NSMutableArray array] forKey:@"titelarray"];
+      [tempProjektDic setObject: [NSNumber numberWithInt:0] forKey:@"mituserpw"];
+      [tempProjektDic setObject: heuteDatumString forKey:@"sessiondatum"];
+      [tempProjektDic setObject:[NSMutableArray array] forKey:@"sessionleserarray"];
+   }
+   else
+   {
+      NSLog(@"PListProjektDicVonProjekt kein Projektordner");
+   }
+   return tempProjektDic;
+}
 
 - (BOOL)ProjektListeValidAnPfad:(NSString*)derArchivPfad
 {
@@ -1034,7 +1093,7 @@ enum
          NSArray*tempPListArray=[self.PListDic objectForKey:@"projektarray"];
          NSEnumerator* ProjektArrayEnum=[tempProjektArray objectEnumerator];//Array der vorhandenen Ordner im Archiv
          id einProjektDic;
-         while (einProjektDic=[ProjektArrayEnum nextObject]) // 
+         while (einProjektDic=[ProjektArrayEnum nextObject]) //
          {
             NSString* tempProjektName=[einProjektDic objectForKey:@"projekt"];
             NSEnumerator* PListArrayEnum=[tempPListArray objectEnumerator];
@@ -1114,7 +1173,7 @@ enum
       [Warnung setMessageText:@"Kein Projekt"];
       [Warnung setInformativeText:@"In'Archiv' muss mindestens ein Ordner für ein Projekt vorhanden sein. \r'Projekt anlegen' führt zu diesem Schritt."];
       [Warnung setAlertStyle:NSWarningAlertStyle];
-     // NSImage* RPImage = [NSImage imageNamed: @"MicroIcon"];
+      // NSImage* RPImage = [NSImage imageNamed: @"MicroIcon"];
       
       //[Warnung setIcon:RPImage];
       long antwort=[Warnung runModal];
@@ -2602,6 +2661,8 @@ enum
 }
 
 
+
+
 - (void)saveSessionDatum:(NSString*)dasDatum inProjekt:(NSString*)dasProjekt
 {
    //NSLog(@"saveSessionForUser: PList: %@",[PListDic  description]);
@@ -3109,13 +3170,14 @@ enum
    //[tempUserInfo release];
 }
 
+
 - (BOOL)savePList:(NSDictionary*)diePList anPfad:(NSString*)derLeseboxPfad
 {
    BOOL PListOK=NO;
    NSString* tempUserPfad=[derLeseboxPfad copy];
    NSLog(@"savePList: tempUserPfad start: %@",tempUserPfad);
    
-  // NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Name Lesebox.plist");
+   // NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Name Lesebox.plist");
    NSString* PListName=@"Lesebox.plist";
    NSString* PListPfad;
    
@@ -3188,6 +3250,110 @@ enum
       
       //NSData* d=[NSData dataWithBytes:LeseboxPfad length:[LeseboxPfad length]];
       //NSLog(@"**savePListAktion: d: %@",d);
+      [tempPListDic setObject:d forKey:@"leseboxpfad"];
+      
+      
+      NSFileManager *Filemanager=[NSFileManager defaultManager];
+      
+      
+      //NSLog(@"tempUserPfad: %@",tempUserPfad);
+      NSLog(@"***\nsavePListAktion: %@",[self.PListDic description]);
+      PListOK=[tempPListDic writeToFile:PListPfad atomically:YES];
+      NSLog(@"\nsavePList: PListOK: %d",PListOK);
+      
+      
+   }
+   
+   NSLog(@"savePList   PListOK: %d",PListOK);
+   return PListOK;
+   
+}
+- (BOOL)saveProjektArrayInPList:(NSDictionary*)diePList anPfad:(NSString*)derLeseboxPfad
+{
+   // Neuer ProjektArray, eventuell fehlende Items ergaenzen
+   BOOL PListOK=NO;
+   NSString* tempUserPfad=[derLeseboxPfad copy];
+   NSLog(@"savePList: tempUserPfad start: %@",tempUserPfad);
+   
+  // NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Name Lesebox.plist");
+   NSString* PListName=@"Lesebox.plist";
+   NSString* PListPfad;
+   
+   NSFileManager *Filemanager=[NSFileManager defaultManager];
+   
+   NSString* DataPath=[self.LeseboxPfad stringByAppendingPathComponent:@"Data"];
+   BOOL istDirectory=YES;
+   if(!([Filemanager fileExistsAtPath:DataPath isDirectory:&istDirectory]&&istDirectory))
+   {
+      BOOL DataOK=[Filemanager createDirectoryAtPath:DataPath withIntermediateDirectories:NO attributes:NULL error:NULL];
+   }
+   PListPfad=[DataPath stringByAppendingPathComponent:PListName];
+   //NSLog(@"PListPfad: %@",PListPfad);
+   NSMutableDictionary* tempPListDic=[[NSMutableDictionary alloc]initWithContentsOfFile:PListPfad];
+   if (!tempPListDic) //noch keine PList
+   {
+      NSLog(@"savePList: neue PList anlegen");
+      tempPListDic=[[NSMutableDictionary alloc]initWithCapacity:0];
+      
+   }
+   if (tempPListDic)
+   {
+      if (![tempPListDic objectForKey:@"adminpw"])
+      {
+         NSString* defaultPWString=@"homer";
+         const char* defaultpw=[defaultPWString UTF8String];
+         NSData* defaultPWData =[NSData dataWithBytes:defaultpw length:strlen(defaultpw)];
+         NSMutableDictionary* tempPWDic=[[NSMutableDictionary alloc]initWithCapacity:0];
+         [tempPWDic setObject:@"Admin" forKey:@"name"];
+         [tempPWDic setObject: [NSData data] forKey:@"pw"];
+         [tempPListDic setObject: tempPWDic forKey:@"adminpw"];
+         //NSLog(@"\nsavePList:  Default Eintrag fuer 'pw': %@",[tempPListDic description]);
+         //return;
+      }
+      
+      if (![tempPListDic objectForKey:@"lastdate"])
+      {
+         [tempPListDic setObject: [NSNumber numberWithLong:heuteTagDesJahres] forKey:@"lastdate"];
+      }
+      
+      {
+         if ([diePList objectForKey:@"projektarray"])
+         {
+            [tempPListDic setObject:[diePList objectForKey:@"projektarray"] forKey:@"projektarray"];
+         }
+         else	//leerer array
+         {
+            [tempPListDic setObject: [[NSMutableArray alloc]initWithCapacity:0] forKey:@"projektarray"];
+         }
+      }
+      
+      if (self.ProjektPfad && (![[self.ProjektPfad lastPathComponent]isEqualToString:@"Archiv"]))
+      {
+         [tempPListDic setObject: [self.ProjektPfad lastPathComponent] forKey:@"lastprojekt"];
+      }
+      
+      //[tempPListDic setObject:[NSNumber numberWithBool:busy] forKey:@"busy"];
+      
+      [tempPListDic setObject:[NSNumber numberWithInt:self.RPModus] forKey:@"modus"];
+      [tempPListDic setObject:[NSNumber numberWithInt:self.Umgebung] forKey:@"umgebung"];
+      [tempPListDic setObject:[NSNumber numberWithBool:self.mitAdminPasswort] forKey:@"mitadminpasswort"];
+      [tempPListDic setObject:[NSNumber numberWithBool:self.mitUserPasswort] forKey:@"mituserpasswort"];
+      //[tempPListDic setObject:self.AdminPasswortDic forKey:@"adminpw"];
+      [tempPListDic setObject:[NSNumber numberWithInt:(int)self.TimeoutDelay] forKey:@"timeoutdelay"];
+      [tempPListDic setObject:[NSNumber numberWithLong:self.KnackDelay] forKey:@"knackdelay"];
+      
+      NSString* defaultPWString=@"homer";
+      const char* defaultpw=[defaultPWString UTF8String];
+      NSData* defaultPWData =[NSData dataWithBytes:defaultpw length:strlen(defaultpw)];
+      NSMutableDictionary* tempPWDic=[[NSMutableDictionary alloc]initWithCapacity:0];
+      
+      [tempPWDic setObject:@"Admin" forKey:@"name"];
+      [tempPWDic setObject:defaultPWData forKey:@"pw"];
+      
+      [tempPListDic setObject:tempPWDic forKey:@"adminpw"];//AdminPasswort muss vorhanden sein
+     
+      NSData* d=[NSData dataWithBytes:(__bridge const void *)(derLeseboxPfad) length:[derLeseboxPfad length]];
+      NSLog(@"**savePListAktion: d: %@",d);
       [tempPListDic setObject:d forKey:@"leseboxpfad"];
       
       

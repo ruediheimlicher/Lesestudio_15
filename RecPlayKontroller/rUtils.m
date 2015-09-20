@@ -682,7 +682,6 @@ return versionOK;
 	}//exists at LeseboxPfad
   else
   {
-	  
 	  NSLog(@"Keine Lesebox da LeseboxValidAnPfad: %@",derLeseboxPfad);
 	  //PList löschen
 	  BOOL DeleteOK=[self deletePListAnPfad:derLeseboxPfad aufSystemVolume:istSystemVolume];
@@ -1683,16 +1682,11 @@ return versionOK;
 	else
 	{
       NSLog(@"PListDicVon... neue PList");
-      const int UtilsStartmitRecPlay=0;
-      const int UtilsStartmitAdmin=1;
+       const short kUtilsRecPlayUmgebung=0;
       const int UtilsStartmitDialog=2;
-      
-      const short kUtilsAdminUmgebung=1;
-      const short kUtilsRecPlayUmgebung=0;
 
       
 		tempPListDic=[[NSMutableDictionary alloc]initWithCapacity:0];
-      NSMutableDictionary* tempPWDictionary=[[NSMutableDictionary alloc]initWithCapacity:0];
       NSString* defaultPWString=@"homer";
       const char* defaultpw=[defaultPWString UTF8String];
       NSData* defaultPWData =[NSData dataWithBytes:defaultpw length:strlen(defaultpw)];

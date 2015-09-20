@@ -341,6 +341,7 @@
 - (void)SessionListeAktualisieren;
 - (void)SaveAufnahmeTimerFunktion:(NSTimer*)derTimer;
 - (void)saveSessionForUser:(NSString*)derUser inProjekt:(NSString*)dasProjekt;
+- (BOOL)saveProjektArrayInPList:(NSDictionary*)diePList anPfad:(NSString*)derLeseboxPfad;
 - (BOOL)anderesProjektEinrichtenMit:(NSString*)dasProjekt;
 - (NSArray*)SessionLeserListeVonProjekt:(NSString*)dasProjekt;
 - (void)neuesProjektAktion:(NSNotification*)note;
