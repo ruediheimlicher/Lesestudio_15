@@ -503,8 +503,16 @@ enum
    //NSLog(@"showProjektListe nach init:ProjektArray: %@  ",[self.ProjektArray description]);
    //NSLog(@"showProjektListe nach init:ProjektArray: %@  \nProjektPfad: %@",[ProjektArray description],ProjektPfad);
    
-   
-   [self.ProjektArray setArray:[Utils ProjektArrayAusPListAnPfad:self.LeseboxPfad]];
+   NSMutableArray* tempProjektArray = ( NSMutableArray*)[Utils ProjektArrayAusPListAnPfad:self.LeseboxPfad];
+   if ([tempProjektArray count]==0)
+   {
+      [ProjektPanel setVomStart:YES];
+   }
+   else
+   {
+       [ProjektPanel  setVomStart:![self checkAdminPW]];
+   }
+   [self.ProjektArray setArray:tempProjektArray];
    
    //[ProjektPanel showWindow:self];
    NSModalSession ProjektSession=[NSApp beginModalSessionForWindow:[ProjektPanel window]];
@@ -519,7 +527,7 @@ enum
       //NSLog(@"[ProjektArray count]=0");
       [ProjektPanel  setProjektListeLeer];
    }
-   [ProjektPanel  setVomStart:![self checkAdminPW]];
+  
    
 
    long modalAntwort = [NSApp runModalForWindow:[ProjektPanel window]];

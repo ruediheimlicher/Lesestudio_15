@@ -61,6 +61,7 @@
 	[EingabeFeld setDelegate:self];
 	[FixTaste setState:NO];
 	[PWTaste setState:NO];
+   [SchliessenTaste setEnabled:NO];
 	[[self window]makeFirstResponder:EingabeFeld];
 	//[SchliessenTaste setKeyEquivalent:@"\r"];
    [ProjektTable setToolTip:@"Liste aller aktiven Projekte.\nAktive Projekte kkennen vom Leser ausgewaehlt werden.\nFixierte Titel kann der Leser nicht aendern."];
@@ -135,6 +136,7 @@ if ([ProjektArray count])
 	[InListeTaste setEnabled:NO];
 	[NSApp stopModalWithCode:0];
 	[[self window] orderOut:NULL];
+ 
 	
 }
 	else//noch kein Projekt vorhanden
@@ -142,7 +144,7 @@ if ([ProjektArray count])
 	
 	[NSApp stopModalWithCode:0];
 	[[self window]orderOut:NULL];
-
+      [NSApp terminate:self];
 	}
 vomStart=NO;
 }
@@ -450,6 +452,7 @@ vomStart=NO;
 [EntfernenTaste setEnabled:NO];
 [AuswahlenTaste setEnabled:NO];
 [CancelTaste setEnabled:YES];
+[SchliessenTaste setEnabled:NO];
 }
 
 - (void)setProjektListeArray:(NSArray*)derArray inProjekt:(NSString*)dasProjekt
@@ -457,6 +460,11 @@ vomStart=NO;
 [[self window]setInitialFirstResponder:ProjektTable];
 
   [ProjektArray removeAllObjects];
+   
+   if ([derArray count] == 0)
+   {
+      [SchliessenTaste setEnabled:NO];
+   }
   NSEnumerator* ProjektEnum=[derArray objectEnumerator];
   id einProjektDic;
   //NSLog(@"setProjektListeArray: derArray: %@ \ndasProjekt: %@",[derArray description],dasProjekt);
