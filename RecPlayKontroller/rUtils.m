@@ -1824,7 +1824,7 @@ return versionOK;
 		NSMutableArray* tempProjektNamenListe=[[NSMutableArray alloc]initWithCapacity:0];
 		NSAlert *Warnung = [[NSAlert alloc] init];
 		BOOL Archivleer=YES;
-		if ([UProjektArray count])//es gibt Namen zu kopieren
+		if ([UProjektArray count]>1)//es gibt Namen zu kopieren
 		{
 			[Warnung addButtonWithTitle:@"Ordner kopieren"];
 			Archivleer=NO;

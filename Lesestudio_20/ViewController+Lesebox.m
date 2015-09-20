@@ -1110,7 +1110,7 @@ enum
       //NSLog(@"ProjektListeValidAnPfad: Archiv ist leer");
       NSAlert *Warnung = [[NSAlert alloc] init];
       [Warnung addButtonWithTitle:@"Projekt anlegen"];
-      [Warnung addButtonWithTitle:@"Manuell einrichten"];
+      [Warnung addButtonWithTitle:@"Abbrechen"];
       [Warnung setMessageText:@"Kein Projekt"];
       [Warnung setInformativeText:@"In'Archiv' muss mindestens ein Ordner für ein Projekt vorhanden sein. \r'Projekt anlegen' führt zu diesem Schritt."];
       [Warnung setAlertStyle:NSWarningAlertStyle];
