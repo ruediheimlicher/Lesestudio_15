@@ -4283,21 +4283,27 @@ QTMovie* qtMovie;
         NSLog(@"TabView: archiv");
         if (self.aktuellAnzAufnahmen &&!([AVRecorder isRecording]))
         {
-           
            [self resetArchivPlayer:nil];
            [self.ArchivnamenPop setEnabled:NO];
            [self.ArchivInPlayerTaste setEnabled:NO];
            [self.ArchivView deselectAll:NULL];
            [self.ArchivPlayTaste setEnabled:NO];
            [self.RecPlayFenster makeFirstResponder:self.ArchivView];
-           //AVAbspielplayer=nil;
         }
         else
         {
            NSAlert *Warnung = [[NSAlert alloc] init];
            [Warnung addButtonWithTitle:@"OK"];
            [Warnung setMessageText:@"Archiv"];
-           [Warnung setInformativeText:@"Es sind noch keine Aufnahmen vorhanden."];
+           if ([AVRecorder isRecording] )
+           {
+              [Warnung setInformativeText:@"Die Aufnahme ist noch im Gang"];
+           }
+           else
+           {
+              [Warnung setInformativeText:@"Es sind noch keine Aufnahmen vorhanden."];
+
+           }
            [Warnung setAlertStyle:NSWarningAlertStyle];
            
            NSModalResponse antwort = [Warnung runModal];
