@@ -29,7 +29,7 @@
 	[PasswortTable setDelegate: self];
 	NSFont* RecPlayfont;
 	RecPlayfont=[NSFont fontWithName:@"Helvetica" size: 32];
-	NSColor * RecPlayFarbe=[NSColor grayColor];
+	NSColor * RecPlayFarbe=[NSColor cyanColor];
 	[LesestudioString setFont: RecPlayfont];
 	[LesestudioString setTextColor: RecPlayFarbe];
 	NSFont* Titelfont;

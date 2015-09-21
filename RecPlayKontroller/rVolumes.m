@@ -70,8 +70,8 @@
 	NSFont* Homefont;
 	Homefont=[NSFont fontWithName:@"Helvetica" size: 14];
 	//[HomeKnopf setFont:Homefont];
-	NSImage* RecPlayImage = [NSImage imageNamed: @"MicroIcon"];
-	[RecPlayIcon setImage:RecPlayImage];
+//	NSImage* RecPlayImage = [NSImage imageNamed: @"MicroIcon"];
+//	[RecPlayIcon setImage:RecPlayImage];
 //	[NetzwerkDrawer setMinContentSize:NSMakeSize(100, 100)];
     //[NetzwerkDrawer setMaxContentSize:NSMakeSize(400, 400)];
 	[AbbrechenKnopf setToolTip:@"Programm beenden."];
@@ -374,7 +374,7 @@
 	NSMutableDictionary* NotificationDic=[[NSMutableDictionary alloc]initWithCapacity:0];
 	NSNotificationCenter* nc=[NSNotificationCenter defaultCenter];
 	[NotificationDic setObject:@"volumes" forKey:@"quelle"];
-	if (returnCode==NSAlertDefaultReturn)
+	if (returnCode==NSAlertFirstButtonReturn)
 	{
 		NSArray* FileArray=[panel URLs];
 		tempLeseboxPfad =[[FileArray objectAtIndex:0]path]; //gewähltes "home", nur 1 Objekt in Array
@@ -384,7 +384,7 @@
 		
 		NSLog(@"NSAlertFirstButtonReturn: tempLeseboxPfad: %@",LeseboxPfad);
 	}
-	if (returnCode==NSAlertAlternateReturn)
+	if (returnCode==NSAlertSecondButtonReturn)
 	{
 		[NotificationDic setObject:[NSNumber numberWithInt:0] forKey:@"erfolg"];
 		NSLog(@"NSAlertSecondButtonReturn: Abbrechen");
@@ -459,11 +459,11 @@
 	[LeseboxDialog setCanChooseDirectories:YES];
 	[LeseboxDialog setCanChooseFiles:NO];
 	[LeseboxDialog setAllowsMultipleSelection:NO];
-   NSString* s1=@"LB auf welchem Computer in der ZWEITEN KOLONNE soll die Lesebox eingerichtet werden?";
+   NSString* s1=@"Auf welchem Computer soll die Lesebox eingerichtet werden?";
    NSString* s2=@"Die Lesebox auch nach dem Login eingerichtet werden";
-   NSString* s3=@"";//NSLocalizedString(@"\nAfter login, the user must be choosen in the LEFTMOST COLUMN.\n",@"Auswählen in Kol- ganz links");
+   NSString* s3=@"Auswahl des Orders, in dem die Lesebox liegt oder dem die Lesebox eingerichtet werden soll";
 	NSFont* TitelFont=[NSFont fontWithName:@"Helvetica" size: 24];
-	NSString* DialogTitelString=[NSString stringWithFormat:@"%@\n%@\n%@",s1,s2,s3];
+	NSString* DialogTitelString=[NSString stringWithFormat:@"%@\r\r%@\r%@",s1,s2,s3];
 	//[DialogTitelString setFont:TitelFont];
 
 	[LeseboxDialog setMessage:DialogTitelString];
@@ -476,10 +476,17 @@
 	//LeseboxHit=[LeseboxDialog runModalForDirectory:NetzPfad file:@"Network" types:NULL];
 	
    [LeseboxDialog beginSheetModalForWindow:[self window] completionHandler:^(NSInteger result)
+   // [LeseboxDialog beginWithCompletionHandler:^(NSInteger result)
+
     {
+       
        if (result == NSModalResponseOK)
        {
-          
+         	NSMutableDictionary* LeseboxDic=[NSMutableDictionary dictionaryWithObject:[LeseboxDialog URL] forKey:@"url"];
+          [LeseboxDic setObject:[NSNumber numberWithInt:1]forKey:@"LeseboxDa"];
+          NSNotificationCenter* nc=[NSNotificationCenter defaultCenter];
+          [nc postNotificationName:@"VolumeWahl" object:self userInfo:LeseboxDic];
+
        }
 
     }];
@@ -498,7 +505,7 @@
 							contextInfo:@"TextchangedWarnung"];
 
 	*/
-	if (LeseboxHit==NSOKButton)
+	if (LeseboxHit==NSModalResponseOK)
 	{
 		tempLeseboxPfad=[[LeseboxDialog URL]path]; //gewähltes "home" 
 		NSLog(@"choose: LeseboxPfad roh: %@",tempLeseboxPfad);
@@ -554,7 +561,7 @@ NSLog(@"VolumepfadAktion note: %@",[[note userInfo]description]);
 	//int HomeStatus=[HomeKnopf state];
 	NSString* NetzwerkString=@"Lesebox im Netz suchen";
 	//NSLog(@"OKSheet:  stopModalWithCode HomeStatus: %d", HomeStatus);
-	NSString* lb=@"Lesebox";
+	//NSString* lb=@"Lesebox";
 	//if ([HomeKnopf state])
 	  {
 		//	LeseboxPfad=[[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]stringByAppendingPathComponent:lb];
@@ -563,7 +570,7 @@ NSLog(@"VolumepfadAktion note: %@",[[note userInfo]description]);
 	  {
 		if ([UserTable numberOfSelectedRows])
 		  {
-			int Zeile=[UserTable selectedRow];
+			long Zeile=[UserTable selectedRow];
 			if ([UserArray objectAtIndex:Zeile]==NetzwerkString)//->Lesebox im Netz suchen
 			  {
 				NSLog(@"VolumeOK >Lesebox im Netz suchen");
@@ -599,15 +606,16 @@ NSLog(@"VolumepfadAktion note: %@",[[note userInfo]description]);
 
 - (IBAction)reportOpenNetwork:(id)sender
 {
-NSLog(@"\nreportOpenNetwork\n\n");
-NSString* NetwerkLeseboxPfad=[self chooseNetworkLeseboxPfad];
-if (NetwerkLeseboxPfad)
-{
-NSURL* NetzURL=[NSURL fileURLWithPath:NetwerkLeseboxPfad];
-//CFStringRef=CFURLCopyHostName
-NSLog(@"\nende reportOpenNetwork: URL: %@\n\n",NetzURL);
-}
-
+   NSLog(@"\nreportOpenNetwork\n\n");
+   NSString* NetwerkLeseboxPfad=[self chooseNetworkLeseboxPfad];
+   
+   if (NetwerkLeseboxPfad)
+   {
+      NSURL* NetzURL=[NSURL fileURLWithPath:NetwerkLeseboxPfad];
+      //CFStringRef=CFURLCopyHostName
+      NSLog(@"\nende reportOpenNetwork: URL: %@\n\n",NetzURL);
+   }
+   
 }
 
 
@@ -770,10 +778,10 @@ NSLog(@"\nende reportOpenNetwork: URL: %@\n\n",NetzURL);
 	NSFileManager *Filemanager=[NSFileManager defaultManager];
 	
 	NSMutableArray* neueMountedVols=(NSMutableArray *)[[NSWorkspace sharedWorkspace]mountedLocalVolumePaths];//Liste der gemounteten Vols
-	int anz=[neueMountedVols count];
+	long anz=[neueMountedVols count];
 	[neueMountedVols removeObject:@"/"];
 	[neueMountedVols removeObject:@"/Network"];
-	NSLog(@"neueMountedVols: %@ anz: %d  neuer Hostname: %@",[neueMountedVols description],anz,neuerHostName);
+	NSLog(@"neueMountedVols: %@ anz: %ld  neuer Hostname: %@",[neueMountedVols description],anz,neuerHostName);
 	//NSLog(@"UserArray: %@",[UserArray description]);
 	if ([neueMountedVols count])
 	{
@@ -788,7 +796,7 @@ NSLog(@"\nende reportOpenNetwork: URL: %@\n\n",NetzURL);
 			while (einDic=[UserArrayEnum nextObject])
 			{
 				NSString* UserNameString=[einDic objectForKey:@"username"];
-				NSString* HostNameString=[einDic objectForKey:@"host"];
+			//	NSString* HostNameString=[einDic objectForKey:@"host"];
 				//NSLog(@"UserNameString: %@  HostNameString: %@",UserNameString,HostNameString);
 				if (UserNameString)
 				{

@@ -48,7 +48,7 @@
 	[[[ProjektTable tableColumnWithIdentifier:@"ok"]dataCell]setAction:@selector(okAktion:)];
 	NSFont* RecPlayfont;
 	RecPlayfont=[NSFont fontWithName:@"Helvetica" size: 32];
-	NSColor * RecPlayFarbe=[NSColor grayColor];
+	NSColor * RecPlayFarbe=[NSColor cyanColor];
 	[LesestudioString setFont: RecPlayfont];
 	[LesestudioString setTextColor: RecPlayFarbe];
 	[StartString setFont: RecPlayfont];
@@ -270,10 +270,12 @@ vomStart=NO;
 	int ProjektIndex=[ProjektTable selectedRow];
 	if ([ProjektTable selectedRow]>=0)
 	{
+      
 		NSString* ProjektString=[[ProjektArray objectAtIndex:ProjektIndex]objectForKey:@"projekt"];//Name des neuen Projekts
 		//[[self window]makeFirstResponder:ProjektTable];
 		//NSLog(@"reportAuswahlen ProjektString: %@",ProjektString);
-		
+      [NotificationDic setObject:[NSNumber numberWithInt:fixchanged] forKey:@"fixchanged"];//Eventuelle Änderungen mitgeben
+
       [NotificationDic setObject:ProjektArray forKey:@"projektarray"];//Eventuelle Änderungen mitgeben
 		[NotificationDic setObject:ProjektString forKey:@"projekt"];//Ausgewähltes Projekt
 																	//neus Projekt eingerichtet?
@@ -449,6 +451,7 @@ vomStart=NO;
 
 - (void)setProjektListeLeer
 {
+    fixchanged=NO;
 [EntfernenTaste setEnabled:NO];
 [AuswahlenTaste setEnabled:NO];
 [CancelTaste setEnabled:YES];
@@ -465,6 +468,7 @@ vomStart=NO;
    {
       [SchliessenTaste setEnabled:NO];
    }
+   fixchanged=NO;
   NSEnumerator* ProjektEnum=[derArray objectEnumerator];
   id einProjektDic;
   //NSLog(@"setProjektListeArray: derArray: %@ \ndasProjekt: %@",[derArray description],dasProjekt);
@@ -601,6 +605,7 @@ vomStart=NO;
 {
 NSLog(@"setVomStart: %d",derStatus);
 vomStart=derStatus;
+    fixchanged=NO;
 [SchliessenTaste setEnabled:!vomStart];
 }
 
@@ -667,7 +672,14 @@ vomStart=derStatus;
 	{
 		einProjektDic=[ProjektArray objectAtIndex:rowIndex];
 		[einProjektDic setObject:anObject forKey:[aTableColumn identifier]];
-		NSLog(@"setObjectValue: einProjektDic: %@",[einProjektDic description]);
+      NSLog(@"setObjectValue: einProjektDic: %@",[einProjektDic description]);
+		//NSLog(@"setObjectValue: identifier: %@",[aTableColumn identifier]);
+      if ([[aTableColumn identifier] isEqualToString:@"fix"])
+      {
+         [SchliessenTaste setEnabled:YES];
+         fixchanged=YES;
+         
+      }
 	}
 }
 

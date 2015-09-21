@@ -240,7 +240,7 @@ const short kRecPlayUmgebung=0;
    
    NSLog(@"AdminPlayer awake start");
    [NamenListe reloadData];
-   NSColor * TitelFarbe=[NSColor whiteColor];
+   NSColor * TitelFarbe=[NSColor cyanColor];
    NSFont* TitelFont;
    TitelFont=[NSFont fontWithName:@"Helvetica" size: 28];
    [TitelString setFont:TitelFont];
@@ -3003,6 +3003,7 @@ const short kRecPlayUmgebung=0;
 
 }
 
+/*
 - (void) moveFileToUserTrash:(NSString *)filePath 
 {
     CFURLRef        trashURL;
@@ -3011,7 +3012,8 @@ const short kRecPlayUmgebung=0;
     OSErr           err;
     NSFileManager   *mgr = [NSFileManager defaultManager];
     err = FSFindFolder(kUserDomain, kTrashFolderType, kDontCreateFolder, &trashFolderRef);
-    if (err == noErr) 
+   
+   if (err == noErr)
 	  {
 		trashURL = CFURLCreateFromFSRef(kCFAllocatorSystemDefault, &trashFolderRef);
 		if (trashURL) 
@@ -3028,6 +3030,7 @@ const short kRecPlayUmgebung=0;
     }
 	
 }
+ */
 
 - (int) fileInPapierkorb:(NSString*) derFilepfad
 {
@@ -3168,11 +3171,17 @@ const short kRecPlayUmgebung=0;
            NSString* s2=@"Der Ordner von %@ konnte nicht verschoben werden.";
            NSString* MagazinString=[NSString stringWithFormat:@"%@%@%@%@",s1,@"\r",s2,dieAufnahme];
            //NSLog(@"MagazinString: %@",MagazinString);
-           NSString* TString=@"Magazin einrichten";
+            
+           //
+           NSAlert *Warnung = [[NSAlert alloc] init];
+           [Warnung setMessageText:@"Magazin einrichten"];
+           [Warnung setInformativeText:MagazinString];
+           [Warnung setAlertStyle:NSWarningAlertStyle];
+
+           [Warnung addButtonWithTitle:@"OK"];
            
-           
-           int magazinAntwort=NSRunAlertPanel(TString, MagazinString,@"OK", NULL,NULL);
-           
+           [Warnung runModal];
+ 
            return;
         }
      }
@@ -3373,6 +3382,7 @@ const short kRecPlayUmgebung=0;
 
 }
 
+/*
 - (void)Leseboxordnen
 {
 	BOOL istDirectory;
@@ -3387,11 +3397,14 @@ const short kRecPlayUmgebung=0;
 		  {
 		  NSString* s1=@"Welcher Ordner?";
 		  NSString* s2=@"Ein Name muss ausgewählt sein";
+           
+           
 			NSAlert* OrdnenAlert=[NSAlert alertWithMessageText:@"Welcher Ordner?"
 													defaultButton:@"OK" 
 												  alternateButton:NULL
 													  otherButton:NULL
 										informativeTextWithFormat:@"Ein Name muss ausgewählt sein"];
+           
 			
 			[OrdnenAlert beginSheetModalForWindow:AdminFenster 
 									   modalDelegate:self 
@@ -3400,7 +3413,7 @@ const short kRecPlayUmgebung=0;
 			
 		  }
 }
-
+*/
 - (void)neuNummerierenVon:(NSString*) derLeser
 {
 	BOOL istDirectory;
@@ -3539,7 +3552,8 @@ const short kRecPlayUmgebung=0;
 	return neuerName;
 }
 
-- (void)alertDidEnd:(NSAlert *)alert returnCode:(int)returnCode contextInfo:(void *)contextInfo 
+/*
+- (void)alertDidEnd:(NSAlert *)alert returnCode:(long)returnCode contextInfo:(void *)contextInfo
 {
 	//NSLog(@"returnCode: %d  contextInfo: %@: ",returnCode,contextInfo);
 	NSString* locKommentar=@"Anmerkungen";
@@ -3657,13 +3671,8 @@ const short kRecPlayUmgebung=0;
 	  }
 	[[alert window]orderOut:NULL];
 }
-
-/*
-- (QTMovieView*)AdminQTKitPlayer
-{
-	return AdminQTKitPlayer;
-}
 */
+
 - (void)keyDown:(NSEvent *)theEvent
 {
 	int nr=[theEvent keyCode];

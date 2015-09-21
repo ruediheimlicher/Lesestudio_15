@@ -166,6 +166,7 @@
 @property FSRef									neueAufnahmeRef;
 @property short									MovieRef;
 @property NSString*							neueAufnahmePfad;
+@property BOOL                         AufnahmeSaved;
 
 @property NSURL*								LeseboxURL;
 @property NSURL*								ArchivURL;

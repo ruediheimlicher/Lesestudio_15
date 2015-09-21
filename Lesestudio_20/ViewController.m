@@ -101,7 +101,7 @@ NSString*	RPDevicedatenKey=	@"RPDevicedaten";
    
    self.aktuellAnzAufnahmen=0;
    self.Aufnahmedauer=0;
-
+   self.AufnahmeSaved=YES;
    
    //   projekt=@"projekt";
    //   projektpfad=@"projektpfad";
@@ -1173,7 +1173,7 @@ return YES;
 
 - (void) VolumesAktion:(NSNotification*)note
 {
-   //NSLog(@"VolumesAktion");
+   NSLog(@"VolumesAktion");
    NSNumber* n=[[note userInfo]objectForKey:@"LeseboxDa"];
    self.LeseboxDa=[n boolValue];
    if ([n intValue]==0)//Abbrechen
@@ -1185,6 +1185,11 @@ return YES;
       NSNotificationCenter* beendennc=[NSNotificationCenter defaultCenter];
       [beendennc postNotificationName:@"externbeenden" object:self userInfo:BeendenDic];
    }
+   if ([n intValue]==1)//
+   {
+      NSLog(@"URL: %@",[[note userInfo]objectForKey:@"url"]);
+   }
+   
    //NSLog(@"VolumesAktion: number %d   ",[n intValue]);
 }
 
@@ -2262,6 +2267,8 @@ QTMovie* qtMovie;
 {
    //  [self.AdminPlayer Leseboxordnen];
 }
+
+
 - (IBAction)resetLesebox:(id)sender
 {
    //NSLog(@"resetLesebox");
@@ -2356,7 +2363,7 @@ QTMovie* qtMovie;
    [LeseboxDialog setMessage:@"Auf welchem Computer ist die Lesebox zu finden?"];
    [LeseboxDialog setCanCreateDirectories:NO];
    NSString* tempLeseboxPfad;
-   int LeseboxHit=0;
+   long LeseboxHit=0;
    {
       
       //LeseboxHit=[LeseboxDialog runModalForDirectory:DocumentsPfad file:@"Lesebox" types:nil];
@@ -2364,7 +2371,7 @@ QTMovie* qtMovie;
       [LeseboxDialog  setDirectoryURL:[NSURL URLWithString:NSHomeDirectory()]];
    }
    
-   NSLog(@"setNetworkLeseboxPfad NSOKButton: %d NSModalResponseOK: %d" ,NSOKButton,NSModalResponseOK);
+//   NSLog(@"setNetworkLeseboxPfad NSOKButton: %d NSModalResponseOK: %d" ,NSOKButton,NSModalResponseOK);
    if (LeseboxHit==NSModalResponseOK)
 	  {
         tempLeseboxPfad=[[LeseboxDialog URL]path]; //"home"
@@ -2373,12 +2380,12 @@ QTMovie* qtMovie;
         NSString* lb=@"Lesebox";
         tempLeseboxPfad=[tempLeseboxPfad stringByAppendingPathComponent:lb];
         self.LeseboxPfad=(NSMutableString*)tempLeseboxPfad;
-        NSLog(@"setNetworkLeseboxPfad:   LeseboxPfad: %@",self.LeseboxPfad);
+      //  NSLog(@"setNetworkLeseboxPfad:   LeseboxPfad: %@",self.LeseboxPfad);
         
         
         if ([Filemanager fileExistsAtPath:tempLeseboxPfad ])
         {
-           NSLog(@"AdminLeseboxPfad da: %@",tempLeseboxPfad);
+        //   NSLog(@"AdminLeseboxPfad da: %@",tempLeseboxPfad);
            erfolg=YES;
         }
         else
@@ -2847,13 +2854,15 @@ QTMovie* qtMovie;
 - (IBAction)Logout:(id)sender
 {
    //[NSApp terminate:self];
+   if (!self.AufnahmeSaved)
+   {
    NSAlert *Warnung = [[NSAlert alloc] init];
    [Warnung addButtonWithTitle:@"OK"];
    [Warnung addButtonWithTitle:@"Abbrechen"];
    [Warnung setMessageText:@"Alles gesichert?:"];
    [Warnung setInformativeText:@"Es werden alle ungesicherten Aufnahmen geloescht."];
    [Warnung setAlertStyle:NSWarningAlertStyle];
-   int modalAntwort=[Warnung runModal];
+   long modalAntwort=[Warnung runModal];
    //NSLog(@"Logout modalAntwort: %d",modalAntwort);
    switch (modalAntwort)
    {
@@ -2868,7 +2877,7 @@ QTMovie* qtMovie;
       }break;
          
    }//switch
-   
+   }
    [self resetRecPlay];
    
  //  return;
@@ -2909,35 +2918,18 @@ QTMovie* qtMovie;
    if ([AVRecorder isRecording])
    {
       // ++
-      NSString* s1=@"Wiedergabe läuft";
-      NSString* s2=@"Name kann nicht geändert werden während Abspielen";
-      int Antwort=NSRunAlertPanel(s1,s2,@"OK", @"Stop",NULL);
-      NSLog(@"Antwort: %d",Antwort);
-      if (Antwort==1)
-      {
-         NSLog(@"Wiedergabe lauft: Antwort=1  weiter");
-         return;
-      }
-      if (Antwort==0)
-      {
-         NSLog(@"Wiedergabe lauft: Antwort=0  stop");
-         //        [self stopAVRecord:nil];
-         NSString* s1=@"Aufnahme abgebrochen";
-         NSString* s2=@"Abgebrochene Aufnahme sichern?";
-         int Antwort=NSRunAlertPanel(s1, s2,@"JA", @"NEIN",NULL);
-         if (Antwort==0)
-         {
-            NSLog(@"Aufnahme abgebrochen: Antwort=0  return");
-            return;
-         }
-         if (Antwort==1)
-         {
-            NSLog(@"Aufnahme abgebrochen: Antwort=1  saveRecord");
-            //          [self saveRecord:nil];
-            
-         }
-      }
-      // ++
+      
+      NSAlert *Warnung = [[NSAlert alloc] init];
+      [Warnung addButtonWithTitle:@"OK"];
+      
+      [Warnung setMessageText:@"Aufnahme läuft"];
+      [Warnung setInformativeText:@"Name kann während der Aufnahme nicht geändert werden."];
+      [Warnung setAlertStyle:NSWarningAlertStyle];
+      
+      [Warnung runModal];
+      return;
+      
+        // ++
       
    }
    //NSLog(@"setzeLeser: LeserPfad: %@ ",self.LeserPfad);
@@ -2945,7 +2937,7 @@ QTMovie* qtMovie;
    
    [self.ArchivnamenPop synchronizeTitleAndSelectedItem];
    
-   NSString* Leser =[sender titleOfSelectedItem];
+   //NSString* Leser =[sender titleOfSelectedItem];
    
    if ([[sender titleOfSelectedItem] length]>0)
    {
@@ -3196,7 +3188,7 @@ QTMovie* qtMovie;
             //NSLog(@"tempProjectDic: %@",[tempProjectDic description]);
             if ([tempProjectDic objectForKey:@"fix"])
             {
-               TitelEditOK=![[tempProjectDic objectForKey:@"fix"]boolValue];//Titel sind nicht fixiert
+               TitelEditOK=![[tempProjectDic objectForKey:@"fix"]boolValue];//Titel sind  fixiert heisst bool ist 1
             }
             
             if ([tempProjectDic objectForKey:@"titelarray"])
@@ -3230,7 +3222,7 @@ QTMovie* qtMovie;
             [self.TitelPop setSelectable:TitelEditOK];
             //[self.TitelPop selectText:self];
             //       [[self.TitelPop currentEditor] setSelectedRange:NSMakeRange([[self.TitelPop stringValue] length], 0)];
-            [self.view.window makeFirstResponder:self.TitelPop];
+           // [self.view.window makeFirstResponder:self.TitelPop];
          }
          /*
           // http://stackoverflow.com/questions/764179/focus-a-nstextfield
@@ -4278,6 +4270,7 @@ QTMovie* qtMovie;
            */
            //
         }
+        
         [Utils stopTimeout];
         [AVAbspielplayer invalTimer];
         NSLog(@"TabView: archiv");
@@ -4310,6 +4303,31 @@ QTMovie* qtMovie;
 
            umschalten=NO;
         }
+        if (!self.AufnahmeSaved)
+        {
+           NSAlert *Warnung = [[NSAlert alloc] init];
+           [Warnung addButtonWithTitle:@"OK"];
+           [Warnung addButtonWithTitle:@"Abbrechen"];
+           [Warnung setMessageText:@"Alles gesichert?:"];
+           [Warnung setInformativeText:@"Es werden alle ungesicherten Aufnahmen geloescht."];
+           [Warnung setAlertStyle:NSWarningAlertStyle];
+           long modalAntwort=[Warnung runModal];
+           //NSLog(@"Logout modalAntwort: %d",modalAntwort);
+           switch (modalAntwort)
+           {
+              case NSAlertFirstButtonReturn:
+              {
+                 //NSLog(@"NSAlertFirstButtonReturn");
+              }break;
+              case NSAlertSecondButtonReturn:
+              {
+                 //NSLog(@"NSAlertSecondButtonReturn");
+                 umschalten=NO;
+              }break;
+                 
+           }//switch
+        }
+
         
      }
    

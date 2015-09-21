@@ -116,6 +116,7 @@
 	BOOL                    Moviegeladen;
 	BOOL                    Textchanged;
    BOOL                    Kommentarsaved;
+   
 	int							Umgebung;
 	
 	int							AuswahlOption;
@@ -262,6 +263,7 @@
 - (IBAction)rewindAVPlay:(id)sender;
 - (IBAction)forewardAVPlay:(id)sender;
 - (void)clearAVPlay;
+- (BOOL)AnzahlAufnahmen;
 @end
 
 

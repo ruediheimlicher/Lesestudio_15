@@ -77,6 +77,7 @@
       
       return;
    }
+   self.AufnahmeSaved=NO;
   [self.view  becomeFirstResponder];
    NSImage* StopRecordImg=[NSImage imageNamed:@"stopicon_w.gif"];
    //self.StartStopKnopf.image=StopRecordImg;
@@ -563,6 +564,7 @@
    [AVAbspielplayer invalTimer];
    [Utils stopTimeout];
    BOOL erfolg=YES;
+   self.AufnahmeSaved=YES;
    NSMenu *mainMenu = [[NSApplication sharedApplication] mainMenu];
 //   [mainMenu setDelegate:self];
    NSMenu *appMenu = [[mainMenu itemWithTitle:@"Modus"] submenu];
@@ -690,12 +692,12 @@
          tempNummer=[NSNumber numberWithInt:maxNummer];
          if ( maxNummer<10)
          {
-            tempNummerString=@"";
+            tempNummerString=(NSMutableString*)@"";
             tempNummerString=(NSMutableString*)[tempNummerString stringByAppendingString:[tempNummer stringValue]];
          }
          else
          {
-            tempNummerString=[NSString stringWithString:[tempNummer stringValue]];
+            tempNummerString=[NSMutableString stringWithString:[tempNummer stringValue]];
          }
          
          Leserinitialen=[Leserinitialen stringByAppendingString:tempNummerString];
@@ -705,33 +707,39 @@
          
          if (([titel length]==0)||([titel isEqualToString:@"neue Aufnahme"]))
          {
-            NSString* s1=@"Titel für Aufnahme";
-            NSString* s2=@"Noch kein passender Titel";
-            NSString* s3=@"Titel eingeben";
-            NSString* s4=@"Weiter";
             
-            int Antwort=NSRunAlertPanel(s1, s2, s3, s4,NULL);
-            if (Antwort==1)
+            NSAlert *Warnung = [[NSAlert alloc] init];
+            [Warnung addButtonWithTitle:@"Titel eingeben"];
+            [Warnung addButtonWithTitle:@"Titel belassen"];
+            [Warnung setMessageText:@"Titel für Aufnahme"];
+            [Warnung setInformativeText:@"Noch kein passender Titel"];
+            [Warnung setAlertStyle:NSWarningAlertStyle];
+            
+            NSModalResponse antwort = [Warnung runModal];
+            if (antwort==NSAlertFirstButtonReturn)
             {
+               //NSLog(@"alertDidEnd: NSAlertFirstButtonReturn");
                [self.TitelPop setEnabled:YES];
-             //  [self.TitelPop selectItemWithObjectValue:[[self.TitelPop cell]stringValue]];
-               
                return;
             }
+            else if (antwort==NSAlertSecondButtonReturn)
+            {
+              // NSLog(@"ProjektStartAktion: NSAlertSecondButtonReturn");
+            }
+
          }
-         
          
          NSString* AufnahmeTitel=[Leserinitialen stringByAppendingString:titel];
          if ([tempAufnahmeArray containsObject:AufnahmeTitel])
          {
-            NSLog(@"Die Nummer ist schon vorhanden: %d",AnzAufnahmen+1);
+            //NSLog(@"Die Nummer ist schon vorhanden: %d",AnzAufnahmen+1);
             return;
          }
          
          
          tempAufnahmePfad=[self.LeserPfad stringByAppendingPathComponent:[AufnahmeTitel stringByDeletingPathExtension]];//Pfad im Ordner in der Lesebox
          
-         NSLog(@"saveRecord tempAufnahmePfad : %@", tempAufnahmePfad);
+         //NSLog(@"saveRecord tempAufnahmePfad : %@", tempAufnahmePfad);
          //[Manager movePath: neueAufnahmePfad toPath:tempAufnahmePfad handler:NULL];
          
          // Kommentar einfuegen

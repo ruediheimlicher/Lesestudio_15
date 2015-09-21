@@ -36,7 +36,7 @@
 	[ProjektTable setDelegate: self];
 	NSFont* RecPlayfont;
 	RecPlayfont=[NSFont fontWithName:@"Helvetica" size: 36];
-	NSColor * RecPlayFarbe=[NSColor whiteColor];
+	NSColor * RecPlayFarbe=[NSColor cyanColor];
 	[LesestudioString setFont: RecPlayfont];
 	[LesestudioString setTextColor: RecPlayFarbe];
 	[StartString setFont: RecPlayfont];

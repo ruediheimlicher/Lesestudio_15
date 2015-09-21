@@ -591,16 +591,16 @@ Gibt die Volumes im Ordner 'Network' zurück
 
 - (BOOL)istSystemVolumeAnPfad:(NSString*)derLeseboxPfad		//unused
 {
-BOOL istSystemVolume=NO;
-NSString* UserPfad=[[[derLeseboxPfad copy]stringByDeletingLastPathComponent]stringByDeletingLastPathComponent];
-NSString* LibraryPfad=[UserPfad stringByAppendingPathComponent:@"Library"];
-NSFileManager *Filemanager=[NSFileManager defaultManager];
-if ([Filemanager fileExistsAtPath:LibraryPfad])
-{
- istSystemVolume=YES;
- }
- NSLog(@"LibraryPfad: %@  istSystemVolume: %d",LibraryPfad,istSystemVolume);
-return istSystemVolume;
+   BOOL istSystemVolume=NO;
+   NSString* UserPfad=[[[derLeseboxPfad copy]stringByDeletingLastPathComponent]stringByDeletingLastPathComponent];
+   NSString* LibraryPfad=[UserPfad stringByAppendingPathComponent:@"Library"];
+   NSFileManager *Filemanager=[NSFileManager defaultManager];
+   if ([Filemanager fileExistsAtPath:LibraryPfad])
+   {
+      istSystemVolume=YES;
+   }
+   NSLog(@"LibraryPfad: %@  istSystemVolume: %d",LibraryPfad,istSystemVolume);
+   return istSystemVolume;
 }
 
 - (BOOL)setVersion
@@ -700,12 +700,10 @@ return versionOK;
      [Warnung setMessageText:@"Neue Lesebox einrichten"];
      [Warnung setInformativeText:LeseboxString];
      [Warnung setAlertStyle:NSWarningAlertStyle];
-     int Antwort=[Warnung runModal];
-
-	  
-     NSLog(@"Neue  Lesebox: Antwort: %d",Antwort);
-	  
+     long Antwort=[Warnung runModal];
      
+     NSLog(@"Neue  Lesebox: Antwort: %ld",Antwort);
+	       
      switch (Antwort)
 	  {
 		  case 1000:
@@ -715,9 +713,6 @@ return versionOK;
 			  
 			  if (!LeseboxValid)
            {
-              NSString* c1= @"Es keine Lesebox auf diesem Volume eingerichtet werden.";
-              NSString* c2= @"Eventuell liegt es an den Benutzungsrechten.";
-              NSString* WarnString=[NSString stringWithFormat:@"%@\r%@",c1,c2];
               NSString* TitelStringLB=@"Lesebox einrichten:";
               
               NSAlert *Warnung = [[NSAlert alloc] init];
@@ -726,7 +721,7 @@ return versionOK;
               [Warnung setMessageText:TitelStringLB];
               [Warnung setInformativeText:LeseboxString];
               [Warnung setAlertStyle:NSWarningAlertStyle];
-              int Antwort=[Warnung runModal];
+              [Warnung runModal];
 
               [NSApp terminate:self];
               
@@ -736,12 +731,14 @@ return versionOK;
 			  
 		  case 1001:
 		  {
-			  NSString* WarnString=@"Die Lesebox muss eventuell manuell eingerichtet werden.";
-			  WarnString=[WarnString stringByAppendingString:@"\rDas Programm wird beendet."];
-			  NSString* TitelStringNeueLB=@"Neue Lesebox einrichten:";
-			  
-			  int Antwort=NSRunAlertPanel(TitelStringNeueLB, WarnString,@"OK", nil,nil);
-			  
+           NSAlert *Warnung = [[NSAlert alloc] init];
+           [Warnung addButtonWithTitle:@"OK"];
+           [Warnung setMessageText:@"Neue Lesebox einrichten:"];
+           [Warnung setInformativeText:@"Die Lesebox muss eventuell manuell eingerichtet werden.\rDas Programm wird beendet."];
+           [Warnung setAlertStyle:NSWarningAlertStyle];
+           
+           NSModalResponse antwort = [Warnung runModal];
+
 			  //Beenden
            [NSApp terminate:self];
 		  }break;
@@ -773,14 +770,25 @@ return versionOK;
 	ArchivValid=[Filemanager createDirectoryAtPath:tempArchivPfad  withIntermediateDirectories:NO attributes:NULL error:NULL];
 	if (!ArchivValid)
 	  {
-	  NSString* WarnString=@"Auf dem Computer konnte kein Archiv eingerichtet werden.";
-	  int Antwort=NSRunAlertPanel(TitelStringArchiv, WarnString,BeendenString, nil,nil);
-  //Beenden
-	NSMutableDictionary* BeendenDic=[[NSMutableDictionary alloc]initWithCapacity:0];
-	[BeendenDic setObject:[NSNumber numberWithInt:1] forKey:@"beenden"];
-	NSNotificationCenter* beendennc=[NSNotificationCenter defaultCenter];
-	[beendennc postNotificationName:@"externbeenden" object:self userInfo:BeendenDic];
-	  }
+        NSString* WarnString=@"Auf dem Computer konnte kein Archiv eingerichtet werden.";
+        
+        //
+        NSAlert *Warnung = [[NSAlert alloc] init];
+        [Warnung setMessageText:TitelStringArchiv];
+        [Warnung setInformativeText:WarnString];
+        [Warnung setAlertStyle:NSWarningAlertStyle];
+        
+        [Warnung addButtonWithTitle:@"Beenden"];
+        
+        [Warnung runModal];
+        
+        
+        //Beenden
+        NSMutableDictionary* BeendenDic=[[NSMutableDictionary alloc]initWithCapacity:0];
+        [BeendenDic setObject:[NSNumber numberWithInt:1] forKey:@"beenden"];
+        NSNotificationCenter* beendennc=[NSNotificationCenter defaultCenter];
+        [beendennc postNotificationName:@"externbeenden" object:self userInfo:BeendenDic];
+     }
 	
 	}
   return ArchivValid;
@@ -1010,7 +1018,7 @@ return versionOK;
       NamenHit=[NamenDialog runModal];//ForDirectory:NSHomeDirectory() file:@"Documents" types:TypesArray];
 	
    }
-	if (NamenHit==NSOKButton)
+	if (NamenHit==NSModalResponseOK)
 	{
 		NamenPfad=[[NamenDialog URL]path]; //"home"
 	}		
@@ -1141,7 +1149,7 @@ return versionOK;
       [NamenDialog setDirectoryURL:[NSURL URLWithString:NSHomeDirectory()]];
       
    }
-   if (NamenHit==NSOKButton)
+   if (NamenHit==NSModalResponseOK)
    {
       NamenPfad=[[NamenDialog URL]path]; //"home"
    }
@@ -2006,12 +2014,22 @@ return versionOK;
 			if (anzOrdner<anzZeilen)
 			{
 				//NSLog(@"vor alert");
-				NSString* InformationString=@"Der Projektordner für %@ konnte nicht eingerichtet werden.";
-				NSAlert* Warnung=[NSAlert alertWithMessageText:@"Fehlende Ordner"
-												 defaultButton:@"Weiterfahren"
-											   alternateButton:BeendenString
-												   otherButton:nil
-									 informativeTextWithFormat:InformationString,fehlendeOrdner];
+            NSString* InformationString= [NSString stringWithFormat:@"Der Projektordner für %@ konnte nicht eingerichtet werden.",fehlendeOrdner];
+				
+              
+            NSAlert *Warnung = [[NSAlert alloc] init];
+            [Warnung setMessageText:@"Fehlende Ordner"];
+            [Warnung setInformativeText:InformationString];
+            [Warnung setAlertStyle:NSWarningAlertStyle];
+            
+            [Warnung addButtonWithTitle:@"Weiterfahren"];
+            [Warnung addButtonWithTitle:@"Beenden"];
+           
+            
+            
+            
+            
+            
 				int antwort=[Warnung runModal];
 				switch (antwort)
 				{
@@ -3130,18 +3148,18 @@ NSUInteger dayOfYearForDate(NSDate *dasDatum)
 // 12.09.2015 19:20:26
 - (int)localTagvonDatumString:(NSString*)datumstring
 {
-   NSLog(@"localTagvonDatumString datumstring: %@, desc: %@",datumstring, [datumstring description]);
+   //NSLog(@"localTagvonDatumString datumstring: %@, desc: %@",datumstring, [datumstring description]);
    
    int tag =0;
    NSString* datumteil = [[[[datumstring description]componentsSeparatedByString:@" "]objectAtIndex:0]description];
-  NSLog(@"localTagvonDatumString datumteil: %@",datumteil);
+  //NSLog(@"localTagvonDatumString datumteil: %@",datumteil);
    NSString* sep;
    if ([datumteil rangeOfString:@"-"].location< NSNotFound)
    {
       
       sep = @"-";
       NSArray* datumarray =[datumteil componentsSeparatedByString:sep];
-      NSLog(@"datumarray: %@",datumarray);
+      //NSLog(@"datumarray: %@",datumarray);
 
        tag = [[[datumteil componentsSeparatedByString:sep]objectAtIndex:2]intValue]; // Reihenfolge invertiert
    }
@@ -3149,7 +3167,7 @@ NSUInteger dayOfYearForDate(NSDate *dasDatum)
    {
       sep = @".";
       NSArray* datumarray =[datumteil componentsSeparatedByString:sep];
-      NSLog(@"datumarray: %@",datumarray);
+      //NSLog(@"datumarray: %@",datumarray);
 
         tag = [[[datumteil componentsSeparatedByString:sep]objectAtIndex:0]intValue];
    }
@@ -3163,7 +3181,7 @@ NSUInteger dayOfYearForDate(NSDate *dasDatum)
 {
    int monat =0;
     NSString* datumteil = [[[[datumstring description]componentsSeparatedByString:@" "]objectAtIndex:0]description];
-    NSLog(@"localMonatvonDatumString datumteil: %@",datumteil);
+    //NSLog(@"localMonatvonDatumString datumteil: %@",datumteil);
    NSString* sep;
    if ([datumteil rangeOfString:@"-"].location< NSNotFound)
    {
@@ -3184,7 +3202,7 @@ NSUInteger dayOfYearForDate(NSDate *dasDatum)
 {
    int jahr =0;
     NSString* datumteil = [[[[datumstring description]componentsSeparatedByString:@" "]objectAtIndex:0]description];
-    NSLog(@"localJahrvonDatumString datumteil: %@",datumteil);
+    //NSLog(@"localJahrvonDatumString datumteil: %@",datumteil);
    NSString* sep;
    if ([datumteil rangeOfString:@"-"].location< NSNotFound)
    {

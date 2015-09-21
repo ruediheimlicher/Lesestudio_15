@@ -500,10 +500,11 @@ return index;
 		
 	[AdminZeilenDic setObject:[NSNumber numberWithLong:row] forKey:@"AdminNextZeilenNummer"];
 	[AdminZeilenDic setObject:[[rowData objectAtIndex:row]objectForKey:@"namen"] forKey:@"nextLeser"];
-
+   NSLog(@"rowData row: %d  Daten: %@",row, [[rowData objectAtIndex:row]description]);
+   [AdminZeilenDic setObject:[[rowData objectAtIndex:row]objectForKey:@"anz"] forKey:@"anz"];
 	if (selektierteZeile>=0)//schon eine Zeile selektiert, sonst -1
 	{
-		//NSLog(@"rowData last Zeile: %d  Daten: %@",selektierteZeile, [[rowData objectAtIndex:selektierteZeile]description]);
+		NSLog(@"rowData last Zeile: %d  Daten: %@",selektierteZeile, [[rowData objectAtIndex:selektierteZeile]description]);
 		tempLastLesernamen= [[rowData objectAtIndex:selektierteZeile]objectForKey:@"namen"];
 		[AdminZeilenDic setObject:[[rowData objectAtIndex:selektierteZeile]objectForKey:@"namen"] forKey:@"LasttName"];
 		

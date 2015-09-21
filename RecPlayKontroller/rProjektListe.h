@@ -22,7 +22,8 @@
 	NSMutableArray*			neueProjekteArray;
 	NSMutableDictionary*	neuesProjektDic;
 	NSString*				aktuellesProjekt;
-	BOOL					vomStart;	
+	BOOL					vomStart;
+   BOOL              fixchanged;
 }
 - (IBAction)okAktion:(id)sender;
 - (IBAction)reportCancel:(id)sender;

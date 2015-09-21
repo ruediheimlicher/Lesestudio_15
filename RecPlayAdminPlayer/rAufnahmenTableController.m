@@ -615,18 +615,20 @@ NSLog(@"tempName: %@",tempName);
       {
          NSLog(@"Tab von 'Alle Aufnahmen' zu 'nach Namen': Kein Name ausgewaehlt");
       }
+      NSLog(@"aktuellerLeser: %@",self.AdminAktuellerLeser);
 
+      [self setAufnahmenVonLeser:self.AdminAktuellerLeser];
       NSLog(@"AufnahmenDicArray: %@",[AufnahmenDicArray description]);
 		if ([NamenListe numberOfSelectedRows])//es ist eine zeile in der NamenListe selektiert
       {
          
          
          long  Zeile=[NamenListe selectedRow];//selektierte Zeile in der NamenListe
-         //NSLog(@"nach Namen: Zeile: %d AdminAktuelleAufnahme: %@",Zeile,AdminAktuelleAufnahme);
+         NSLog(@"nach Namen: Zeile: %ld AdminAktuelleAufnahme: %@ AnzahlAufnahmen: %d",Zeile,AdminAktuelleAufnahme,[self AnzahlAufnahmen]);
          
          if (Zeile >=0)
          {
-            if (AufnahmeDa)
+            if (AufnahmeDa || [self AnzahlAufnahmen])
             {
                
                NSNumber* ZeilenNumber=[NSNumber numberWithLong:Zeile];
@@ -655,12 +657,12 @@ NSLog(@"tempName: %@",tempName);
             else
             {
                NSAlert *NamenWarnung = [[NSAlert alloc] init];
-               [NamenWarnung addButtonWithTitle:@"Mache ich"];
+               [NamenWarnung addButtonWithTitle:@"OK"];
                //[RecorderWarnung addButtonWithTitle:@"Cancel"];
-               [NamenWarnung setMessageText:@"Welchen Namen?"];
-               [NamenWarnung setInformativeText:@"Ein Name muss  ausgewählt sein, um die Aufnahmen zu sehen."];
+               [NamenWarnung setMessageText:@"Keine Aufnahmen"];
+               [NamenWarnung setInformativeText:@"Fuer diesen Namen sind keine Aufnahmen vorhanden."];
                [NamenWarnung setAlertStyle:NSWarningAlertStyle];
-
+               [NamenWarnung runModal];
                return NO;
             }
             
