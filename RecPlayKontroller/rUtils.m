@@ -592,14 +592,30 @@ Gibt die Volumes im Ordner 'Network' zurück
 - (BOOL)istSystemVolumeAnPfad:(NSString*)derLeseboxPfad		//unused
 {
    BOOL istSystemVolume=NO;
-   NSString* UserPfad=[[[derLeseboxPfad copy]stringByDeletingLastPathComponent]stringByDeletingLastPathComponent];
-   NSString* LibraryPfad=[UserPfad stringByAppendingPathComponent:@"Library"];
-   NSFileManager *Filemanager=[NSFileManager defaultManager];
-   if ([Filemanager fileExistsAtPath:LibraryPfad])
+   NSString* HomeDirPfad=@"";
+   int index=0;
+   NSMutableArray* PfadKomponenten=(NSMutableArray*)[derLeseboxPfad pathComponents] ;
+
+   while (index<[PfadKomponenten count] && ![[PfadKomponenten objectAtIndex:index]isEqualToString:@"Documents"])
+	  {
+        NSString* tempString=[PfadKomponenten objectAtIndex:index];
+        HomeDirPfad=[HomeDirPfad stringByAppendingPathComponent:tempString];
+        index++;
+     }
+   if ([HomeDirPfad isEqualToString:NSHomeDirectory()]) // Home ist im LeseboxPfad
    {
-      istSystemVolume=YES;
+      NSString* LibraryPfad=[HomeDirPfad stringByAppendingPathComponent:@"Library"];
+      NSFileManager *Filemanager=[NSFileManager defaultManager];
+      if ([Filemanager fileExistsAtPath:LibraryPfad])
+      {
+         NSLog(@"LibraryPfad: %@",LibraryPfad);
+
+         istSystemVolume=YES;
+      }
+
    }
-   NSLog(@"LibraryPfad: %@  istSystemVolume: %d",LibraryPfad,istSystemVolume);
+   NSString* UserPfad=[[[derLeseboxPfad copy]stringByDeletingLastPathComponent]stringByDeletingLastPathComponent];
+   NSLog(@"istSystemVolumeAnPfad istSystemVolume: %d",istSystemVolume);
    return istSystemVolume;
 }
 
@@ -1558,30 +1574,10 @@ return versionOK;
 	BOOL DeleteOK=NO;
 	NSFileManager *Filemanager=[NSFileManager defaultManager];
 	NSString* tempUserPfad=[derLeseboxPfad copy];
-	NSString* PListPfad;
+	
 	//NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Name Lesebox.plist");
-   NSString* PListName=@"Name Lesebox.plist";
-
-	NSLog(@"deletePListAnPfad: tempUserPfad start: %@",tempUserPfad);
-	if (istSysVol)
-	{
-		while(![[tempUserPfad lastPathComponent] isEqualToString:@"Documents"])//Pfad von User finden
-		{
-			tempUserPfad=[tempUserPfad stringByDeletingLastPathComponent];
-			//NSLog(@"tempUserPfad: %@",tempUserPfad);
-		}
-		tempUserPfad=[tempUserPfad stringByDeletingLastPathComponent];//"Documents" entfernen
-																	  //NSLog(@"tempUserPfad: %@",tempUserPfad);
-		tempUserPfad=[tempUserPfad stringByAppendingPathComponent:@"Library"];
-		tempUserPfad=[tempUserPfad stringByAppendingPathComponent:@"Preferences"];
-		
-		PListPfad=[tempUserPfad stringByAppendingPathComponent:PListName];//Pfad der PList in der Library auf dem Vol der LB
-	}
-	else
-	{
-		PListPfad=[tempUserPfad stringByAppendingPathComponent:PListName];//Pfad der PList auf dem Vol der LB
-
-	}
+   NSString* PListName=@"Lesebox.plist";
+   NSString* PListPfad = [PListPfad stringByAppendingPathComponent:PListName];
 	
 	if([Filemanager fileExistsAtPath:PListPfad])
 	{
@@ -1593,113 +1589,90 @@ return versionOK;
 
 - (NSDictionary*)PListDicVon:(NSString*)derLeseboxPfad aufSystemVolume:(BOOL)istSysVol
 {
-	NSFileManager *Filemanager=[NSFileManager defaultManager];
-	NSMutableArray* tempProjektArray=[[NSMutableArray alloc]initWithCapacity:0];
-	NSMutableDictionary* tempPListDic=[[NSMutableDictionary alloc]initWithCapacity:0];
-
-	NSString* tempUserPfad=[derLeseboxPfad copy];
-	//NSLog(@"PListDicVon:	tempUserPfad start: %@",tempUserPfad);
-	NSString* tempLibraryPfad=[tempUserPfad stringByAppendingPathComponent:@"Library"];
-	//NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Lesebox.plist");
+   NSFileManager *Filemanager=[NSFileManager defaultManager];
+   NSMutableArray* tempProjektArray=[[NSMutableArray alloc]initWithCapacity:0];
+   NSMutableDictionary* tempPListDic=[[NSMutableDictionary alloc]initWithCapacity:0];
+   
+   NSString* tempUserPfad=[derLeseboxPfad copy];
+   //NSLog(@"PListDicVon:	tempUserPfad start: %@",tempUserPfad);
+   NSString* tempLibraryPfad=[tempUserPfad stringByAppendingPathComponent:@"Library"];
    NSString* PListName=@"Lesebox.plist";
-
-	NSString* PListPfad;
-	
-	
-/*	
-	if (istSysVol)//Volume hat ein System
-	{
-		while(![[tempUserPfad lastPathComponent] isEqualToString:@"Documents"])//Pfad von User finden
-		{
-			tempUserPfad=[tempUserPfad stringByDeletingLastPathComponent];
-			//NSLog(@"tempUserPfad: %@",tempUserPfad);
-		}
-		tempUserPfad=[tempUserPfad stringByDeletingLastPathComponent];//"Documents" entfernen
-		NSLog(@"istSysVol	fertig: tempUserPfad: %@",tempUserPfad);
-		
-		tempUserPfad=[tempUserPfad stringByAppendingPathComponent:@"Library"];
-		tempUserPfad=[tempUserPfad stringByAppendingPathComponent:@"Preferences"];
-		PListPfad=[tempUserPfad stringByAppendingPathComponent:PListName];//Pfad der PList auf dem Vol der LB
-		//NSLog(@"PListPfad in Library: %@",PListPfad);
-	}
-	else
-*/
-	
-	{
-		
-		NSString* DataPfad=[derLeseboxPfad stringByAppendingPathComponent:@"Data"];
-		//NSLog(@"PList aus Data: tempUserPfad: %@",DataPfad);
-		PListPfad=[DataPfad stringByAppendingPathComponent:PListName];//Pfad der PList auf dem Vol der LB
-		NSLog(@"PListPfad in Lesebox: %@",PListPfad);
-	}
-	
-	//PList lesen
-	
-	if ([Filemanager fileExistsAtPath:PListPfad])
-	{
-		tempPListDic=[[NSDictionary dictionaryWithContentsOfFile:PListPfad]mutableCopy];
+   
+   NSString* PListPfad;
+   
+   NSString* DataPfad=[derLeseboxPfad stringByAppendingPathComponent:@"Data"];
+   //NSLog(@"PList aus Data: tempUserPfad: %@",DataPfad);
+   PListPfad=[DataPfad stringByAppendingPathComponent:PListName];//Pfad der PList auf dem Vol der LB
+   NSLog(@"PListPfad in Lesebox: %@",PListPfad);
+   
+   
+   //PList lesen
+   
+   if ([Filemanager fileExistsAtPath:PListPfad])
+   {
+      tempPListDic=[[NSDictionary dictionaryWithContentsOfFile:PListPfad]mutableCopy];
       //NSLog(@"Utils tempPListDic: %@",[tempPListDic description]);
-		if ([[[tempPListDic objectForKey:@"adminpw"]objectForKey:@"pw"]length]==0)
-		{
-			NSAlert *Warnung = [[NSAlert alloc] init];
-			[Warnung addButtonWithTitle:@"OK"];			
-			[Warnung setMessageText:@"PList lesen: Kein PList-Eintrag fuer 'pw'"];
-			[Warnung setAlertStyle:NSWarningAlertStyle];
-//			int antwort=[Warnung runModal];
+      if ([[[tempPListDic objectForKey:@"adminpw"]objectForKey:@"pw"]length]==0)
+      {
+         NSAlert *Warnung = [[NSAlert alloc] init];
+         [Warnung addButtonWithTitle:@"OK"];
+         [Warnung setMessageText:@"PList lesen: Kein PList-Eintrag fuer 'pw'"];
+         [Warnung setAlertStyle:NSWarningAlertStyle];
+         //			int antwort=[Warnung runModal];
          
-		}
-		
-		if (![tempPListDic objectForKey:@"adminpw"])
-		{	
-			NSLog(@"tempPListDic start leeres pw: %@",[tempPListDic description]);
-			NSAlert *Warnung = [[NSAlert alloc] init];
-			[Warnung addButtonWithTitle:@"OK"];			
-			[Warnung setMessageText:@"PList lesen: Kein PList-Eintrag fuer 'adminpw'"];
-			[Warnung setAlertStyle:NSWarningAlertStyle];
-//			int antwort=[Warnung runModal];
-			
-			NSMutableDictionary* tempPWDictionary=[[NSMutableDictionary alloc]initWithCapacity:0];
-			[tempPWDictionary setObject:@"Admin" forKey:@"name"];
-			[tempPWDictionary setObject:[NSData data] forKey:@"pw"];
-			[tempPListDic setObject:tempPWDictionary forKey:@"adminpw"];//AdminPasswort muss vorhanden sein
-		}
-		
-		
-		if (![[tempPListDic objectForKey:@"adminpw"]objectForKey:@"name"])
-		{
-			NSAlert *Warnung = [[NSAlert alloc] init];
-			[Warnung addButtonWithTitle:@"OK"];			
-			[Warnung setMessageText:@"PList lesen: Kein PList-Eintrag fuer 'name'"];
-			[Warnung setAlertStyle:NSWarningAlertStyle];
-			int antwort=[Warnung runModal];
-			
-			NSMutableDictionary* tempPWDictionary=[[NSMutableDictionary alloc]initWithCapacity:0];
-			[tempPWDictionary setObject:@"Admin" forKey:@"name"];
-			[tempPWDictionary setObject:[NSData data] forKey:@"pw"];
-			[tempPListDic setObject:tempPWDictionary forKey:@"adminpw"];//AdminPasswort muss vorhanden sein
-		}
-		
-		
-		
-		
-		if (![tempPListDic objectForKey:@"projektarray"])
-		{
-			[tempPListDic setObject:[NSArray array] forKey:@"projektarray"];
-		}
-	}
-	else
-	{
-      NSLog(@"PListDicVon... neue PList");
-       const short kUtilsRecPlayUmgebung=0;
-      const int UtilsStartmitDialog=2;
-
+      }
       
-		tempPListDic=[[NSMutableDictionary alloc]initWithCapacity:0];
+      if (![tempPListDic objectForKey:@"adminpw"])
+      {
+         NSLog(@"tempPListDic start leeres pw: %@",[tempPListDic description]);
+         NSAlert *Warnung = [[NSAlert alloc] init];
+         [Warnung addButtonWithTitle:@"OK"];
+         [Warnung setMessageText:@"PList lesen: Kein PList-Eintrag fuer 'adminpw'"];
+         [Warnung setAlertStyle:NSWarningAlertStyle];
+         //			int antwort=[Warnung runModal];
+         
+         NSMutableDictionary* tempPWDictionary=[[NSMutableDictionary alloc]initWithCapacity:0];
+         [tempPWDictionary setObject:@"Admin" forKey:@"name"];
+         [tempPWDictionary setObject:[NSData data] forKey:@"pw"];
+         [tempPListDic setObject:tempPWDictionary forKey:@"adminpw"];//AdminPasswort muss vorhanden sein
+      }
+      
+      
+      if (![[tempPListDic objectForKey:@"adminpw"]objectForKey:@"name"])
+      {
+         NSAlert *Warnung = [[NSAlert alloc] init];
+         [Warnung addButtonWithTitle:@"OK"];
+         [Warnung setMessageText:@"PList lesen: Kein PList-Eintrag fuer 'name'"];
+         [Warnung setAlertStyle:NSWarningAlertStyle];
+         int antwort=[Warnung runModal];
+         
+         NSMutableDictionary* tempPWDictionary=[[NSMutableDictionary alloc]initWithCapacity:0];
+         [tempPWDictionary setObject:@"Admin" forKey:@"name"];
+         [tempPWDictionary setObject:[NSData data] forKey:@"pw"];
+         [tempPListDic setObject:tempPWDictionary forKey:@"adminpw"];//AdminPasswort muss vorhanden sein
+      }
+      
+      
+      
+      
+      if (![tempPListDic objectForKey:@"projektarray"])
+      {
+         [tempPListDic setObject:[NSArray array] forKey:@"projektarray"];
+      }
+   }
+   else
+   {
+      NSLog(@"PListDicVon... neue PList");
+      const short kUtilsRecPlayUmgebung=0;
+      const int UtilsStartmitDialog=2;
+      
+      
+      tempPListDic=[[NSMutableDictionary alloc]initWithCapacity:0];
       NSString* defaultPWString=@"homer";
       const char* defaultpw=[defaultPWString UTF8String];
       NSData* defaultPWData =[NSData dataWithBytes:defaultpw length:strlen(defaultpw)];
       NSMutableDictionary* tempPWDic=[[NSMutableDictionary alloc]initWithCapacity:0];
-
+      
       [tempPWDic setObject:@"Admin" forKey:@"name"];
       [tempPWDic setObject:defaultPWData forKey:@"pw"];
       
@@ -1708,8 +1681,8 @@ return versionOK;
       [tempPListDic setObject: heuteDatumString forKey:@"lastdate"];
       
       [tempPListDic setObject: [[NSMutableArray alloc]initWithCapacity:0] forKey:@"projektarray"];
-
- //     [tempPListDic setObject: [self.ProjektPfad lastPathComponent] forKey:@"lastprojekt"];
+      
+      //     [tempPListDic setObject: [self.ProjektPfad lastPathComponent] forKey:@"lastprojekt"];
       NSNumber* RPModusNumber=[NSNumber numberWithInt:UtilsStartmitDialog];
       
       
@@ -1720,22 +1693,22 @@ return versionOK;
       [tempPListDic setObject:[NSNumber numberWithInt:(int)60] forKey:@"timeoutdelay"];
       [tempPListDic setObject:[NSNumber numberWithInt:2] forKey:@"knackdelay"];
       [tempPListDic setObject:[NSNumber numberWithInt:0] forKey:@"busy"];
-
-
       
       
-	}
-	
-	if (![tempPListDic objectForKey:@"mituserpasswort"])
-	{
-		// ??[tempPListDic setObject:[tempPListDic objectForKey:@"mituserpasswort"] forKey:@"mituserpasswort"];
-		[tempPListDic setObject:[NSNumber numberWithBool:YES] forKey:@"mituserpasswort"];
-	}
-	
-
-	
-	//NSLog(@"Utils tempPListDic end: %@",[tempPListDic description]);
-	return tempPListDic;
+      
+      
+   }
+   
+   if (![tempPListDic objectForKey:@"mituserpasswort"])
+   {
+      // ??[tempPListDic setObject:[tempPListDic objectForKey:@"mituserpasswort"] forKey:@"mituserpasswort"];
+      [tempPListDic setObject:[NSNumber numberWithBool:YES] forKey:@"mituserpasswort"];
+   }
+   
+   
+   
+   //NSLog(@"Utils tempPListDic end: %@",[tempPListDic description]);
+   return tempPListDic;
 }
 
 
