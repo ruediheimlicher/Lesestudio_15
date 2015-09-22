@@ -250,7 +250,7 @@ return [neuerPasswortDic copy];
 			[Warnung setAlertStyle:NSWarningAlertStyle];
 			
 			//[Warnung setIcon:RPImage];
-			int antwort=[Warnung runModal];
+			int antwort=(int)[Warnung runModal];
 			
 			switch (antwort)
 			{

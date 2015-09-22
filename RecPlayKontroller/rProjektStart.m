@@ -207,7 +207,7 @@ extern const int StartmitDialog;//=2;
 	NSMutableDictionary* NotificationDic=[[NSMutableDictionary alloc]initWithCapacity:0];
 	[NotificationDic setObject:[NSNumber numberWithInt:2] forKey:@"aktion"]; //Neues Projekt anlegen
 	[NotificationDic setObject:[NSNumber numberWithInt:1] forKey:@"umgebung"];	// mit Admin beginnen
-	int index=[ProjektTable selectedRow];
+	long index=[ProjektTable selectedRow];
    if (ProjektArray&&[ProjektArray count])
    {
       NSString* tempProjektString=[[ProjektArray objectAtIndex:index]objectForKey:@"projekt"];

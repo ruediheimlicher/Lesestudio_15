@@ -12,12 +12,12 @@
    [super viewDidLoad];
    // Do view setup here.
    [self.AnzeigeFeld setStringValue:@"start"];
-   NSLog(@"Einstellungenfenster  viewDidLoad");
+   //NSLog(@"Einstellungenfenster  viewDidLoad");
 }
 
 - (void)awakeFromNib
 {
-   NSLog(@"Einstellungenfenster  awake");
+   //NSLog(@"Einstellungenfenster  awake");
 	NSFont* Tablefont;
 	Tablefont=[NSFont fontWithName:@"Helvetica" size: 14];
 //[TimeoutCombo synchronizeTitleAndSelectedItem];
@@ -78,9 +78,9 @@ NSLog(@"setTimeoutDelay: derDelay: %f",derDelay);
 	NSNumber* BewertungStatus=[NSNumber numberWithInt:[BewertungZeigen state]];
 	[StatusDic setObject:BewertungStatus forKey:@"bewertungstatus"];
 	int TimeoutDelay=[TimeoutCombo  intValue];
-	NSLog(@"TimeoutDelay: %d  ",TimeoutDelay  );
+	//NSLog(@"TimeoutDelay: %d  ",TimeoutDelay  );
 	[StatusDic setObject:[NSNumber numberWithInt:TimeoutDelay] forKey:@"timeoutdelay"];
-	NSLog(@"reportClose: StatusDic: %@",[StatusDic description]);
+	//NSLog(@"reportClose: StatusDic: %@",[StatusDic description]);
 	[nc postNotificationName:@"StartStatus" object:self userInfo:StatusDic];
    [self dismissController:NULL];
    // [NSApp stopModalWithCode:1];
@@ -101,7 +101,7 @@ NSLog(@"setTimeoutDelay: derDelay: %f",derDelay);
 
 - (void)setzeAnzeigeFeld:(NSString *)anzeige
 {
-   NSLog(@"Einstellungenfenster setzeAnzeigeFeld anzeige: %@ startfeld: %@",anzeige);
+   //NSLog(@"Einstellungenfenster setzeAnzeigeFeld anzeige: %@ startfeld: %@",anzeige);
    self.AnzeigeFeld.stringValue = anzeige;
    //[self.AnzeigeFeld setStringValue:@"soso"];
 }

@@ -676,7 +676,7 @@ NSLog(@"VolumepfadAktion note: %@",[[note userInfo]description]);
 			if ([Filemanager fileExistsAtPath:[UserPfad stringByAppendingPathComponent:@"Library"]]//ist Volume mit System
 				 &&![Filemanager fileExistsAtPath:[UserPfad stringByAppendingPathComponent:@"Users"]])//ist nicht die HD oder Server
 			{
-				NSLog(@"Dokumente");
+				//NSLog(@"Dokumente");
 				istSystemVolume=YES;
 				NSString* lb=@"Lesebox";
 				NSString* DocumentsPfad=[NSString stringWithFormat:@"%@/Documents",UserPfad];

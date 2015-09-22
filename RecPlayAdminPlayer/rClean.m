@@ -146,7 +146,7 @@ if (dasItem<2)
 	//NSLog(@"A button has been clicked: %d, %d",[sender  selectedRow], [sender selectedColumn]);
 	NSNumber* y=[NSNumber numberWithInt:1];
 	NSNumber* n=[NSNumber numberWithInt:0];
-	int selZeile=[sender  selectedRow];
+	long selZeile=[sender  selectedRow];
 	//aus: shouldSelectRow
 	NSNumber* ZeilenNummer;
 	ZeilenNummer=[NSNumber numberWithInt:selZeile];
@@ -332,7 +332,7 @@ if (dasItem<2)
 - (IBAction)CleanOK:(id)sender
 {
 	[NSApp stopModalWithCode:1];
-	int var=[[EntfernenVariante selectedCell]tag];
+	long var=[[EntfernenVariante selectedCell]tag];
 	//NSLog(@"CleanOK:  stopModalWithCode tag: %d",var);
 	NSNumber* VariantenNummer=[NSNumber numberWithInt:var];
 	NSMutableDictionary* VariantenDic=[NSMutableDictionary dictionaryWithObject:VariantenNummer forKey:@"EntfernenVariante"];
@@ -355,8 +355,8 @@ if (dasItem<2)
 
 - (IBAction)reportClearAnzahl:(id)sender
 {
-	NSLog(@"reportAnzahlNamenOption: %d",[[sender selectedItem] tag]);
-	ClearAnzahlOption=[[sender selectedCell]tag];
+	NSLog(@"reportAnzahlNamenOption: %d",(int)[[sender selectedItem] tag]);
+	ClearAnzahlOption=(int)[[sender selectedCell]tag];
 	NSNumber* AnzahlOptionNumber =[NSNumber numberWithInt:ClearAnzahlOption];
 	NSDictionary* CleanOptionDic=[NSDictionary dictionaryWithObject:AnzahlOptionNumber forKey:@"AnzahlNamen"];
 	NSNotificationCenter * nc;
@@ -368,8 +368,8 @@ if (dasItem<2)
 
 - (IBAction)reportAnzahlTitel:(id)sender
 {
-	NSLog(@"reportAnzahlTitelOption: %d",[[sender selectedItem] tag]);
-	ExportAnzahlOption=[[sender selectedCell]tag];
+	NSLog(@"reportAnzahlTitelOption: %d",(int)[[sender selectedItem] tag]);
+	ExportAnzahlOption=(int)[[sender selectedCell]tag];
 	NSNumber* AnzahlOptionNumber =[NSNumber numberWithInt:ExportAnzahlOption];
 	NSDictionary* CleanOptionDic=[NSDictionary dictionaryWithObject:AnzahlOptionNumber forKey:@"AnzahlTitel"];
 	NSNotificationCenter * nc;
@@ -393,12 +393,12 @@ if (dasItem<2)
 - (NSArray*)klickNamenArray
 {
 	NSString* auswahl=@"auswahl";
-	NSString* name=@"name";
+	//NSString* name=@"name";
 	
 	NSMutableArray* tempArray=[[NSMutableArray alloc]initWithCapacity:0];
 	if ([nurTitelZuNamenCheck state])
 	{
-		int klickIndex=[NamenView selectedRow];
+		int klickIndex=(int)[NamenView selectedRow];
 		[tempArray addObject:[[NamenArray objectAtIndex:klickIndex]objectForKey:@"name"]];
 	}
 	else
@@ -451,7 +451,7 @@ if (dasItem<2)
 - (IBAction)reportClearBehaltenOption:(id)sender
 {
 	NSLog(@"reportClearBehaltenOption");
-	ClearBehaltenOption=[[sender selectedCell]tag];
+	ClearBehaltenOption=(int)[[sender selectedCell]tag];
 	NSNumber* ClearBehaltenNumber =[NSNumber numberWithInt:ClearBehaltenOption];
 	NSDictionary* CleanOptionDic=[NSDictionary dictionaryWithObject:ClearBehaltenNumber forKey:@"clearbehalten"];
 	NSNotificationCenter * nc;
@@ -476,7 +476,7 @@ if (dasItem<2)
 {
 	//NSLog(@"Clean reportNurTitelZuNamenOption");
 	nurTitelZuNamenOption=[sender state];
-	int selZeile =[NamenView selectedRow];
+	int selZeile =(int)[NamenView selectedRow];
 	NSIndexSet* selZeilenSet=[NSIndexSet indexSetWithIndex:selZeile];
 	NSString* selektiertenamenzeile=@"selektiertenamenzeile";
 	NSNumber* nurTitelZuNamenOptionNumber =[NSNumber numberWithInt:nurTitelZuNamenOption];
@@ -851,9 +851,9 @@ return tempTitelArray;
 		  {
 			NSMutableDictionary* CleanOptionDic=[NSMutableDictionary dictionaryWithObject:tempNamenArrray forKey:@"clearnamen"];
 			[CleanOptionDic setObject:tempTitelArray forKey:@"cleartitel"];
-			[CleanOptionDic setObject:[NSNumber numberWithInt:[[ClearBehaltenVariante selectedCell]tag]] forKey:@"clearbehalten"];
-			[CleanOptionDic setObject:[NSNumber numberWithInt:[[EntfernenVariante selectedCell]tag]] forKey:@"clearentfernen"];
-			int rest=[[ClearAnzahlPop selectedItem]tag];
+			[CleanOptionDic setObject:[NSNumber numberWithInt:(int)[[ClearBehaltenVariante selectedCell]tag]] forKey:@"clearbehalten"];
+			[CleanOptionDic setObject:[NSNumber numberWithInt:(int)[[EntfernenVariante selectedCell]tag]] forKey:@"clearentfernen"];
+			int rest=(int)[[ClearAnzahlPop selectedItem]tag];
 			
 			if (rest==0)
 			  {
@@ -872,7 +872,7 @@ return tempTitelArray;
 				//					modalDelegate:self
 				//				   didEndSelector:@selector(alertDidEnd:returnCode:contextInfo:) 
 				//					  contextInfo:nil];
-				int Antwort=[Warnung runModal];
+				int Antwort=(int)[Warnung runModal];
 				NSLog(@"Antwort: %d",Antwort);
 				if (Antwort==NSAlertSecondButtonReturn)
 				{
@@ -1008,7 +1008,7 @@ return tempTitelArray;
 - (IBAction)reportExportOption:(id)sender
 {
 	//NSLog(@"reportExportOption");
-	ExportOption=[[sender selectedCell]tag];
+	ExportOption=(int)[[sender selectedCell]tag];
 	[ExportAnzahlPop setEnabled:ExportOption];
 	[ExportOptionenTaste setEnabled:ExportOption];
 	NSNumber* ExportOptionNumber =[NSNumber numberWithInt:ExportOption];
@@ -1021,8 +1021,8 @@ return tempTitelArray;
 
 - (IBAction)reportExportFormatOption:(id)sender
 {
-	NSLog(@"reportExportFormatOption: %d",[[sender selectedCell]tag]);
-	ExportFormatOption=[[sender selectedCell]tag];
+	NSLog(@"reportExportFormatOption: %d",(int)[[sender selectedCell]tag]);
+	ExportFormatOption=(int)[[sender selectedCell]tag];
 
 	[ExportFormatPop setEnabled:ExportFormatOption];
 	[ExportOptionenTaste setEnabled:ExportFormatOption];

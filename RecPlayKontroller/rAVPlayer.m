@@ -43,13 +43,13 @@
          [AVAbspielplayer stop];
       }
 
-      NSLog(@"prepareAufnahmeAnURL: %@",url.path);
+      //NSLog(@"prepareAufnahmeAnURL: %@",url.path);
       self.hiddenAufnahmePfad = [url path];
 
    }
    else
    {
-      NSLog(@"prepareAufnahmeAnURL: url nil");
+      //NSLog(@"prepareAufnahmeAnURL: url nil");
             
    }
 }
@@ -109,7 +109,7 @@
    else if (self.AufnahmeURL)
       
    {
-      NSLog(@"playAdminAufnahme: %@", AVAbspielplayer.url.path);
+      //NSLog(@"playAdminAufnahme: %@", AVAbspielplayer.url.path);
       // http://stackoverflow.com/questions/1605846/avaudioplayer-with-external-url-to-m4p
       //double dur = AVAbspielplayer.duration;
       haltzeit = 0;
@@ -139,7 +139,7 @@
    }
    else
    {
-      NSLog(@"playAdminAufnahme: url nil");
+      //NSLog(@"playAdminAufnahme: url nil");
    }
 }
 
@@ -155,7 +155,7 @@
    else if (self.AufnahmeURL)
       
    {
-      NSLog(@"playAdminAufnahme: %@", AVAbspielplayer.url.path);
+      //NSLog(@"playAdminAufnahme: %@", AVAbspielplayer.url.path);
       // http://stackoverflow.com/questions/1605846/avaudioplayer-with-external-url-to-m4p
       //double dur = AVAbspielplayer.duration;
       haltzeit = 0;
@@ -177,7 +177,7 @@
    }
    else
    {
-      NSLog(@"playAdminAufnahme: url nil");
+      //NSLog(@"playAdminAufnahme: url nil");
    }
 }
 

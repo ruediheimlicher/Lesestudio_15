@@ -404,7 +404,7 @@ Die Dics enthalten den Pfad und eine Anzeige für die Lesebox
 				if ([Filemanager fileExistsAtPath:tempNetzUserLeseboxPfad isDirectory:&istOrdner]&&istOrdner)
 				{
 					//Lesebox in 'Documents'
-					NSLog(@"Lesebox in 'Documents':	tempNetzUserLeseboxPfad: %@",tempNetzUserLeseboxPfad);
+					//NSLog(@"Lesebox in 'Documents':	tempNetzUserLeseboxPfad: %@",tempNetzUserLeseboxPfad);
 					UserLeseboxOK=YES;//Lesebox ist da
 					LeseboxOrt=2;		//in 'Documents'
 					UserMitLeseboxDa=YES;
@@ -608,14 +608,14 @@ Gibt die Volumes im Ordner 'Network' zurück
       NSFileManager *Filemanager=[NSFileManager defaultManager];
       if ([Filemanager fileExistsAtPath:LibraryPfad])
       {
-         NSLog(@"LibraryPfad: %@",LibraryPfad);
+         //NSLog(@"LibraryPfad: %@",LibraryPfad);
 
          istSystemVolume=YES;
       }
 
    }
    NSString* UserPfad=[[[derLeseboxPfad copy]stringByDeletingLastPathComponent]stringByDeletingLastPathComponent];
-   NSLog(@"istSystemVolumeAnPfad istSystemVolume: %d",istSystemVolume);
+   //NSLog(@"istSystemVolumeAnPfad istSystemVolume: %d",istSystemVolume);
    return istSystemVolume;
 }
 
@@ -685,7 +685,7 @@ return versionOK;
 
 - (BOOL)LeseboxValidAnPfad:(NSString*)derLeseboxPfad aufSystemVolume:(BOOL)istSystemVolume
 {
-   NSLog(@"LeseboxValidAnPfad: derLeseboxPfad: %@",derLeseboxPfad);
+   //NSLog(@"LeseboxValidAnPfad: derLeseboxPfad: %@",derLeseboxPfad);
   BOOL LeseboxValid=NO;
   BOOL ArchivValid=NO;
   BOOL erfolg;
@@ -694,7 +694,7 @@ return versionOK;
   if ([Filemanager fileExistsAtPath:derLeseboxPfad ])
 	{
 	LeseboxValid=YES;
-	NSLog(@"LeseboxValidAnPfad Lesebox da: derLeseboxPfad: %@",derLeseboxPfad);
+	//NSLog(@"LeseboxValidAnPfad Lesebox da: derLeseboxPfad: %@",derLeseboxPfad);
 	}//exists at LeseboxPfad
   else
   {
@@ -1603,7 +1603,7 @@ return versionOK;
    NSString* DataPfad=[derLeseboxPfad stringByAppendingPathComponent:@"Data"];
    //NSLog(@"PList aus Data: tempUserPfad: %@",DataPfad);
    PListPfad=[DataPfad stringByAppendingPathComponent:PListName];//Pfad der PList auf dem Vol der LB
-   NSLog(@"PListPfad in Lesebox: %@",PListPfad);
+   //NSLog(@"PListPfad in Lesebox: %@",PListPfad);
    
    
    //PList lesen
@@ -1644,7 +1644,7 @@ return versionOK;
          [Warnung addButtonWithTitle:@"OK"];
          [Warnung setMessageText:@"PList lesen: Kein PList-Eintrag fuer 'name'"];
          [Warnung setAlertStyle:NSWarningAlertStyle];
-         int antwort=[Warnung runModal];
+         [Warnung runModal];
          
          NSMutableDictionary* tempPWDictionary=[[NSMutableDictionary alloc]initWithCapacity:0];
          [tempPWDictionary setObject:@"Admin" forKey:@"name"];
@@ -1794,7 +1794,7 @@ return versionOK;
    }
 	if (OrdnereinrichtenOK)//alles OK
 	{
-		NSLog(@"Utils           ProjektordnerEinrichtenanPfad OK Pfad: %@  UProjektArray: %@ ",derProjektPfad,[UProjektArray description]);
+		//NSLog(@"Utils           ProjektordnerEinrichtenanPfad OK Pfad: %@  UProjektArray: %@ ",derProjektPfad,[UProjektArray description]);
 		
 		NSMutableArray* tempProjektNamenListe=[[NSMutableArray alloc]initWithCapacity:0];
 		NSAlert *Warnung = [[NSAlert alloc] init];

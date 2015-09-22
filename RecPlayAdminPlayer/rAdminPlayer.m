@@ -788,7 +788,7 @@ const short kRecPlayUmgebung=0;
 - (IBAction)setNeuesAdminProjekt:(id)sender
 {
   
-	NSLog(@"\n\n*********setNeuesAdminProjekt: %@\nAdminProjektArray: %@",[sender titleOfSelectedItem],AdminProjektArray);
+	//NSLog(@"\n\n*********setNeuesAdminProjekt: %@\nAdminProjektArray: %@",[sender titleOfSelectedItem],AdminProjektArray);
 	[self setAdminPlayer:AdminLeseboxPfad inProjekt:[sender titleOfSelectedItem]];
 	[self setProjektPopMenu:AdminProjektArray];
 	NSMutableDictionary* NotificationDic=[[NSMutableDictionary alloc]initWithCapacity:0];
@@ -953,8 +953,8 @@ const short kRecPlayUmgebung=0;
 		NSString* Leser=[[AdminProjektNamenArray objectAtIndex:hitZeile]description];
 		self.AdminAktuellerLeser=[[AdminProjektNamenArray objectAtIndex:hitZeile]description];
 		
-      NSLog(@"setLeser Zeile: %ld",[sender selectedRow]);
-		NSLog(@"Leser: %@",[[AdminProjektNamenArray objectAtIndex:[sender selectedRow]]description]);
+      //NSLog(@"setLeser Zeile: %ld",[sender selectedRow]);
+		//NSLog(@"Leser: %@",[[AdminProjektNamenArray objectAtIndex:[sender selectedRow]]description]);
 		//NSLog(@"setLeser:     Zeile: %d   hit:%d ",hitZeile,hit);
 		//NSLog(@"i:%d ",hitZeile);
 		
@@ -972,7 +972,7 @@ const short kRecPlayUmgebung=0;
 		  }
 		//NSLog(@"setLeser   Leser: %@  zeile: %d  hit: %d   File:  %@",Leser, hitZeile, hit, tempAufnahmePfad);
 		AdminAktuelleAufnahme=[[[AdminDaten AufnahmeFilesFuerZeile:hitZeile]objectAtIndex:hit]description];
-      NSLog(@"setLeser   AdminAktuelleAufnahme: %@",AdminAktuelleAufnahme);
+      //NSLog(@"setLeser   AdminAktuelleAufnahme: %@",AdminAktuelleAufnahme);
       
       
       
@@ -1004,7 +1004,7 @@ const short kRecPlayUmgebung=0;
 	}
 	else
 	{
-		NSLog(@"SetLeser        Keine Aufnahme");
+		//NSLog(@"SetLeser        Keine Aufnahme");
 		NSBeep();
 		[PlayTaste setEnabled:NO];
 		[ExportierenTaste setEnabled:NO];
@@ -1036,7 +1036,7 @@ const short kRecPlayUmgebung=0;
       NSString* Leser=[[AdminProjektNamenArray objectAtIndex:hitZeile]description];
       self.AdminAktuellerLeser=[[AdminProjektNamenArray objectAtIndex:hitZeile]description];
       
-      NSLog(@"setLeser Zeile: %ld",[sender selectedRow]);
+      //NSLog(@"setLeser Zeile: %ld",[sender selectedRow]);
       //NSLog(@"Leser: %@",[[AdminProjektNamenArray objectAtIndex:[sender selectedRow]]description]);
       //NSLog(@"setLeser:     Zeile: %d   hit:%d ",hitZeile,hit);
       //NSLog(@"i:%d ",hitZeile);
@@ -1122,7 +1122,7 @@ const short kRecPlayUmgebung=0;
 - (void)setLeserFuerZeile:(long)dieZeile
 {
 	long hitZeile=dieZeile;
-	NSLog(@"setLeserFuerZeile: hitZeile: %ld ",hitZeile);
+	//NSLog(@"setLeserFuerZeile: hitZeile: %ld ",hitZeile);
 
 	if (hitZeile<0) return;
 	
@@ -1146,7 +1146,7 @@ const short kRecPlayUmgebung=0;
 		[AdminDaten setAuswahl:hit forRow:hitZeile];
 		NSString* Ziel=[[[AdminDaten AufnahmeFilesFuerZeile:hitZeile]objectAtIndex:hit]description];
 		AdminAktuelleAufnahme=[[[AdminDaten AufnahmeFilesFuerZeile:hitZeile]objectAtIndex:hit]description];
-      NSLog(@"setLeserFuerZeile AdminAktuelleAufnahme: %@",AdminAktuelleAufnahme);
+      //NSLog(@"setLeserFuerZeile AdminAktuelleAufnahme: %@",AdminAktuelleAufnahme);
 		//NSLog(@"setLeserFuerZeile Leser: %@  zeile: %d  hit: %d   File:  %@",Leser, hitZeile, hit, Ziel);
 		BOOL OK;
 		OK=[self setPfadFuerLeser: Leser FuerAufnahme:Ziel];
@@ -2120,18 +2120,18 @@ const short kRecPlayUmgebung=0;
 
 - (void)Aufnahmezuruecklegen
 {
-   NSLog(@"\n\nAufnahmezuruecklegen start  URL: %@",[[AVAbspielplayer AufnahmeURL]path]);
+   //NSLog(@"\n\nAufnahmezuruecklegen start  URL: %@",[[AVAbspielplayer AufnahmeURL]path]);
    
    if (AVAbspielplayer && [AVAbspielplayer AufnahmeURL])
    {
-      NSLog(@"Aufnahmezuruecklegen start AVAbspielplayer belegt");
+      //NSLog(@"Aufnahmezuruecklegen start AVAbspielplayer belegt");
    }
    else
    {
-       NSLog(@"Aufnahmezuruecklegen start AVAbspielplayer nicht belegt");
+       //NSLog(@"Aufnahmezuruecklegen start AVAbspielplayer nicht belegt");
       return;
    }
-   NSLog(@"Aufnahmezuruecklegen start  belegt");
+   //NSLog(@"Aufnahmezuruecklegen start  belegt");
    [AVAbspielplayer toStartTempAufnahme];
    
    [self.BackKnopf setEnabled:NO];
@@ -2160,10 +2160,10 @@ const short kRecPlayUmgebung=0;
          //AdminAktuellerLeser=@"";//herausgenommen infolge KommentarfŸrLeser
         
         AdminAktuelleAufnahme=@"";
-        NSLog(@"Aufnahmezuruecklegen AdminMark: %ld UserMark: %ld",(long)[AdminMarkCheckbox state],(long)[UserMarkCheckbox state]);
+        //NSLog(@"Aufnahmezuruecklegen AdminMark: %ld UserMark: %ld",(long)[AdminMarkCheckbox state],(long)[UserMarkCheckbox state]);
         BOOL saveKommentarOK = [self saveMarksFuerLeser:self.AdminAktuellerLeser FuerAufnahme:AdminAktuelleAufnahme mitAdminMark: [AdminMarkCheckbox state] mitUserMark:[UserMarkCheckbox state]];
         
-        NSLog(@"Aufnahmezuruecklegen saveKommentarOK: %d",saveKommentarOK);
+        //NSLog(@"Aufnahmezuruecklegen saveKommentarOK: %d",saveKommentarOK);
      }
    [self clearKommentarfelder];
    [AdminKommentarView setEditable:NO];
@@ -2179,7 +2179,7 @@ const short kRecPlayUmgebung=0;
    //[AdminMarkCheckbox setState:NO];
    //[self.MarkCheckbox setEnabled:NO];
    
-    NSLog(@"Aufnahmezuruecklegen end\n\n");
+    //NSLog(@"Aufnahmezuruecklegen end\n\n");
 }
 
 - (void)backZurListe:(id)sender
@@ -2254,7 +2254,7 @@ const short kRecPlayUmgebung=0;
 
 - (IBAction)startAVPlay:(id)sender
 {
-   NSLog(@"startAVPlay URL: %@",[AVAbspielplayer AufnahmeURL]);
+   //NSLog(@"startAVPlay URL: %@",[AVAbspielplayer AufnahmeURL]);
    // [AVRecorder setPlaying:YES];
    [self.BackKnopf setEnabled:YES];
    [self.StopPlayKnopf setEnabled:YES];
@@ -2266,7 +2266,7 @@ const short kRecPlayUmgebung=0;
    [AVAbspielplayer playAdminAufnahme];
    float dur = ([AVAbspielplayer duration]);
    [Abspielanzeige setMax:dur];
-   NSLog(@"startAVPlay dur: %f",dur);
+   NSLog(@"AdminPlayer startAVPlay dur: %f",dur);
    [Abspielanzeige setNeedsDisplay:YES];
    //[self.Fortschritt setDoubleValue:0];
    [self invalTimer];
@@ -2367,7 +2367,7 @@ const short kRecPlayUmgebung=0;
    
    if (dur - pos < 0.1)
    {
-      NSLog(@"Ende erreicht");
+      //NSLog(@"Ende erreicht");
       NSNumber* durationNumber=[NSNumber numberWithDouble:[AVAbspielplayer duration]];
       posint=[durationNumber intValue];
       
@@ -2433,7 +2433,7 @@ const short kRecPlayUmgebung=0;
    
    if (dur - pos < 0.1)
    {
-      NSLog(@"Ende erreicht");
+      //NSLog(@"Ende erreicht");
       NSNumber* durationNumber=[NSNumber numberWithDouble:[AVAbspielplayer duration]];
       posint=[durationNumber intValue];
 
@@ -2568,7 +2568,7 @@ const short kRecPlayUmgebung=0;
 	
 	if ([Filemanager fileExistsAtPath:AnmerkungenPfad])
 	{
-		//NSLog(@"File exists an Pfad: %@",derAufnahmePfad);
+		NSLog(@"File exists an Pfad: %@",derAufnahmePfad);
 		NSString* tempKommentarString=[NSString stringWithContentsOfFile:AnmerkungenPfad encoding:NSMacOSRomanStringEncoding error:NULL];
 		NSMutableArray* tempKommentarArrary=(NSMutableArray *)[tempKommentarString componentsSeparatedByString:@"\r"];
 		//NSLog(@"tempKommentarArrary vor: %@",[tempKommentarArrary description]);
@@ -2583,6 +2583,13 @@ const short kRecPlayUmgebung=0;
 		
 		
 	}//file exists
+   else
+   {
+      NSLog(@"Kein File an Pfad: %@",derAufnahmePfad);
+      
+   }
+   
+   
 	return istMarkiert;
 }
 
@@ -2842,9 +2849,9 @@ const short kRecPlayUmgebung=0;
 
 - (IBAction) AufnahmeLoeschen:(id)sender
 {
-   NSLog(@"Projekt: %@",[AdminProjektPfad lastPathComponent]);
+   //NSLog(@"Projekt: %@",[AdminProjektPfad lastPathComponent]);
    long projektindex = [[AdminProjektArray valueForKey:@"projekt"]indexOfObject:[AdminProjektPfad lastPathComponent]];
-   NSLog(@"Admin: %@",[[AdminProjektArray objectAtIndex:projektindex ] description]);
+   //NSLog(@"Admin: %@",[[AdminProjektArray objectAtIndex:projektindex ] description]);
    
    
    NSMutableDictionary* EntfernenDic=[NSMutableDictionary dictionaryWithObject:[AdminProjektPfad lastPathComponent] forKey:@"projekt"];
@@ -3939,7 +3946,7 @@ const short kRecPlayUmgebung=0;
 			
 			//[self backZurListe:nil];
 			selektierteAufnahmenTableZeile=0;
-         NSLog(@"AdminTabNotifikationAktion AufnahmenDicArray: %@",[AufnahmenDicArray description]);
+         //NSLog(@"AdminTabNotifikationAktion AufnahmenDicArray: %@",[AufnahmenDicArray description]);
 
 			if ([AufnahmenDicArray count]>selektierteAufnahmenTableZeile)
 			{
@@ -4057,7 +4064,7 @@ const short kRecPlayUmgebung=0;
 	if ([note object]==AdminKommentarView)
 		
 	  {
-		NSLog(@"rAdminPlayer: NSTextDidChangeNotification textchanged YES");
+		//NSLog(@"rAdminPlayer: NSTextDidChangeNotification textchanged YES");
 		Textchanged=YES;
         Kommentarsaved=NO;
 	  }
@@ -4320,7 +4327,7 @@ NSNumber* UmgebungNumber=[[note userInfo]objectForKey:@"Umgebung"];
 - (void)ProjektArrayNotificationAktion:(NSNotification*)note
 {
 	NSArray* tempProjektArray =[[note userInfo]objectForKey:@"ProjektArray"];
-	NSLog(@"ProjektArrayNotificationAktion  tempProjektArray: %@ ",tempProjektArray);
+	//NSLog(@"ProjektArrayNotificationAktion  tempProjektArray: %@ ",tempProjektArray);
 	if (tempProjektArray)
 	{
 		if ([tempProjektArray count])
@@ -4393,21 +4400,21 @@ if (entfernenOK==0)//allesOK
 
 - (void)ButtonWillPopUpAktion:(NSNotification*)note
 {
-	NSLog(@"ButtonWillPopUpAktion note: %d",[[note object]tag]);
+   NSLog(@"AdminPlayer ButtonWillPopUpAktion note: %d",[[note object]description]);
    [AdminNamenfeld setStringValue:@"Ein Name soll es sein"];
-	switch([[note object]tag])
-	{
-	case 11:
-	case 12:
-	{
-	NSLog(@"rAdminPlayer: ButtonWillPopUpAktion textchanged YES");
-	Textchanged=YES;
-      Kommentarsaved=NO;
-	}break;
-	
-	}//switch tag
-	
-	
+   switch([[note object]tag])
+   {
+      case 11:
+      case 12:
+      {
+         NSLog(@"rAdminPlayer 11,12: ButtonWillPopUpAktion textchanged YES");
+         Textchanged=YES;
+         Kommentarsaved=NO;
+      }break;
+         
+   }//switch tag
+   
+   
 }
 
 - (void)ComboBoxAktion:(NSNotification*)note

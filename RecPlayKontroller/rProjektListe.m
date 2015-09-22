@@ -108,7 +108,7 @@ NSLog(@"okAktion: Zeile %d    istAktiviert: %d",z,istAktiviert);
 
 - (int) anzVolumes
 {
-	return [ProjektArray count];
+	return (int)[ProjektArray count];
 }
 
 - (IBAction)neueZeile:(id)sender
@@ -120,7 +120,7 @@ NSLog(@"okAktion: Zeile %d    istAktiviert: %d",z,istAktiviert);
 	[ProjektTable reloadData];
 	[[[ProjektTable tableColumnWithIdentifier:@"projekt"]dataCellForRow:0]setPlaceholderString:@"projekt"];
 	//NSString* s=[[ProjektTable tableColumnWithIdentifier:@"projekt"]dataCellForRow:0]selectAll:NULL];
-	int n=[ProjektTable columnWithIdentifier:@"projekt"];
+	//long n=[ProjektTable columnWithIdentifier:@"projekt"];
 	//NSLog(@"n: %d %@",n ,	s);
 	
 }
@@ -131,11 +131,11 @@ if ([ProjektArray count])
 {
 //	NSString* ProjektString=[NSString string];
 	NSLog(@"ProjektListe reportCancel");
-	NSString* ProjektString=@"";
+//	NSString* ProjektString=@"";
 	[EingabeFeld setStringValue:@""];
 	[InListeTaste setEnabled:NO];
 	[NSApp stopModalWithCode:0];
-	[[self window] orderOut:NULL];
+	//[[self window] orderOut:NULL];
  
 	
 }
@@ -152,7 +152,7 @@ vomStart=NO;
 - (IBAction)reportAuswahlen:(id)sender
 {
 	NSLog(@"reportAuswahlen");
-	int ProjektIndex=[ProjektTable selectedRow];
+	long ProjektIndex=[ProjektTable selectedRow];
 	NSMutableDictionary* NotificationDic=[[NSMutableDictionary alloc]initWithCapacity:0];
 	if ([ProjektTable selectedRow]>=0)
 	{
@@ -262,7 +262,7 @@ vomStart=NO;
 - (IBAction)reportClose:(id)sender
 { 
 
-  NSLog(@"\n\nProjektliste reportClose: ProjektArray: %@",[ProjektArray description]);
+  //NSLog(@"\n\nProjektliste reportClose: ProjektArray: %@",[ProjektArray description]);
   NSMutableDictionary* NotificationDic=[[NSMutableDictionary alloc]initWithCapacity:0];
 
 	[NotificationDic setObject:ProjektArray forKey:@"projektarray"];//eventuell sind Aktivierungen geändert
@@ -460,20 +460,23 @@ vomStart=NO;
 
 - (void)setProjektListeArray:(NSArray*)derArray inProjekt:(NSString*)dasProjekt
 {
+   NSLog(@"Projektliste setProjektListeArray: derArray: %@ \ndasProjekt: %@",[derArray description],dasProjekt);
 [[self window]setInitialFirstResponder:ProjektTable];
 
-  [ProjektArray removeAllObjects];
-   
+//  [ProjektArray removeAllObjects];
+//   [ProjektTable reloadData];
    if ([derArray count] == 0)
    {
       [SchliessenTaste setEnabled:NO];
    }
+   [ProjektArray setArray:derArray];
    fixchanged=NO;
   NSEnumerator* ProjektEnum=[derArray objectEnumerator];
   id einProjektDic;
   //NSLog(@"setProjektListeArray: derArray: %@ \ndasProjekt: %@",[derArray description],dasProjekt);
   int index=0;
   NSMutableIndexSet* ProjektNameIndex=[NSMutableIndexSet indexSet];
+   /*
   while (einProjektDic=[ProjektEnum nextObject])
   {
 	  //NSLog(@"ProjektPfad: %@",[einProjektDic objectForKey:projektpfad]);
@@ -571,7 +574,8 @@ vomStart=NO;
 	  }
 	  index++;
   }//while
-	 //NSLog(@"derArray: %@",[ProjektArray description]);
+    */
+	 NSLog(@"derArray: %@",[ProjektArray description]);
   //NSLog(@"ProjektNameIndex: %@",[ProjektNameIndex description]);
   [ProjektTable reloadData];
   [AuswahlenTaste setEnabled:YES];

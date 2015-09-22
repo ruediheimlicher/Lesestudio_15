@@ -704,7 +704,7 @@ case 2://alle Projekte
 
 - (BOOL)tabView:(NSTabView *)tabView shouldSelectTabViewItem:(NSTabViewItem *)tabViewItem
 {
-   NSLog(@"tabView shouldSelectTabViewItem: %@",[[tabViewItem identifier]description]);
+   //NSLog(@"tabView shouldSelectTabViewItem: %@",[[tabViewItem identifier]description]);
    //NSLog(@"shouldSelectTabViewItem: rowData: %@",[[AdminDaten rowData] description]);
    
    //[self.PlayTaste setEnabled:YES];

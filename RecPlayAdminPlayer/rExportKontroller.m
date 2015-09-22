@@ -996,8 +996,8 @@ NSString*	RPExportformatKey;
 			NSAlert *Warnung = [[NSAlert alloc] init];
 			[Warnung addButtonWithTitle:@"OK"];
 			[Warnung setMessageText:@"Mehrere Aufnahmen exportieren"];
-			NSString* i1= @"Es kann nur der Speicherort gewählt werden.";
-			NSString* i2=@"Änderungen im Namen werden ignoriert.";
+			NSString* i1= @"Es kann nur der Speicherort gewaehlt werden.";
+			NSString* i2=@"Aenderungen im Namen werden ignoriert.";
 			NSString* i3=@"Einzelne Aufnahmen in Admin";
 			NSString* I0=[NSString stringWithFormat:@"%@\n%@\n%@",i1,i2,i3];
 			[Warnung setInformativeText:I0];
@@ -1328,7 +1328,7 @@ NSString*	RPExportformatKey;
 				[Warnung setAlertStyle:NSWarningAlertStyle];
 				
 				//[Warnung setIcon:RPImage];
-				int antwort=[Warnung runModal];
+				[Warnung runModal];
 
 				NSLog(@"Nichts zu exportieren");
 			}

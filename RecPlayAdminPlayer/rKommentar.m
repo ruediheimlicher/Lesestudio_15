@@ -97,7 +97,7 @@ typedef NS_ENUM(NSInteger, A)
             tempAufnahmenArray=(NSMutableArray*)[Filemanager contentsOfDirectoryAtPath:LeserPfad error:NULL];
             if ([tempAufnahmenArray count])//Aufnahmen vorhanden
             {
-               int KommentarIndex=NSNotFound;
+               long KommentarIndex=NSNotFound;
                KommentarIndex=[tempAufnahmenArray indexOfObject:locKommentar];
                if (!(KommentarIndex==NSNotFound))
                {
@@ -167,9 +167,9 @@ typedef NS_ENUM(NSInteger, A)
    //NSLog(@"LeserArrayAnProjektPfad:  derProjektPfad: %@",derProjektPfad);
    NSFileManager *Filemanager=[NSFileManager defaultManager];
    
-   NSMutableArray* tempLeserArray=[[NSMutableArray alloc]initWithCapacity:0];
+//   NSMutableArray* tempLeserArray=[[NSMutableArray alloc]initWithCapacity:0];
    //NSString* locKommentar=NSLocalizedString(@"Comments",@"Anmerkungen");
-   NSString* locKommentar=@"Anmerkungen";
+//   NSString* locKommentar=@"Anmerkungen";
    
    NSMutableArray* tempProjektNamenArray=[[NSMutableArray alloc]initWithCapacity:0];
    
@@ -195,8 +195,6 @@ typedef NS_ENUM(NSInteger, A)
                  anProjektPfad:(NSString*)derProjektPfad
                        maximal:(int)dieAnzahl
 {
-   BOOL erfolg;
-   BOOL istDirectory;
    NSFileManager *Filemanager=[NSFileManager defaultManager];
    //NSLog(@"KommentareMitTitel: mitTitel: %@  LeserPfad: %@ ",derTitel,derLeser);
    NSMutableArray* KommentareMitTitelVonLeserArray=[[NSMutableArray alloc]initWithCapacity:0];
@@ -211,7 +209,7 @@ typedef NS_ENUM(NSInteger, A)
         //NSLog(@":   tempAufnahmen roh: %@",[tempAufnahmen description]);
         if ([tempAufnahmen count])//Aufnahmen vorhanden
         {
-           int KommentarIndex=NSNotFound;
+           long KommentarIndex=NSNotFound;
            KommentarIndex=[tempAufnahmen indexOfObject:locKommentar];
            if (!(KommentarIndex==NSNotFound))
            {
@@ -279,7 +277,6 @@ typedef NS_ENUM(NSInteger, A)
                           maximal:(int)dieAnzahl
 {
    NSLog(@"alleKommentareZuTitel: Titel: %@",derTitel);
-   BOOL erfolg;
    BOOL istDirectory;
    //NSString* locKommentar=NSLocalizedString(@"Comments",@"Anmerkungen");
    NSString* locKommentar=@"Anmerkungen";
@@ -486,7 +483,7 @@ typedef NS_ENUM(NSInteger, A)
                              NSMutableArray* tempZeilenArray=[[NSMutableArray alloc]initWithCapacity:0];
                              tempZeilenArray=[[tempKommentarMitTitelString componentsSeparatedByString:crSeparator]mutableCopy];
                              NSString* tempName=[tempZeilenArray objectAtIndex:0];
-                             int n=[tempName length];
+                             long n=[tempName length];
                              NSRange r=NSMakeRange(0,n-1);
                              tempName=[[tempZeilenArray objectAtIndex:0]substringFromIndex:n];
                              tempName=[NSString stringWithFormat:@"%@  %@",@"  -  ",tempName];
@@ -498,7 +495,7 @@ typedef NS_ENUM(NSInteger, A)
                              
                              //
                              
-                             NSString* redZeile=[tempZeilenArray componentsJoinedByString:@" "];
+                           //  NSString* redZeile=[tempZeilenArray componentsJoinedByString:@" "];
                              tempKommentarMitTitelString=[tempZeilenArray componentsJoinedByString:crSeparator];
                              
                           }
@@ -532,7 +529,7 @@ typedef NS_ENUM(NSInteger, A)
    tempArray =[derArray mutableCopy];
    //return derArray;
    //[derArray release];
-   int anz=[tempArray count];
+   long anz=[tempArray count];
    BOOL tausch=YES;
    int index=0;
    int stop=0;
@@ -566,7 +563,7 @@ typedef NS_ENUM(NSInteger, A)
    tempArray =[derArray mutableCopy];
    //return derArray;
    //[derArray release];
-   int anz=[tempArray count];
+   long anz=[tempArray count];
    BOOL tausch=YES;
    int index=0;
    int stop=0;
@@ -599,7 +596,6 @@ typedef NS_ENUM(NSInteger, A)
                      anProjektPfad:(NSString*)derProjektPfad
                          bisAnzahl:(int)dieAnzahl
 {
-   BOOL erfolg;
    BOOL istDirectory;
    NSFileManager *Filemanager=[NSFileManager defaultManager];
    //NSLog(@"alleKommentarVonLeser: Leser: %@  derProjektPfad: %@  dieAnzahl: %d",derLeser ,derProjektPfad,dieAnzahl);
@@ -626,7 +622,7 @@ typedef NS_ENUM(NSInteger, A)
               }
               
               //NSLog(@"\nalleKommentareVonLeser: %@  KommentareArray: %@",derLeser,[tempTitelArray description]);
-              NSArray* sortArray=[self sortNachNummer:[tempTitelArray copy]];
+             // NSArray* sortArray=[self sortNachNummer:[tempTitelArray copy]];
               tempTitelArray=(NSMutableArray*)[self sortNachNummer:tempTitelArray];
               //NSLog(@"\nalleKommentareVonLeser  nach sortArray: %@\n",[tempTitelArray description]);
               
@@ -636,7 +632,7 @@ typedef NS_ENUM(NSInteger, A)
               while ((tempTitel = [enumerator nextObject])&&pos<dieAnzahl) // RH 33 abc.txt
               {
                  // txt entfernen und m4a an titel anfuegen
-                 NSString* tempAufnahmeTitel = [[tempTitel stringByDeletingLastPathComponent]stringByAppendingString:@"m4a"];
+              //   NSString* tempAufnahmeTitel = [[tempTitel stringByDeletingLastPathComponent]stringByAppendingString:@"m4a"];
                  NSString* tempAufnahmePfad=[LeserPfad stringByAppendingPathComponent:tempTitel];
                  
                  BOOL OK=[self mitMarkierungAufnehmenOptionAnPfad:tempAufnahmePfad];
@@ -656,8 +652,8 @@ typedef NS_ENUM(NSInteger, A)
                        NSMutableArray* tempZeilenArray=[[NSMutableArray alloc]initWithCapacity:0];
                        tempZeilenArray=[[tempKommentarString componentsSeparatedByString:crSeparator]mutableCopy];
                        NSString* tempName=[tempZeilenArray objectAtIndex:0];
-                       int n=[tempName length];
-                       NSRange r=NSMakeRange(0,n-1);
+                       long n=[tempName length];
+                     //  NSRange r=NSMakeRange(0,n-1);
                        tempName=[[tempZeilenArray objectAtIndex:0]substringFromIndex:n];
                        tempName=[NSString stringWithFormat:@"%@  %@",@"  -  ",tempName];
                        //[tempZeilenArray replaceObjectAtIndex:0 withObject:@"\n    -"];
@@ -669,7 +665,7 @@ typedef NS_ENUM(NSInteger, A)
                        //
                        
                        
-                       NSString* redZeile=[tempZeilenArray componentsJoinedByString:@" "];
+                     //  NSString* redZeile=[tempZeilenArray componentsJoinedByString:@" "];
                        tempKommentarString=[tempZeilenArray componentsJoinedByString:crSeparator];
                     }
                     pos++;
@@ -703,12 +699,11 @@ typedef NS_ENUM(NSInteger, A)
 - (NSArray*)alleKommentareNachNamenAnProjektPfad:(NSString*)derProjektPfad bisAnzahl:(int)dieAnzahl
 {
    NSLog(@"alleKommentareNachNamenAnProjektPfad: ProjektpFAD: %@",derProjektPfad);
-   BOOL erfolg;
    BOOL istDirectory;
    NSMutableArray* alleKommentareArray=[[NSMutableArray alloc]initWithCapacity:0];
    
    NSFileManager *Filemanager=[NSFileManager defaultManager];
-   NSMutableArray* tempKommentarArray=[[NSMutableArray alloc]initWithCapacity:0];
+   //NSMutableArray* tempKommentarArray=[[NSMutableArray alloc]initWithCapacity:0];
    
    NSMutableArray* LeserArray=[[NSMutableArray alloc]initWithCapacity:0];
    NSString* tempProjektPfad=[AdminArchivPfad stringByAppendingPathComponent:[derProjektPfad lastPathComponent]];
@@ -800,8 +795,6 @@ typedef NS_ENUM(NSInteger, A)
 
 - (NSString*)lastKommentarVonLeser:(NSString*)derLeser anProjektPfad:(NSString*)derProjektPfad
 {
-   BOOL erfolg;
-   BOOL istDirectory;
    //NSString* locKommentar=NSLocalizedString(@"Comments",@"Anmerkungen");
    NSString* locKommentar=@"Anmerkungen";
    NSFileManager *Filemanager=[NSFileManager defaultManager];
@@ -863,8 +856,8 @@ typedef NS_ENUM(NSInteger, A)
               
               
               NSDictionary* Attrs=[Filemanager attributesOfItemAtPath:tempLeserKommentarPfad error:NULL];
-              NSNumber *fsize, *refs, *owner;
-              NSDate *moddate;
+              NSNumber  *refs;
+              //NSDate *moddate;
               if (Attrs)
               {
                  if ((refs = [Attrs objectForKey:NSFilePosixPermissions]))
@@ -895,9 +888,8 @@ typedef NS_ENUM(NSInteger, A)
 
 - (NSArray*)lastKommentarVonAllenAnProjektPfad:(NSString*)derProjektPfad
 {
-   BOOL erfolg;
    BOOL istDirectory;
-   NSString* lastKommentarString=@"";//Anmerkungen in Tabelle mit 6 Kolonnen konvertieren \r";
+  // NSString* lastKommentarString=@"";//Anmerkungen in Tabelle mit 6 Kolonnen konvertieren \r";
    NSFileManager *Filemanager=[NSFileManager defaultManager];
    NSMutableArray* tempKommentarArray=[[NSMutableArray alloc]initWithCapacity:0];
    NSMutableArray* LeserArray=[[NSMutableArray alloc]initWithCapacity:0];
@@ -1311,22 +1303,22 @@ typedef NS_ENUM(NSInteger, A)
       {
          case ausEinemProjektOption:
          {
-            NSLog(@"switch (AuswahlOption): ausEinemProjektOption: einProjektPfad: %@",einProjektPfad);
+            //NSLog(@"switch (AuswahlOption): ausEinemProjektOption: einProjektPfad: %@",einProjektPfad);
             tempKommentarArray=(NSMutableArray*)[self lastKommentarVonAllenAnProjektPfad:einProjektPfad]; // OK
          }break;
             
          case ausAktivenProjektenOption:
          {
-            NSLog(@"switch (AuswahlOption): ausAktivenProjektenOption");
+            //NSLog(@"switch (AuswahlOption): ausAktivenProjektenOption");
             NSString* tempLeser=[PopAMenu  titleOfSelectedItem];
-            NSLog(@"alleVonNameKommentarOption tempLeser: %@ optionB: %@",[PopAMenu  titleOfSelectedItem],[PopBMenu  titleOfSelectedItem]);
+            //NSLog(@"alleVonNameKommentarOption tempLeser: %@ optionB: %@",[PopAMenu  titleOfSelectedItem],[PopBMenu  titleOfSelectedItem]);
             
             if ([[PopAMenu  titleOfSelectedItem] isEqualToString:@"alle"]) // alle Namen
             {
                tempKommentarArray=(NSMutableArray*)[self alleKommentareNachNamenAnProjektPfad:einProjektPfad
                                                                                     bisAnzahl:AnzahlOption];
-               NSLog(@"Projekt: %@	tempKommentarArray: %@",[einProjektPfad lastPathComponent], [tempKommentarArray description]);
-               NSLog(@"\n\n\n");
+               //NSLog(@"Projekt: %@	tempKommentarArray: %@",[einProjektPfad lastPathComponent], [tempKommentarArray description]);
+               //NSLog(@"\n\n\n");
             }
             else
             {
@@ -1654,7 +1646,7 @@ typedef NS_ENUM(NSInteger, A)
 - (void)setKommentarMitProjektArray:(NSArray*)derProjektArray mitLeser:(NSString*)aktuellerLeser anPfad:(NSString*)aktuellerProjektPfad// aus Kommentarkontroller
 {
    // NSLog(@"\n\n			--------setAdminProjektArray: derProjektArray: %@",derProjektArray);
-   NSLog(@"setAdminProjektArray: aktuellerProjektPfad: %@",aktuellerProjektPfad);
+  // NSLog(@"setAdminProjektArray: aktuellerProjektPfad: %@",aktuellerProjektPfad);
    AdminProjektPfad = aktuellerProjektPfad; // /Users/ruediheimlicher/Documents/Lesebox/Archiv/ggg
    AdminArchivPfad = [aktuellerProjektPfad stringByDeletingLastPathComponent];
    AdminAktuellerLeser = aktuellerLeser;
@@ -1728,7 +1720,7 @@ typedef NS_ENUM(NSInteger, A)
 - (void)setPopAMenu:(NSArray*)derArray erstesItem:(NSString*)dasItem aktuell:(NSString*)aktuellerString
 {
    NSLog(@"setPopAMenu  derArray: %@ erstesItem: %@ aktuell: %@",[derArray description], dasItem, aktuellerString);
-   NSString* alle=@"alle";
+ //  NSString* alle=@"alle";
    //NSString* namenwaehlen=@"Namen wählen";
    //[PopAMenu synchronizeTitleAndSelectedItem];
    [PopAMenu setEnabled:YES];
@@ -2546,7 +2538,7 @@ typedef NS_ENUM(NSInteger, A)
    NSNumber* AnzahlOptionTag;
    AnzahlOption=[[AnzahlPop selectedCell]tag];
    //NSLog(@"reportKommentarOption:B");
-   AnzahlOptionTag=[NSNumber numberWithInt:[[AnzahlPop selectedCell]tag]];
+   AnzahlOptionTag=[NSNumber numberWithLong:[[AnzahlPop selectedCell]tag]];
    NSLog(@"reportKommentarOption:C");
    [KommentarOptionDic setObject:AnzahlOptionTag forKey:@"Anzahl"];
    
@@ -2564,7 +2556,7 @@ typedef NS_ENUM(NSInteger, A)
    return [ProjektMatrix selectedRow];
 }
 */
-- (int)AbsatzOption
+- (long)AbsatzOption
 {
    return [AbsatzMatrix selectedRow];
 }
@@ -2814,7 +2806,7 @@ typedef NS_ENUM(NSInteger, A)
       {
          case lastKommentarOption:
          {
-            NSLog(@"KommentarSuchenMitDic lastKommentarOption");
+            //NSLog(@"KommentarSuchenMitDic lastKommentarOption");
             [self resetPopAMenu];
             [self resetPopBMenu];
             switch (ProjektAuswahlOption)
@@ -2824,16 +2816,16 @@ typedef NS_ENUM(NSInteger, A)
                   NSLog(@"alleVonNameKommentarOption: Nur 1 Projekt AdminProjektPfad: %@ tempProjektName: %@",AdminProjektPfad,tempProjektName);
                   
                   NSString* tempAdminProjektPfad=[[AdminProjektPfad stringByDeletingLastPathComponent]stringByAppendingPathComponent:tempProjektName];
-                  NSLog(@"tempAdminProjektPfad: %@",tempAdminProjektPfad);
+                  //NSLog(@"tempAdminProjektPfad: %@",tempAdminProjektPfad);
                   NSArray* tempNamenArray=[self LeserArrayAnProjektPfad:tempAdminProjektPfad];
-                  NSLog(@"lastKommentarOption: Nur 1 Projekt tempNamenArray: %@",[tempNamenArray description]);
+                  //NSLog(@"lastKommentarOption: Nur 1 Projekt tempNamenArray: %@",[tempNamenArray description]);
                   
-                  NSString* tempKommentarPfad = [tempAdminProjektPfad stringByAppendingPathComponent:@"Anmerkungen"];
+                  //NSString* tempKommentarPfad = [tempAdminProjektPfad stringByAppendingPathComponent:@"Anmerkungen"];
                   
                   for (int namenindex=0;namenindex < [tempNamenArray count];namenindex++)
                   {
                      
-                     NSString* lastKommentarstring = [self lastKommentarVonLeser:[tempNamenArray objectAtIndex:namenindex] anProjektPfad:tempAdminProjektPfad];
+                     //NSString* lastKommentarstring = [self lastKommentarVonLeser:[tempNamenArray objectAtIndex:namenindex] anProjektPfad:tempAdminProjektPfad];
                      
                      /*
                      NSError* err;
@@ -2962,9 +2954,9 @@ typedef NS_ENUM(NSInteger, A)
                      {
                         if ([[einProjektDic objectForKey:@"ok"]boolValue]&&[einProjektDic objectForKey:@"projektpfad"])
                         {
-                           NSString* tempProjektName=[[einProjektDic objectForKey:@"projektpfad"]lastPathComponent];
-                           NSString* tempProjektPfad=[einProjektDic objectForKey:@"projektpfad"];
-                           NSArray* tempProjektNamenArray=[self LeserArrayAnProjektPfad:tempProjektPfad];
+                        //   NSString* tempProjektName=[[einProjektDic objectForKey:@"projektpfad"]lastPathComponent];
+                         //  NSString* tempProjektPfad=[einProjektDic objectForKey:@"projektpfad"];
+                         //  NSArray* tempProjektNamenArray=[self LeserArrayAnProjektPfad:tempProjektPfad];
                            //NSLog(@"tempProjektNamenArray: %@",[tempProjektNamenArray description]);
                            //
                            //		Namen addieren
@@ -3107,7 +3099,7 @@ typedef NS_ENUM(NSInteger, A)
                //NSLog(@"\n******\nKommentarNotifikation alleVonNameKommentarOption: OptionAString: %@",[PopAMenu  titleOfSelectedItem]);
                
                
-               NSMutableArray* TitelArray=[[self TitelMitKommentarArrayVon:[PopAMenu  titleOfSelectedItem] anProjektPfad:ProjektPfadOptionString]mutableCopy];
+               NSMutableArray* tempTitelArray=[[self TitelMitKommentarArrayVon:[PopAMenu  titleOfSelectedItem] anProjektPfad:ProjektPfadOptionString]mutableCopy];
                
                
                
@@ -3115,7 +3107,7 @@ typedef NS_ENUM(NSInteger, A)
                //NSLog(@"TitelArray: %@	OptionAString: %@  OptionBString. %@",	[TitelArray description],[PopAMenu  titleOfSelectedItem],[PopBMenu  titleOfSelectedItem]);
                if(ProjektAuswahlOption==0)//nur bei einzelnem Projekt
                {
-                  [self setPopBMenu:TitelArray erstesItem:alle aktuell:alle mitPrompt:@"mit Titel:"];
+                  [self setPopBMenu:tempTitelArray erstesItem:alle aktuell:alle mitPrompt:@"mit Titel:"];
                }
             }
          }break;//alleVonNameKommentarOption
@@ -3244,7 +3236,7 @@ typedef NS_ENUM(NSInteger, A)
                {
                   if ([einProjektDic objectForKey:@"projektpfad"])
                   {
-                     NSString* tempProjektName=[[einProjektDic objectForKey:@"projektpfad"]lastPathComponent];
+                    // NSString* tempProjektName=[[einProjektDic objectForKey:@"projektpfad"]lastPathComponent];
                      NSString* tempProjektPfad=[einProjektDic objectForKey:@"projektpfad"];
                      NSArray* tempProjektNamenArray=[self LeserArrayAnProjektPfad:tempProjektPfad];
                      //NSLog(@"tempProjektNamenArray: %@",[tempProjektNamenArray description]);
@@ -3282,7 +3274,7 @@ typedef NS_ENUM(NSInteger, A)
       case 0://Nur ein Projekt
       {
          
-         NSString* tempProjektPfad=[[AdminProjektArray objectAtIndex:ProjektNamenOption]objectForKey:@"projektpfad"];
+        // NSString* tempProjektPfad=[[AdminProjektArray objectAtIndex:ProjektNamenOption]objectForKey:@"projektpfad"];
          //NSLog(@"tempProjektPfad: %@",tempProjektPfad);
          NSMutableDictionary* tempProjektDictionary=[[NSMutableDictionary alloc]initWithCapacity:0];
          [tempProjektDictionary setObject:ProjektPfadOptionString forKey:@"projektpfad"];
@@ -3302,7 +3294,7 @@ typedef NS_ENUM(NSInteger, A)
             {
                if ([[einProjektDic objectForKey:@"ok"]boolValue]&&[einProjektDic objectForKey:@"projektpfad"])
                {
-                  NSString* tempProjektName=[[einProjektDic objectForKey:@"projektpfad"]lastPathComponent];
+                //  NSString* tempProjektName=[[einProjektDic objectForKey:@"projektpfad"]lastPathComponent];
                   NSString* tempProjektPfad=[einProjektDic objectForKey:@"projektpfad"];
                   //NSLog(@"Nur aktive Projekte: tempProjektPfad: %@",tempProjektPfad);
                   NSMutableDictionary* tempProjektDictionary=[[NSMutableDictionary alloc]initWithCapacity:0];
@@ -3327,7 +3319,7 @@ typedef NS_ENUM(NSInteger, A)
             {
                if ([einProjektDic objectForKey:@"projektpfad"])
                {
-                  NSString* tempProjektName=[[einProjektDic objectForKey:@"projektpfad"]lastPathComponent];
+               //   NSString* tempProjektName=[[einProjektDic objectForKey:@"projektpfad"]lastPathComponent];
                   NSString* tempProjektPfad=[einProjektDic objectForKey:@"projektpfad"];
                   //NSLog(@"Nur aktive Projekte: tempProjektPfad: %@",tempProjektPfad);
                   NSMutableDictionary* tempProjektDictionary=[[NSMutableDictionary alloc]initWithCapacity:0];
@@ -3361,8 +3353,8 @@ typedef NS_ENUM(NSInteger, A)
 
 - (IBAction)reportAuswahl:(id)sender
 {
-   NSLog(@"setAuswahl: %d",[[sender selectedCell]tag]);
-   AuswahlOption=[[sender selectedCell]tag];
+   NSLog(@"setAuswahl: %ld",(long)[[sender selectedCell]tag]);
+   //AuswahlOption=[[sender selectedCell]tag];
    [AnzahlPop setEnabled:AuswahlOption>0];
    NSNumber* AuswahlOptionNumber =[NSNumber numberWithInt:AuswahlOption];
    
@@ -3424,8 +3416,8 @@ typedef NS_ENUM(NSInteger, A)
 
 - (IBAction)reportAnzahl:(id)sender
 {
-   NSLog(@"reportAnzahl: %d",[[sender selectedCell]tag]);
-   AnzahlOption=[[sender selectedCell]tag];
+   NSLog(@"reportAnzahl: %ld",(long)[[sender selectedCell]tag]);
+   AnzahlOption=(int)[[sender selectedCell]tag];
    NSNumber* AnzahlOptionNumber =[NSNumber numberWithInt:AnzahlOption];
    
    NSMutableDictionary* KommentarOptionDic=[NSMutableDictionary dictionaryWithObject:AnzahlOptionNumber forKey:@"Anzahl"];
@@ -3447,7 +3439,7 @@ typedef NS_ENUM(NSInteger, A)
    
    NSMutableDictionary* KommentarOptionDic=[NSMutableDictionary dictionaryWithObject:NamenOptionString forKey:@"popa"];
    
-   [KommentarOptionDic setObject:[NSNumber numberWithInt:[ProjektPopMenu tag]]forKey:@"tag"];
+   [KommentarOptionDic setObject:[NSNumber numberWithLong:[ProjektPopMenu tag]]forKey:@"tag"];
    [KommentarOptionDic setObject:[ProjektPopMenu titleOfSelectedItem]forKey:@"projektname"];
    
    
@@ -3474,8 +3466,8 @@ typedef NS_ENUM(NSInteger, A)
 
 - (IBAction)reportProjektNamenOption:(id)sender
 {
-   NSLog(@"setProjektNamenOption: %@ Index: %d",[sender titleOfSelectedItem],[sender indexOfSelectedItem]);
-   ProjektOption=[sender indexOfSelectedItem];
+   NSLog(@"setProjektNamenOption: %@ Index: %ld",[sender titleOfSelectedItem],(long)[sender indexOfSelectedItem]);
+   ProjektOption=(int)[sender indexOfSelectedItem];
    NSMutableDictionary* ProjektOptionDic=[NSMutableDictionary dictionaryWithObject:[NSNumber numberWithInt:ProjektOption] forKey:@"projektnamenoption"];
    [ProjektOptionDic setObject:[sender titleOfSelectedItem] forKey:@"projektname"];
    
@@ -3496,8 +3488,8 @@ typedef NS_ENUM(NSInteger, A)
 
 - (IBAction)reportProjektAuswahlOption:(id)sender
 {
-   NSLog(@"setProjektAuswahlOption: %d Index: %d",[sender selectedRow],[sender selectedRow]);
-   ProjektOption=[[ProjektMatrix selectedCell]tag];
+   NSLog(@"setProjektAuswahlOption: %d Index: %ld",[sender selectedRow],(long)[sender selectedRow]);
+   ProjektOption=(int)[[ProjektMatrix selectedCell]tag];
    switch (ProjektOption)
    {
       case 0: //nur ein Projekt
@@ -3539,9 +3531,9 @@ typedef NS_ENUM(NSInteger, A)
    
     
    //NSString* TitelString=@"Anmerkungen vom ";
-   NSString* TitelString=@"Anmerkungen vom ";
+   NSString* tempTitelString=@"Anmerkungen vom ";
    
-   NSString* KopfString=[NSString stringWithFormat:@"%@  %@%@",TitelString,heuteDatumString,@"\r\r"];
+   NSString* KopfString=[NSString stringWithFormat:@"%@  %@%@",tempTitelString,heuteDatumString,@"\r\r"];
    
    //Font für Titelzeile
    NSFont* TitelFont;
@@ -4050,12 +4042,15 @@ typedef NS_ENUM(NSInteger, A)
    [PrintInfo setVerticallyCentered:NO];
    NSRect bounds=[PrintInfo imageablePageBounds];
    
-   int x=bounds.origin.x;int y=bounds.origin.y;int h=bounds.size.height;int w=bounds.size.width;
+   int x=bounds.origin.x;
+   int y=bounds.origin.y;
+   int h=bounds.size.height;
+//   int w=bounds.size.width;
    //NSLog(@"Bounds 1 x: %d y: %d  h: %d  w: %d",x,y,h,w);
    NSSize Papiergroesse=[PrintInfo paperSize];
    int leftRand=(Papiergroesse.width-bounds.size.width)/2;
    int topRand=(Papiergroesse.height-bounds.size.height)/2;
-   int platzH=(Papiergroesse.width-bounds.size.width);
+//   int platzH=(Papiergroesse.width-bounds.size.width);
    
    int freiLinks=60;
    int freiOben=30;
@@ -4064,7 +4059,7 @@ typedef NS_ENUM(NSInteger, A)
    
    int DruckbereichV=bounds.size.height-freiOben;
    
-   int platzV=(Papiergroesse.height-bounds.size.height);
+ //  int platzV=(Papiergroesse.height-bounds.size.height);
    
    //NSLog(@"platzH: %d  platzV %d",platzH,platzV);
    
@@ -4076,8 +4071,8 @@ typedef NS_ENUM(NSInteger, A)
    [PrintInfo setBottomMargin:botRand];
    
    
-   int Papierbreite=(int)Papiergroesse.width;
-   int Papierhoehe=(int)Papiergroesse.height;
+ //  int Papierbreite=(int)Papiergroesse.width;
+ //  int Papierhoehe=(int)Papiergroesse.height;
    int obererRand=[PrintInfo topMargin];
    int linkerRand=(int)[PrintInfo leftMargin];
    int rechterRand=[PrintInfo rightMargin];

@@ -85,7 +85,8 @@ NSLog(@"tempName: %@",tempName);
 
 - (IBAction)setAufnahmenVonPopLeser:(id)sender
 {
-[self setAufnahmenVonLeser:[sender titleOfSelectedItem]];
+   NSLog(@"setAufnahmenVonPopLeser: %@",[sender titleOfSelectedItem]);
+   [self setAufnahmenVonLeser:[sender titleOfSelectedItem]];
 
 }
 
@@ -95,7 +96,7 @@ NSLog(@"tempName: %@",tempName);
    [AufnahmenDicArray removeAllObjects];
    self.AdminAktuellerLeser=[derLeser copy];
    NSString* tempLeserPfad=[AdminProjektPfad stringByAppendingPathComponent:derLeser];
-   //NSLog(@"tempLeserPfad: %@",tempLeserPfad);
+   NSLog(@"tempLeserPfad: %@",tempLeserPfad);
    
    NSFileManager *Filemanager=[NSFileManager defaultManager];
    NSMutableArray* tempAufnahmenArray=[[NSMutableArray alloc] initWithArray:[Filemanager contentsOfDirectoryAtPath:tempLeserPfad error:NULL]];
@@ -105,7 +106,7 @@ NSLog(@"tempName: %@",tempName);
       [tempAufnahmenArray removeObject:@"Anmerkungen"];
    }
    
-   //NSLog(@"tempAufnahmenArray: %@",[tempAufnahmenArray description]);
+   NSLog(@"tempAufnahmenArray: %@",[tempAufnahmenArray description]);
    
    
    NSString* tempLeserKommentarPfad=[tempLeserPfad stringByAppendingPathComponent:@"Anmerkungen"];
@@ -115,7 +116,7 @@ NSLog(@"tempName: %@",tempName);
    {
       [tempKommentarArray removeObject:@".DS_Store"];
    }
-   //NSLog(@"tempKommentarArray: %@",[tempKommentarArray description]);
+   NSLog(@"tempKommentarArray: %@",[tempKommentarArray description]);
    
    NSMutableArray* tempAufnahmenDicArray=[[NSMutableArray alloc]initWithCapacity:0];
    
@@ -132,8 +133,10 @@ NSLog(@"tempName: %@",tempName);
       
       [tempAufnahmenDic setObject:eineAufnahme forKey:@"aufnahme"];
       
+      
       // Adminmark gesetzt?
       NSString* tempAufnahmePfad=[tempLeserPfad stringByAppendingPathComponent:eineAufnahme];
+      
       BOOL AdminMarkOK=[self AufnahmeIstMarkiertAnPfad:tempAufnahmePfad];
       [AdminMarkCheckbox setEnabled:YES];
       [AdminMarkCheckbox setState:AdminMarkOK];
@@ -369,7 +372,7 @@ NSLog(@"tempName: %@",tempName);
 
 - (BOOL)tableView:(NSTableView *)tableView shouldSelectRow:(int)row
 {
-   NSLog(@"AufnahmenTable  shouldSelectRow: %d  selektierteAufnahmenTableZeile: %d, selectedRow: %d" ,row,selektierteAufnahmenTableZeile, (int)[tableView selectedRow]);
+   //NSLog(@"AufnahmenTable  shouldSelectRow: %d  selektierteAufnahmenTableZeile: %d, selectedRow: %d" ,row,selektierteAufnahmenTableZeile, (int)[tableView selectedRow]);
    
    long bisherSelektierteZeile=selektierteAufnahmenTableZeile;//bisher selektierte Zeile
    selektierteAufnahmenTableZeile=row;//neu selektierte Zeile
@@ -385,7 +388,7 @@ NSLog(@"tempName: %@",tempName);
    self.AdminAktuellerLeser=[LesernamenPop titleOfSelectedItem];
    [self setPfadFuerLeser: self.AdminAktuellerLeser FuerAufnahme:AdminAktuelleAufnahme];
    [self setKommentarFuerLeser: self.AdminAktuellerLeser FuerAufnahme:AdminAktuelleAufnahme];
-   NSLog(@"AufnahmenTable  shouldSelectRow: %d  AdminAktuelleAufnahme: %@, AdminProjektPfad: %@ AdminPlayPfad. %@" ,row,AdminAktuelleAufnahme, AdminProjektPfad, AdminPlayPfad);
+   //NSLog(@"AufnahmenTable  shouldSelectRow: %d  AdminAktuelleAufnahme: %@, AdminProjektPfad: %@ AdminPlayPfad. %@" ,row,AdminAktuelleAufnahme, AdminProjektPfad, AdminPlayPfad);
   
   
   [AVAbspielplayer prepareAdminAufnahmeAnURL:[NSURL fileURLWithPath:AdminPlayPfad]];
@@ -504,11 +507,11 @@ NSLog(@"tempName: %@",tempName);
 
 - (void)tabView:(NSTabView *)tabView didSelectTabViewItem:(NSTabViewItem *)tabViewItem
 {
-   NSLog(@"tabView didSelectTabViewItem");
+   //NSLog(@"tabView didSelectTabViewItem");
    if ([[tabViewItem identifier]intValue]==1)//zurück zu 'alle Aufnahmen'
    {
       long zeile=[NamenListe selectedRow];
-      NSLog(@"tabView didSelectTabViewItem zeile: %ld",zeile);
+      //NSLog(@"tabView didSelectTabViewItem zeile: %ld",zeile);
       AdminAktuelleAufnahme=[[AufnahmenDicArray objectAtIndex:zeile]objectForKey:@"aufnahme"];
 
        [self setLeserFuerZeile:zeile];
@@ -524,7 +527,7 @@ NSLog(@"tempName: %@",tempName);
 
 - (BOOL)tabView:(NSTabView *)tabView shouldSelectTabViewItem:(NSTabViewItem *)tabViewItem
 {
-	NSLog(@"tabView shouldSelectTabViewItem: %@",[[tabViewItem identifier]description]);
+	//NSLog(@"tabView shouldSelectTabViewItem: %@",[[tabViewItem identifier]description]);
 	//NSLog(@"shouldSelectTabViewItem: rowData: %@",[[AdminDaten rowData] description]);	
 	
 		//[self.PlayTaste setEnabled:YES];
@@ -532,34 +535,32 @@ NSLog(@"tempName: %@",tempName);
 		
 	if ([[tabViewItem identifier]intValue]==1)//zurück zu 'alle Aufnahmen'
    {
-      
-      NSLog(@"zu 'alle Aufnahmen'");
+      //NSLog(@"zu 'alle Aufnahmen'");
       
       // Aufräumen
+      
+      
       if ([AufnahmenTable selectedRow]>=0)
       {
+         
          [self Aufnahmezuruecklegen];
       }
       
-      NSLog(@"nach Namen vor : AdminAktuelleAufnahme: %@",AdminAktuelleAufnahme);
+      NSLog(@" zurück zu 'alle Aufnahmen' vor : AdminAktuelleAufnahme: %@",AdminAktuelleAufnahme);
+      
       
       long Zeile=[AufnahmenTable selectedRow];
+      NSLog(@"Zeile: %ld AufnahmenDicArray: %@",Zeile,[AufnahmenDicArray description]);
       if (Zeile>=0) // eine Zeile aktiviert
       {
+         
          AdminAktuelleAufnahme=[[AufnahmenDicArray objectAtIndex:Zeile]objectForKey:@"aufnahme"];
          
  //        AdminAktuelleAufnahme=[[AufnahmenDicArray objectAtIndex:0]objectForKey:@"aufnahme"];
 
          
          NSLog(@"Tab nach Namen: Zeile: %ld AdminAktuelleAufnahme: %@",Zeile,AdminAktuelleAufnahme);
-         
-         // NSNumber* ZeilenNummer=[NSNumber numberWithDouble:Zeile];
-         //NSMutableDictionary* tempZeilenDic=[NSMutableDictionary dictionaryWithObject:ZeilenNummer forKey:@"AufnahmenZeilenNummer"];
-         //[tempZeilenDic setObject:@"AufnahmenTable" forKey:@"Quelle"];
-         //NSNotificationCenter * nc;
-         //nc=[NSNotificationCenter defaultCenter];
-         //[nc postNotificationName:@"AdminChangeTab" object:tempZeilenDic];
-         //NSLog(@"AdminTabNotifikationAktion:  AdminView  Quelle: %@",Quelle);
+           //NSLog(@"AdminTabNotifikationAktion:  AdminView  Quelle: %@",Quelle);
          [AdminMarkCheckbox setState:NO];
          [LehrerMarkCheckbox setState:NO];
          [ExportierenTaste setEnabled:NO];
@@ -570,7 +571,7 @@ NSLog(@"tempName: %@",tempName);
          
          NSString* Lesername=[LesernamenPop titleOfSelectedItem];
          int LesernamenIndex=[AdminDaten ZeileVonLeser:Lesername];
-         //NSLog(@"Alle Namen: Lesername: %@, LesernamenIndex: %d",Lesername,LesernamenIndex);
+         NSLog(@"Alle Namen: Lesername: %@, LesernamenIndex: %d",Lesername,LesernamenIndex);
          [NamenListe selectRowIndexes:[NSIndexSet indexSetWithIndex:LesernamenIndex]byExtendingSelection:NO];
          
        //  [[[AdminDaten dataForRow:LesernamenIndex]objectForKey:@"aufnahmen"]setIntValue:Zeile];
@@ -598,6 +599,7 @@ NSLog(@"tempName: %@",tempName);
          [AufnahmenTable deselectAll:nil];
          [NamenListe deselectAll:NULL];
          [PlayTaste setEnabled:NO];
+         return 0;
       }
    }
 	
@@ -618,7 +620,7 @@ NSLog(@"tempName: %@",tempName);
       NSLog(@"aktuellerLeser: %@",self.AdminAktuellerLeser);
 
       [self setAufnahmenVonLeser:self.AdminAktuellerLeser];
-      NSLog(@"AufnahmenDicArray: %@",[AufnahmenDicArray description]);
+      //NSLog(@"AufnahmenDicArray: %@",[AufnahmenDicArray description]);
 		if ([NamenListe numberOfSelectedRows])//es ist eine zeile in der NamenListe selektiert
       {
          

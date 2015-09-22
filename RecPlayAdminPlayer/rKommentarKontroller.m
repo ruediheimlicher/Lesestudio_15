@@ -127,9 +127,9 @@ return [KommentarFenster nurMarkierte];
 	  }
 	nurMarkierteOption=0;
 	ProjektPfadOptionString=AdminProjektPfad;
-	NSLog(@"AdminProjektArray: %@",[AdminProjektArray description]);
+	//NSLog(@"AdminProjektArray: %@",[AdminProjektArray description]);
 	NSArray* StartProjektArray=[AdminProjektArray valueForKey:@"projekt"];
-	NSLog(@"StartProjektArray: %@",[StartProjektArray description]);
+	//NSLog(@"StartProjektArray: %@",[StartProjektArray description]);
 
 	[KommentarFenster setProjektMenu:StartProjektArray mitItem:[AdminProjektPfad lastPathComponent]];
 	
@@ -255,8 +255,8 @@ NSLog(@"AdminPlayer SaveKommentar");
 				{
 					tempKommentarArray=(NSMutableArray*)[self alleKommentareNachNamenAnProjektPfad:einProjektPfad 
 																						 bisAnzahl:AnzahlOption];
-					NSLog(@"Projekt: %@	tempKommentarArray: %@",[einProjektPfad lastPathComponent], [tempKommentarArray description]);
-					NSLog(@"\n\n\n");																	 
+					//NSLog(@"Projekt: %@	tempKommentarArray: %@",[einProjektPfad lastPathComponent], [tempKommentarArray description]);
+					//NSLog(@"\n\n\n");
 				}
 				else
 				{
@@ -429,8 +429,8 @@ NSLog(@"AdminPlayer SaveKommentar");
 											NSRange r=NSMakeRange(0,[tempString length]);
 											int anzn, anzr;
 											//NSLog(@"tempString orig: %s",[tempString cString]);
-											anzn=[tempString replaceOccurrencesOfString:@"\n" withString:@" " options:NSBackwardsSearch range:r];
-											anzr=[tempString replaceOccurrencesOfString:@"\r" withString:@" " options:NSBackwardsSearch range:r];
+											anzn=(int)[tempString replaceOccurrencesOfString:@"\n" withString:@" " options:NSBackwardsSearch range:r];
+											anzr=(int)[tempString replaceOccurrencesOfString:@"\r" withString:@" " options:NSBackwardsSearch range:r];
 											//NSLog(@"Zeilenwechsel in tempString: %s n: %d r: %d",[tempString cString],anzn,anzr);
 										}
 										[KommentarString appendFormat:@"%@%@",tempString,tabSeparator];
@@ -479,8 +479,8 @@ NSLog(@"AdminPlayer SaveKommentar");
 									{//Zeilenwechsel entfernen
 										NSRange r=NSMakeRange(0,[tempString length]);
 										int anz;
-										anz=[tempString replaceOccurrencesOfString:@"\n" withString:@" " options:NSBackwardsSearch range:r];
-										anz=[tempString replaceOccurrencesOfString:@"\r" withString:@" " options:NSBackwardsSearch range:r];
+										anz=(int)[tempString replaceOccurrencesOfString:@"\n" withString:@" " options:NSBackwardsSearch range:r];
+										anz=(int)[tempString replaceOccurrencesOfString:@"\r" withString:@" " options:NSBackwardsSearch range:r];
 									}
 									
 									
@@ -731,9 +731,9 @@ return tempProjektDicArray;
 							{
 								if ([[einProjektDic objectForKey:@"ok"]boolValue]&&[einProjektDic objectForKey:@"projektpfad"])
 								{
-									NSString* tempProjektName=[[einProjektDic objectForKey:@"projektpfad"]lastPathComponent];
+								//	NSString* tempProjektName=[[einProjektDic objectForKey:@"projektpfad"]lastPathComponent];
 									NSString* tempProjektPfad=[einProjektDic objectForKey:@"projektpfad"];
-									NSArray* tempProjektNamenArray=[self LeserArrayAnProjektPfad:tempProjektPfad];
+							//		NSArray* tempProjektNamenArray=[self LeserArrayAnProjektPfad:tempProjektPfad];
 									//NSLog(@"tempProjektNamenArray: %@",[tempProjektNamenArray description]);
 									//
 									//		Namen addieren
@@ -1155,7 +1155,7 @@ return tempProjektDicArray;
 		  //NSLog(@":   tempAufnahmen roh: %@",[tempAufnahmen description]);
 		  if ([tempAufnahmen count])//Aufnahmen vorhanden
 			{
-				int KommentarIndex=NSNotFound;
+				long KommentarIndex=NSNotFound;
 				KommentarIndex=[tempAufnahmen indexOfObject:locKommentar];
 				if (!(KommentarIndex==NSNotFound))
 				  {
@@ -1197,8 +1197,8 @@ return tempProjektDicArray;
 										NSMutableArray* tempZeilenArray=[[NSMutableArray alloc]initWithCapacity:0];
 										tempZeilenArray=[[tempKommentarMitTitelString componentsSeparatedByString:crSeparator]mutableCopy];
 										NSString* tempName=[tempZeilenArray objectAtIndex:0];
-										int n=[tempName length];
-										NSRange r=NSMakeRange(0,n-1);
+										int n=(int)[tempName length];
+										//NSRange r=NSMakeRange(0,n-1);
 										tempName=[[tempZeilenArray objectAtIndex:0]substringFromIndex:n];
 										tempName=[NSString stringWithFormat:@"%@  %@",@"  -  ",tempName];
 										//[tempZeilenArray replaceObjectAtIndex:0 withObject:@"\n    -"];
@@ -1209,7 +1209,7 @@ return tempProjektDicArray;
 						  
 										//
 			
-										NSString* redZeile=[tempZeilenArray componentsJoinedByString:@" "];
+										//NSString* redZeile=[tempZeilenArray componentsJoinedByString:@" "];
 										tempKommentarMitTitelString=[tempZeilenArray componentsJoinedByString:crSeparator];
 										
 									}
@@ -1259,7 +1259,7 @@ return KommentareVonLeserMitTitelArray;
 		  //NSLog(@":   tempAufnahmen roh: %@",[tempAufnahmen description]);
 		  if ([tempAufnahmen count])//Aufnahmen vorhanden
 		  {
-			  int KommentarIndex=NSNotFound;
+			  long KommentarIndex=NSNotFound;
 			  KommentarIndex=[tempAufnahmen indexOfObject:locKommentar];
 			  if (!(KommentarIndex==NSNotFound))
 			  {
@@ -1291,10 +1291,10 @@ return tempKommentar;
 - (NSArray*)KommentareMitTitel:(NSString*)derTitel 
 					  vonLeser:(NSString*)derLeser 
 				 anProjektPfad:(NSString*)derProjektPfad
-					   maximal:(int)dieAnzahl
+					   maximal:(long)dieAnzahl
 {
-	BOOL erfolg;
-	BOOL istDirectory;
+	//BOOL erfolg;
+	//BOOL istDirectory;
 	NSFileManager *Filemanager=[NSFileManager defaultManager];
 	//NSLog(@"KommentareMitTitel: mitTitel: %@  LeserPfad: %@ ",derTitel,derLeser);
 	NSMutableArray* KommentareMitTitelVonLeserArray=[[NSMutableArray alloc]initWithCapacity:0];
@@ -1308,7 +1308,7 @@ return tempKommentar;
 		  //NSLog(@":   tempAufnahmen roh: %@",[tempAufnahmen description]);
 		  if ([tempAufnahmen count])//Aufnahmen vorhanden
 			{
-				int KommentarIndex=NSNotFound;
+				long KommentarIndex=NSNotFound;
 				KommentarIndex=[tempAufnahmen indexOfObject:locKommentar];
 				if (!(KommentarIndex==NSNotFound))
 				  {
@@ -1374,7 +1374,7 @@ return KommentareMitTitelVonLeserArray;
 
 - (NSArray*)alleKommentareZuTitel:(NSString*)derTitel 
 					anProjektPfad:(NSString*)derProjektPfad
-						  maximal:(int)dieAnzahl
+						  maximal:(long)dieAnzahl
 {
 	NSLog(@"alleKommentareZuTitel: Titel: %@",derTitel);
 	BOOL erfolg;
@@ -1471,7 +1471,7 @@ return KommentareMitTitelVonLeserArray;
 
 
 
-- (NSArray*)alleKommentareNachTitelAnProjektPfad:(NSString*)derProjektPfad bisAnzahl:(int)dieAnzahl
+- (NSArray*)alleKommentareNachTitelAnProjektPfad:(NSString*)derProjektPfad bisAnzahl:(long)dieAnzahl
 {
 	//BOOL istDirectory;
 	NSMutableArray* alleKommentareNachTitelArray=[[NSMutableArray alloc]initWithCapacity:0];
@@ -1502,8 +1502,8 @@ return KommentareMitTitelVonLeserArray;
 
 - (NSString*)lastKommentarVonLeser:(NSString*)derLeser anProjektPfad:(NSString*)derProjektPfad
 {
-	BOOL erfolg;
-	BOOL istDirectory;
+	//BOOL erfolg;
+	//BOOL istDirectory;
 	NSString* locKommentar=@"Anmerkungen";
 
 	NSFileManager *Filemanager=[NSFileManager defaultManager];
@@ -1522,7 +1522,7 @@ return KommentareMitTitelVonLeserArray;
 		  if (tempAufnahmen && [tempAufnahmen count])//Aufnahmen vorhanden
 			{
 				NSLog(@"tempAufnahmen: %@",[tempAufnahmen description]);
-				int KommentarIndex=NSNotFound;
+				long KommentarIndex=NSNotFound;
 				KommentarIndex=[tempAufnahmen indexOfObject:locKommentar];
 				if (!(KommentarIndex==NSNotFound))
 				  {
@@ -1545,7 +1545,7 @@ return KommentareMitTitelVonLeserArray;
 							NSString* tempKommentarPfad=[tempLeserKommentarPfad stringByAppendingPathComponent:eineAufnahme];
 							if ([Filemanager fileExistsAtPath:tempKommentarPfad])//Kommentar fŸr diese Aufnahme ist da)
 							  {
-								  int n=[self AufnahmeNummerVon:eineAufnahme];
+								  long n=[self AufnahmeNummerVon:eineAufnahme];
 								  if (n>letzte)
 									{
 									  letzte=n;
@@ -1557,8 +1557,8 @@ return KommentareMitTitelVonLeserArray;
 						lastKommentarString=[NSString stringWithContentsOfFile:tempLeserKommentarPfad encoding:NSMacOSRomanStringEncoding error:NULL];
 						
                  NSDictionary* Attrs=[Filemanager attributesOfItemAtPath:tempLeserKommentarPfad error:NULL];
-						NSNumber *fsize, *refs, *owner;
-						NSDate *moddate;
+						NSNumber *fsize, *refs;
+						//NSDate *moddate;
 						if (Attrs) 
 						  {
 							if ((refs = [Attrs objectForKey:NSFilePosixPermissions]))
@@ -1593,7 +1593,7 @@ return lastKommentarString;
 					  anProjektPfad:(NSString*)derProjektPfad 
 						  bisAnzahl:(int)dieAnzahl
 {
-	BOOL erfolg;
+	//BOOL erfolg;
 	BOOL istDirectory;
 	NSFileManager *Filemanager=[NSFileManager defaultManager];
 	//NSLog(@"alleKommentarVonLeser: Leser: %@  derProjektPfad: %@  dieAnzahl: %d",derLeser ,derProjektPfad,dieAnzahl);
@@ -1620,7 +1620,7 @@ return lastKommentarString;
 					}
 				  
 				 //NSLog(@"\nalleKommentareVonLeser: %@  KommentareArray: %@",derLeser,[tempTitelArray description]);
-				 NSArray* sortArray=[self sortNachNummer:[tempTitelArray copy]];
+				 //NSArray* sortArray=[self sortNachNummer:[tempTitelArray copy]];
 				  tempTitelArray=(NSMutableArray*)[self sortNachNummer:tempTitelArray];
 				  //NSLog(@"\nalleKommentareVonLeser  nach sortArray: %@\n",[tempTitelArray description]);
  
@@ -1647,8 +1647,8 @@ return lastKommentarString;
 						  NSMutableArray* tempZeilenArray=[[NSMutableArray alloc]initWithCapacity:0];
 						  tempZeilenArray=[[tempKommentarString componentsSeparatedByString:crSeparator]mutableCopy];
 						  NSString* tempName=[tempZeilenArray objectAtIndex:0];
-						  int n=[tempName length];
-						  NSRange r=NSMakeRange(0,n-1);
+						  long n=[tempName length];
+						  //NSRange r=NSMakeRange(0,n-1);
 						  tempName=[[tempZeilenArray objectAtIndex:0]substringFromIndex:n];
 						  tempName=[NSString stringWithFormat:@"%@  %@",@"  -  ",tempName];
 						  //[tempZeilenArray replaceObjectAtIndex:0 withObject:@"\n    -"];
@@ -1660,7 +1660,7 @@ return lastKommentarString;
 						  //
 						  
 						  
-						  NSString* redZeile=[tempZeilenArray componentsJoinedByString:@" "];
+						 // NSString* redZeile=[tempZeilenArray componentsJoinedByString:@" "];
 						  tempKommentarString=[tempZeilenArray componentsJoinedByString:crSeparator];
 						}
 					  pos++;
@@ -1694,9 +1694,9 @@ return tempKommentareArray;
 
 - (NSArray*)lastKommentarVonAllenAnProjektPfad:(NSString*)derProjektPfad
 {
-	BOOL erfolg;
+//	BOOL erfolg;
 	BOOL istDirectory;
-	NSString* lastKommentarString=@"";//Anmerkungen in Tabelle mit 6 Kolonnen konvertieren \r";
+//	NSString* lastKommentarString=@"";//Anmerkungen in Tabelle mit 6 Kolonnen konvertieren \r";
 	NSFileManager *Filemanager=[NSFileManager defaultManager];
 	NSMutableArray* tempKommentarArray=[[NSMutableArray alloc]initWithCapacity:0];
 	NSMutableArray* LeserArray=[[NSMutableArray alloc]initWithCapacity:0];
@@ -1740,7 +1740,7 @@ return tempKommentarArray;
 
 - (NSString*)heutigeKommentareVon:(NSString*)derLeser
 {
-	BOOL erfolg;
+	//BOOL erfolg;
 	BOOL istDirectory;
 	NSFileManager *Filemanager=[NSFileManager defaultManager];
 	NSLog(@"heutigeKommentareVon: LeserPfad: %@",derLeser);
@@ -1797,14 +1797,14 @@ return heutigerKommentarString;
 
 
 
-- (NSArray*)alleKommentareNachNamenAnProjektPfad:(NSString*)derProjektPfad bisAnzahl:(int)dieAnzahl
+- (NSArray*)alleKommentareNachNamenAnProjektPfad:(NSString*)derProjektPfad bisAnzahl:(long)dieAnzahl
 {
-	BOOL erfolg;
+	//BOOL erfolg;
 	BOOL istDirectory;
 	NSMutableArray* alleKommentareArray=[[NSMutableArray alloc]initWithCapacity:0];
 
 	NSFileManager *Filemanager=[NSFileManager defaultManager];
-		NSMutableArray* tempKommentarArray=[[NSMutableArray alloc]initWithCapacity:0];
+		//NSMutableArray* tempKommentarArray=[[NSMutableArray alloc]initWithCapacity:0];
 		
 		NSMutableArray* LeserArray=[[NSMutableArray alloc]initWithCapacity:0];
 		NSString* tempProjektPfad=[AdminArchivPfad stringByAppendingPathComponent:[derProjektPfad lastPathComponent]];
@@ -1867,7 +1867,7 @@ return heutigerKommentarString;
 		  tempAufnahmenArray=(NSMutableArray*)[Filemanager contentsOfDirectoryAtPath:LeserPfad error:NULL];
 		  if ([tempAufnahmenArray count])//Aufnahmen vorhanden
 			{
-				int KommentarIndex=NSNotFound;
+				long KommentarIndex=NSNotFound;
 				KommentarIndex=[tempAufnahmenArray indexOfObject:locKommentar];
 				if (!(KommentarIndex==NSNotFound))
 				  {
@@ -1947,7 +1947,7 @@ return tempTitelArray;
 		  tempAufnahmenArray=(NSMutableArray*)[Filemanager contentsOfDirectoryAtPath:LeserPfad error:NULL];
 		  if ([tempAufnahmenArray count])//Aufnahmen vorhanden
 			{
-				int KommentarIndex=NSNotFound;
+				long KommentarIndex=NSNotFound;
 				KommentarIndex=[tempAufnahmenArray indexOfObject:locKommentar];
 				if (!(KommentarIndex==NSNotFound))
 				  {
@@ -2093,7 +2093,7 @@ return tempTitelArray;
 				tempAufnahmenArray=(NSMutableArray*)[Filemanager contentsOfDirectoryAtPath:LeserPfad error:NULL];
 				if ([tempAufnahmenArray count])//Aufnahmen vorhanden
 				{
-					int KommentarIndex=NSNotFound;
+					long KommentarIndex=NSNotFound;
 					KommentarIndex=[tempAufnahmenArray indexOfObject:locKommentar];
 					if (!(KommentarIndex==NSNotFound))
 					{
@@ -2165,7 +2165,7 @@ return tempLeserArray;
 	//NSLog(@"LeserArrayAnProjektPfad:  derProjektPfad: %@",derProjektPfad);
 	NSFileManager *Filemanager=[NSFileManager defaultManager];
 	
-	NSMutableArray* tempLeserArray=[[NSMutableArray alloc]initWithCapacity:0];
+//	NSMutableArray* tempLeserArray=[[NSMutableArray alloc]initWithCapacity:0];
 	//NSString* locKommentar=NSLocalizedString(@"Comments",@"Anmerkungen");
 	
 	NSMutableArray* tempProjektNamenArray=[[NSMutableArray alloc]initWithCapacity:0];
@@ -2221,7 +2221,7 @@ return tempProjektNamenArray;
 					tempAufnahmenArray=(NSMutableArray*)[Filemanager contentsOfDirectoryAtPath:LeserPfad error:NULL];
 					if ([tempAufnahmenArray count])//Aufnahmen vorhanden
 					{
-						int KommentarIndex=NSNotFound;
+						long KommentarIndex=NSNotFound;
 						KommentarIndex=[tempAufnahmenArray indexOfObject:locKommentar];
 						if (!(KommentarIndex==NSNotFound))
 						{
@@ -2292,8 +2292,8 @@ return tempLeserArray;
 
 - (NSString*)lastKommentarVonLeser:(NSString*)derLeser mitTitel:(NSString*)derTitel
 {
-	BOOL erfolg;
-	BOOL istDirectory;
+	//BOOL erfolg;
+	//BOOL istDirectory;
 	NSFileManager *Filemanager=[NSFileManager defaultManager];
 	NSLog(@"lastKommentarVonLeser: LeserPfad: %@ mitTitel: %@",derLeser,derTitel);
 	NSString* letzteAufnahme=@"xxx";
@@ -2327,7 +2327,7 @@ return tempLeserArray;
 						//NSLog(@"eineAufnahme: %@",eineAufnahme);
 						if ([[self AufnahmeTitelVon:eineAufnahme] isEqualToString:derTitel])
 						  {
-							int n=[self AufnahmeNummerVon:eineAufnahme];
+							long n=[self AufnahmeNummerVon:eineAufnahme];
 							if (n>letzte)
 							  {
 								letzte=n;
@@ -2384,7 +2384,7 @@ return lastKommentarMitTitelString;
 		  tempAufnahmenArray=(NSMutableArray*)[Filemanager contentsOfDirectoryAtPath:LeserPfad error:NULL];
 		  if ([tempAufnahmenArray count])//Aufnahmen vorhanden
 			{
-				int KommentarIndex=NSNotFound;
+				long KommentarIndex=NSNotFound;
 				KommentarIndex=[tempAufnahmenArray indexOfObject:locKommentar];
 				if (!(KommentarIndex==NSNotFound))
 				  {
@@ -2497,7 +2497,7 @@ return tempTitelDicArray;
 		  tempAufnahmenArray=(NSMutableArray*)[Filemanager contentsOfDirectoryAtPath:LeserPfad error:NULL];
 		  if ([tempAufnahmenArray count])//Aufnahmen vorhanden
 			{
-				int KommentarIndex=NSNotFound;
+				long KommentarIndex=NSNotFound;
 				KommentarIndex=[tempAufnahmenArray indexOfObject:locKommentar];
 				if (!(KommentarIndex==NSNotFound))
 				  {
@@ -2586,7 +2586,7 @@ return tempTitelDicArray;
 return tempTitelDicArray;
 }
 
-- (int)AufnahmeNummerVon:(NSString*) dieAufnahme
+- (long)AufnahmeNummerVon:(NSString*) dieAufnahme
 {
 	NSString* tempAufnahme=[dieAufnahme copy];
 	int posLeerstelle1=0;
@@ -2773,7 +2773,7 @@ return tempTitelDicArray;
 		  {
 		r=NSMakeRange(0,leerpos);
 		tempDatumString=[tempDatumString substringWithRange:r];
-		NSLog(@"DatumVon tempDatumString: %@", tempDatumString);
+		//NSLog(@"DatumVon tempDatumString: %@", tempDatumString);
 		  }
 		else
 		  {
@@ -2906,7 +2906,7 @@ return tempTitelDicArray;
 
 
 
-- (int)UserMarkVon:(NSString*)derKommentarString
+- (long)UserMarkVon:(NSString*)derKommentarString
 {
 int UserMark=0;
 	NSArray* tempMarkArray=[derKommentarString componentsSeparatedByString:@"\r"];
@@ -2928,7 +2928,7 @@ return UserMark;
 	tempArray =[derArray mutableCopy];
 	//return derArray;
 	//[derArray release];
-	int anz=[tempArray count];
+	long anz=[tempArray count];
 	BOOL tausch=YES;
 	int index=0;
 	int stop=0;
@@ -2962,7 +2962,7 @@ return UserMark;
 	tempArray =[derArray mutableCopy];
 	//return derArray;
 	//[derArray release];
-	int anz=[tempArray count];
+	long anz=[tempArray count];
 	BOOL tausch=YES;
 	int index=0;
 	int stop=0;
@@ -2992,7 +2992,7 @@ return UserMark;
 
 - (NSString*)alleKommentareVonHeute
 {
-	BOOL erfolg;
+//	BOOL erfolg;
 	BOOL istDirectory;
 	NSString* lastKommentarString=@"";//Anmerkungen in Tabelle mit 6 Kolonnen konvertieren \r";
 		NSFileManager *Filemanager=[NSFileManager defaultManager];

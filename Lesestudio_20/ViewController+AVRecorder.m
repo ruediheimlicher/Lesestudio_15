@@ -171,7 +171,7 @@
 
 - (IBAction)stopAVRecord:(id)sender
 {
-   NSLog(@"stopAVRecord");
+   //NSLog(@"stopAVRecord");
 
   [AVRecorder setRecording:NO mitLeserPfad:self.LeserPfad];
    
@@ -209,7 +209,7 @@
 - (IBAction)startAVStop:(id)sender
 {
    
-   NSLog(@"startAVStop state: %d",[sender state]);
+   //NSLog(@"startAVStop state: %d",[sender state]);
    NSImage* StartRecordImg=[NSImage imageNamed:@"recordicon_k.gif"];//
    
    
@@ -294,7 +294,7 @@
    [AVAbspielplayer playAufnahme];
    float dur = ([AVAbspielplayer duration]);
    [Abspielanzeige setMax:dur];
-   NSLog(@"startAVPlay dur: %f",dur);
+   NSLog(@"+AVRecorder startAVPlay dur: %f",dur);
    [Abspielanzeige setNeedsDisplay:YES];
    [self.ArchivAbspielanzeige setMax:dur];
    
@@ -356,7 +356,7 @@
       {
          case 0:
          {
-            NSLog(@"RecordingAktion Aufnahme stop");
+            //NSLog(@"RecordingAktion Aufnahme stop");
             aufnahmetimerstatus=0;
             
             // erfolg checken
@@ -378,7 +378,7 @@
                // Player vorbereiten
                if ([[note userInfo ] objectForKey:@"desturl"] && [[[[note userInfo ] objectForKey:@"desturl"]path]length])
                {
-                  NSLog(@"RecordingAktion desturl: %@",[[note userInfo ]objectForKey:@"desturl"]);
+                  //NSLog(@"RecordingAktion desturl: %@",[[note userInfo ]objectForKey:@"desturl"]);
                   NSURL* destURL = [[note userInfo ] objectForKey:@"desturl"];
                   self.hiddenAufnahmePfad = [destURL path];
                   [AVAbspielplayer prepareAufnahmeAnURL:destURL];
@@ -417,7 +417,7 @@
                [Warnung setAlertStyle:NSWarningAlertStyle];
                
                //[Warnung setIcon:RPImage];
-               int antwort=[Warnung runModal];
+               [Warnung runModal];
                
                NSLog(@"Fehler beim Sichern der Aufnahmen");
                
@@ -429,7 +429,7 @@
             
          case 1:
          {
-            NSLog(@"RecordingAktion Aufnahme gestartet");
+            //NSLog(@"RecordingAktion Aufnahme gestartet");
             aufnahmetimerstatus=1;
             AufnahmeZeit = 0;
             [Utils stopTimeout];
@@ -508,7 +508,7 @@
 //   NSLog(@"dur: %2.2f pos: %2.2f",dur,pos);
    if (dur - pos < 0.1)
    {
-      NSLog(@"Ende erreicht");
+      //NSLog(@"Ende erreicht");
       [self.SichernKnopf setEnabled:YES];
       //[AVAbspielplayer resetTimer];
    }
@@ -578,9 +578,9 @@
    }
   
 
-   NSLog(@"saveRecord tag: %ld Leser: %@ ",(long)[sender tag],self.Leser);
+   //NSLog(@"saveRecord tag: %ld Leser: %@ ",(long)[sender tag],self.Leser);
    
-   NSLog(@"anzProjekte vor: %d",[[self.ProjektArray valueForKey:@"projekt"]count]);
+   //NSLog(@"anzProjekte vor: %d",[[self.ProjektArray valueForKey:@"projekt"]count]);
 
    //NSLog(@"saveRecord hiddenAufnahmePfad: %@",self.hiddenAufnahmePfad);
    if ([self.Leser length]==0)
@@ -767,7 +767,7 @@
                NSError* err;
  
                NSMutableArray* tempArray =(NSMutableArray*)[[NSFileManager defaultManager] contentsOfDirectoryAtPath:self.LeserPfad error:&err];
-               NSLog(@"tempArray: %@",[tempArray description]);
+               //NSLog(@"tempArray: %@",[tempArray description]);
                
                if ([[tempArray objectAtIndex:0] hasPrefix:@".DS"]) //Unsichtbare Ordner
                {
@@ -778,7 +778,7 @@
                
                
                self.aktuellAnzAufnahmen = anz;
-               NSLog(@"move 1 anz: %f tempAufnahmePfad: %@",anz, tempAufnahmePfad);
+               //NSLog(@"move 1 anz: %f tempAufnahmePfad: %@",anz, tempAufnahmePfad);
                
                // Platz machen
                [[NSFileManager defaultManager] removeItemAtURL:[NSURL fileURLWithPath:self.hiddenAufnahmePfad] error:nil];
@@ -828,7 +828,7 @@
          
          
          //Leser zur Sessionliste zufügen
-         NSLog(@"anzProjekte nach: %lu",(unsigned long)[[self.ProjektArray valueForKey:@"projekt"]count]);
+         //NSLog(@"anzProjekte nach: %lu",(unsigned long)[[self.ProjektArray valueForKey:@"projekt"]count]);
          
          double ProjektIndex=[[self.ProjektArray valueForKey:@"projekt"] indexOfObject:[self.ProjektPfad lastPathComponent]];
          //NSLog(@"ProjektIndex: %d",ProjektIndex);
