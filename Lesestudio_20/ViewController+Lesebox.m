@@ -53,6 +53,8 @@ enum
    self.istSystemVolume=[Utils istSystemVolumeAnPfad:self.LeseboxPfad];
    //NSLog(@"Leseboxvorbereiten istSystemVolume: %d",self.istSystemVolume);
    
+   NSArray* checkArray = [Utils LeseboxCompleteAnPfad: self.LeseboxPfad];
+   NSLog(@"LeseboxComplete %@",checkArray);
    
    self.LeseboxOK=[Utils LeseboxValidAnPfad:self.LeseboxPfad aufSystemVolume:self.istSystemVolume];//Lesebox checken, ev einrichten
    //NSLog(@"Leseboxvorbereiten nach LeseboxOK: LeseboxOK: %d  self.istSystemVolume: %d",self.LeseboxOK,self.istSystemVolume);
@@ -2995,9 +2997,15 @@ enum
    PListPfad=[DataPath stringByAppendingPathComponent:PListName];
    
    //NSLog(@"PListPfad: %@",PListPfad);
-   //NSLog(@"***\n                saveSessionForUser: %@",[PListDic description]);
+   
+   NSLog(@"***\n   saveTitelListe           saveSessionForUser PList vorhanden : %@",[self.PListDic description]);
+
    
    NSMutableDictionary* tempPListDic=[[NSMutableDictionary alloc]initWithContentsOfFile:PListPfad];
+   
+   NSLog(@"***\n   saveTitelListe           saveSessionForUser PList aus Datei : %@",[tempPListDic description]);
+
+   
    if (tempPListDic)
    {
       if ([tempPListDic objectForKey:@"projektarray"])
@@ -3012,9 +3020,16 @@ enum
          {
             
          }
+         
+         
+         
       }//if projektarray
       
    }//if tempPListDic
+   
+   self.PListDic = tempPListDic;
+   NSLog(@"***\n      saveTitelListe     PList nach : %@",[self.PListDic description]);
+   
    
    BOOL PListOK=[tempPListDic writeToFile:PListPfad atomically:YES];
    NSLog(@"PListOK: %d",PListOK);
@@ -3848,7 +3863,7 @@ enum
 - (void)TitelListeAktion:(NSNotification*)note
 {
    //NSLog(@"\n\n\n			TitelListeAktion ProjektPfad: %@",ProjektPfad);
-   //NSLog(@"TitellisteAktion: ProjektArray Anfang: %@",[ProjektArray description]);
+   NSLog(@"TitellisteAktion: ProjektArray Anfang: %@",[self.ProjektArray description]);
    
    if ([[note userInfo] objectForKey:@"fix"])
    {
@@ -3865,13 +3880,13 @@ enum
       //NSLog(@"tempProjektNamenArray: %@",[tempProjektNamenArray description]);
       
       NSUInteger ProjektIndex=[tempProjektNamenArray indexOfObject:[self.ProjektPfad lastPathComponent]];
-      //NSLog(@"ProjektIndex: %d",ProjektIndex);
+      NSLog(@"ProjektIndex: %d",ProjektIndex);
       if (!(ProjektIndex == NSNotFound))
          
       {
          //NSLog(@"TitelListeAktion: Projekt ist da: %@ ",[ProjektPfad lastPathComponent]);
          NSDictionary* tempDic=[self.ProjektArray objectAtIndex:ProjektIndex];
-         //NSLog(@"tempDic: %@",[tempDic description]);
+         NSLog(@"tempDic: %@",[tempDic description]);
          [[self.ProjektArray objectAtIndex:ProjektIndex]setObject:tempTitelArray forKey:@"titelarray"];
       }
       

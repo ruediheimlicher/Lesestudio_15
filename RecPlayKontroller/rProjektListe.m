@@ -64,7 +64,7 @@
    [SchliessenTaste setEnabled:NO];
 	[[self window]makeFirstResponder:EingabeFeld];
 	//[SchliessenTaste setKeyEquivalent:@"\r"];
-   [ProjektTable setToolTip:@"Liste aller aktiven Projekte.\nAktive Projekte kkennen vom Leser ausgewaehlt werden.\nFixierte Titel kann der Leser nicht aendern."];
+   [ProjektTable setToolTip:@"Liste aller aktiven Projekte.\nAktive Projekte koennen vom Leser ausgewaehlt werden.\nFixierte Titel kann der Leser nicht aendern."];
    [EingabeFeld setToolTip:@"Name des neuen Projekts"];
    [FixTaste setToolTip:@"Titelfuer neue Aufnahmen fixieren.\nDie Liste der Titel kann im Menu 'Admin->Change Nameliste' veraendert werden."];
    [InListeTaste setToolTip:@"Einen neuen Projektordner einrichten und in der Liste einsetzen."];
