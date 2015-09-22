@@ -204,7 +204,7 @@ Setzt die Variablen in Utils.m nach den Vorgaben der PList bei beginn des Progra
          // ProjektOrder im Archiv
          NSMutableArray* tempProjektOrdnerArray = (NSMutableArray*)[Filemanager contentsOfDirectoryAtPath:tempArchivPfad error: &err];
          [tempProjektOrdnerArray removeObject:@".DS_Store"];
-         NSLog(@"tempProjektOrdnerArray: %@",tempProjektOrdnerArray);
+         //NSLog(@"tempProjektOrdnerArray: %@",tempProjektOrdnerArray);
          long anzProjekte = [tempProjektOrdnerArray count];
          if (anzProjekte)
          {
@@ -212,14 +212,14 @@ Setzt die Variablen in Utils.m nach den Vorgaben der PList bei beginn des Progra
             {
                
                NSString* tempProjekt = [tempProjektOrdnerArray objectAtIndex:projektindex];
-               NSLog(@"tempProjekt: %@",tempProjekt);
+               //NSLog(@"tempProjekt: %@",tempProjekt);
                NSString* tempProjektPfad = [tempArchivPfad stringByAppendingPathComponent:tempProjekt];
                if ([Filemanager fileExistsAtPath:tempProjektPfad isDirectory: &istDir] && istDir) // ProjektOrdner da
                {
                   // LeserOrdner im Projekt
                   NSMutableArray* tempLeserOrdnerArray = (NSMutableArray*)[Filemanager contentsOfDirectoryAtPath:tempProjektPfad error: &err];
                   [tempLeserOrdnerArray removeObject:@".DS_Store"];
-                  NSLog(@"tempLeserOrdnerArray: %@",tempLeserOrdnerArray);
+                 // NSLog(@"tempLeserOrdnerArray: %@",tempLeserOrdnerArray);
                   long anzLeser = [tempLeserOrdnerArray count];
                   if (anzLeser) // Leser vorhanden
                   {
@@ -227,7 +227,7 @@ Setzt die Variablen in Utils.m nach den Vorgaben der PList bei beginn des Progra
                      for (int leserindex=0;leserindex<anzLeser;leserindex++)
                      {
                         NSString* tempLeser = [tempLeserOrdnerArray objectAtIndex:leserindex];
-                        NSLog(@"leserindex: %d tempLeser: %@",leserindex,tempLeser);
+                        //NSLog(@"leserindex: %d tempLeser: %@",leserindex,tempLeser);
                         NSString* tempLeserPfad = [tempProjektPfad stringByAppendingPathComponent:tempLeser];
                         if ([Filemanager fileExistsAtPath:tempLeserPfad isDirectory: &istDir] && istDir) // LeserOrdner da
                         {
@@ -239,7 +239,7 @@ Setzt die Variablen in Utils.m nach den Vorgaben der PList bei beginn des Progra
                            if ([tempAufnahmenArray indexOfObject:@"Anmerkungen"] == NSNotFound) // nicht vorhanden
                            {
                               int erfolg = [Filemanager createDirectoryAtPath:tempAnmerkungenPfad withIntermediateDirectories:NO attributes:nil error: &err];
-                              NSLog(@"neuer AnmerkungenOrdner angelegt: %d",erfolg);
+                              //NSLog(@"neuer AnmerkungenOrdner angelegt: %d",erfolg);
                               
                               [LeseboxFehlerArray addObject:[NSString stringWithFormat:@"Projekt: %@\t Leser: %@\t Neuer AnmerkungenOrdner angelegt: %d",tempProjekt,tempLeser, erfolg]];
                               if (erfolg == 0)
@@ -266,7 +266,7 @@ Setzt die Variablen in Utils.m nach den Vorgaben der PList bei beginn des Progra
                                  NSString* checkAnmerkung = [anmerkungliste objectAtIndex:anmerkungindex];
                                  // Name der Aufnahme zur checkAnmerkung
                                  NSString* checkAufnahme = [[checkAnmerkung stringByDeletingPathExtension]stringByAppendingPathExtension:@"m4a"];
-                                 NSLog(@"index: %d checkAnmerkung: %@  checkAufnahme: %@",anmerkungindex,checkAnmerkung,checkAufnahme);
+                                 //NSLog(@"index: %d checkAnmerkung: %@  checkAufnahme: %@",anmerkungindex,checkAnmerkung,checkAufnahme);
                                  
                                  if ([tempAufnahmenArray indexOfObject:checkAufnahme] == NSNotFound) // Keine Aufnahme zur Anmerkung
                                  {
@@ -282,9 +282,9 @@ Setzt die Variablen in Utils.m nach den Vorgaben der PList bei beginn des Progra
                                  
                                  
                               }
-                              NSLog(@"LeseboxFehlerArray: %@",LeseboxFehlerArray);
+                              //NSLog(@"LeseboxFehlerArray: %@",LeseboxFehlerArray);
                            }// if tempAnmerkungArray count
-                           NSLog(@"Rest Anmerkungen: tempAnmerkungArray: %@",tempAnmerkungArray);
+                           //NSLog(@"Rest Anmerkungen: tempAnmerkungArray: %@",tempAnmerkungArray);
                            
                            // fehlende Anmerkungen einsetzen
                            
@@ -292,7 +292,7 @@ Setzt die Variablen in Utils.m nach den Vorgaben der PList bei beginn des Progra
                             {
                                NSString* tempAufnahme = [tempAufnahmenArray objectAtIndex:aufnahmenindex];
                                NSString* tempAnmerkung = [[tempAufnahme stringByDeletingPathExtension]stringByAppendingPathExtension:@"txt"];
-                               NSLog(@"tempAufnahme: %@ tempAnmerkung: %@",tempAufnahme,tempAnmerkung);
+                               //NSLog(@"tempAufnahme: %@ tempAnmerkung: %@",tempAufnahme,tempAnmerkung);
                                if ([anmerkungliste indexOfObject:tempAnmerkung] == NSNotFound) // Anmerkung fuer Aufnahme nicht da
                                {
                                   NSString* neueAnmerkungPfad = [tempAnmerkungenPfad stringByAppendingPathComponent:tempAnmerkung];

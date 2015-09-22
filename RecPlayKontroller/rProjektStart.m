@@ -282,6 +282,14 @@ extern const int StartmitDialog;//=2;
                if (([einProjektDic objectForKey:@"OK"]&&[[einProjektDic objectForKey:@"OK"]boolValue])
                    ||([einProjektDic objectForKey:@"ok"]&&[[einProjektDic objectForKey:@"ok"]boolValue]))
                {
+                  NSString* tempProjektPfad = [einProjektDic objectForKey:@"projektpfad"];
+                  BOOL isDir=0;
+                  if ([[NSFileManager defaultManager]fileExistsAtPath:tempProjektPfad isDirectory: &isDir] && isDir)
+                  {
+                     long anznamen = [[[NSFileManager defaultManager]contentsOfDirectoryAtPath:tempProjektPfad error:nil]count];
+                     //NSLog(@"setProjektArray anznamen: %ld",anznamen);
+                     [einProjektDic setObject:[NSNumber numberWithLong:anznamen] forKey:@"anznamen"];
+                  }
                   [ProjektArray addObject:[einProjektDic copy]];
                }
             }

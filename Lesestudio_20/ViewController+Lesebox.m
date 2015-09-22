@@ -54,7 +54,7 @@ enum
    //NSLog(@"Leseboxvorbereiten istSystemVolume: %d",self.istSystemVolume);
    
    NSArray* checkArray = [Utils LeseboxCompleteAnPfad: self.LeseboxPfad];
-   NSLog(@"LeseboxComplete %@",checkArray);
+   NSLog(@"LeseboxComplete *%@*",checkArray);
    
    self.LeseboxOK=[Utils LeseboxValidAnPfad:self.LeseboxPfad aufSystemVolume:self.istSystemVolume];//Lesebox checken, ev einrichten
    //NSLog(@"Leseboxvorbereiten nach LeseboxOK: LeseboxOK: %d  self.istSystemVolume: %d",self.LeseboxOK,self.istSystemVolume);
@@ -3001,6 +3001,25 @@ enum
    NSLog(@"***\n   saveTitelListe           saveSessionForUser PList vorhanden : %@",[self.PListDic description]);
 
    
+   // TitelArray in ProjektArray einsetzen
+   NSUInteger ProjektIndex=[[self.ProjektArray valueForKey:@"projekt"]indexOfObject:dasProjekt];
+   if (ProjektIndex<NSNotFound)//Projekt ist da
+   {
+      [[self.ProjektArray objectAtIndex:ProjektIndex]setObject:[dieTitelListe copy]forKey:@"titelarray"];
+   }
+   NSLog(@"self.ProjektArray objectAtIndex:ProjektIndex: %@",[self.ProjektArray objectAtIndex:ProjektIndex]);
+   
+   
+   // TitelArray in PList einsetzen
+   NSMutableArray* tempProjektArray=[self.PListDic objectForKey:@"projektarray"];
+   NSUInteger PListIndex=[[tempProjektArray valueForKey:@"projekt"]indexOfObject:dasProjekt];
+   if (PListIndex<NSNotFound)//Projekt ist da
+   {
+      [[[self.PListDic objectForKey:@"projektarray"] objectAtIndex:PListIndex]setObject:[dieTitelListe copy]forKey:@"titelarray"];
+      
+   }//if notFound
+
+   /*
    NSMutableDictionary* tempPListDic=[[NSMutableDictionary alloc]initWithContentsOfFile:PListPfad];
    
    NSLog(@"***\n   saveTitelListe           saveSessionForUser PList aus Datei : %@",[tempPListDic description]);
@@ -3026,12 +3045,12 @@ enum
       }//if projektarray
       
    }//if tempPListDic
-   
-   self.PListDic = tempPListDic;
+  */
+   //self.PListDic = tempPListDic;
    NSLog(@"***\n      saveTitelListe     PList nach : %@",[self.PListDic description]);
    
    
-   BOOL PListOK=[tempPListDic writeToFile:PListPfad atomically:YES];
+   BOOL PListOK=[self.PListDic writeToFile:PListPfad atomically:YES];
    NSLog(@"PListOK: %d",PListOK);
    
    //[tempUserInfo release];
@@ -3887,7 +3906,7 @@ enum
          //NSLog(@"TitelListeAktion: Projekt ist da: %@ ",[ProjektPfad lastPathComponent]);
          NSDictionary* tempDic=[self.ProjektArray objectAtIndex:ProjektIndex];
          NSLog(@"tempDic: %@",[tempDic description]);
-         [[self.ProjektArray objectAtIndex:ProjektIndex]setObject:tempTitelArray forKey:@"titelarray"];
+ //        [[self.ProjektArray objectAtIndex:ProjektIndex]setObject:tempTitelArray forKey:@"titelarray"];
       }
       
       [self saveTitelListe:tempTitelArray inProjekt:[self.ProjektPfad lastPathComponent]];
