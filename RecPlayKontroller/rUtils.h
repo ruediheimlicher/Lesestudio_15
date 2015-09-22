@@ -95,7 +95,7 @@
 - (void)stopTimeout;
 
 - (BOOL)createKommentarFuerLeser:(NSString*)derLeser FuerAufnahmePfad:(NSString*)derAufnahmePfad;
-
+- (BOOL)createKommentarFuerAufnahmePfad:(NSString*)derAufnahmePfad;
 - (BOOL)setKommentar:(NSString*)derKommentarString inAufnahmeAnPfad:(NSString*)derAufnahmePfad;
 - (NSString*)KommentarStringVonAufnahmeAnPfad:(NSString*)derAufnahmePfad;
 
@@ -108,6 +108,7 @@
 - (NSString *)stringTrimmedForLeadingAndTrailingWhiteSpacesFromString:(NSString *)string;
 - (NSString *)stringByTrimmingLeadingCharactersInString:(NSString*)checkString InSet:(NSCharacterSet *)characterSet;
 - (NSString *)stringByTrimmingTrailingCharactersInString:(NSString*)checkString InSet:(NSCharacterSet *)characterSet;
-- (NSString *)stringByTrimmingLeadingAndTrailingWhiteSpacesInString:(NSString*)checkString
-;
+- (NSString *)stringByTrimmingLeadingAndTrailingWhiteSpacesInString:(NSString*)checkString;
+- (NSArray*)LeseboxCompleteAnPfad:(NSString*)leseboxpfad;
+
 @end

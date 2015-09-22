@@ -4360,7 +4360,7 @@ QTMovie* qtMovie;
          [self resetArchivPlayer:nil];
          [self.ArchivView deselectAll:NULL];
          [self.ArchivnamenPop setEnabled:YES];
-         [self.RecPlayFenster makeFirstResponder:self.RecPlayFenster];
+         [self.RecPlayFenster makeFirstResponder:self.view.window];
          
          //umschalten=YES;
       }

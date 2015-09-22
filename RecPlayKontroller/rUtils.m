@@ -186,6 +186,161 @@ Setzt die Variablen in Utils.m nach den Vorgaben der PList bei beginn des Progra
 //*******************************
 #pragma mark -
 
+
+- (NSArray*)LeseboxCompleteAnPfad:(NSString*)leseboxpfad
+{
+   BOOL istDir=0;
+   NSError* err;
+   NSMutableArray* LeseboxFehlerArray = [[NSMutableArray alloc]initWithCapacity:0];
+   [LeseboxFehlerArray addObject:leseboxpfad];
+   
+   NSFileManager *Filemanager = [NSFileManager defaultManager];
+   if ([Filemanager fileExistsAtPath:leseboxpfad isDirectory: &istDir] && istDir) // Lesebox da
+   {
+      
+      NSString* tempArchivPfad = [leseboxpfad stringByAppendingPathComponent:@"Archiv"];
+      if ([Filemanager fileExistsAtPath:tempArchivPfad isDirectory: &istDir] && istDir) // Archiv da
+      {
+         // ProjektOrder im Archiv
+         NSMutableArray* tempProjektOrdnerArray = (NSMutableArray*)[Filemanager contentsOfDirectoryAtPath:tempArchivPfad error: &err];
+         [tempProjektOrdnerArray removeObject:@".DS_Store"];
+         NSLog(@"tempProjektOrdnerArray: %@",tempProjektOrdnerArray);
+         long anzProjekte = [tempProjektOrdnerArray count];
+         if (anzProjekte)
+         {
+            for (int projektindex=0;projektindex <[tempProjektOrdnerArray count];projektindex++)
+            {
+               
+               NSString* tempProjekt = [tempProjektOrdnerArray objectAtIndex:projektindex];
+               NSLog(@"tempProjekt: %@",tempProjekt);
+               NSString* tempProjektPfad = [tempArchivPfad stringByAppendingPathComponent:tempProjekt];
+               if ([Filemanager fileExistsAtPath:tempProjektPfad isDirectory: &istDir] && istDir) // ProjektOrdner da
+               {
+                  // LeserOrdner im Projekt
+                  NSMutableArray* tempLeserOrdnerArray = (NSMutableArray*)[Filemanager contentsOfDirectoryAtPath:tempProjektPfad error: &err];
+                  [tempLeserOrdnerArray removeObject:@".DS_Store"];
+                  NSLog(@"tempLeserOrdnerArray: %@",tempLeserOrdnerArray);
+                  long anzLeser = [tempLeserOrdnerArray count];
+                  if (anzLeser) // Leser vorhanden
+                  {
+                     
+                     for (int leserindex=0;leserindex<anzLeser;leserindex++)
+                     {
+                        NSString* tempLeser = [tempLeserOrdnerArray objectAtIndex:leserindex];
+                        NSLog(@"leserindex: %d tempLeser: %@",leserindex,tempLeser);
+                        NSString* tempLeserPfad = [tempProjektPfad stringByAppendingPathComponent:tempLeser];
+                        if ([Filemanager fileExistsAtPath:tempLeserPfad isDirectory: &istDir] && istDir) // LeserOrdner da
+                        {
+                           NSMutableArray* tempAufnahmenArray = (NSMutableArray*)[Filemanager contentsOfDirectoryAtPath:tempLeserPfad error: &err];
+                           [tempAufnahmenArray removeObject:@".DS_Store"];
+                           long anzAufnahmen = [tempAufnahmenArray count];
+                           // Anmerkungenordner da?
+                           NSString* tempAnmerkungenPfad = [tempLeserPfad stringByAppendingPathComponent:@"Anmerkungen"];
+                           if ([tempAufnahmenArray indexOfObject:@"Anmerkungen"] == NSNotFound) // nicht vorhanden
+                           {
+                              int erfolg = [Filemanager createDirectoryAtPath:tempAnmerkungenPfad withIntermediateDirectories:NO attributes:nil error: &err];
+                              NSLog(@"neuer AnmerkungenOrdner angelegt: %d",erfolg);
+                              
+                              [LeseboxFehlerArray addObject:[NSString stringWithFormat:@"Projekt: %@\t Leser: %@\t Neuer AnmerkungenOrdner angelegt: %d",tempProjekt,tempLeser, erfolg]];
+                              if (erfolg == 0)
+                              {
+                                 return LeseboxFehlerArray;
+                              }
+                              
+                           }
+                           // Anmerkungen sind da
+                           NSMutableArray* tempAnmerkungArray = (NSMutableArray*)[Filemanager contentsOfDirectoryAtPath:tempAnmerkungenPfad error: &err];
+                           
+                           
+                           [tempAnmerkungArray removeObject:@".DS_Store"];
+                           
+                           // Liste der Namen der Anmerkungen
+                           NSArray* anmerkungliste = (NSArray*)tempAnmerkungArray;
+                           [tempAufnahmenArray removeObject:@"Anmerkungen"];
+                           
+                           // check ob zu jeder Aufnahme eine Anmerkung vorhanden ist. Fehlende anlegen, falsche entfernen
+                           if ([anmerkungliste count])
+                           {
+                              for (int anmerkungindex=0;anmerkungindex < [tempAnmerkungArray count];anmerkungindex++ )
+                              {
+                                 NSString* checkAnmerkung = [anmerkungliste objectAtIndex:anmerkungindex];
+                                 // Name der Aufnahme zur checkAnmerkung
+                                 NSString* checkAufnahme = [[checkAnmerkung stringByDeletingPathExtension]stringByAppendingPathExtension:@"m4a"];
+                                 NSLog(@"index: %d checkAnmerkung: %@  checkAufnahme: %@",anmerkungindex,checkAnmerkung,checkAufnahme);
+                                 
+                                 if ([tempAufnahmenArray indexOfObject:checkAufnahme] == NSNotFound) // Keine Aufnahme zur Anmerkung
+                                 {
+                                    [tempAnmerkungArray removeObject:checkAnmerkung]; // falsche Anmerkung entfernen
+                                    NSString* entfernenPfad = [tempAnmerkungenPfad stringByAppendingPathComponent:checkAnmerkung];
+                                    int erfolg = [Filemanager removeItemAtPath:entfernenPfad error: &err];
+                                    if (erfolg == 0)
+                                    {
+                                       [LeseboxFehlerArray addObject:[NSString stringWithFormat:@"Projekt: %@\t Leser: %@\t Anmerkungen entfernt: %@ checkAnmerkung erfolg: %d",tempProjekt,tempLeser, checkAnmerkung,erfolg]];
+
+                                    }
+                                 }
+                                 
+                                 
+                              }
+                              NSLog(@"LeseboxFehlerArray: %@",LeseboxFehlerArray);
+                           }// if tempAnmerkungArray count
+                           NSLog(@"Rest Anmerkungen: tempAnmerkungArray: %@",tempAnmerkungArray);
+                           
+                           // fehlende Anmerkungen einsetzen
+                           
+                            for (int aufnahmenindex=0;aufnahmenindex < [tempAufnahmenArray count];aufnahmenindex++)
+                            {
+                               NSString* tempAufnahme = [tempAufnahmenArray objectAtIndex:aufnahmenindex];
+                               NSString* tempAnmerkung = [[tempAufnahme stringByDeletingPathExtension]stringByAppendingPathExtension:@"txt"];
+                               NSLog(@"tempAufnahme: %@ tempAnmerkung: %@",tempAufnahme,tempAnmerkung);
+                               if ([anmerkungliste indexOfObject:tempAnmerkung] == NSNotFound) // Anmerkung fuer Aufnahme nicht da
+                               {
+                                  NSString* neueAnmerkungPfad = [tempAnmerkungenPfad stringByAppendingPathComponent:tempAnmerkung];
+                                  NSLog(@"neueAnmerkungPfad: %@",neueAnmerkungPfad);
+                                  int erfolg= [self createKommentarFuerAufnahmePfad:neueAnmerkungPfad];
+                                  
+                                  [LeseboxFehlerArray addObject:[NSString stringWithFormat:@"Projekt: %@\t Leser: %@\t neue Anmerkungen: %@ checkAnmerkung erfolg: %d",tempProjekt,tempLeser, tempAnmerkung,erfolg]];
+                              
+
+                               }
+                               
+                            }// for aufnahmenindex
+
+                        
+                        }// LeserOrdner da
+                        
+                     }// for leserindex
+                  }// anzLeser
+                  
+               }
+               
+               
+            }// for projektindex
+         }// anzProjekte
+         
+         
+         
+         
+         
+      }// Archiv
+      else
+      {
+         [LeseboxFehlerArray addObject:[NSString stringWithFormat:@"Kein ArchivOrdner da an Pfad: %@",leseboxpfad]];
+         
+         //return -100;
+      }
+      
+   }// leseboxpfad
+   else
+   {
+      [LeseboxFehlerArray addObject:[NSString stringWithFormat:@"Keine Lesebox da an Pfad: %@",leseboxpfad]];
+      
+      //return -10;
+   }
+   
+   return (NSArray*)LeseboxFehlerArray;
+}
+
 - (NSString*)checkHomeLesebox
 {
 /*
@@ -2812,58 +2967,141 @@ if (UTimeoutDialogPanel)
 
 - (BOOL)createKommentarFuerLeser:(NSString*)derLeser FuerAufnahmePfad:(NSString*)derAufnahmePfad
 {
+   //NSLog(@"Utils createKommentarFuerLeser Leser: %@ Pfad: %@",derLeser, derAufnahmePfad);
+   
+   BOOL erfolg;
+   BOOL istDirectory;
+   NSFileManager *Filemanager=[NSFileManager defaultManager];
+   
+   NSString* tempLeser=[derLeser copy];
+   //[tempLeser retain];
+   if ([tempLeser length]==0)
+   {
+      NSLog(@"saveKommentarFuerLeser: Kein Leser");
+      return NO;
+   }
+   NSString* tempAufnahme=[derAufnahmePfad lastPathComponent];	//Name der Aufnahme
+   NSString* tempLeserOrdnerPfad=[derAufnahmePfad stringByDeletingLastPathComponent];	//Leserordnerpfad
+   NSString* KommentarOrdnerString=@"Anmerkungen";
+   NSString* tempKommentarOrdnerPfad=[tempLeserOrdnerPfad stringByAppendingPathComponent:KommentarOrdnerString];
+   //Pfad des Anmerkungen-Ordners
+   if (![Filemanager fileExistsAtPath:tempKommentarOrdnerPfad isDirectory:&istDirectory])//noch kein Kommentarordner des Lesers ist da
+   {
+      erfolg=[Filemanager createDirectoryAtPath:tempKommentarOrdnerPfad  withIntermediateDirectories:NO attributes:NULL error:NULL];
+      if (!erfolg)
+      {
+         NSLog(@"Kommentarordner einrichten misslungen");
+         return erfolg;
+      }
+      
+   }
+   //NSLog(@"in saveKommentarFuerLeser: Kommentarordner da");
+   
+   
+   
+   
+   
+   NSString* tempKommentarPfad=[tempKommentarOrdnerPfad stringByAppendingPathComponent:tempAufnahme];
+   NSString* tempKommentarString;
+   NSString* tempKopfString;
+   //	NSLog(@"in createKommentarFuerLeser: tempKommentarOrdnerPfad %@",tempKommentarOrdnerPfad);
+   
+   
+   //Kopfstring aufbauen
+   tempKopfString=[NSString stringWithString:derLeser];
+   tempKopfString=[tempKopfString stringByAppendingString:@"\r"];
+   if ([tempAufnahme length]>1)
+   {
+      tempKopfString=[tempKopfString stringByAppendingString:tempAufnahme];
+   }
+   else
+   {
+      tempKopfString=[tempKopfString stringByAppendingString:@"Kein Titel"];
+   }
+   //	NSLog(@"in createKommentarFuerLeser tempKopfString mit titel: %@",tempKopfString);
+   
+   tempKopfString=[tempKopfString stringByAppendingString:@"\r"];
+   
+   NSNumber *AufnahmeSize;
+   
+   
+   //Heutiges Datum einsetzen
+   //	NSCalendarDate* tempDatum=[[NSCalendarDate calendarDate]dateWithCalendarFormat:@"%d.%m.%Y %H:%M:%S" timeZone:nil];
+   
+   //	NSLog(@"tempDatum: %@",[tempDatum description]);
+   tempKopfString=[tempKopfString stringByAppendingString:heuteDatumString];
+   
+   //	NSLog(@"in createKommentarFuerLeser tempKopfString mit Datum: %@",tempKopfString);
+   
+   tempKopfString=[tempKopfString stringByAppendingString:@"\r"];
+   
+   NSString* BewertungString=@" ";
+   tempKopfString=[tempKopfString stringByAppendingString:BewertungString];
+   tempKopfString=[tempKopfString stringByAppendingString:@"\r"];
+   //NSLog(@"saveKommentar	tempKopfString mit Bewertungstring: %@",tempKopfString);
+   
+   NSString* NotenString=@"-";
+   tempKopfString=[tempKopfString stringByAppendingString:NotenString];
+   tempKopfString=[tempKopfString stringByAppendingString:@"\r"];
+   //	NSLog(@"saveKommentar	tempKopfString mit Notenstring: %@",tempKopfString);
+   
+   NSString* UserMarkString=@"0";
+   tempKopfString=[tempKopfString stringByAppendingString:UserMarkString];
+   tempKopfString=[tempKopfString stringByAppendingString:@"\r"];
+   
+   NSString* AdminMarkString=@"0";
+   tempKopfString=[tempKopfString stringByAppendingString:AdminMarkString];
+   tempKopfString=[tempKopfString stringByAppendingString:@"\r"];
+   
+   
+   //	NSLog(@"createKommentar	tempKopfString mit UserMarkString: %@",tempKopfString);
+   
+   
+   // Dummy-Anmerkung einfügen
+   NSString* tempKommentarViewString=  tempKommentarString=[tempKopfString stringByAppendingString:@"--"];
+   //	NSLog(@"createKommentar	tempKommentarViewString : %@",tempKommentarViewString);
+   
+   NSData* tempData=[tempKommentarViewString dataUsingEncoding:NSMacOSRomanStringEncoding allowLossyConversion:NO];
+   NSMutableDictionary* AufnahmeAttribute=[[NSMutableDictionary alloc]initWithCapacity:0];
+	  
+   NSNumber* POSIXNumber=[NSNumber numberWithInt:438];
+	  
+   [AufnahmeAttribute setObject:POSIXNumber forKey:NSFilePosixPermissions];
+	  
+   erfolg=[Filemanager createFileAtPath:tempKommentarPfad contents:tempData attributes:AufnahmeAttribute]; 
+   
+   
+   //	NSLog(@"createKommentar: erfolg: %d",erfolg);
+   
+   return erfolg;
+   
+}
+
+
+- (BOOL)createKommentarFuerAufnahmePfad:(NSString*)derAufnahmePfad
+{
 	//NSLog(@"Utils createKommentarFuerLeser Leser: %@ Pfad: %@",derLeser, derAufnahmePfad);
 	
 	BOOL erfolg;
 	BOOL istDirectory; 
 	NSFileManager *Filemanager=[NSFileManager defaultManager];
 	
-	NSString* tempLeser=[derLeser copy];
-	//[tempLeser retain];
-	if ([tempLeser length]==0)
-	{
-		NSLog(@"saveKommentarFuerLeser: Kein Leser");
-		return NO;
-	}
-	NSString* tempAufnahme=[derAufnahmePfad lastPathComponent];	//Name der Aufnahme
-	NSString* tempLeserOrdnerPfad=[derAufnahmePfad stringByDeletingLastPathComponent];	//Leserordnerpfad
-	NSString* KommentarOrdnerString=@"Anmerkungen";
-	NSString* tempKommentarOrdnerPfad=[tempLeserOrdnerPfad stringByAppendingPathComponent:KommentarOrdnerString];
-				//Pfad des Anmerkungen-Ordners
-	if (![Filemanager fileExistsAtPath:tempKommentarOrdnerPfad isDirectory:&istDirectory])//noch kein Kommentarordner des Lesers ist da
-	{
-		erfolg=[Filemanager createDirectoryAtPath:tempKommentarOrdnerPfad  withIntermediateDirectories:NO attributes:NULL error:NULL];
-		if (!erfolg)
-		{
-			NSLog(@"Kommentarordner einrichten misslungen");
-			return erfolg;
-		}
-		
-	}
-	//NSLog(@"in saveKommentarFuerLeser: Kommentarordner da");
-	
+   
 				
 				
-				
-				
-	NSString* tempKommentarPfad=[tempKommentarOrdnerPfad stringByAppendingPathComponent:tempAufnahme];
 	NSString* tempKommentarString;
 	NSString* tempKopfString;
 //	NSLog(@"in createKommentarFuerLeser: tempKommentarOrdnerPfad %@",tempKommentarOrdnerPfad);
 	
-	
+   NSString* tempLeser = [[[[derAufnahmePfad stringByDeletingPathExtension]stringByDeletingLastPathComponent]stringByDeletingLastPathComponent]lastPathComponent];
+   
 	//Kopfstring aufbauen
-	tempKopfString=[NSString stringWithString:derLeser];
+	tempKopfString=[NSString stringWithString:tempLeser];
 	tempKopfString=[tempKopfString stringByAppendingString:@"\r"];
-	if ([tempAufnahme length]>1)
-	{
-		tempKopfString=[tempKopfString stringByAppendingString:tempAufnahme];
-	}
-	else
-	{
-		tempKopfString=[tempKopfString stringByAppendingString:@"Kein Titel"];
-	}
-//	NSLog(@"in createKommentarFuerLeser tempKopfString mit titel: %@",tempKopfString);
+   
+   tempKopfString=[tempKopfString stringByAppendingString:[[derAufnahmePfad stringByDeletingPathExtension]lastPathComponent]];
+   
+	NSLog(@"in createKommentarAufnahmepfad tempKopfString mit titel: %@",tempKopfString);
 
 	tempKopfString=[tempKopfString stringByAppendingString:@"\r"];
 	
@@ -2913,7 +3151,7 @@ if (UTimeoutDialogPanel)
 	  
 	[AufnahmeAttribute setObject:POSIXNumber forKey:NSFilePosixPermissions];
 	  
-	erfolg=[Filemanager createFileAtPath:tempKommentarPfad contents:tempData attributes:AufnahmeAttribute]; 
+	erfolg=[Filemanager createFileAtPath:derAufnahmePfad contents:tempData attributes:AufnahmeAttribute];
 	
 	
 //	NSLog(@"createKommentar: erfolg: %d",erfolg);
