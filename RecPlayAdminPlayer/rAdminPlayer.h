@@ -167,7 +167,7 @@
 
 @property (weak)  IBOutlet NSButton*					KommentarfensterKnopf;
 
-@property (strong) NSString*                         AdminAktuellerLeser;
+@property (strong) NSString*                       AdminAktuellerLeser;
 
 //@property (assign) IBOutlet NSButton*              MarkCheckbox;
 

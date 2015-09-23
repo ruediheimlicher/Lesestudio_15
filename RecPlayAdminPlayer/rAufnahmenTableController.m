@@ -508,13 +508,42 @@ NSLog(@"tempName: %@",tempName);
 - (void)tabView:(NSTabView *)tabView didSelectTabViewItem:(NSTabViewItem *)tabViewItem
 {
    //NSLog(@"tabView didSelectTabViewItem");
-   if ([[tabViewItem identifier]intValue]==1)//zurück zu 'alle Aufnahmen'
+   if ([[tabViewItem identifier]intValue]==2)//zu 'alle nach Namen'
    {
+      
       long zeile=[NamenListe selectedRow];
-      //NSLog(@"tabView didSelectTabViewItem zeile: %ld",zeile);
-      AdminAktuelleAufnahme=[[AufnahmenDicArray objectAtIndex:zeile]objectForKey:@"aufnahme"];
+      NSLog(@"tabView didSelectTabViewItem zeile: %ld AufnahmenDicArray: %@",zeile,AufnahmenDicArray );
+      
+      AdminAktuelleAufnahme=[[AufnahmenDicArray objectAtIndex:0]objectForKey:@"aufnahme"];
 
-       [self setLeserFuerZeile:zeile];
+      [self setLeserFuerZeile:zeile];
+      
+      int posint =  [[NSNumber numberWithDouble:[AVAbspielplayer duration]] intValue];
+      
+      int Minuten = posint/60;
+      int Sekunden =posint%60;
+      //NSLog(@"Minuten: %d Sekunden: %d",Minuten,Sekunden);
+      NSString* MinutenString;
+      
+      NSString* SekundenString;
+      if (Sekunden<10)
+      {
+         SekundenString=[NSString stringWithFormat:@"0%d",Sekunden];
+      }
+      else
+      {
+         SekundenString=[NSString stringWithFormat:@"%d",Sekunden];
+      }
+      if (Minuten<10)
+      {
+         MinutenString=[NSString stringWithFormat:@"0%d",Minuten];
+      }
+      else
+      {
+         MinutenString=[NSString stringWithFormat:@"%d",Minuten];
+      }
+      [AufnahmedauerFeld setStringValue:[NSString stringWithFormat:@"%@:%@",MinutenString, SekundenString]];
+      
       if ([NamenListe numberOfSelectedRows])
       {
          [PlayTaste setEnabled:YES];
@@ -572,8 +601,9 @@ NSLog(@"tempName: %@",tempName);
          NSString* Lesername=[LesernamenPop titleOfSelectedItem];
          int LesernamenIndex=[AdminDaten ZeileVonLeser:Lesername];
          NSLog(@"Alle Namen: Lesername: %@, LesernamenIndex: %d",Lesername,LesernamenIndex);
-         [NamenListe selectRowIndexes:[NSIndexSet indexSetWithIndex:LesernamenIndex]byExtendingSelection:NO];
          
+         [AufnahmenTable selectRowIndexes:[NSIndexSet indexSetWithIndex:LesernamenIndex]byExtendingSelection:NO];
+         NSLog(@"A");
        //  [[[AdminDaten dataForRow:LesernamenIndex]objectForKey:@"aufnahmen"]setIntValue:Zeile];
       //   [AufnahmenTable reloadData];
   /*
@@ -607,7 +637,20 @@ NSLog(@"tempName: %@",tempName);
 	{
 		NSLog(@"Tab von 'Alle Aufnahmen' zu 'nach Namen'");
       
-      // [[AdminDaten AufnahmeFilesFuerZeile:hitZeile]count]
+      NSLog(@"AufnahmeDa %d AnzahlAufnahmen: %d",AufnahmeDa,[self AnzahlAufnahmen]);
+
+     if (!self.AnzahlAufnahmen)
+     {
+        NSAlert *NamenWarnung = [[NSAlert alloc] init];
+        [NamenWarnung addButtonWithTitle:@"OK"];
+        //[RecorderWarnung addButtonWithTitle:@"Cancel"];
+        [NamenWarnung setMessageText:@"Keine Aufnahmen"];
+        [NamenWarnung setInformativeText:@"Fuer diesen Namen sind keine Aufnahmen vorhanden."];
+        [NamenWarnung setAlertStyle:NSWarningAlertStyle];
+        [NamenWarnung runModal];
+        return NO;
+     }
+
       
       if ([NamenListe selectedRow]>=0)
       {
@@ -620,7 +663,7 @@ NSLog(@"tempName: %@",tempName);
       NSLog(@"aktuellerLeser: %@",self.AdminAktuellerLeser);
 
       [self setAufnahmenVonLeser:self.AdminAktuellerLeser];
-      //NSLog(@"AufnahmenDicArray: %@",[AufnahmenDicArray description]);
+      NSLog(@"AufnahmenDicArray: %@",[AufnahmenDicArray description]);
 		if ([NamenListe numberOfSelectedRows])//es ist eine zeile in der NamenListe selektiert
       {
          

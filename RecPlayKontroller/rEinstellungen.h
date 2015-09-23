@@ -8,6 +8,7 @@
     IBOutlet id NoteZeigen;
 	IBOutlet id mitUserPasswort;
 	IBOutlet id TimeoutCombo;
+   IBOutlet id TitelString;
 
 }
 @property (nonatomic, strong) IBOutlet NSTextField*				AnzeigeFeld; 

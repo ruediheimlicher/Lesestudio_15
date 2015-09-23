@@ -149,7 +149,7 @@
 											<int key="NSvFlags">256</int>
 											<string key="NSFrameSize">{314, 175}</string>
 											<reference key="NSSuperview" ref="612824177"/>
-											<reference key="NSNextKeyView" ref="191304595"/>
+											<reference key="NSNextKeyView" ref="227513055"/>
 											<bool key="NSEnabled">YES</bool>
 											<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 											<bool key="NSControlAllowsExpansionToolTips">YES</bool>
@@ -262,7 +262,7 @@
 							</array>
 							<string key="NSFrame">{{20, 282}, {316, 177}}</string>
 							<reference key="NSSuperview" ref="731024871"/>
-							<reference key="NSNextKeyView" ref="227513055"/>
+							<reference key="NSNextKeyView" ref="612824177"/>
 							<int key="NSsFlags">133650</int>
 							<reference key="NSVScroller" ref="930237506"/>
 							<reference key="NSHScroller" ref="227513055"/>
@@ -296,7 +296,7 @@
 						</object>
 						<object class="NSButton" id="258796771">
 							<reference key="NSNextResponder" ref="731024871"/>
-							<int key="NSvFlags">288</int>
+							<int key="NSvFlags">-2147483360</int>
 							<string key="NSFrame">{{214, 25}, {128, 32}}</string>
 							<reference key="NSSuperview" ref="731024871"/>
 							<reference key="NSNextKeyView" ref="497708265"/>
@@ -352,7 +352,6 @@
 							<int key="NSvFlags">256</int>
 							<string key="NSFrame">{{13, 64}, {502, 205}}</string>
 							<reference key="NSSuperview" ref="731024871"/>
-							<reference key="NSNextKeyView" ref="288859535"/>
 							<array class="NSMutableArray" key="NSTabViewItems">
 								<object class="NSTabViewItem" id="628535780">
 									<object class="NSMutableString" key="NSIdentifier">

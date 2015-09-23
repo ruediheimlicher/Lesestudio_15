@@ -240,7 +240,7 @@ const short kRecPlayUmgebung=0;
    
    NSLog(@"AdminPlayer awake start");
    [NamenListe reloadData];
-   NSColor * TitelFarbe=[NSColor cyanColor];
+   NSColor * TitelFarbe=[NSColor grayColor];
    NSFont* TitelFont;
    TitelFont=[NSFont fontWithName:@"Helvetica" size: 28];
    [TitelString setFont:TitelFont];
@@ -407,6 +407,8 @@ const short kRecPlayUmgebung=0;
 {
 	NSLog(@"setAdminPlayer LeseboxPfad: %@ Projekt: %@",derLeseboxPfad,dasProjekt);
 	NSFileManager *Filemanager=[NSFileManager defaultManager];
+   
+   
 	[AdminProjektFeld setStringValue:dasProjekt];
 	AdminLeseboxPfad=[NSString stringWithString:derLeseboxPfad];
 	AdminArchivPfad=[NSString stringWithString:[derLeseboxPfad stringByAppendingPathComponent:@"Archiv"]];
@@ -789,7 +791,10 @@ const short kRecPlayUmgebung=0;
 {
   
 	//NSLog(@"\n\n*********setNeuesAdminProjekt: %@\nAdminProjektArray: %@",[sender titleOfSelectedItem],AdminProjektArray);
-	[self setAdminPlayer:AdminLeseboxPfad inProjekt:[sender titleOfSelectedItem]];
+   
+   [AufnahmenTab selectFirstTabViewItem:nil];
+	
+   [self setAdminPlayer:AdminLeseboxPfad inProjekt:[sender titleOfSelectedItem]];
 	[self setProjektPopMenu:AdminProjektArray];
 	NSMutableDictionary* NotificationDic=[[NSMutableDictionary alloc]initWithCapacity:0];
 	
@@ -2093,6 +2098,8 @@ const short kRecPlayUmgebung=0;
                [LoeschenTaste setEnabled:YES];
                [AdminMarkCheckbox setEnabled:YES];
                [AdminBewertungfeld setEnabled:YES];
+               
+               
             }
             else
             {

@@ -43,7 +43,6 @@ extern const int StartmitDialog;//=2;
 	[LesestudioString setFont: RecPlayfont];
 	[LesestudioString setTextColor: RecPlayFarbe];
 	
-	
 	[StartString setTextColor: RecPlayFarbe];
 	NSFont* Startfont=[NSFont fontWithName:@"Helvetica" size: 18];
 	[StartString setFont: RecPlayfont];
