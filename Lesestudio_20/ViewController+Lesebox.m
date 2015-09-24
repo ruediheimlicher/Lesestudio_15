@@ -1056,7 +1056,7 @@ enum
    //NSLog(@"updateProjektArray: tempneuerUserPWArray : %@",[tempneuerUserPWArray description]);
    
    NSString* tempDataPfad=[self.LeseboxPfad stringByAppendingPathComponent:@"Data"];
-   //NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Name Lesebox.plist");
+   //NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Lesebox.plist");
    NSString* PListName=@"Lesebox.plist";
    NSString* tempPListPfad=[tempDataPfad stringByAppendingPathComponent:PListName];
    
@@ -1895,7 +1895,7 @@ enum
       }
       
    }
-   //NSLog(@"ProjektSessionDatum: %@",ProjektSessionDatum);
+   NSLog(@"ProjektSessionDatum: %@",ProjektSessionDatum);
    
    
    NSMutableArray * tempProjektNamenArray=[[NSMutableArray alloc] initWithArray:[Filemanager contentsOfDirectoryAtPath:self.ProjektPfad error:NULL]];
@@ -1938,7 +1938,7 @@ enum
    //Sessioleserarray
    NSArray* tempSessionLeserArray=[tempProjektDic objectForKey:@"sessionleserarray"];
    
-   //NSLog(@"tempSessionLeserArray 1: %@",[tempSessionLeserArray description]);
+   NSLog(@"tempSessionLeserArray 1: %@",[tempSessionLeserArray description]);
    NSEnumerator* NamenEnum=[tempProjektNamenArray objectEnumerator];
    id einName;
    while (einName=[NamenEnum nextObject])
@@ -2132,7 +2132,7 @@ enum
 
 - (IBAction)neueSession:(id)sender
 {
-   //NSLog(@"neueSession Umbebung: %d",self.Umgebung);
+   NSLog(@"neueSession Umbebung: %d",self.Umgebung);
    [Utils stopTimeout];
    //double heuteTag = [[NSCalendar currentCalendar] ordinalityOfUnit:NSCalendarUnitDay inUnit:NSCalendarUnitYear forDate:[NSDate date]];
    
@@ -2157,7 +2157,7 @@ enum
               // NSLog(@"neueSession: neues ProjektSessionDatum: %@",heuteDatumString);
                
                NSArray* tempSessionLeserArray=[tempProjektDic objectForKey:@"sessionleserarray"];
-               //NSLog(@"alter SessionLeserArray: %@",[tempSessionLeserArray description]);
+               NSLog(@"alter SessionLeserArray: %@",[tempSessionLeserArray description]);
                
                [tempProjektDic setObject:[NSMutableArray array]forKey:@"sessionleserarray"];
                
@@ -2256,7 +2256,7 @@ enum
    //NSLog(@"saveSessionForUser: PList: %@",[PListDic  description]);
    //NSLog(@"SessionListeAktualisierenInProjekt: LeseboxPfad: %@",LeseboxPfad);
    
-   //NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Name Lesebox.plist");
+   //NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Lesebox.plist");
    NSString* PListName=@"Lesebox.plist";
    NSString* PListPfad;
    
@@ -2595,7 +2595,7 @@ enum
    
    //	NSLog(@"savePListAktion projektarray aus PList: %@",[[PListDic objectForKey:@"projektarray"] description]);
    
-   //NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Name Lesebox.plist");
+   //NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Lesebox.plist");
    NSString* PListName=@"Lesebox.plist";
    NSString* PListPfad;
    
@@ -2749,7 +2749,7 @@ enum
    //NSLog(@"**savePListAktion: tempPfad nach data: %@",tempPfad);
    
    NSString* tempUserPfad=[self.LeseboxPfad copy];
-   //	NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Name Lesebox.plist");
+   //	NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Lesebox.plist");
    //	NSString* PListPfad;
    //NSLog(@"savePListAktion: tempUserPfad start: %@  istSystemVolume: %d",tempUserPfad,istSystemVolume);
    if (self.istSystemVolume)
@@ -2797,7 +2797,7 @@ enum
    //NSLog(@"saveSessionForUser: PList: %@",[PListDic  description]);
    //NSLog(@"saveSessionDatum: Datum: %@  LeseboxPfad: %@",dasDatum,LeseboxPfad);
    
-   //NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Name Lesebox.plist");
+   //NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Lesebox.plist");
    NSString* PListName=@"Lesebox.plist";
    NSString* PListPfad;
    
@@ -2843,7 +2843,7 @@ enum
    
    
    
-   //NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Name Lesebox.plist");
+   //NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Lesebox.plist");
    NSString* PListName=@"Lesebox.plist";
    NSString* PListPfad;
    
@@ -2899,7 +2899,7 @@ enum
    NSString* ArchivPath=[self.LeseboxPfad stringByAppendingPathComponent:@"Archiv"];
    self.ProjektPfad=(NSMutableString*)[ArchivPath stringByAppendingPathComponent:ProjektName];
    
-  // NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Name Lesebox.plist");
+  // NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Lesebox.plist");
    NSString* PListName=@"Lesebox.plist";
    NSString* PListPfad;
    
@@ -2981,7 +2981,7 @@ enum
    
    NSLog(@"saveTitelListe: dieTitelListe: %@ Projekt: %@",[dieTitelListe  description],dasProjekt);
    
-   //NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Name Lesebox.plist");
+   //NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Lesebox.plist");
    NSString* PListName=@"Lesebox.plist";
    NSString* PListPfad;
    
@@ -3062,7 +3062,7 @@ enum
    
    NSLog(@"saveTitelFix: derStatus: %d Projekt: %@",derStatus ,dasProjekt);
    
-   //NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Name Lesebox.plist");
+   //NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Lesebox.plist");
    NSString* PListName=@"Lesebox.plist";
    NSString* PListPfad;
    
@@ -3110,7 +3110,7 @@ enum
    //NSLog(@"saveUserPasswortArray: PasswortDic: %@",[derPasswortDic  description]);
    NSLog(@"saveUserPasswortArray: PasswortDic: %@  LeseboxPfad: %@",[derPasswortDic  description],self.LeseboxPfad);
    
-   //NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Name Lesebox.plist");
+   //NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Lesebox.plist");
    NSString* PListName=@"Lesebox.plist";
    NSString* PListPfad;
    NSFileManager *Filemanager=[NSFileManager defaultManager];
@@ -3159,7 +3159,7 @@ enum
    //NSLog(@"saveUserPasswortArray: PasswortArray: %@",[derPasswortArray  description]);
    NSLog(@"saveUserPasswortArray: saveUserPasswortArray: %@  LeseboxPfad: %@",[derPasswortArray  description],self.LeseboxPfad);
    
-   //NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Name Lesebox.plist");
+   //NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Lesebox.plist");
    NSString* PListName=@"Lesebox.plist";
    NSString* PListPfad;
    NSFileManager *Filemanager=[NSFileManager defaultManager];
@@ -3187,7 +3187,7 @@ enum
    //NSLog(@"saveAdminPasswortDic: PasswortArray: %@",[derPasswortArray  description]);
    NSLog(@"saveAdminPasswortDic: AdminPasswortDic: %@  LeseboxPfad: %@",[derPasswortDic  description],self.LeseboxPfad);
    
-   //NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Name Lesebox.plist");
+   //NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Lesebox.plist");
    NSString* PListName=@"Lesebox.plist";
    
    NSString* PListPfad;
@@ -3218,7 +3218,7 @@ enum
    //NSLog(@"saveSessionForUser: LeseboxPfad: %@",LeseboxPfad);
    //NSLog(@"saveSessionForUser: derUser: %@ dasProjekt: %@",derUser, dasProjekt);
    
-   //NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Name Lesebox.plist");
+   //NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Lesebox.plist");
    NSString* PListName=@"Lesebox.plist";
    NSString* PListPfad;
    
@@ -3288,8 +3288,8 @@ enum
    
    
    
-   //NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Name Lesebox.plist");
-   NSString* PListName=@"Name Lesebox.plist";
+   //NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Lesebox.plist");
+   NSString* PListName=@"Lesebox.plist";
    
    NSString* PListPfad;
    
@@ -3338,7 +3338,7 @@ enum
    NSString* tempUserPfad=[derLeseboxPfad copy];
    NSLog(@"savePList: tempUserPfad start: %@",tempUserPfad);
    
-   // NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Name Lesebox.plist");
+   // NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Lesebox.plist");
    NSString* PListName=@"Lesebox.plist";
    NSString* PListPfad;
    
@@ -3436,7 +3436,7 @@ enum
    NSString* tempUserPfad=[derLeseboxPfad copy];
    NSLog(@"savePList: tempUserPfad start: %@",tempUserPfad);
    
-  // NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Name Lesebox.plist");
+  // NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Lesebox.plist");
    NSString* PListName=@"Lesebox.plist";
    NSString* PListPfad;
    
@@ -3579,7 +3579,7 @@ enum
             //[PListDic setObject:AdminPasswortDic forKey:@"adminpw"];
             [self.PListDic setObject:[tempNeuesPWDic copy] forKey:@"adminpw"];
             //Passwort in PList sichern
-            //NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Name Lesebox.plist");
+            //NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Lesebox.plist");
             NSString* PListName=@"Lesebox.plist";
             NSString* PListPfad;
             NSFileManager *Filemanager=[NSFileManager defaultManager];

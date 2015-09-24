@@ -1651,7 +1651,6 @@ return versionOK;
 	NSMutableArray* tempProjektArray=[[NSMutableArray alloc]initWithCapacity:0];
 	NSString* tempDataPfad=[derLeseboxPfad stringByAppendingPathComponent:@"Data"];
    NSString* PListName=@"Lesebox.plist";
-	//NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Name Lesebox.plist");
 	NSString* tempPListPfad=[tempDataPfad stringByAppendingPathComponent:PListName];
 
 	NSFileManager *Filemanager=[NSFileManager defaultManager];
@@ -1673,7 +1672,7 @@ return versionOK;
 	//	Array der Projekte in PList einsetzen
 	NSMutableArray* tempProjektArray=[[NSMutableArray alloc]initWithCapacity:0];
 	NSString* tempDataPfad=[derLeseboxPfad stringByAppendingPathComponent:@"Data"];
-	//NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Name Lesebox.plist");
+	//NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Lesebox.plist");
    NSString* PListName=@"Lesebox.plist";
 
 	NSString* tempPListPfad=[tempDataPfad stringByAppendingPathComponent:PListName];
@@ -1730,9 +1729,9 @@ return versionOK;
 	NSFileManager *Filemanager=[NSFileManager defaultManager];
 	NSString* tempUserPfad=[derLeseboxPfad copy];
 	
-	//NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Name Lesebox.plist");
+	//NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Lesebox.plist");
    NSString* PListName=@"Lesebox.plist";
-   NSString* PListPfad = [PListPfad stringByAppendingPathComponent:PListName];
+   NSString* PListPfad = [[derLeseboxPfad stringByAppendingPathComponent:@"Data" ] stringByAppendingPathComponent:PListName];
 	
 	if([Filemanager fileExistsAtPath:PListPfad])
 	{

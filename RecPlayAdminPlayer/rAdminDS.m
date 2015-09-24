@@ -375,11 +375,13 @@ return index;
                   //NSLog(@"tempState:%d",tempState);
                   if (tempState)
 						{
-                     [[cell itemAtIndex:index]setImage:MarkOnImg];
+    //                 [[cell itemAtIndex:index]setImage:MarkOnImg];
+    //                 [cell itemAtIndex:index].backgroundColor=[NSColor redColor];
+                     //[cell itemAtIndex:index].attributedTitle = nil;
 						}
                   else
 						{
-                     [[cell itemAtIndex:index]setImage:MarkOffImg];
+   //                  [[cell itemAtIndex:index]setImage:MarkOffImg];
 						}
                }
             }
