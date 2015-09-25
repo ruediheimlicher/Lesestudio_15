@@ -290,7 +290,7 @@
 - (IBAction)goStart:(id)sender;
 - (void)setLevel:(int)derLevel;
 - (IBAction)showSettingsDialog:(id)sender;
-- (IBAction)showProjektListe:(id)sender;
+
 - (IBAction)restoreSettings:(id)sender;
 - (IBAction)saveSettings:(id)sender;
 - (IBAction)setzeLeser:(id)sender;
@@ -331,6 +331,7 @@
 - (BOOL)ProjektListeValidAnPfad:(NSString*)derArchivPfad;
 - (void)checkSessionDatumFor:(NSString*)dasProjekt;
 - (NSArray*)AufnahmeRetten;
+- (IBAction)showProjektListe:(id)sender;
 - (void)updateProjektArray;
 - (void)updatePasswortListe;
 - (void)setProjektMenu;

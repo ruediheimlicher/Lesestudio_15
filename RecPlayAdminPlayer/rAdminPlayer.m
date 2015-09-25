@@ -211,6 +211,11 @@ const short kRecPlayUmgebung=0;
               name:@"markcheckbox"
             object:nil];
 
+   [nc addObserver:self
+          selector:@selector(FensterschliessenAktion:)
+              name:@"fensterschliessen"
+            object:nil];
+
 	
    NSMutableDictionary * defaultWerte=[[NSMutableDictionary alloc]initWithCapacity:0];
    
@@ -894,15 +899,18 @@ const short kRecPlayUmgebung=0;
    
 	[self setBackTaste:NO];
 	[AbspieldauerFeld setStringValue:@""];
+   
+   [self Aufnahmezuruecklegen];
 	//NSLog(@"vor saveKommentarFuerLeser");
+   /*
 	if ([self.AdminAktuellerLeser length]&&[AdminAktuelleAufnahme length]&&Textchanged)
 	  {
 		BOOL OK=[self saveKommentarFuerLeser: self.AdminAktuellerLeser FuerAufnahme:AdminAktuelleAufnahme];
      
-        /*
-        OK = [self saveAdminMarkFuerLeser:AdminAktuellerLeser FuerAufnahme:AdminAktuelleAufnahme
-                           mitAdminMark:(int)[AdminMarkCheckbox state]];
-         */
+    
+       // OK = [self saveAdminMarkFuerLeser:AdminAktuellerLeser FuerAufnahme:AdminAktuelleAufnahme
+        //                   mitAdminMark:(int)[AdminMarkCheckbox state]];
+    
         OK = [self saveMarksFuerLeser:self.AdminAktuellerLeser FuerAufnahme:AdminAktuelleAufnahme mitAdminMark: (int)[AdminMarkCheckbox state] mitUserMark:(int)[UserMarkCheckbox state]];
 
   
@@ -910,6 +918,7 @@ const short kRecPlayUmgebung=0;
       //  AdminAktuellerLeser=@"";
 		//AdminAktuelleAufnahme=@"";
 	  }
+*/
 	[self clearKommentarfelder];	
 	[AdminKommentarView setEditable:NO];
 	[AdminKommentarView setSelectable:NO];
@@ -2243,8 +2252,8 @@ const short kRecPlayUmgebung=0;
 - (IBAction)reportFensterschliessen:(id)sender
 {
    [self resetAdminPlayer];
-      [self dismissController:NULL];
-  // [[self.view window]orderOut:nil];
+  //    [self dismissController:NULL];
+   [[self  window]orderOut:nil];
 }
 
 #pragma mark Player
@@ -4242,8 +4251,26 @@ NSNumber* UmgebungNumber=[[note userInfo]objectForKey:@"Umgebung"];
 }//Export
 
 
+- (IBAction) Fensterschliessen
+{
+   BOOL OK=YES;
+   
+   //if (Textchanged)
+   {
+      [self Aufnahmezuruecklegen];
+   }
+   
+   
+}
 
+- (void)FensterschliessenAktion:(NSNotification*)note
+{
+   NSLog(@"FensterschliessenAktion note: %@",[[note userInfo]description]);
+    [self FensterschliessenOK];
+   [self resetAdminPlayer];
+   [[self  window]orderOut:nil];
 
+}
 
 - (BOOL) FensterschliessenOK
 {
@@ -4555,6 +4582,11 @@ if (entfernenOK==0)//allesOK
      }
    return tempString;
 }//AufnahmeTitelVon
+
+- (void)windowWillClose:(NSNotification *)notification
+{
+   NSLog(@"AdminPlayer windowWillClose: %@",notification);
+}
 
 
 

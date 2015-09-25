@@ -21,6 +21,7 @@
 
 	[NamenTable setDataSource:self];
 	[NamenListeView setDelegate: self];
+   [NamenListeView setEditable: YES];
 	[NamenTable deselectAll:nil];
 	[[NamenTable tableColumnWithIdentifier:@"namen"]setEditable:YES];
 	NSFont* RecPlayfont;

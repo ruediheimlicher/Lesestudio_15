@@ -2246,7 +2246,14 @@ return versionOK;
 
 - (IBAction)showNamenListe:(id)sender
 {
+
    //NSLog(@"\n\nshowProjektListe start");
+   
+   NSMutableDictionary* NotificationDic=[[NSMutableDictionary alloc]initWithCapacity:0];
+   [NotificationDic setObject:@"ProjektListe" forKey:@"quelle"];
+   NSNotificationCenter* nc=[NSNotificationCenter defaultCenter];
+   [nc postNotificationName:@"fensterschliessen" object:self userInfo:NotificationDic];
+
    if (!UNamenListePanel)
 	  {
         UNamenListePanel=[[rNamenListe alloc]init];

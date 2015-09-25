@@ -527,7 +527,11 @@ enum
    {
       return;
    }
-   
+   NSMutableDictionary* NotificationDic=[[NSMutableDictionary alloc]initWithCapacity:0];
+   [NotificationDic setObject:@"ProjektListe" forKey:@"quelle"];
+   NSNotificationCenter* nc=[NSNotificationCenter defaultCenter];
+   [nc postNotificationName:@"fensterschliessen" object:self userInfo:NotificationDic];
+
    if (!ProjektPanel)
 	  {
         ProjektPanel=[[rProjektListe alloc]init];
@@ -1136,11 +1140,11 @@ enum
    NSMutableArray* tempProjektArray=[[NSMutableArray alloc]initWithCapacity:0];
    NSMutableArray* tempNeueProjekteArray=[[NSMutableArray alloc]initWithCapacity:0];
    NSFileManager *Filemanager=[NSFileManager defaultManager];
-   int anzOrdnerImArchiv=0;
+   long anzOrdnerImArchiv=0;
    
    //[ProjektArray setArray:[Utils ProjektArrayAusPListAnPfad:LeseboxPfad]];
    
-   int anzProjekte=[self.ProjektArray count];//Anzahl Projekte in PList
+   long anzProjekte=[self.ProjektArray count];//Anzahl Projekte in PList
 	  if (anzProjekte)
      {
         [tempNeueProjekteArray setArray:self.ProjektArray];
@@ -1163,7 +1167,7 @@ enum
    if (anzOrdnerImArchiv)//es hat schon Ordner im Archiv
    {
       //NSLog(@"tempAdminProjektNamenArray: %@",[tempAdminProjektNamenArray description]);
-      NSEnumerator* enumerator=[tempAdminProjektNamenArray objectEnumerator];
+      //NSEnumerator* enumerator=[tempAdminProjektNamenArray objectEnumerator];
       NSString* tempObjekt;
       BOOL istOrdner=NO;
       //NSLog(@"enumerator nextObject: %@",[[enumerator nextObject]description]);
@@ -1723,7 +1727,6 @@ enum
 
 - (IBAction)beginAdminPlayer:(id)sender
 {
-   
     [self ArchivZurListe:nil];
    [self resetRecPlay];
    [Utils stopTimeout];
@@ -1731,17 +1734,18 @@ enum
    //   [self.window setIsVisible:NO];
    
    
-    BOOL erfolg;
-
+  
    
     if(!self.AdminPlayer)
     {
     self.AdminPlayer=[[rAdminPlayer alloc]init];
+     }
+       
+   [self.AdminPlayer showWindow:self];
        
        
-    [self.AdminPlayer showWindow:self];
    // [self setLeseb self.LeseboxPfad];
-    }
+   
    
 //   [self.AblaufMenu setDelegate:self.AdminPlayer];
   // [self.ModusMenu setDelegate:self.AdminPlayer];
@@ -1785,6 +1789,15 @@ enum
    
    [self.AdminPlayer setProjektPopMenu:self.ProjektArray];
 
+    [self.AdminPlayer showWindow:self];
+   /*
+     NSModalSession AdminSession=[NSApp beginModalSessionForWindow:[self.AdminPlayer window]];
+   long modalAntwort = [NSApp runModalForWindow:[self.AdminPlayer window]];
+   //int modalAntwort = [NSApp runModalSession:ProjektSession];
+   NSLog(@"AdminSession Antwort: %d",modalAntwort);
+   
+   [NSApp endModalSession:AdminSession];
+*/
    /*
    // erster Aufruf
    NSStoryboardSegue* admindatasegue = [[NSStoryboardSegue alloc] initWithIdentifier:@"adminplayersegue" source:self destination:self.AdminPlayer];
@@ -2365,7 +2378,7 @@ enum
             [Warnung setInformativeText:InformationString];
             [Warnung setAlertStyle:NSWarningAlertStyle];
             
-            int antwort=[Warnung runModal];
+            long antwort=[Warnung runModal];
             switch (antwort)//Liste anlegen
             {
                case NSAlertFirstButtonReturn://

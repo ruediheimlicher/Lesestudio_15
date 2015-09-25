@@ -16,20 +16,20 @@
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <window title="Projekt" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="5" userLabel="Window" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="38" y="340" width="366" height="363"/>
+            <rect key="contentRect" x="38" y="340" width="366" height="471"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1280" height="778"/>
             <value key="minSize" type="size" width="300" height="200"/>
             <value key="maxSize" type="size" width="600" height="600"/>
             <view key="contentView" id="6">
-                <rect key="frame" x="0.0" y="0.0" width="366" height="363"/>
+                <rect key="frame" x="0.0" y="0.0" width="366" height="471"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <textField verticalHuggingPriority="750" id="7">
-                        <rect key="frame" x="91" y="294" width="275" height="51"/>
+                        <rect key="frame" x="91" y="402" width="275" height="51"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" alignment="left" title="Namen einsetzen" id="196">
                             <font key="font" metaFont="systemBold" size="24"/>
@@ -38,12 +38,27 @@
                         </textFieldCell>
                     </textField>
                     <imageView id="8">
-                        <rect key="frame" x="20" y="279" width="64" height="64"/>
+                        <rect key="frame" x="20" y="387" width="64" height="64"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" image="MicroIcon" id="197"/>
                     </imageView>
+                    <textField verticalHuggingPriority="750" id="194">
+                        <rect key="frame" x="17" y="235" width="329" height="138"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="200">
+                            <font key="font" metaFont="smallSystem"/>
+                            <string key="title">Nur Vornamen und Namen eingeben.
+Zusätzliche Eingaben werden ignoriert.
+Aufbau: Nur je ein Vorname und ein Nachname, getrennt durch Leerschlag oder Tabulator. Unterstriche sind zugelassen.
+Die Namen können auch als Liste kopiert und ins Textfeld eingesetzt werden.
+Import aus Dokumenten ist möglich mit 
+Admin &gt; NamenListe bearbeiten….</string>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
                     <box title="Neue Namen:" id="175">
-                        <rect key="frame" x="17" y="16" width="329" height="211"/>
+                        <rect key="frame" x="16" y="16" width="329" height="211"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <view key="contentView" id="2po-yc-sMM">
                             <rect key="frame" x="2" y="2" width="325" height="191"/>
@@ -84,10 +99,10 @@
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <size key="minSize" width="291" height="109"/>
-                                                <size key="maxSize" width="291" height="10000000"/>
+                                                <size key="maxSize" width="293" height="10000000"/>
                                                 <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <size key="minSize" width="291" height="109"/>
-                                                <size key="maxSize" width="291" height="10000000"/>
+                                                <size key="maxSize" width="293" height="10000000"/>
                                             </textView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -107,19 +122,9 @@
                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <font key="titleFont" metaFont="system"/>
                     </box>
-                    <textField verticalHuggingPriority="750" id="194">
-                        <rect key="frame" x="17" y="235" width="329" height="30"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="200">
-                            <font key="font" metaFont="smallSystem"/>
-                            <string key="title">Nur Vornamen und Namen eingeben.
-Zusätzliche Eingaben werden ignoriert.</string>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
                 </subviews>
             </view>
+            <point key="canvasLocation" x="266" y="313.5"/>
         </window>
     </objects>
     <resources>

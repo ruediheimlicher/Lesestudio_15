@@ -722,6 +722,17 @@ NSLog(@"tempName: %@",tempName);
       }
       else
       {
+         {
+            NSAlert *NamenWarnung = [[NSAlert alloc] init];
+            [NamenWarnung addButtonWithTitle:@"OK"];
+            //[RecorderWarnung addButtonWithTitle:@"Cancel"];
+            [NamenWarnung setMessageText:@"Kein Name"];
+            [NamenWarnung setInformativeText:@"Ein Name muss ausgewaehlt sein."];
+            [NamenWarnung setAlertStyle:NSWarningAlertStyle];
+            [NamenWarnung runModal];
+            return NO;
+         }
+
          NSLog(@"Tab von 'Alle Aufnahmen' zu 'nach Namen': Kein Name ausgewaehlt");
       }
       NSLog(@"aktuellerLeser: %@",self.AdminAktuellerLeser);
