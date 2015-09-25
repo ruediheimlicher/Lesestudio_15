@@ -33,6 +33,35 @@ NSLog(@"reportAuswahlOption: row: %d",[sender selectedRow]);
          
       //   [[AufnahmenDicArray objectAtIndex:dieZeile]setObject:[StatusNumber stringValue] forKey:@"adminmark"];
       //   [AufnahmenTable reloadData];
+                  long namenzeile = [NamenListe selectedRow];
+         
+                 NSLog(@"setAdminMark case 1 dieZeile: %ld  zeile: %ld",dieZeile,[NamenListe selectedRow]);
+         
+                NSLog(@"setAdminMark  AktuelleAufnahme: %@",AdminAktuelleAufnahme);
+                         NSDictionary* tempNamenDic = [AdminDaten dataForRow:namenzeile];
+                 NSString* tempName = [[AdminDaten dataForRow:namenzeile]objectForKey:@"namen"];
+               NSLog(@"setAdminMark case 1 tempName: %@ tempNamenDic: %@",tempName, tempNamenDic);
+         
+                  NSLog(@"MarkArrayForRow: %@",[AdminDaten MarkArrayForRow:dieZeile]);
+         
+                  BOOL mark = [AdminDaten MarkForRow:namenzeile forItem:dieZeile ];
+         
+                  NSLog(@"setAdminMark case 1 mark vor row: %ld zeile: %ld mark: %d",(long)namenzeile,dieZeile,mark);
+         
+                  [AdminDaten setMark:derStatus forRow:namenzeile forItem:dieZeile];
+         
+                  mark = [AdminDaten MarkForRow:namenzeile forItem:dieZeile ];
+                  NSLog(@"mark nach row: %ld zeile: %ld mark: %d",(long)[LesernamenPop indexOfSelectedItem],dieZeile,mark);
+         //      [[AufnahmenDicArray objectAtIndex:dieZeile]setObject:[StatusNumber stringValue] forKey:@"adminmark"];
+               //   [AufnahmenTable reloadData];
+                 [self saveAdminMarkFuerLeser:tempName FuerAufnahme:AdminAktuelleAufnahme mitAdminMark:derStatus];
+         
+                  [self setAufnahmenVonLeser:tempName];
+         
+                  [AufnahmenTable reloadData];
+                  [NamenListe reloadData];
+                  NSLog(@"setAdminMark end case 1");
+
 
       }break;
       case 2:
@@ -49,6 +78,7 @@ NSLog(@"reportAuswahlOption: row: %d",[sender selectedRow]);
 
          
          [AufnahmenTable reloadData];
+         [NamenListe reloadData];
 
       }break;
          
