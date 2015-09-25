@@ -638,6 +638,7 @@ const short kRecPlayUmgebung=0;
 			//NSNumber* tempMark=[NSNumber numberWithBool:0];
 			[tempMarkArray addObject:[NSNumber numberWithBool:NO]];
 		}
+      
 		
 		for (m=0;m<tempAnzAufnahmen;m++)
 		{
@@ -735,10 +736,10 @@ const short kRecPlayUmgebung=0;
 		[AdminDaten setData: NamenDic  forRow:i];
 		
 		
-		//NSLog(@"setData: NamenDic");
+		NSLog(@"setData zeile: %d : NamenDic: %@",i,NamenDic);
 		//[NamenDic autorelease];
 		[AdminDaten setData: AnzDic  forRow:i];
-		//NSLog(@"setData: AnzDic");
+		NSLog(@"setData zeile: %d : AnzDic: %@",i,AnzDic);
 		//[AnzDic release];
 	}
 	
@@ -2836,20 +2837,26 @@ const short kRecPlayUmgebung=0;
    case 1:
       {
          
-         int ZeilenIndex=[NamenListe selectedRow];
+         long ZeilenIndex=[NamenListe selectedRow];
          //int datenZeilenIndex=[[NamenListe dataSource] objectAtIndex:ZeilenIndex];
          
          //NSLog(@"AdminProjektArray data: %@",[[(rAdminDS*)[NamenListe dataSource]dataForRow:ZeilenIndex]description]);
 
          [self setAdminMark:[sender state] fuerZeile:ZeilenIndex];
+         //[AufnahmenTable reloadData];
 
       }break;
 		case 2:// Aufnahmen nach Namen
 		{
-			int ZeilenIndex=[AufnahmenTable selectedRow];
+			long ZeilenIndex=[AufnahmenTable selectedRow];
 			[self setAdminMark:[sender state] fuerZeile:ZeilenIndex];
+         //[NamenListe reloadData];
+         //[AufnahmenTable reloadData];
 		}break;
 	}//switch
+   [NamenListe reloadData];
+   [AufnahmenTable reloadData];
+
 }
 
 #pragma mark AufnahmeLoeschen

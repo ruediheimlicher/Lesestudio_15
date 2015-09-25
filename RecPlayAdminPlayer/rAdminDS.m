@@ -49,6 +49,7 @@
 		  }
 		
     }
+   
     return self;
 }
 
@@ -85,7 +86,7 @@ return rowData;
 }
 
 
-- (void)setData: (NSDictionary *)someData forRow: (int)rowIndex
+- (void)setData: (NSDictionary *)someData forRow: (long)rowIndex
 {
     NSMutableDictionary *aRow;
     
@@ -102,7 +103,7 @@ return rowData;
     [aRow addEntriesFromDictionary: someData];
 }
 
-- (NSDictionary *)dataForRow: (int)rowIndex
+- (NSDictionary *)dataForRow: (long)rowIndex
 {
     NSDictionary *aRow;
 
@@ -120,16 +121,16 @@ return rowData;
     return [NSDictionary dictionaryWithDictionary: aRow];
 }
 
-- (int)ZeileVonLeser:(NSString*)derLeser
+- (long)ZeileVonLeser:(NSString*)derLeser
 {
 //NSLog(@"rowData: %@",[rowData description]);
 long index=[[rowData valueForKey:@"namen"]indexOfObject:derLeser];
 return index;
 }
 
-- (void)setAufnahmeFiles:(NSArray*)derArray forRow: (int)dieZeile
+- (void)setAufnahmeFiles:(NSArray*)derArray forRow: (long)dieZeile
 {
-   
+   NSLog(@"setAufnahmeFiles Zeile: %ld  Array: %@",dieZeile, derArray);
 
 	//NSArray* tempArray=[derArray copy];
 	NSMutableArray* eineZeile;
@@ -138,7 +139,7 @@ return index;
   
 }
 
-- (NSArray*)AufnahmeFilesFuerZeile:(int)dieZeile
+- (NSArray*)AufnahmeFilesFuerZeile:(long)dieZeile
 {
 	//NSLog(@"AufnahmeFilesFuerZeile: %d",dieZeile);
 	NSMutableArray* eineZeile;
@@ -172,12 +173,12 @@ return index;
 
 #pragma mark -
 
-- (void) insertRowAt:(int)rowIndex
+- (void) insertRowAt:(long)rowIndex
 {
     [self insertRowAt: rowIndex withData: [NSMutableDictionary dictionary]];
 }
 
-- (void) insertRowAt:(int)rowIndex withData:(NSDictionary *)someData
+- (void) insertRowAt:(long)rowIndex withData:(NSDictionary *)someData
 {
     [rowData insertObject: someData atIndex: rowIndex];
 }
@@ -205,7 +206,7 @@ return index;
 	}//if namen
 }
 
-- (void) deleteRowAt:(int)rowIndex
+- (void) deleteRowAt:(long)rowIndex
 {    
     [rowData removeObjectAtIndex: rowIndex];
 	[AufnahmeFiles removeObjectAtIndex: rowIndex];
@@ -252,12 +253,12 @@ return index;
 	[AuswahlArray replaceObjectAtIndex:rowIndex withObject:tempItem];
 }
 
-- (int)AuswahlFuerZeile:(int)dieZeile
+- (int)AuswahlFuerZeile:(long)dieZeile
 {
 	return [[AuswahlArray objectAtIndex:dieZeile]intValue];
 }
 
-- (void)setMarkArray:(NSArray*)derArray forRow:(int)dieZeile
+- (void)setMarkArray:(NSArray*)derArray forRow:(long)dieZeile
 {
 	[MarkArray replaceObjectAtIndex:dieZeile withObject:derArray];
 }
@@ -276,7 +277,7 @@ return index;
 
 - (BOOL)MarkForRow:(long)dieZeile forItem:(long)dasItem
 {
-	
+   NSLog(@"MarkForRow MarkArray: %@",MarkArray);
 	return [[[MarkArray objectAtIndex:dieZeile]objectAtIndex:dasItem]boolValue];
 }
 
@@ -292,11 +293,20 @@ return index;
     objectValueForTableColumn:(NSTableColumn *)aTableColumn 
     row:(long)rowIndex
 {
-   //NSLog(@"objectValueForTableColumn");
+  // NSLog(@"objectValueForTableColumn");
     NSDictionary *aRow;
         
     NS_DURING
         aRow = [rowData objectAtIndex: rowIndex];
+   
+   if ([[aTableColumn identifier]isEqualTo:@"aufnahmen"])
+   {
+      
+    //  BOOL tempMark =[[MarkArray objectAtIndex: rowIndex]intValue];
+      
+      //NSLog(@"setObjectValue aRow: %@ mark: %@",aRow,[MarkArray objectAtIndex: rowIndex]);
+   }
+
     NS_HANDLER
         if ([[localException name] isEqual: @"NSRangeException"])
         {
@@ -313,7 +323,6 @@ return index;
     forTableColumn:(NSTableColumn *)aTableColumn 
     row:(long)rowIndex
 {
-   //NSLog(@"setObjectValue");
     NSString *columnName;
     NSMutableDictionary *aRow;
     
@@ -351,9 +360,15 @@ return index;
 	{
 		[cell removeAllItems];
 		[cell setImagePosition:NSImageRight];
+      //[cell setTextAlignment:NSRightTextAlignment];
 		if ([[AufnahmeFiles objectAtIndex:row]count]) //Der Leser hat Aufnahmen
 		{
+         long col = 1;
+         NSRect cellFeld = [tableView frameOfCellAtColumn:1 row:row];
+
 			NSImage* MarkOnImg=[NSImage imageNamed:@"MarkOnImg.tif"];
+         NSImageView* MarkOnView = [[NSImageView alloc] initWithFrame:cellFeld];
+         [MarkOnView setImage:MarkOnImg];
 			NSImage* MarkOffImg=[NSImage imageNamed:@"MarkOffImg.tif"];
 			//[MarkOnImg setBackgroundColor:[NSColor clearColor]];
 			//NSLog(@"MarkArrayvon Zeile %d : %@",row,[[MarkArray objectAtIndex:row] description]);
@@ -362,28 +377,44 @@ return index;
 			int index=0;
 			while(eineAufnahme=[AufnahmenEnumerator nextObject])//Aufnahmen für Menu
          {
-            [cell addItemWithTitle:eineAufnahme];
+            
+            
+         //   [cell addItemWithTitle:eineAufnahme];
             double menuIndex=[cell indexOfItemWithTitle:eineAufnahme];
             //NSLog(@"eineAufnahme: %@ index: %d  menuIndex: %d",eineAufnahme,index,menuIndex);
-            
+            BOOL tempState=NO;
             if ([[MarkArray objectAtIndex:row]count])
             {
                // NSLog(@"MarkArray count: %d",[[MarkArray objectAtIndex:row] count]);
                if(index<[[MarkArray objectAtIndex:row]count])
                {
-                  BOOL tempState=[[[MarkArray objectAtIndex:row]objectAtIndex:index]boolValue];
+                  tempState=[[[MarkArray objectAtIndex:row]objectAtIndex:index]boolValue];
                   //NSLog(@"tempState:%d",tempState);
                   if (tempState)
 						{
-    //                 [[cell itemAtIndex:index]setImage:MarkOnImg];
+                     //[[cell itemAtIndex:index]setImage:MarkOnImg];
+                     //[cell itemAtIndex:index].imageView = MarkOnView;
     //                 [cell itemAtIndex:index].backgroundColor=[NSColor redColor];
                      //[cell itemAtIndex:index].attributedTitle = nil;
 						}
                   else
 						{
    //                  [[cell itemAtIndex:index]setImage:MarkOffImg];
+                     //[cell itemAtIndex:index].imageView = MarkOffImg;
+
 						}
                }
+               NSString* tempAufnahmeString = eineAufnahme;
+               
+               if (tempState)
+               {
+                  tempAufnahmeString = [NSString stringWithFormat:@"%@\t%@",@"X",tempAufnahmeString];
+               }
+               else{
+                  tempAufnahmeString = [NSString stringWithFormat:@"\t%@",tempAufnahmeString];
+                 
+               }
+                [cell addItemWithTitle:tempAufnahmeString];
             }
             //else
             {
@@ -403,6 +434,8 @@ return index;
 			//NSLog(@"willDisplayCell: AuswahlArray:%@",[AuswahlArray description]);
          
 			int hit=[[AuswahlArray objectAtIndex:row]intValue];
+         
+         
 			//NSLog(@"willDisplayCell: hit:%d",hit);
 			[cell selectItemAtIndex:hit];
 			//NSColor * MarkFarbe=[NSColor orangeColor];
@@ -502,11 +535,11 @@ return index;
 		
 	[AdminZeilenDic setObject:[NSNumber numberWithLong:row] forKey:@"AdminNextZeilenNummer"];
 	[AdminZeilenDic setObject:[[rowData objectAtIndex:row]objectForKey:@"namen"] forKey:@"nextLeser"];
-   NSLog(@"rowData row: %d  Daten: %@",row, [[rowData objectAtIndex:row]description]);
+   //NSLog(@"rowData row: %ld  Daten: %@",row, [[rowData objectAtIndex:row]description]);
    [AdminZeilenDic setObject:[[rowData objectAtIndex:row]objectForKey:@"anz"] forKey:@"anz"];
 	if (selektierteZeile>=0)//schon eine Zeile selektiert, sonst -1
 	{
-		NSLog(@"rowData last Zeile: %d  Daten: %@",selektierteZeile, [[rowData objectAtIndex:selektierteZeile]description]);
+		//NSLog(@"rowData last Zeile: %ld  Daten: %@",selektierteZeile, [[rowData objectAtIndex:selektierteZeile]description]);
 		tempLastLesernamen= [[rowData objectAtIndex:selektierteZeile]objectForKey:@"namen"];
 		[AdminZeilenDic setObject:[[rowData objectAtIndex:selektierteZeile]objectForKey:@"namen"] forKey:@"LasttName"];
 		

@@ -17,6 +17,7 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
    // Insert code here to initialize your application
    NSImage* ProgrammImage = [NSImage imageNamed: @"MicroIcon"];
+   NSLog(@"applicationDidFinishLaunching");
    [NSApp setApplicationIconImage: ProgrammImage];
    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints"];
   

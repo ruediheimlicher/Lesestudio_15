@@ -30,15 +30,39 @@ NSLog(@"reportAuswahlOption: row: %d",[sender selectedRow]);
    {
       case 1:
       {
-         
-      //   [[AufnahmenDicArray objectAtIndex:dieZeile]setObject:[StatusNumber stringValue] forKey:@"adminmark"];
-      //   [AufnahmenTable reloadData];
+         long namenzeile = [NamenListe selectedRow];
 
+         NSLog(@"setAdminMark case 1 dieZeile: %ld  zeile: %ld",dieZeile,[NamenListe selectedRow]);
+         
+         NSLog(@"setAdminMark  AktuelleAufnahme: %@",AdminAktuelleAufnahme);
+                  NSDictionary* tempNamenDic = [AdminDaten dataForRow:namenzeile];
+         NSString* tempName = [[AdminDaten dataForRow:namenzeile]objectForKey:@"namen"];
+         NSLog(@"setAdminMark case 1 tempName: %@ tempNamenDic: %@",tempName, tempNamenDic);
+         
+         NSLog(@"MarkArrayForRow: %@",[AdminDaten MarkArrayForRow:dieZeile]);
+         
+         BOOL mark = [AdminDaten MarkForRow:namenzeile forItem:dieZeile ];
+         
+         NSLog(@"setAdminMark case 1 mark vor row: %ld zeile: %ld mark: %d",(long)namenzeile,dieZeile,mark);
+         
+         [AdminDaten setMark:derStatus forRow:namenzeile forItem:dieZeile];
+         
+         mark = [AdminDaten MarkForRow:namenzeile forItem:dieZeile ];
+         NSLog(@"mark nach row: %ld zeile: %ld mark: %d",(long)[LesernamenPop indexOfSelectedItem],dieZeile,mark);
+   //      [[AufnahmenDicArray objectAtIndex:dieZeile]setObject:[StatusNumber stringValue] forKey:@"adminmark"];
+         [self saveAdminMarkFuerLeser:tempName FuerAufnahme:AdminAktuelleAufnahme mitAdminMark:derStatus];
+         
+         [self setAufnahmenVonLeser:tempName];
+         
+         [AufnahmenTable reloadData];
+         [NamenListe reloadData];
+         NSLog(@"setAdminMark end case 1");
+         
       }break;
       case 2:
       {
          BOOL mark = [AdminDaten MarkForRow:[LesernamenPop indexOfSelectedItem] forItem:dieZeile ];
-         NSLog(@"mark vor row: %ld zeile: %ld mark: %d",(long)[LesernamenPop indexOfSelectedItem],dieZeile,mark);
+         NSLog(@"setAdminMark case 2 mark vor row: %ld zeile: %ld mark: %d",(long)[LesernamenPop indexOfSelectedItem],dieZeile,mark);
         
          [AdminDaten setMark:derStatus forRow:[LesernamenPop indexOfSelectedItem] forItem:dieZeile];
          
@@ -49,7 +73,8 @@ NSLog(@"reportAuswahlOption: row: %d",[sender selectedRow]);
 
          
          [AufnahmenTable reloadData];
-
+         [NamenListe reloadData];
+         NSLog(@"setAdminMark case 2");
       }break;
          
          
@@ -515,7 +540,8 @@ NSLog(@"tempName: %@",tempName);
       NSLog(@"tabView didSelectTabViewItem zeile: %ld AufnahmenDicArray: %@",zeile,AufnahmenDicArray );
       
       AdminAktuelleAufnahme=[[AufnahmenDicArray objectAtIndex:0]objectForKey:@"aufnahme"];
-
+      
+    //  [self setAufnahmenVonLeser:[LesernamenPop titleOfSelectedItem ]];
       [self setLeserFuerZeile:zeile];
       
       int posint =  [[NSNumber numberWithDouble:[AVAbspielplayer duration]] intValue];
@@ -564,7 +590,7 @@ NSLog(@"tempName: %@",tempName);
 		
 	if ([[tabViewItem identifier]intValue]==1)//zurück zu 'alle Aufnahmen'
    {
-      //NSLog(@"zu 'alle Aufnahmen'");
+      NSLog(@"zu 'alle Aufnahmen'");
       
       // Aufräumen
       
@@ -606,17 +632,16 @@ NSLog(@"tempName: %@",tempName);
          NSLog(@"A");
        //  [[[AdminDaten dataForRow:LesernamenIndex]objectForKey:@"aufnahmen"]setIntValue:Zeile];
       //   [AufnahmenTable reloadData];
-  /*
+  
          long zeile = [NamenListe selectedRow];
          long col =[NamenListe columnWithIdentifier:@"aufnahmen"];
-         NSLog(@"dataCell: %@",[[[NamenListe tableColumnWithIdentifier:@"aufnahmen"]dataCell]description]);
+         NSLog(@"zeile: %ld dataCell: %@",zeile,[[[NamenListe tableColumnWithIdentifier:@"aufnahmen"]dataCell]description]);
           //[[[NamenListe tableColumnWithIdentifier:@"aufnahmen"]dataCellForRow:1]selectItemAtIndex:zeile];
-*/
+
          
          
-        // [self setLeserFuerZeile:LesernamenIndex];
+         [self setLeserFuerZeile:LesernamenIndex];
          
-  //        [self setLeserFuerZeile:LesernamenIndex];
          
          if ([NamenListe numberOfSelectedRows])
          {
