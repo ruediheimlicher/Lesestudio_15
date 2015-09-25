@@ -37,23 +37,41 @@ NSLog(@"reportAuswahlOption: row: %d",[sender selectedRow]);
          NSLog(@"setAdminMark  AktuelleAufnahme: %@",AdminAktuelleAufnahme);
                   NSDictionary* tempNamenDic = [AdminDaten dataForRow:namenzeile];
          NSString* tempName = [[AdminDaten dataForRow:namenzeile]objectForKey:@"namen"];
+         
          NSLog(@"setAdminMark case 1 tempName: %@ tempNamenDic: %@",tempName, tempNamenDic);
          
-         NSLog(@"MarkArrayForRow: %@",[AdminDaten MarkArrayForRow:dieZeile]);
+         NSArray* tempAufnahmeFiles = [AdminDaten AufnahmeFilesFuerZeile: dieZeile];
+         NSLog(@"AufnahmeFilesFuerZeile zeile: %ld : AufnahmeFilesFuerZeile%@",dieZeile,tempAufnahmeFiles);
          
-         BOOL mark = [AdminDaten MarkForRow:namenzeile forItem:dieZeile ];
+         // Zeile von AdminAktuelleAufnahme finden
+         
+         NSArray* tempMarkArray = [AdminDaten MarkArrayForRow:dieZeile];
+         NSLog(@"MarkArrayForRow: %@",tempMarkArray);
+         BOOL mark = NO;
+         long popzeilenindex = [tempAufnahmeFiles indexOfObject:AdminAktuelleAufnahme];
+         if (popzeilenindex == NSNotFound)
+         {
+            NSLog(@"setAdminMark: Aufnahme nicht in Aufnahmefiles");
+            
+         }
+         else
+         {
+            NSLog(@"tempAufnahmeFiles: %@",[tempMarkArray  objectAtIndex:popzeilenindex]);
+            mark = [[tempMarkArray  objectAtIndex:popzeilenindex]boolValue];
+         }
          
          NSLog(@"setAdminMark case 1 mark vor row: %ld zeile: %ld mark: %d",(long)namenzeile,dieZeile,mark);
          
-         [AdminDaten setMark:derStatus forRow:namenzeile forItem:dieZeile];
+         [AdminDaten setMark:derStatus forRow:namenzeile forItem:popzeilenindex];
          
-         mark = [AdminDaten MarkForRow:namenzeile forItem:dieZeile ];
+         mark = [AdminDaten MarkForRow:namenzeile forItem:popzeilenindex ];
          NSLog(@"mark nach row: %ld zeile: %ld mark: %d",(long)[LesernamenPop indexOfSelectedItem],dieZeile,mark);
    //      [[AufnahmenDicArray objectAtIndex:dieZeile]setObject:[StatusNumber stringValue] forKey:@"adminmark"];
          
          [self saveAdminMarkFuerLeser:tempName FuerAufnahme:AdminAktuelleAufnahme mitAdminMark:derStatus];
          
-         [self setAufnahmenVonLeser:tempName];
+         
+     //    [self setAufnahmenVonLeser:tempName];
          
          [AufnahmenTable reloadData];
          [NamenListe reloadData];
@@ -587,7 +605,8 @@ NSLog(@"tempName: %@",tempName);
       [self setAufnahmenVonLeser:self.AdminAktuellerLeser];
       }
       [NamenListe selectRowIndexes:[NSIndexSet indexSetWithIndex:leserzeile]byExtendingSelection:NO];
-     //  [self setLeserFuerZeile:LesernamenIndex];
+     
+      //  [self setLeserFuerZeile:LesernamenIndex];
    }
    
 }
