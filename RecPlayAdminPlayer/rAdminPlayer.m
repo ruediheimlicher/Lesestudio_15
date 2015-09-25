@@ -1137,12 +1137,12 @@ const short kRecPlayUmgebung=0;
 		//[AdminKommentarView selectAll:nil];
 		//[AdminKommentarView delete:nil];
 		[AdminKommentarView setString:@""];
-		//NSLog(@"setLeserFuerZeile    Leser Zeile: %d",hitZeile);
+		NSLog(@"setLeserFuerZeile    Leser Zeile: %d",hitZeile);
 
 		int hit=[[[AdminDaten dataForRow:hitZeile]objectForKey:@"aufnahmen"]intValue];
      
 		NSString* Leser=[[AdminProjektNamenArray objectAtIndex:hitZeile]description];
-		self.AdminAktuellerLeser=[[AdminProjektNamenArray objectAtIndex:hitZeile]description];
+		self.AdminAktuellerLeser=[[AdminProjektNamenArray objectAtIndex:hitZeile]description]; // LesernamenArray
  //     NSLog(@"setLeserFuerZeile AdminAktuellerLeser: %@",self.AdminAktuellerLeser);
 
 		//NSLog(@"setLeserFuerZeile    Leser Zeile: %d",hitZeile);

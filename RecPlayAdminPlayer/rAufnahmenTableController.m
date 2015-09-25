@@ -50,6 +50,7 @@ NSLog(@"reportAuswahlOption: row: %d",[sender selectedRow]);
          mark = [AdminDaten MarkForRow:namenzeile forItem:dieZeile ];
          NSLog(@"mark nach row: %ld zeile: %ld mark: %d",(long)[LesernamenPop indexOfSelectedItem],dieZeile,mark);
    //      [[AufnahmenDicArray objectAtIndex:dieZeile]setObject:[StatusNumber stringValue] forKey:@"adminmark"];
+         
          [self saveAdminMarkFuerLeser:tempName FuerAufnahme:AdminAktuelleAufnahme mitAdminMark:derStatus];
          
          [self setAufnahmenVonLeser:tempName];
@@ -235,7 +236,7 @@ NSLog(@"tempName: %@",tempName);
    NSSortDescriptor* sorter=[[NSSortDescriptor alloc]initWithKey:@"sort" ascending:NO];
    NSArray* sortDescArray=[NSArray arrayWithObjects:sorter,nil];
    AufnahmenDicArray =[[tempAufnahmenDicArray sortedArrayUsingDescriptors:sortDescArray]mutableCopy];
-   //	NSLog(@"AufnahmenDicArray: %@",[AufnahmenDicArray description]);
+   NSLog(@"AufnahmenDicArray: %@",[AufnahmenDicArray description]);
    AdminAktuelleAufnahme=[[AufnahmenDicArray objectAtIndex:0]objectForKey:@"aufnahme"];
    selektierteAufnahmenTableZeile=0;
    NSNumber* ZeilenNummer=[NSNumber numberWithInt:0];
@@ -533,11 +534,11 @@ NSLog(@"tempName: %@",tempName);
 - (void)tabView:(NSTabView *)tabView didSelectTabViewItem:(NSTabViewItem *)tabViewItem
 {
    //NSLog(@"tabView didSelectTabViewItem");
-   if ([[tabViewItem identifier]intValue]==2)//zu 'alle nach Namen'
+   if ([[tabViewItem identifier]intValue]==2)//neu in 'alle nach Namen'
    {
       
       long zeile=[NamenListe selectedRow];
-      NSLog(@"tabView didSelectTabViewItem zeile: %ld AufnahmenDicArray: %@",zeile,AufnahmenDicArray );
+      NSLog(@"tabView didSelectTabViewItem 2 zeile: %ld AufnahmenDicArray: %@",zeile,AufnahmenDicArray );
       
       AdminAktuelleAufnahme=[[AufnahmenDicArray objectAtIndex:0]objectForKey:@"aufnahme"];
       
@@ -576,6 +577,17 @@ NSLog(@"tempName: %@",tempName);
       }
       
 
+   }
+   else if ([[tabViewItem identifier]intValue]==1)//neu in 'alle Aufnahmen')
+   {
+      NSLog(@"tabView didSelectTabViewItem 1 AdminAktuelleAufnahme: %@ AdminAktuellerLeser: %@",AdminAktuelleAufnahme,self.AdminAktuellerLeser );
+      long leserzeile = [AdminDaten ZeileVonLeser:self.AdminAktuellerLeser];
+      [self setLeserFuerZeile:leserzeile];
+      {
+      [self setAufnahmenVonLeser:self.AdminAktuellerLeser];
+      }
+      [NamenListe selectRowIndexes:[NSIndexSet indexSetWithIndex:leserzeile]byExtendingSelection:NO];
+     //  [self setLeserFuerZeile:LesernamenIndex];
    }
    
 }
@@ -625,10 +637,10 @@ NSLog(@"tempName: %@",tempName);
          [self clearKommentarfelder];
          
          NSString* Lesername=[LesernamenPop titleOfSelectedItem];
-         int LesernamenIndex=[AdminDaten ZeileVonLeser:Lesername];
-         NSLog(@"Alle Namen: Lesername: %@, LesernamenIndex: %d",Lesername,LesernamenIndex);
+         int LesernamenIndex=[AdminDaten ZeileVonLeser:Lesername]; // Index des Lesers im PopUp
+         NSLog(@"Alle Namen: Lesername: %@, LesernamenIndex: %d AdminAktuellerLeser: %@",Lesername,LesernamenIndex,self.AdminAktuellerLeser);
          
-         [AufnahmenTable selectRowIndexes:[NSIndexSet indexSetWithIndex:LesernamenIndex]byExtendingSelection:NO];
+     //    [AufnahmenTable selectRowIndexes:[NSIndexSet indexSetWithIndex:LesernamenIndex]byExtendingSelection:NO];
          NSLog(@"A");
        //  [[[AdminDaten dataForRow:LesernamenIndex]objectForKey:@"aufnahmen"]setIntValue:Zeile];
       //   [AufnahmenTable reloadData];
@@ -640,7 +652,7 @@ NSLog(@"tempName: %@",tempName);
 
          
          
-         [self setLeserFuerZeile:LesernamenIndex];
+ //        [self setLeserFuerZeile:LesernamenIndex];
          
          
          if ([NamenListe numberOfSelectedRows])
@@ -729,8 +741,8 @@ NSLog(@"tempName: %@",tempName);
                NSAlert *NamenWarnung = [[NSAlert alloc] init];
                [NamenWarnung addButtonWithTitle:@"OK"];
                //[RecorderWarnung addButtonWithTitle:@"Cancel"];
-               [NamenWarnung setMessageText:@"Keine Aufnahmen"];
-               [NamenWarnung setInformativeText:@"Fuer diesen Namen sind keine Aufnahmen vorhanden."];
+               [NamenWarnung setMessageText:@"Kein Name"];
+               [NamenWarnung setInformativeText:@"Ein Name muss ausgewaehlt sein."];
                [NamenWarnung setAlertStyle:NSWarningAlertStyle];
                [NamenWarnung runModal];
                return NO;
