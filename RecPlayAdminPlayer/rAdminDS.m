@@ -281,6 +281,12 @@ return index;
 	return [[[MarkArray objectAtIndex:dieZeile]objectAtIndex:dasItem]boolValue];
 }
 
+- (void)setAufnahmenMarkAuswahlOption:(long)zeile
+{
+   
+   AufnahmenMarkAuswahlOption = zeile;
+}
+
 #pragma mark -
 #pragma mark Table Data Source:
 
@@ -375,11 +381,15 @@ return index;
 			NSEnumerator* AufnahmenEnumerator=[[AufnahmeFiles objectAtIndex:row] objectEnumerator];
 			id eineAufnahme;
 			int index=0;
+         BOOL inPopOK=YES; // Alle Files aufnehmen
 			while(eineAufnahme=[AufnahmenEnumerator nextObject])//Aufnahmen für Menu
          {
-            
-            
          //   [cell addItemWithTitle:eineAufnahme];
+            if (AufnahmenMarkAuswahlOption) // nur markierte aufnehmen
+            {
+               inPopOK=NO;
+            }
+
             double menuIndex=[cell indexOfItemWithTitle:eineAufnahme];
             //NSLog(@"eineAufnahme: %@ index: %d  menuIndex: %d",eineAufnahme,index,menuIndex);
             BOOL tempState=NO;
@@ -406,15 +416,37 @@ return index;
                }
                NSString* tempAufnahmeString = eineAufnahme;
                
+               // Mark setzen
                if (tempState)
                {
                   tempAufnahmeString = [NSString stringWithFormat:@"%@\t%@",@"X",tempAufnahmeString];
                }
-               else{
+               else
+               {
                   tempAufnahmeString = [NSString stringWithFormat:@"\t%@",tempAufnahmeString];
                  
                }
-                [cell addItemWithTitle:tempAufnahmeString];
+               // in Pop aufnehmen je nach Status von AufnahmenaAuswahlOption
+               switch (AufnahmenMarkAuswahlOption)
+               {
+                  case 0: // alle aufnehmen
+                  {
+                     [cell addItemWithTitle:tempAufnahmeString];
+
+                  }break;
+                  case 1: // nur markierte aufnehmen
+                  {
+                     if (tempState)
+                     {
+                        [cell addItemWithTitle:tempAufnahmeString];
+                     }
+                  }break;
+               }
+               
+                               
+               
+               
+               
             }
             //else
             {

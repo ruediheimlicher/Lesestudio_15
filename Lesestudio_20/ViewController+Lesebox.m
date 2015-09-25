@@ -1737,6 +1737,8 @@ enum
     if(!self.AdminPlayer)
     {
     self.AdminPlayer=[[rAdminPlayer alloc]init];
+       
+       
     [self.AdminPlayer showWindow:self];
    // [self setLeseb self.LeseboxPfad];
     }

@@ -4533,16 +4533,16 @@ if (!self.KommentarFenster)
    // [AdminPlayer setCleanTask:1];
 }
 
-- (void)MarkierungenWeg:(id)sender
+- (IBAction)MarkierungenWeg:(id)sender
 {
    
-   // [AdminPlayer MarkierungenEntfernen];
+    [AdminPlayer MarkierungenEntfernen];
 }
 
 
 - (IBAction)AlleMarkierungenWeg:(id)sender
 {
-   //  [AdminPlayer AlleMarkierungenEntfernen];
+     [AdminPlayer AlleMarkierungenEntfernen];
 }
 
 

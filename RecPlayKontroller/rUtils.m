@@ -1887,7 +1887,7 @@ return versionOK;
 	{
 	[UProjektNamenPanel  setOrdnerNamenArray:tempNamenArray];
 	}
-  int modalAntwort = [NSApp runModalForWindow:[UProjektNamenPanel window]];
+  long modalAntwort = [NSApp runModalForWindow:[UProjektNamenPanel window]];
   
   //Rückgabe wird von UKopierOrdnerWahlAktion gesetzt: -> UProjektName 
   //int modalAntwort = [NSApp runModalSession:ProjektSession];
@@ -2796,7 +2796,7 @@ return versionOK;
 	NSModalSession PasswortSession=[NSApp beginModalSessionForWindow:[UPasswortRequestPanel window]];
 	[UPasswortRequestPanel setName:tempName mitPasswort: PWData];
 	
-	int modalAntwort = [NSApp runModalForWindow:[UPasswortRequestPanel window]];
+	long modalAntwort = [NSApp runModalForWindow:[UPasswortRequestPanel window]];
 	//NSLog(@"Utils confirmPasswort: modalAntwort: %d",modalAntwort);
 	[NSApp endModalSession:PasswortSession];
 	confirmOK=(modalAntwort==1);

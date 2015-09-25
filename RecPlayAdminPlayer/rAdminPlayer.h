@@ -80,6 +80,7 @@
       
 	IBOutlet NSTabView*			AufnahmenTab;
 	IBOutlet NSTableView*		AufnahmenTable;
+   IBOutlet NSMatrix*			AufnahmenMarkAuswahlOption;
 	IBOutlet NSMatrix*			MarkAuswahlOption;
 	NSMutableArray*				AufnahmenDicArray;
 	IBOutlet NSPopUpButton*		LesernamenPop;
@@ -126,6 +127,7 @@
 	int							ProjektNamenOption;
 	int							ProjektAuswahlOption;
 	int							nurMarkierteOption;
+      
 	NSString*					OptionAString;
 	NSString*					OptionBString;
 	NSString*					ProjektPfadOptionString;
@@ -340,6 +342,7 @@
 @interface rAdminPlayer(rAufnahmenTableController)
 - (void)setNamenPop:(NSArray*)derNamenArray;
 - (IBAction)reportAuswahlOption:(id)sender;
+- (IBAction)reportAufnahmenAuswahlOption:(id)sender;
 - (IBAction)reportDelete:(id)sender;
 - (void)setAdminMark:(BOOL)derStatus fuerZeile:(long)dieZeile;
 - (void)setUserMark:(BOOL)derStatus fuerZeile:(long)dieZeile;

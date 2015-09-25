@@ -308,6 +308,9 @@
 - (IBAction)switchAdminPlayer:(id)sender;
 - (void)restartAdminTimer;
 - (IBAction)startTestfeld:(id)sender;
+- (IBAction)MarkierungenWeg:(id)sender;
+- (IBAction)AlleMarkierungenWeg:(id)sender;
+   
 
 @end
 

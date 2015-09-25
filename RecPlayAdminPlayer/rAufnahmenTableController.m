@@ -20,7 +20,14 @@
 {
 NSLog(@"reportAuswahlOption: row: %d",[sender selectedRow]);
 [self setAufnahmenVonLeser:[LesernamenPop titleOfSelectedItem]];
+}
 
+- (IBAction)reportAufnahmenAuswahlOption:(id)sender;
+{
+   NSLog(@"reportAufnahmenAuswahlOption: row: %d",[sender selectedRow]);
+   
+   [AdminDaten setAufnahmenMarkAuswahlOption:[sender selectedRow]];
+   [NamenListe reloadData];
 }
 
 - (void)setAdminMark:(BOOL)derStatus fuerZeile:(long)dieZeile
@@ -512,6 +519,7 @@ NSLog(@"tempName: %@",tempName);
 			  [cell setImage:[NSImage imageNamed:@"MarkOffImg.tif"]];
 		  }
 	  }
+   
 }//willDisplayCell
   
   

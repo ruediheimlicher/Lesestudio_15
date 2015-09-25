@@ -8,6 +8,7 @@
 	NSMutableArray* MarkArray;
 	NSMutableArray* UserMarkArray;
     BOOL _editable;
+   BOOL AufnahmenMarkAuswahlOption;
 }
 
 - (id)initWithRowCount: (long)rowCount;
@@ -35,6 +36,7 @@
 
 - (void)setAuswahl:(long)dasItem forRow:(long) rowIndex;
 - (int)AuswahlFuerZeile:(long)dieZeile;
+- (void)setAufnahmenMarkAuswahlOption:(long)zeile;
 
 
 

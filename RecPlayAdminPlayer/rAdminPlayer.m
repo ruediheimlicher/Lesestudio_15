@@ -82,6 +82,7 @@ const short kRecPlayUmgebung=0;
 - (id)init
 {
    NSLog(@"AdminPlayer init");
+   Umgebung = 1;
    self=[super initWithWindowNibName:@"RPAdminPlayer"];
 	//AdminDaten = [[rAdminDS alloc] initWithRowCount: 10];
 	NSNotificationCenter * nc;
@@ -503,6 +504,7 @@ const short kRecPlayUmgebung=0;
 	NSMutableArray* AufnahmeFilesArray;
 	
 	[LesernamenPop removeAllItems];
+   [AdminMarkCheckbox setState:0];
 	//[LesernamenPop insertItemWithTitle:@"Namen waehlen" atIndex:0];
 	//NSLog(@"\nAdminProjektNamenArray: %@\n\n",[AdminProjektNamenArray description]);
 	NSArray* SessionNamenArray=[NSArray array];
@@ -792,7 +794,7 @@ const short kRecPlayUmgebung=0;
 {
   
 	//NSLog(@"\n\n*********setNeuesAdminProjekt: %@\nAdminProjektArray: %@",[sender titleOfSelectedItem],AdminProjektArray);
-   
+   [AdminMarkCheckbox setState:0];
    [AufnahmenTab selectFirstTabViewItem:nil];
 	
    [self setAdminPlayer:AdminLeseboxPfad inProjekt:[sender titleOfSelectedItem]];
@@ -812,6 +814,7 @@ const short kRecPlayUmgebung=0;
 {
    //NSLog(@"\n\n			--------setAdminProjektArray: derProjektArray: %@",[derProjektArray description]);
    
+   NSLog(@"Umgebung: %d",Umgebung);
    [[self window ] makeKeyAndOrderFront:nil];
    [AdminProjektArray removeAllObjects];
    [AdminProjektArray setArray:derProjektArray];
@@ -951,7 +954,7 @@ const short kRecPlayUmgebung=0;
 	if (hitZeile<0)
 		return;
    [self clearAVPlay];
-   
+   [AdminMarkCheckbox setState:0];
 	if ([[AdminDaten AufnahmeFilesFuerZeile:hitZeile]count])
 	{
 		int hit=[[[AdminDaten dataForRow:hitZeile]objectForKey:@"aufnahmen"]intValue];
@@ -2784,26 +2787,40 @@ const short kRecPlayUmgebung=0;
 	if(tempZeile>=0)
 	  {
 		NSString* tempLeser=[[AdminDaten dataForRow:tempZeile]objectForKey:@"namen"];
-		
+		if (!MarkierungFenster)
+      {
 		MarkierungFenster=[[rMarkierung alloc]init];
-	    long modalAntwort;
+      }
 		SEL MarkierungSelektor;
-		MarkierungSelektor=@selector(sheetDidEnd: returnCode: contextInfo:);
+	//	MarkierungSelektor=@selector(sheetDidEnd: returnCode: contextInfo:);
 		NSLog(@"MarkierungenWeg: tempLeser: %@",tempLeser);
 		[MarkierungFenster setNamenString:tempLeser];
-		[NSApp beginSheet:[MarkierungFenster window]
-		   modalForWindow:AdminFenster
-			modalDelegate:MarkierungFenster
-		 //didEndSelector:EntfernenSelektor 
-		   didEndSelector:NULL
-			  contextInfo:@"Markierung"];
-		[MarkierungFenster setNamenString:tempLeser];
-		modalAntwort = [NSApp runModalForWindow:[MarkierungFenster window]];
-		
+      
+         NSModalSession ProjektSession=[NSApp beginModalSessionForWindow:[MarkierungFenster window]];
+         
+          long modalAntwort = [NSApp runModalForWindow:[MarkierungFenster window]];
+         
+         //RŸckgabe wird von UKopierOrdnerWahlAktion gesetzt: -> UProjektName
+         //int modalAntwort = [NSApp runModalSession:ProjektSession];
+         NSLog(@"MarkierungenEntfernen Antwort: %d",modalAntwort);
+         [NSApp endModalSession:ProjektSession];
+
+        
 		
 		[NSApp endSheet:[MarkierungFenster window]];
 		
-		[[MarkierungFenster window] orderOut:NULL];   
+		[[MarkierungFenster window] orderOut:NULL];
+        switch (modalAntwort)
+        {
+        case 0:
+           {
+              
+           }break;
+           case 1:
+           {
+              
+           }break;
+        }
 		NSLog(@"endSheet: Antwort: %ld",modalAntwort);
 		
 	  }//tempZeile>=0
