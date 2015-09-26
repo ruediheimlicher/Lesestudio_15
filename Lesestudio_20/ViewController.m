@@ -87,7 +87,21 @@ NSString*	RPDevicedatenKey=	@"RPDevicedaten";
    [super viewDidLoad];
       //NSLog(@"nibname: %@ window: %@",self.nibName, [[self.view window]description]);
    
-
+//
+   NSString *universal = @"Üniversäl";
+   
+   NSLog(@"Üniversal: %@", universal);
+   
+   printf("NSMacOSRomanStringEncoding: %s\n", [universal cStringUsingEncoding:NSMacOSRomanStringEncoding]);
+   printf("NSISOLatin1StringEncoding: %s\n", [universal cStringUsingEncoding:NSISOLatin1StringEncoding]);
+   printf("NSUTF8StringEncoding: %s\n", [universal cStringUsingEncoding:NSUTF8StringEncoding]);
+   
+   
+   //
+   
+   
+   
+   
    
 //   [self initWithNibName:self.nibName bundle:nil];
    startcode=0;
@@ -4226,7 +4240,7 @@ QTMovie* qtMovie;
 {
    
    BOOL umschalten=YES;
-   NSLog(@"vor shouldSelectTabViewItem");
+   //NSLog(@"vor shouldSelectTabViewItem");
    //NSLog(@"vor shouldSelectTabViewItem: UserMarkCheckbox: %d",[self.UserMarkCheckbox state]);
    if ([[tabViewItem label]isEqualToString:@"Archiv"])
 	  {
@@ -4439,9 +4453,11 @@ QTMovie* qtMovie;
    int status=(int)[CheckboxStatus floatValue];
    NSLog(@"NotenNotifikationAktion: %@  Status: %d",[CheckboxStatus description],status);
    self.NoteZeigen=(status==1);
+   self.NoteZeigen=0;
    [[NSUserDefaults standardUserDefaults]setInteger: status forKey: RPNoteKey];
    
 }
+
 - (void)StartStatusNotifikationAktion:(NSNotification*)note
 {
    NSNumber* mitPasswort=[[note userInfo]objectForKey:@"mituserpasswort"];

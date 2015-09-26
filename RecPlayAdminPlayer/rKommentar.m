@@ -52,7 +52,7 @@ typedef NS_ENUM(NSInteger, A)
 
 - (void)awakeFromNib
 {
-   //NSLog(@"Kommentar awakeFromNib");
+   NSLog(@"Kommentar awakeFromNib");
    TitelArray=[[NSMutableArray alloc]initWithCapacity:0];
    
    NamenArray=[[NSMutableArray alloc]initWithCapacity:0];
@@ -1448,7 +1448,7 @@ typedef NS_ENUM(NSInteger, A)
                   //NSLog(@"++	tempKomponentenArray count: %d   TabellenkopfArray count: %d",[tempKomponentenArray count],[TabellenkopfArray count]);
                   if ([tempKomponentenArray count]>[TabellenkopfArray count]+1)
                   {
-                     NSLog(@"Anz Zeilen > als Elemente der Kopfzeile: tempKomponentenArray: %@",[tempKomponentenArray description]);
+                     //NSLog(@"Anz Zeilen > als Elemente der Kopfzeile: tempKomponentenArray: %@",[tempKomponentenArray description]);
                   }
                   if ([tempKomponentenArray count]>8)
                   {
@@ -2160,14 +2160,14 @@ typedef NS_ENUM(NSInteger, A)
    int maxTitelbreite=12;
    int Textschnitt=10;
    int AnzahlAnmerkungen=0;
-   NSLog(@"setKommentarMit KommentarDicArray: %@",[derKommentarDicArray objectAtIndex:0]);
+   //NSLog(@"setKommentarMit KommentarDicArray: %@",[derKommentarDicArray objectAtIndex:0]);
    NSEnumerator* TabEnum=[derKommentarDicArray objectEnumerator];
    id einTabDic;
    //NSLog(@"setKommentarMit Komm.DicArray: vor while   Anz. Dics: %d",[derKommentarDicArray count]);
    
    while (einTabDic=[TabEnum nextObject])//erster Durchgang: LŠnge von Namen und Titel bestimmen
    {
-      NSLog(@"einTabDic: %@",[einTabDic description]);
+      //NSLog(@"einTabDic: %@",[einTabDic description]);
       NSString* ProjektTitel;
       NSString* KommentarString;
       if ([einTabDic objectForKey:@"projekt"])
@@ -3344,7 +3344,7 @@ typedef NS_ENUM(NSInteger, A)
    
    NSArray* KommentarStringArray=[self createKommentarStringArrayWithProjektPfadArray:[tempProjektDicArray valueForKey:@"projektpfad"]];
    
-   NSLog(@"KommentarSuchenMitDic nach Create:  KommentarStringArray: %@%@%@",@"\r",[KommentarStringArray description],@"\r");
+   //NSLog(@"KommentarSuchenMitDic nach Create:  KommentarStringArray: %@%@%@",@"\r",[KommentarStringArray description],@"\r");
    //NSLog(@"\n**********\nvor KommentarFenster setKommentarMitKommentarDicArray");
    [self setKommentarMitKommentarDicArray:KommentarStringArray];
    //NSLog(@"\nnach KommentarFenster setKommentarMitKommentarDicArray\n**********\n");

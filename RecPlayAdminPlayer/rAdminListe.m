@@ -28,7 +28,7 @@
 {
 	int nr=[theEvent keyCode];
 	NSString* Taste=[theEvent characters];
-	NSLog(@"Adminliste keyDown: %@  Taste %@",[theEvent characters],Taste);	
+	//NSLog(@"Adminliste keyDown: %@  Taste %@",[theEvent characters],Taste);
 	//if([[Taste description]isEqualToString:@"\r"])
 	//	NSLog(@"                    Enter");
 	NSNumber* KeyNummer;
@@ -48,7 +48,7 @@
 	}
 	if (([theEvent keyCode]  ==125)||([theEvent keyCode]  ==126))
 	  {
-		NSLog(@"NSUpArrowFunctionKey:%d   NSUpArrowFunctionKey: %d   ",[theEvent keyCode],NSUpArrowFunctionKey);
+		//NSLog(@"NSUpArrowFunctionKey:%d   NSUpArrowFunctionKey: %d   ",[theEvent keyCode],NSUpArrowFunctionKey);
 	[super keyDown:theEvent];
 	  }
 }

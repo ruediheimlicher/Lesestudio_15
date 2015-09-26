@@ -12,12 +12,12 @@
    [super viewDidLoad];
    // Do view setup here.
    [self.AnzeigeFeld setStringValue:@"start"];
-   NSLog(@"Einstellungenfenster  viewDidLoad");
+   //NSLog(@"Einstellungenfenster  viewDidLoad");
 }
 
 - (void)awakeFromNib
 {
-   NSLog(@"Einstellungenfenster  awake");
+   //NSLog(@"Einstellungenfenster  awake");
    NSFont* Titelfont;
    Titelfont=[NSFont fontWithName:@"Helvetica" size: 24];
    NSColor * TitelFarbe=[NSColor grayColor];

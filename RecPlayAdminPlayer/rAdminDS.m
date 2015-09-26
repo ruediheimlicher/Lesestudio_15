@@ -130,7 +130,7 @@ return index;
 
 - (void)setAufnahmeFiles:(NSArray*)derArray forRow: (long)dieZeile
 {
-   NSLog(@"setAufnahmeFiles Zeile: %ld  Array: %@",dieZeile, derArray);
+   //NSLog(@"setAufnahmeFiles Zeile: %ld  Array: %@",dieZeile, derArray);
 
 	//NSArray* tempArray=[derArray copy];
 	NSMutableArray* eineZeile;
@@ -153,7 +153,7 @@ return index;
    for (int paket=0;paket < [AufnahmeFiles count];paket++)
    {
       long zeilenindex = [[AufnahmeFiles objectAtIndex:paket]indexOfObject:aufnahme];
-      NSLog(@"aufnahme: %@ paket: %d zeilenindex: %ld",aufnahme, paket, zeilenindex);
+      //NSLog(@"aufnahme: %@ paket: %d zeilenindex: %ld",aufnahme, paket, zeilenindex);
       if (zeilenindex < NSNotFound) // aufnahme ist da
       {
          
@@ -277,7 +277,7 @@ return index;
 
 - (BOOL)MarkForRow:(long)dieZeile forItem:(long)dasItem
 {
-   NSLog(@"MarkForRow MarkArray: %@",MarkArray);
+   //NSLog(@"MarkForRow MarkArray: %@",MarkArray);
 	return [[[MarkArray objectAtIndex:dieZeile]objectAtIndex:dasItem]boolValue];
 }
 
@@ -583,7 +583,7 @@ return index;
 	NSNotificationCenter * nc;
 	nc=[NSNotificationCenter defaultCenter];
 	[nc postNotificationName:@"AdminselektierteZeile" object:AdminZeilenDic]; // AdminZeilenNotifikationAktion
-	NSLog(@"AdmintableView  shouldSelectRow ende: %d",row);
+	//NSLog(@"AdmintableView  shouldSelectRow ende: %d",row);
 	//[[[tableView tableColumnWithIdentifier:@"aufnahmen"]dataCellForRow:row]action];
 	
 	return YES;

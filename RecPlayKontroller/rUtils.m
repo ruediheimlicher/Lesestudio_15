@@ -204,7 +204,8 @@ Setzt die Variablen in Utils.m nach den Vorgaben der PList bei beginn des Progra
          // ProjektOrder im Archiv
          NSMutableArray* tempProjektOrdnerArray = (NSMutableArray*)[Filemanager contentsOfDirectoryAtPath:tempArchivPfad error: &err];
          [tempProjektOrdnerArray removeObject:@".DS_Store"];
-         //NSLog(@"tempProjektOrdnerArray: %@",tempProjektOrdnerArray);
+         NSLog(@"tempProjektOrdnerArray: %@",tempProjektOrdnerArray);
+         
          long anzProjekte = [tempProjektOrdnerArray count];
          if (anzProjekte)
          {
@@ -212,7 +213,7 @@ Setzt die Variablen in Utils.m nach den Vorgaben der PList bei beginn des Progra
             {
                
                NSString* tempProjekt = [tempProjektOrdnerArray objectAtIndex:projektindex];
-               //NSLog(@"tempProjekt: %@",tempProjekt);
+               NSLog(@"tempProjekt: %@",tempProjekt);
                NSString* tempProjektPfad = [tempArchivPfad stringByAppendingPathComponent:tempProjekt];
                if ([Filemanager fileExistsAtPath:tempProjektPfad isDirectory: &istDir] && istDir) // ProjektOrdner da
                {
@@ -1764,8 +1765,9 @@ return versionOK;
    
    if ([Filemanager fileExistsAtPath:PListPfad])
    {
+      //  [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:&errorBuffer];
       tempPListDic=[[NSDictionary dictionaryWithContentsOfFile:PListPfad]mutableCopy];
-      //NSLog(@"Utils tempPListDic: %@",[tempPListDic description]);
+      NSLog(@"Utils tempPListDic: %@",[tempPListDic description]);
       if ([[[tempPListDic objectForKey:@"adminpw"]objectForKey:@"pw"]length]==0)
       {
          NSAlert *Warnung = [[NSAlert alloc] init];

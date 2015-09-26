@@ -104,6 +104,8 @@
 		[[self window]makeFirstResponder:ProjektTable];
 		NSMutableDictionary* NotificationDic=[NSMutableDictionary dictionaryWithObject:ProjektString forKey:@"projekt"];
 		[NotificationDic setObject:ProjektArray forKey:@"projektarray"];
+        [NotificationDic setObject:[EingabeFeld stringValue] forKey:@"neuesprojektname"];
+        
 		NSNotificationCenter* nc=[NSNotificationCenter defaultCenter];
 		[nc postNotificationName:@"ProjektWahl" object:self userInfo:NotificationDic];
 	  }//if ProjektIndex
@@ -115,8 +117,8 @@
 {
 	if ([[EingabeFeld stringValue]length])
 	  {
-		
-		NSMutableDictionary* neuesProjektDic=[NSMutableDictionary dictionaryWithObject:[EingabeFeld stringValue] forKey:@"projekt"];
+        NSLog(@"reportNeuesProjekt: %@",[EingabeFeld stringValue]);
+		NSMutableDictionary* neuesProjektDic=[NSMutableDictionary dictionaryWithObject:[[EingabeFeld stringValue] dataUsingEncoding:NSUTF8StringEncoding]forKey:@"projekt"];
 		[neuesProjektDic setObject: [NSNumber numberWithInt:1] forKey:@"OK"];
 		[ProjektArray addObject: neuesProjektDic];
 		[EingabeFeld setStringValue:@""];

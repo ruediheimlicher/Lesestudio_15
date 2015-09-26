@@ -63,8 +63,9 @@ enum
    if (self.LeseboxOK)
    {
       //NSLog(@"Leseboxvorbereiten LeseboxOK=1 PListDic lesen");
+      
       self.PListDic=[[Utils PListDicVon:self.LeseboxPfad aufSystemVolume:self.istSystemVolume]mutableCopy];
-      //NSLog(@"Leseboxvorbereiten LeseboxOK=1 PListDic: %@",[self.PListDic description]);
+      NSLog(@"Leseboxvorbereiten LeseboxOK=1 PListDic: %@",[self.PListDic description]);
       
       // Anfang busy
       
@@ -1953,7 +1954,7 @@ enum
    //Sessioleserarray
    NSArray* tempSessionLeserArray=[tempProjektDic objectForKey:@"sessionleserarray"];
    
-   NSLog(@"tempSessionLeserArray 1: %@",[tempSessionLeserArray description]);
+   //NSLog(@"tempSessionLeserArray 1: %@",[tempSessionLeserArray description]);
    NSEnumerator* NamenEnum=[tempProjektNamenArray objectEnumerator];
    id einName;
    while (einName=[NamenEnum nextObject])
@@ -3896,7 +3897,7 @@ enum
 
 - (void)TitelListeAktion:(NSNotification*)note
 {
-   //NSLog(@"\n\n\n			TitelListeAktion ProjektPfad: %@",ProjektPfad);
+   NSLog(@"\n\n\n			TitelListeAktion ProjektPfad: %@",self.ProjektPfad);
    NSLog(@"TitellisteAktion: ProjektArray Anfang: %@",[self.ProjektArray description]);
    
    if ([[note userInfo] objectForKey:@"fix"])

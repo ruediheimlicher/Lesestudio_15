@@ -262,7 +262,7 @@ vomStart=NO;
 - (IBAction)reportClose:(id)sender
 { 
 
-  //NSLog(@"\n\nProjektliste reportClose: ProjektArray: %@",[ProjektArray description]);
+  NSLog(@"\n\nProjektliste reportClose: ProjektArray: %@",[ProjektArray description]);
   NSMutableDictionary* NotificationDic=[[NSMutableDictionary alloc]initWithCapacity:0];
 
 	[NotificationDic setObject:ProjektArray forKey:@"projektarray"];//eventuell sind Aktivierungen geändert

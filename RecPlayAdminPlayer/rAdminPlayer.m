@@ -81,7 +81,7 @@ const short kRecPlayUmgebung=0;
 
 - (id)init
 {
-   NSLog(@"AdminPlayer init");
+   //NSLog(@"AdminPlayer init");
    Umgebung = 1;
    self=[super initWithWindowNibName:@"RPAdminPlayer"];
 	//AdminDaten = [[rAdminDS alloc] initWithRowCount: 10];
@@ -236,7 +236,7 @@ const short kRecPlayUmgebung=0;
 	
 	selektierteAufnahmenTableZeile=-1;
 	Textchanged=NO;
-   NSLog(@"AdminPlayer end");
+   //NSLog(@"AdminPlayer end");
 	return self;
 	
 }
@@ -244,7 +244,7 @@ const short kRecPlayUmgebung=0;
 - (void) awakeFromNib
 {
    
-   NSLog(@"AdminPlayer awake start");
+  // NSLog(@"AdminPlayer awake start");
    [NamenListe reloadData];
    NSColor * TitelFarbe=[NSColor grayColor];
    NSFont* TitelFont;
@@ -341,7 +341,7 @@ const short kRecPlayUmgebung=0;
 
    [AufnahmenTable setDelegate:self];
    [AufnahmenTable setDataSource:self];
-   NSLog(@"farbe");
+   //NSLog(@"farbe");
   // NSColor* FensterFarbe=[NSColor colorWithDeviceRed: 194.0/255 green:249.0/255 blue:194.0/255 alpha:1.0];
    NSColor* FensterFarbe=[NSColor colorWithDeviceRed: 194.0/255 green:249.0/255 blue:220.0/255 alpha:1.0];
 
@@ -394,7 +394,7 @@ const short kRecPlayUmgebung=0;
 		
 		if ([Filemanager fileExistsAtPath:tempLeseboxPfad ])
 		  {
-			NSLog(@"setNetworkAdminLeseboxPfad: AdminLeseboxPfad da: %@",tempLeseboxPfad);
+			//NSLog(@"setNetworkAdminLeseboxPfad: AdminLeseboxPfad da: %@",tempLeseboxPfad);
 			AdminLeseboxPfad=[NSMutableString stringWithString:tempLeseboxPfad];
 
 			antwort=YES;
@@ -411,7 +411,7 @@ const short kRecPlayUmgebung=0;
 
 - (void) setAdminPlayer:(NSString*)derLeseboxPfad inProjekt:(NSString*)dasProjekt
 {
-	NSLog(@"setAdminPlayer LeseboxPfad: %@ Projekt: %@",derLeseboxPfad,dasProjekt);
+	//NSLog(@"setAdminPlayer LeseboxPfad: %@ Projekt: %@",derLeseboxPfad,dasProjekt);
 	NSFileManager *Filemanager=[NSFileManager defaultManager];
    
    
@@ -592,7 +592,7 @@ const short kRecPlayUmgebung=0;
 		{
 			if ([[[tempAufnahmenliste objectAtIndex:k]description]characterAtIndex:0]=='.')
 			{
-				NSLog(@"String mit Punkt: %@ auf Zeile: %d",[[tempAufnahmenliste objectAtIndex:k]description],k);
+				//NSLog(@"String mit Punkt: %@ auf Zeile: %d",[[tempAufnahmenliste objectAtIndex:k]description],k);
 				afpZeile=k;
 			}
 			//NSLog(@"kein Kommentar bei %d",k);
@@ -682,11 +682,11 @@ const short kRecPlayUmgebung=0;
 				/*
 				NSString* tempKommentarString=[NSString stringWithContentsOfFile:tempAnmerkungPfad];
 				NSMutableArray* tempKommentarArrary=(NSMutableArray *)[tempKommentarString componentsSeparatedByString:@"\r"];
-				NSLog(@"tempKommentarArrary vor: %@",[tempKommentarArrary description]);
+				//NSLog(@"tempKommentarArrary vor: %@",[tempKommentarArrary description]);
 				if (tempKommentarArrary &&[tempKommentarArrary count])
 				{
 					NSNumber* AdminMarkNumber=[tempKommentarArrary objectAtIndex:3];
-					NSLog(@"istMarkiert		AdminMarkNumber: %d",[AdminMarkNumber intValue]);
+					//NSLog(@"istMarkiert		AdminMarkNumber: %d",[AdminMarkNumber intValue]);
 					
 					AdminMark=[AdminMarkNumber intValue];
 					
@@ -743,10 +743,10 @@ const short kRecPlayUmgebung=0;
 		[AdminDaten setData: NamenDic  forRow:i];
 		
 		
-		NSLog(@"setData zeile: %d : NamenDic: %@",i,NamenDic);
+		//NSLog(@"setData zeile: %d : NamenDic: %@",i,NamenDic);
 		//[NamenDic autorelease];
 		[AdminDaten setData: AnzDic  forRow:i];
-		NSLog(@"setData zeile: %d : AnzDic: %@",i,AnzDic);
+		//NSLog(@"setData zeile: %d : AnzDic: %@",i,AnzDic);
 		//[AnzDic release];
 	}
 	
@@ -786,7 +786,7 @@ const short kRecPlayUmgebung=0;
 	[AufnahmenTable setDoubleAction:DoppelSelektor];
    //[AufnahmenTable setDelegate:AdminDaten];
    //[AufnahmenTable setDataSource:AdminDaten];
-   NSLog(@"setAdminplayer AdminDaten: %@",[AdminDaten description]);
+   //NSLog(@"setAdminplayer AdminDaten: %@",[AdminDaten description]);
 }
 
 - (IBAction)AufnahmeSetzen:(id)sender
@@ -819,7 +819,7 @@ const short kRecPlayUmgebung=0;
 {
    //NSLog(@"\n\n			--------setAdminProjektArray: derProjektArray: %@",[derProjektArray description]);
    
-   NSLog(@"Umgebung: %d",Umgebung);
+   //NSLog(@"Umgebung: %d",Umgebung);
    [[self window ] makeKeyAndOrderFront:nil];
    [AdminProjektArray removeAllObjects];
    [AdminProjektArray setArray:derProjektArray];
@@ -1038,7 +1038,7 @@ const short kRecPlayUmgebung=0;
 {
    //	*********************************** wird von Aufnahmetable aufgerufen: Lšst Aktion des PopMenues aus !!!
    double hitZeile=[sender selectedRow];
-   NSLog(@"hitZeile: %f ",hitZeile);
+  // NSLog(@"hitZeile: %f ",hitZeile);
    if (hitZeile<0)
       return;
    [self clearAVPlay];
@@ -1105,7 +1105,7 @@ const short kRecPlayUmgebung=0;
    }
    else
    {
-      NSLog(@"SetZeilenaufnahme       Keine Aufnahme");
+      //NSLog(@"SetZeilenaufnahme       Keine Aufnahme");
       NSBeep();
       [PlayTaste setEnabled:NO];
       [ExportierenTaste setEnabled:NO];
@@ -1149,7 +1149,7 @@ const short kRecPlayUmgebung=0;
 		//[AdminKommentarView selectAll:nil];
 		//[AdminKommentarView delete:nil];
 		[AdminKommentarView setString:@""];
-		NSLog(@"setLeserFuerZeile    Leser Zeile: %d",hitZeile);
+		//NSLog(@"setLeserFuerZeile    Leser Zeile: %d",hitZeile);
 
 		int hit=[[[AdminDaten dataForRow:hitZeile]objectForKey:@"aufnahmen"]intValue];
      
@@ -1367,7 +1367,7 @@ const short kRecPlayUmgebung=0;
 
 - (BOOL)saveKommentarFuerLeser:(NSString*) derLeser FuerAufnahme:(NSString*)dieAufnahme
 {
-	NSLog(@"saveKommentarFuerLeser Leser: %@ Aufnahme: %@ Textchanged: %d",derLeser, dieAufnahme, Textchanged);
+	//NSLog(@"saveKommentarFuerLeser Leser: %@ Aufnahme: %@ Textchanged: %d",derLeser, dieAufnahme, Textchanged);
 	
    if (!Textchanged)
    {
@@ -1386,7 +1386,7 @@ const short kRecPlayUmgebung=0;
 	}
 	NSString* tempAufnahme;
 	tempAufnahme=[dieAufnahme copy];
-	NSLog(@"");
+	//NSLog(@"");
 	NSString* tempAdminAufnahmePfad=[NSString stringWithString:AdminProjektPfad];
 	tempAdminAufnahmePfad=[tempAdminAufnahmePfad stringByAppendingPathComponent:tempLeser];
 	if ([Filemanager fileExistsAtPath:tempAdminAufnahmePfad])//Ordner fŸr Aufnahmen des Lesers ist da
@@ -1482,12 +1482,12 @@ const short kRecPlayUmgebung=0;
 			NSNumber* POSIX = [AufnahmeAttrs objectForKey:NSFilePosixPermissions];
 			if (POSIX)
 			{
-				NSLog(@"POSIX: %d",	[POSIX intValue]);		  
+				//NSLog(@"POSIX: %d",	[POSIX intValue]);
 			}
 			
 			// Bewertung
 			  NSString* BewertungString=[AdminBewertungfeld titleOfSelectedItem];
-			  NSLog(@"saveKommentar	 BewertungString: %@",BewertungString);
+			  //NSLog(@"saveKommentar	 BewertungString: %@",BewertungString);
 			  if ([BewertungString length]==0)
 				{
 				  BewertungString=@" ";
@@ -1495,11 +1495,11 @@ const short kRecPlayUmgebung=0;
 			  tempKopfString=[tempKopfString stringByAppendingString:BewertungString];
 			  tempKopfString=[tempKopfString stringByAppendingString:@"\r"];
 			
-			NSLog(@"saveKommentar	tempKopfString mit Bewertungstring: %@",tempKopfString);
+			//NSLog(@"saveKommentar	tempKopfString mit Bewertungstring: %@",tempKopfString);
 			
 			// Notenstring
 			NSString* NotenString=[AdminNotenfeld stringValue];
-			NSLog(@"saveKommentar	xx NotenString: %@",NotenString);
+			//NSLog(@"saveKommentar	xx NotenString: %@",NotenString);
 			if ([NotenString length]==0)
 			{
 				NotenString=@"-";
@@ -1565,18 +1565,18 @@ const short kRecPlayUmgebung=0;
             
             if ([s characterIsMember:[tempKommentarViewString characterAtIndex:0]])
             {
-               NSLog(@"member");
+               //NSLog(@"member");
             }
                
             NSUInteger position = [tempKommentarViewString rangeOfString:@"*0"].location;
-            NSLog(@"position: %lul",(unsigned long)position);
+            //NSLog(@"position: %lul",(unsigned long)position);
             //unichar textCharacter = '*';
-            NSLog(@"tempKommentarViewString: 0: %C",[tempKommentarViewString characterAtIndex:0]);
+            //NSLog(@"tempKommentarViewString: 0: %C",[tempKommentarViewString characterAtIndex:0]);
             
             while ([tempKommentarViewString length] && (!([s characterIsMember:[tempKommentarViewString characterAtIndex:0]])))
             {
                tempKommentarViewString = [tempKommentarViewString substringFromIndex:1];
-               NSLog(@"tempKommentarViewString: substring: %@",tempKommentarViewString);
+               //NSLog(@"tempKommentarViewString: substring: %@",tempKommentarViewString);
             }
             
            // NSLog(@"tempKommentarViewString: substring bis 2: %@  substring ab 2: %@",[tempKommentarViewString substringToIndex:2],[tempKommentarViewString substringFromIndex:2]);
@@ -1594,7 +1594,7 @@ const short kRecPlayUmgebung=0;
 			else
 			{
 				tempKommentarString=[tempKopfString stringByAppendingString:@"--"];
-				NSLog(@"saveKommentar                       tempKommentarString ist leer: %@",tempKommentarString);
+				//NSLog(@"saveKommentar                       tempKommentarString ist leer: %@",tempKommentarString);
 			}
 			
 			NSData* tempData=[tempKommentarString dataUsingEncoding:NSMacOSRomanStringEncoding allowLossyConversion:NO];
@@ -1603,7 +1603,7 @@ const short kRecPlayUmgebung=0;
 			[AufnahmeAttribute setObject:POSIXNumber forKey:NSFilePosixPermissions];
 			
 			erfolg=[Filemanager createFileAtPath:tempAdminKommentarPfad contents:tempData attributes:AufnahmeAttribute]; 
-         NSLog(@"saveKommentar   save erfolg: %d",erfolg);
+         //NSLog(@"saveKommentar   save erfolg: %d",erfolg);
 		}
 	}
 	[self clearKommentarfelder];
@@ -1618,7 +1618,7 @@ const short kRecPlayUmgebung=0;
 			  mitAdminMark:(long)dieAdminMark
 			  
 {
-	NSLog(@"in saveAdminMarkFuerLeser Anfang Leser: %@ Aufnahme: %@ AdminMark: %d",derLeser,dieAufnahme,dieAdminMark);
+	//NSLog(@"in saveAdminMarkFuerLeser Anfang Leser: %@ Aufnahme: %@ AdminMark: %d",derLeser,dieAufnahme,dieAdminMark);
 	
 	BOOL erfolg;
 	BOOL istDirectory; 
@@ -1627,18 +1627,18 @@ const short kRecPlayUmgebung=0;
 	NSString* tempLeser=[derLeser copy];
 	if ([tempLeser length]==0)
 	{
-		NSLog(@"saveAdminMarkFuerLeser: Kein Leser");
+		//NSLog(@"saveAdminMarkFuerLeser: Kein Leser");
 		return NO;
 	}
 	NSString* tempAufnahme;
 	tempAufnahme=[dieAufnahme copy];
-	NSLog(@"\n");
+	//NSLog(@"\n");
 	NSString* tempAdminAufnahmePfad=[NSString stringWithString:AdminProjektPfad];
 	tempAdminAufnahmePfad=[tempAdminAufnahmePfad stringByAppendingPathComponent:tempLeser];
 	
 	NSString* KommentarOrdnerString=@"Anmerkungen";
 	NSString* tempAdminKommentarPfad=[[AdminProjektPfad copy] stringByAppendingPathComponent:tempLeser];
-	NSLog(@"in saveAdminMarkFuerLeser tempAdminKommentarPfad: %@",tempAdminKommentarPfad);
+	//NSLog(@"in saveAdminMarkFuerLeser tempAdminKommentarPfad: %@",tempAdminKommentarPfad);
 	if ([Filemanager fileExistsAtPath:tempAdminKommentarPfad isDirectory:&istDirectory])//Ordner des Lesers ist da
 	{
 		if (istDirectory)
@@ -1646,7 +1646,7 @@ const short kRecPlayUmgebung=0;
 			tempAdminKommentarPfad=[tempAdminKommentarPfad stringByAppendingPathComponent:KommentarOrdnerString];
          NSString* tempAnmerkungname = [[dieAufnahme stringByDeletingPathExtension]stringByAppendingPathExtension:@"txt"];
 			tempAdminKommentarPfad=[tempAdminKommentarPfad stringByAppendingPathComponent:tempAnmerkungname];
-         NSLog(@"in saveAdminMarkFuerLeser tempAdminKommentarPfad: %@",tempAdminKommentarPfad);
+         //NSLog(@"in saveAdminMarkFuerLeser tempAdminKommentarPfad: %@",tempAdminKommentarPfad);
 			if ([Filemanager fileExistsAtPath:tempAdminKommentarPfad])
 			{
 				NSString* tempKommentarString=[NSString stringWithContentsOfFile:tempAdminKommentarPfad encoding:NSMacOSRomanStringEncoding error:NULL];
@@ -1655,9 +1655,9 @@ const short kRecPlayUmgebung=0;
 				if (tempKommentarArrary &&[tempKommentarArrary count]>7)
 				{
 						NSNumber* AdminMarkNumber=[NSNumber numberWithInt:dieAdminMark];
-						NSLog(@"saveMark		replaceObjectAtIndex1");
+						//NSLog(@"saveMark		replaceObjectAtIndex1");
 						[tempKommentarArrary replaceObjectAtIndex:kAdminMark withObject:[AdminMarkNumber stringValue]];
-						NSLog(@"tempKommentarArrary nach: %@ AdminMark:%d",[tempKommentarArrary description],[AdminMarkNumber intValue]);
+						//NSLog(@"tempKommentarArrary nach: %@ AdminMark:%d",[tempKommentarArrary description],[AdminMarkNumber intValue]);
 
 
 				}
@@ -2514,7 +2514,7 @@ const short kRecPlayUmgebung=0;
 - (void)AufnahmeMarkieren:(id)sender
 {
 
-	NSLog(@"Aufnahmemarkieren: setMark: %ld zeile: %ld",(long)[sender state],(long)[NamenListe selectedRow]);
+	//NSLog(@"Aufnahmemarkieren: setMark: %ld zeile: %ld",(long)[sender state],(long)[NamenListe selectedRow]);
 		switch ([[[AufnahmenTab selectedTabViewItem]identifier]intValue])
 		{
 		case 1://Alle Aufnahmen
