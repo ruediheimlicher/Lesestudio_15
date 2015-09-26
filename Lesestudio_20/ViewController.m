@@ -558,7 +558,7 @@ NSString*	RPDevicedatenKey=	@"RPDevicedaten";
    
    [[[self.RecPlayTab tabViewItemAtIndex:1] view]addSubview:self.ArchivAbspielanzeige];
    
-   NSArray* viewArray0 = [[[self.RecPlayTab tabViewItemAtIndex:0]view]subviews];
+//   NSArray* viewArray0 = [[[self.RecPlayTab tabViewItemAtIndex:0]view]subviews];
    //NSLog(@"viewArray0: %@",[viewArray0 description]);
    [Abspielanzeige setMax:abspielanzeigerect.size.width];
    [self.Fortschritt startAnimation:nil];
@@ -567,24 +567,24 @@ NSString*	RPDevicedatenKey=	@"RPDevicedaten";
    //[Leserfeld setBackgroundColor:[NSColor lightGrayColor]];
    //NSImage* StartRecordImg=[[NSImage alloc]initWithContentsOfFile:@"StartPlayImg.tif"];
    
-   NSImage* StartRecordImg=[NSImage imageNamed:@"recordicon_w.gif"];
+//   NSImage* StartRecordImg=[NSImage imageNamed:@"recordicon_w.gif"];
    
    //self.StartStopKnopf.image=StartRecordImg;
    //[[self.StartStopKnopf cell]setImage:StartRecordImg];
    
-   NSImage* StopRecordImg=[NSImage imageNamed:@"stopicon_w.gif"];
+//   NSImage* StopRecordImg=[NSImage imageNamed:@"stopicon_w.gif"];
    //   [[self.StopRecordKnopf cell]setImage:StopRecordImg];
    
    // NSImage* StartPlayImg=[NSImage imageNamed:@"StartPlayImg.tif"];
-   NSImage* StartPlayImg=[NSImage imageNamed:@"playicon.gif"];
+//   NSImage* StartPlayImg=[NSImage imageNamed:@"playicon.gif"];
    //   [[self.StartPlayKnopf cell]setImage:StartPlayImg];
    
    
   // [[self.ArchivPlayTaste cell]setImage:StartPlayImg];
-   NSImage* StopPlayImg=[NSImage imageNamed:@"StopPlayImg.tif"];
+ //  NSImage* StopPlayImg=[NSImage imageNamed:@"StopPlayImg.tif"];
    //[[self.StopPlayKnopf cell]setImage:StopPlayImg];
    //[[self.ArchivStopTaste cell]setImage:StopPlayImg];
-   NSImage* BackImg=[NSImage imageNamed:@"Back.tif"];
+//   NSImage* BackImg=[NSImage imageNamed:@"Back.tif"];
    //[[self.BackKnopf cell]setImage:BackImg];
    //[[self.ArchivZumStartTaste cell]setImage:BackImg];
    
@@ -609,11 +609,13 @@ NSString*	RPDevicedatenKey=	@"RPDevicedaten";
    self.AdminTimeoutDelay = 40.0;
    //Tooltips
    
-   [self.StartRecordKnopf setToolTip:@"Aufnahme beginnen\nEine schon vorhandene ungesicherte Aufnahme wird überschrieben"];
+   [self.StartStopKnopf setToolTip:@"Aufnahme beginnen\nEine schon vorhandene ungesicherte Aufnahme wird überschrieben"];
    [self.StopRecordKnopf setToolTip:@"Aufnahme beenden"];
    [self.StartPlayKnopf setToolTip:@"Wiedergabe beginnen"];
    [self.BackKnopf setToolTip:@"Zurück an den Anfang"];
    [self.StopPlayKnopf setToolTip:@"Wiedergabe anhalten"];
+   [self.RewindKnopf setToolTip:@"3 Sekunden zurück"];
+   [self.ForewardKnopf setToolTip:@"3 Sekunden vorwärts"];
    [self.SichernKnopf setToolTip:@"Aufnahme sichern.\nDie Aufnahme wird in der Lesebox gesichert."];
    [self.LogoutKnopf setToolTip:@"Abmelden des aktuellen Lesers."];
    //[[RecPlayTab tabViewItemAtIndex:1]setToolTip:@"Archiv von bisherigen Aufnahmen."];
