@@ -757,7 +757,7 @@
             NSError *error = nil;
             if ([[NSFileManager defaultManager] moveItemAtURL:[NSURL fileURLWithPath:self.hiddenAufnahmePfad] toURL:[NSURL fileURLWithPath:tempAufnahmePfad] error:&error]) // move OK
             {
-               [self updateProjektArray];
+            //   [self updateProjektArray];
               // [self.ArchivDaten resetArchivDaten];
                [self.ArchivDaten insertAufnahmePfad:[AufnahmeTitel stringByDeletingPathExtension] forRow:0];
                

@@ -915,7 +915,9 @@ return tempProjektDicArray;
 							//NSLog(@"alleVonTitelKommentarOption: LeserArray: %@	[self OptionA]: %@  OptionBString. %@",	[LeserArray description],[self OptionA],[self OptionB]);
 							if ([LeserArray count]==1)//Nur ein Leser für diesen Titel
 							{
-								[KommentarFenster setPopBMenu:LeserArray erstesItem:NULL aktuell:NULL mitPrompt:@"für Leser:"];
+                        
+								[KommentarFenster setPopBMenu:LeserArray erstesItem:NULL aktuell:NULL mitPrompt:[NSString stringWithUTF8String:"für Leser:"]];
+                        NSString* test = [NSString stringWithUTF8String:"für Leser:"]; //stringWithFormat:@"dataUsingEncoding:NSUTF8StringEncoding]
 							}
 							else
 							{

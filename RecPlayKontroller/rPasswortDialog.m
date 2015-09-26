@@ -104,7 +104,7 @@ if ([[neuesPW1Feld stringValue]length]==0)
 		[Warnung addButtonWithTitle:@"Wiederholen"];
 		[Warnung addButtonWithTitle:@"Abbrechen"];
 		[Warnung setMessageText:@"Eingabefehler:"];
-		NSString* s=@"Die zweite Eingabe stimmt nicht mit der ersten Ÿberein.";
+		NSString* s=[NSString stringWithUTF8String:"Die zweite Eingabe stimmt nicht mit der ersten Ÿberein."];
 		NSString* InformationString=[NSString stringWithFormat:@"%@",s];
 		[Warnung setInformativeText:InformationString];
 

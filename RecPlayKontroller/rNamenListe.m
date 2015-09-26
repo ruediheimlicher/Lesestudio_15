@@ -77,7 +77,7 @@
 	[VornameFeld setToolTip:@"Vorname des neuen Lesers. Nur ein Wort, kein Leerschlag"];
 	[NameFeld setToolTip:@"Nachname des neuen Lesers. Nur ein Wort, kein Leerschlag"];
 	[ImportTaste setToolTip:@"NamenListe im Finder suchen"];
-	[EinsetzenVariante setToolTip:@"Varianten fŸr den Import neuer Namen."];
+   [EinsetzenVariante setToolTip:[NSString stringWithUTF8String:"Varianten fŸr den Import neuer Namen."]];
 	[NameInListeTaste setToolTip:@"Neue Namen in die Liste einsetzen."];
 	[UbernehmenTaste setToolTip:@"Neue Namen in die Liste Ÿbernehmen.\nDoppelte Namen werden ignoriert."];
    
@@ -116,7 +116,7 @@
 	//NSLog(@"\n\nreportEntfernen	Zeile: %d",NamenIndex);
 	if ([NamenTable selectedRow]>=0)
 	{
-		int selektierteZeile=[NamenTable selectedRow];
+		long selektierteZeile=[NamenTable selectedRow];
 		if ([[[NamenArray objectAtIndex:selektierteZeile]objectForKey:@"neuername"]boolValue])
 		{
 			//neuer Name, noch nicht eingesetzt, nur aus Namenarray lšschen
@@ -160,7 +160,7 @@
 		if(EntfernenName)
 		{
 			NSArray* tempNamenArray=[NamenArray valueForKey:@"namen"];
-			int deleteIndex=[tempNamenArray indexOfObject:EntfernenName];
+			long deleteIndex=[tempNamenArray indexOfObject:EntfernenName];
 			
 			if (deleteIndex>=0)//EntfernenName ist vorhanden
 			{

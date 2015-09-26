@@ -187,6 +187,35 @@ Setzt die Variablen in Utils.m nach den Vorgaben der PList bei beginn des Progra
 #pragma mark -
 
 
+- (NSMutableArray*)OrderNamenAnPfad:(NSString*)orderpfad
+{
+   BOOL istDir=0;
+   NSError* err;
+
+   NSMutableArray* OrdnerNamenArray = [[NSMutableArray alloc]initWithCapacity:0];
+   NSFileManager *Filemanager = [NSFileManager defaultManager];
+   if ([Filemanager fileExistsAtPath:orderpfad isDirectory: &istDir] && istDir) // Ordner da
+   {
+      NSURL* orderurl = [NSURL fileURLWithPath:orderpfad];
+
+      NSURL* unterordnerurl;
+      NSDirectoryEnumerator* orderenum = [Filemanager enumeratorAtURL:orderurl includingPropertiesForKeys:nil options:0x07 errorHandler:^(NSURL *url, NSError *error) {
+         NSLog(@"error: %@",error);
+         // Return YES if the enumeration should continue after the error.
+         return YES;
+      }];
+      while(unterordnerurl = [orderenum nextObject])
+      {
+         NSLog(@"unterordner: %@",[[unterordnerurl path]lastPathComponent]);
+         [OrdnerNamenArray addObject:[[unterordnerurl path]lastPathComponent]];
+      }
+      NSLog(@"OrdnerNamenArray: %@",OrdnerNamenArray);
+
+   }// isDir
+   return OrdnerNamenArray;
+}
+
+
 - (NSArray*)LeseboxCompleteAnPfad:(NSString*)leseboxpfad
 {
    BOOL istDir=0;
@@ -198,13 +227,60 @@ Setzt die Variablen in Utils.m nach den Vorgaben der PList bei beginn des Progra
    if ([Filemanager fileExistsAtPath:leseboxpfad isDirectory: &istDir] && istDir) // Lesebox da
    {
       
+      
       NSString* tempArchivPfad = [leseboxpfad stringByAppendingPathComponent:@"Archiv"];
       if ([Filemanager fileExistsAtPath:tempArchivPfad isDirectory: &istDir] && istDir) // Archiv da
       {
+         NSMutableArray* testArray = [self OrderNamenAnPfad:tempArchivPfad];
+         NSLog(@"testArray: %@",testArray);
+
+         
          // ProjektOrder im Archiv
          NSMutableArray* tempProjektOrdnerArray = (NSMutableArray*)[Filemanager contentsOfDirectoryAtPath:tempArchivPfad error: &err];
          [tempProjektOrdnerArray removeObject:@".DS_Store"];
          NSLog(@"tempProjektOrdnerArray: %@",tempProjektOrdnerArray);
+         
+         
+         
+         
+         for (int projektindex=0;projektindex <[tempProjektOrdnerArray count];projektindex++)
+         {
+            NSString* rawprojekt = [tempProjektOrdnerArray objectAtIndex:projektindex];
+            NSData* rawdata =[rawprojekt dataUsingEncoding:NSUTF8StringEncoding] ;
+            NSString* encprojekt = [[NSString alloc] initWithData:rawdata encoding:NSUTF8StringEncoding ];
+            NSLog(@"rawprojekt: %@ encprojekt: %@",rawprojekt,encprojekt);
+            //[EingabeFeld stringValue] dataUsingEncoding:NSUTF8StringEncoding]
+            
+            
+            NSString* tempProjektpfad = [tempArchivPfad stringByAppendingPathComponent:rawprojekt];
+            NSURL* tempprojekturl = [NSURL fileURLWithPath:tempProjektpfad];
+            
+            
+            NSMutableArray* projektameArray = [[NSMutableArray alloc]initWithCapacity:0];
+            NSURL* tempprojektname;
+            NSDirectoryEnumerator* projektenum = [Filemanager enumeratorAtURL:tempprojekturl includingPropertiesForKeys:nil options:0x07 errorHandler:nil];
+            while(tempprojektname = [projektenum nextObject])
+            {
+               NSLog(@"tempprojektname: %@",[[tempprojektname path]lastPathComponent]);
+               [projektameArray addObject:[[tempprojektname path]lastPathComponent]];
+            }
+            NSLog(@"projektameArray: %@",projektameArray);
+            
+            
+            /*
+            NSEnumerator* fileenum = [Filemanager enumeratorAtPath:tempArchivPfad];
+            while(tempfilename = [fileenum nextObject])
+            {
+               NSLog(@"filename: %@",tempfilename);
+               [filenameArray addObject:tempfilename];
+            }
+           
+            fileenum =[Filemanager enumeratorAtURL:tempArchivPfad]
+            */
+            
+         }
+         
+         
          
          long anzProjekte = [tempProjektOrdnerArray count];
          if (anzProjekte)
@@ -218,9 +294,13 @@ Setzt die Variablen in Utils.m nach den Vorgaben der PList bei beginn des Progra
                if ([Filemanager fileExistsAtPath:tempProjektPfad isDirectory: &istDir] && istDir) // ProjektOrdner da
                {
                   // LeserOrdner im Projekt
+                  // NSMutableArray *content = (NSMutableArray *)[[NSFileManager defaultManager] contentsOfDirectoryAtPath:path error:&error];
+
                   NSMutableArray* tempLeserOrdnerArray = (NSMutableArray*)[Filemanager contentsOfDirectoryAtPath:tempProjektPfad error: &err];
                   [tempLeserOrdnerArray removeObject:@".DS_Store"];
-                 // NSLog(@"tempLeserOrdnerArray: %@",tempLeserOrdnerArray);
+                  
+                  
+                  NSLog(@"tempLeserOrdnerArray: %@",tempLeserOrdnerArray);
                   long anzLeser = [tempLeserOrdnerArray count];
                   if (anzLeser) // Leser vorhanden
                   {
@@ -1804,7 +1884,11 @@ return versionOK;
          
          NSMutableDictionary* tempPWDictionary=[[NSMutableDictionary alloc]initWithCapacity:0];
          [tempPWDictionary setObject:@"Admin" forKey:@"name"];
-         [tempPWDictionary setObject:[NSData data] forKey:@"pw"];
+         NSString* defaultPasswort=@"homer";
+         const char* defaultpw=[defaultPasswort  UTF8String];
+         NSData* defaultPWData =[NSData dataWithBytes:defaultpw length:strlen(defaultpw)];
+
+         [tempPWDictionary setObject:defaultPWData forKey:@"pw"];
          [tempPListDic setObject:tempPWDictionary forKey:@"adminpw"];//AdminPasswort muss vorhanden sein
       }
       

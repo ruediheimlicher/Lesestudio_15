@@ -863,8 +863,8 @@ return tempTitelArray;
 				
 				NSString* FehlerString=@"Wirklich alle Aufnahmen für diese Titel loeschen?";
 				NSAlert *Warnung = [[NSAlert alloc] init];
-				[Warnung addButtonWithTitle:@"Alle löschen"];
-				[Warnung addButtonWithTitle:@"Anzahl ändern"];
+				[Warnung addButtonWithTitle:[NSString stringWithUTF8String:"Alle löschen"]];
+				[Warnung addButtonWithTitle:[NSString stringWithUTF8String:"Anzahl ändern"]];
 				[Warnung setMessageText:@"Warnung"];
 				[Warnung setInformativeText:FehlerString];
 				[Warnung setAlertStyle:NSWarningAlertStyle];

@@ -110,5 +110,5 @@
 - (NSString *)stringByTrimmingTrailingCharactersInString:(NSString*)checkString InSet:(NSCharacterSet *)characterSet;
 - (NSString *)stringByTrimmingLeadingAndTrailingWhiteSpacesInString:(NSString*)checkString;
 - (NSArray*)LeseboxCompleteAnPfad:(NSString*)leseboxpfad;
-
+- (NSMutableArray*)OrderNamenAnPfad:(NSString*)orderpfad;
 @end

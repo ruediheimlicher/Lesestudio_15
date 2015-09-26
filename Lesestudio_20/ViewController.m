@@ -1312,7 +1312,11 @@ return YES;
    
    [self.RecPlayTab setDelegate:self];
    [self.RecPlayTab selectFirstTabViewItem:nil];
-   self.ArchivView=[[rArchivDS alloc]initWithRowCount:0];
+   self.ArchivDaten=[[rArchivDS alloc]initWithRowCount:0];
+   if (!self.ArchivView)
+   {
+   self.ArchivView= [[rArchivView alloc]init];
+   }
    [self.ArchivView setDelegate: self.ArchivDaten];
    [self.ArchivView setDataSource: self.ArchivDaten];
    //NSLog(@"setRecPlay:	mitUserPasswort: %d",mitUserPasswort);
@@ -4745,7 +4749,7 @@ if (!self.KommentarFenster)
             NSLog(@"*ProjektEntfernenAktion: Papierkorb: EntfernenPfad: %@",EntfernenPfad);
             [self fileInPapierkorb:EntfernenPfad];
             NSLog(@"*ProjektEntfernenAktion: nach inPapierkorbMitPfad ");
-            [self updateProjektArray];
+            //[self updateProjektArray];
             NSLog(@"*ProjektEntfernenAktion: nach updateProjektArray");
          }break;
             

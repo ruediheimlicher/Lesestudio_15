@@ -71,7 +71,7 @@ enum
       
       if ([self.PListDic objectForKey:@"busy"])
       {
-         if ([[self.PListDic objectForKey:@"busy"]boolValue])//Besetzt
+         if ([[self.PListDic objectForKey:@"busy"]boolValue])//Besetzt durch anderen Benutzer auf Netzwerk
          {
             NSAlert *Warnung = [[NSAlert alloc] init];
             [Warnung addButtonWithTitle:@"Nochmals versuchen"];
@@ -182,18 +182,131 @@ enum
          [self.UserPasswortArray setArray:[self.PListDic objectForKey:@"userpasswortarray"]];//Aus PList einsetzen
       }
       
+      
+      
+
+         
       //NSLog(@"ProjektArray: %@",[self.ProjektArray description]);
       if ([self.PListDic objectForKey:@"projektarray"])// && [[self.PListDic objectForKey:@"projektarray"]count])
       {
          if ([[self.PListDic objectForKey:@"projektarray"]count]) // Projekte vorhanden
          {
             //NSLog(@"LB vorbereiten: ProjektArray: %@",[[self.PListDic objectForKey:@"projektarray"] description]);
+            // Namen der projekte in der PList
+            NSArray* PListProjektnamenArray = [[self.PListDic objectForKey:@"projektarray"] valueForKey:@"projekt"];
+            
+            // checken, ob alle in der Lesebox vorhandenen Projektorder  erfasst sind
+            NSString* tempArchivPfad = [self.LeseboxPfad stringByAppendingPathComponent:@"Archiv"];
+            NSArray* ArchivProjektNamenArray = [Utils OrderNamenAnPfad:tempArchivPfad];
+            NSLog(@"LB vorbereiten: PListProjektnamenArray: %@ ArchivProjektNamenArray: %@",PListProjektnamenArray,ArchivProjektNamenArray);
+            for (long archivindex=0;archivindex < [ArchivProjektNamenArray count];archivindex++)
+            {
+               NSString* rawprojekt = [ArchivProjektNamenArray objectAtIndex:archivindex];
+               const char* rawchar = [rawprojekt cStringUsingEncoding:NSUTF8StringEncoding];
+               NSData* rawdata =[rawprojekt dataUsingEncoding:NSMacOSRomanStringEncoding] ;
+               NSString* tempProjektName = [[NSString alloc] initWithData:rawdata encoding:NSMacOSRomanStringEncoding ];
+               NSLog(@"\r\rrawprojekt: *%@*",rawprojekt);
+               //NSString* uint8Projektname = [rawprojekt UTF8String];
+               
+            //tempProjektName in PListPorjektnamenArray suchen.
+               BOOL projektda=0;
+               BOOL rawprojektda=NO;
+               BOOL charprojektda=NO;
+               
+               int projektvorhanden=0;
+               
+
+               for (int suchindex=0;suchindex < [PListProjektnamenArray count];suchindex++)
+               {
+                  //projektda=NO;
+                  //rawprojektda=NO;
+                  //charprojektda=NO;
+                  
+                  NSString* rawplistprojekt = [PListProjektnamenArray objectAtIndex:suchindex];
+                  const char* rawplistchar = [rawplistprojekt cStringUsingEncoding:NSUTF8StringEncoding];
+
+                  NSData* rawplistdata =[rawplistprojekt dataUsingEncoding:NSMacOSRomanStringEncoding] ;
+                  NSString* tempPlistProjektName = [[NSString alloc] initWithData:rawplistdata encoding:NSMacOSRomanStringEncoding ];
+                  //NSLog(@"rawdata: %@\trawplistdata: %@ tempProjektName: *%@* tempPListProjektName: *%@*",rawdata,rawplistdata,tempProjektName,tempPlistProjektName);
+                  if (strcmp(rawchar,rawplistchar) == 0)
+                  {
+                     charprojektda=YES;
+                     projektvorhanden++;
+                     NSLog(@"rawplistchar: *%s* rawchar: *%s* charprojektda: %hhd",rawplistchar,rawchar,charprojektda);
+                  }
+                  else
+                  {
+                     charprojektda=NO;
+                  }
+
+                  
+                  if ([rawplistprojekt isEqualToString:rawprojekt])
+                  {
+                     rawprojektda=YES;
+                     projektvorhanden++;
+                     NSLog(@"rawprojekt: *%@* rawplistprojekt: *%@* rawprojektda: %hhd",rawprojekt,rawplistprojekt,rawprojektda);
+
+                  }
+                  else
+                  {
+                     rawprojektda=NO;
+                  }
+                 
+                  
+                  if (([tempProjektName isEqualToString: tempPlistProjektName]))
+                  {
+                     projektda=YES;
+                     projektvorhanden++;
+                     NSLog(@"tempProjektName: *%@* tempPListProjektName: *%@* projektda: %hhd",tempProjektName,tempPlistProjektName,projektda);
+
+                  }
+                  else
+                  {
+                    projektda=NO;
+                  }
+                  //NSLog(@"tempProjektName: *%@* projektvorhanden: %d",tempProjektName,projektvorhanden);
+                 // NSLog(@"rawdata: %@\trawplistdata: %@ tempProjektName: *%@* tempPListProjektName: *%@* result: %d",rawdata,rawplistdata,tempProjektName,tempPlistProjektName,projektda);
+
+               }
+               
+              // if ((projektda || rawprojektda || charprojektda)) // projekt nicht in der PList
+                  
+
+               //if ([PListProjektnamenArray indexOfObject:tempProjektName] == NSNotFound) // projekt nicht in der PList
+              if (projektvorhanden == 0)
+               {
+                  NSLog(@"rawprojekt: %@ nicht da",rawprojekt);
+                  // Eintrag in projektarray aufbauen
+                  NSMutableDictionary* tempZeilenDic = [self PListProjektDicVonProjekt: tempProjektName];
+                  NSLog(@"tempZeilenDic: %@",tempZeilenDic);
+                  
+                  [[self.PListDic objectForKey:@"projektarray"]addObject:tempZeilenDic];
+                  
+               }
+               else
+               {
+                  NSLog(@"rawprojekt: %@ da",rawprojekt);
+               }
+            }
+            
+            
+            
+            
             [self.ProjektArray setArray:[self.PListDic objectForKey:@"projektarray"]];
             
+            NSString* DataPath=[self.LeseboxPfad stringByAppendingPathComponent:@"Data"];
+            NSString* PListName=@"Lesebox.plist";
+            NSString* tempPListPfad=[DataPath stringByAppendingPathComponent:PListName];
+            BOOL PListOK=[self.PListDic writeToFile:tempPListPfad atomically:YES];
+            NSLog(@"\nsavePList: PListOK: %d",PListOK);
             
-            //NSLog(@"LB vorbereiten vor update: ProjektArray: %@",[[self.ProjektArray valueForKey:@"projekt"]description]);
+            // [self savePList:self.PListDic anPfad:tempArchivPfad];
+            
+            NSLog(@"LB vorbereiten vor update: ProjektArray: %@",[[self.ProjektArray valueForKey:@"projekt"]description]);
+            
+            
          }
-         else // in Archiv nachschauen
+         else // im Archiv nachschauen und projektarray aufbauen
          {
             NSError* err;
             BOOL istOrdner;
@@ -228,7 +341,7 @@ enum
             }
          }
          
-         [self updateProjektArray];
+         //   [self updateProjektArray];
          [self updatePasswortListe];
          //NSLog(@"LB vorbereiten nach update: ProjektArray: %@",[[self.ProjektArray valueForKey:@"projekt"] description]);
          
@@ -3033,6 +3146,7 @@ enum
    {
       [[[self.PListDic objectForKey:@"projektarray"] objectAtIndex:PListIndex]setObject:[dieTitelListe copy]forKey:@"titelarray"];
       
+   
    }//if notFound
 
    /*
@@ -3409,7 +3523,17 @@ enum
       
       if (![[self.ProjektPfad lastPathComponent]isEqualToString:@"Archiv"])
       {
+         if ([self.ProjektPfad length])
+         {
          [tempPListDic setObject: [self.ProjektPfad lastPathComponent] forKey:@"lastprojekt"];
+            const char* ch=[[self.ProjektPfad lastPathComponent] UTF8String];
+            NSData* d=[NSData dataWithBytes:ch length:strlen(ch)];
+            
+            //NSData* d=[NSData dataWithBytes:LeseboxPfad length:[LeseboxPfad length]];
+            //NSLog(@"**savePListAktion: d: %@",d);
+            [tempPListDic setObject:d forKey:@"leseboxpfad"];
+
+         }
       }
       
       //[tempPListDic setObject:[NSNumber numberWithBool:busy] forKey:@"busy"];
@@ -3422,12 +3546,6 @@ enum
       [tempPListDic setObject:[NSNumber numberWithInt:(int)self.TimeoutDelay] forKey:@"timeoutdelay"];
       [tempPListDic setObject:[NSNumber numberWithInt:self.KnackDelay] forKey:@"knackdelay"];
       
-      const char* ch=[[self.ProjektPfad lastPathComponent] UTF8String];
-      NSData* d=[NSData dataWithBytes:ch length:strlen(ch)];
-      
-      //NSData* d=[NSData dataWithBytes:LeseboxPfad length:[LeseboxPfad length]];
-      //NSLog(@"**savePListAktion: d: %@",d);
-      [tempPListDic setObject:d forKey:@"leseboxpfad"];
       
       
       NSFileManager *Filemanager=[NSFileManager defaultManager];

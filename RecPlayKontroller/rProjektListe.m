@@ -61,7 +61,7 @@
 	[EingabeFeld setDelegate:self];
 	[FixTaste setState:NO];
 	[PWTaste setState:NO];
-   [SchliessenTaste setEnabled:NO];
+   [SchliessenTaste setEnabled:YES];
 	[[self window]makeFirstResponder:EingabeFeld];
 	//[SchliessenTaste setKeyEquivalent:@"\r"];
    [ProjektTable setToolTip:@"Liste aller aktiven Projekte.\nAktive Projekte koennen vom Leser ausgewaehlt werden.\nFixierte Titel kann der Leser nicht aendern."];
@@ -267,7 +267,7 @@ vomStart=NO;
 
 	[NotificationDic setObject:ProjektArray forKey:@"projektarray"];//eventuell sind Aktivierungen geŠndert
 	
-	int ProjektIndex=[ProjektTable selectedRow];
+	long ProjektIndex=[ProjektTable selectedRow];
 	if ([ProjektTable selectedRow]>=0)
 	{
       
@@ -278,7 +278,7 @@ vomStart=NO;
 
       [NotificationDic setObject:ProjektArray forKey:@"projektarray"];//Eventuelle €nderungen mitgeben
 		[NotificationDic setObject:ProjektString forKey:@"projekt"];//AusgewŠhltes Projekt
-																	//neus Projekt eingerichtet?
+																	//neues Projekt eingerichtet?
 		if ([[neuesProjektDic objectForKey:@"definitiv"]intValue])
 		{
 			//Namen des neuen Projekts mitgeben
@@ -319,6 +319,7 @@ vomStart=NO;
      [neuesProjektDic setObject: [NSNumber numberWithInt:[PWTaste state]] forKey:@"mituserpw"];
      [neuesProjektDic setObject: [NSNumber numberWithInt:0] forKey:@"definitiv"];
      [neueProjekteArray addObject:neuesProjektDic];
+     [ProjektTable reloadData];
      //[NotificationDic setObject:ProjektArray forKey:@"projektarray"];
      [NotificationDic setObject:neuesProjektDic forKey:@"neuesprojektdic"];
      NSLog(@"***\n   ProjektListe reportNeuesProjekt");
@@ -329,6 +330,8 @@ vomStart=NO;
      //Bearbeitung in RecPlayController -> neuesProjektAktion
      
      
+     [ProjektTable selectRowIndexes:[NSIndexSet indexSetWithIndex:[neueProjekteArray count]-1]byExtendingSelection:NO];
+
      
      
      
@@ -461,64 +464,64 @@ vomStart=NO;
 - (void)setProjektListeArray:(NSArray*)derArray inProjekt:(NSString*)dasProjekt
 {
    NSLog(@"Projektliste setProjektListeArray: derArray: %@ \ndasProjekt: %@",[derArray description],dasProjekt);
-[[self window]setInitialFirstResponder:ProjektTable];
-
-//  [ProjektArray removeAllObjects];
-//   [ProjektTable reloadData];
+   [[self window]setInitialFirstResponder:ProjektTable];
+   
+   //  [ProjektArray removeAllObjects];
+   //   [ProjektTable reloadData];
    if ([derArray count] == 0)
    {
       [SchliessenTaste setEnabled:NO];
    }
    [ProjektArray setArray:derArray];
    fixchanged=NO;
-  NSEnumerator* ProjektEnum=[derArray objectEnumerator];
-  id einProjektDic;
-  //NSLog(@"setProjektListeArray: derArray: %@ \ndasProjekt: %@",[derArray description],dasProjekt);
-  int index=0;
-  NSMutableIndexSet* ProjektNameIndex=[NSMutableIndexSet indexSet];
+   NSEnumerator* ProjektEnum=[derArray objectEnumerator];
+   id einProjektDic;
+   
+   //NSLog(@"setProjektListeArray: derArray: %@ \ndasProjekt: %@",[derArray description],dasProjekt);
+   NSMutableIndexSet* ProjektNameIndex=[NSMutableIndexSet indexSet];
    /*
-  while (einProjektDic=[ProjektEnum nextObject])
-  {
-	  //NSLog(@"ProjektPfad: %@",[einProjektDic objectForKey:projektpfad]);
-	  
-	  NSString* tempTitel=[einProjektDic objectForKey:@"projekt"];
-	  if (tempTitel)//das Projekt hat einen Namen
-	  {
+    while (einProjektDic=[ProjektEnum nextObject])
+    {
+    //NSLog(@"ProjektPfad: %@",[einProjektDic objectForKey:projektpfad]);
+    
+    NSString* tempTitel=[einProjektDic objectForKey:@"projekt"];
+    if (tempTitel)//das Projekt hat einen Namen
+    {
 		  if ([tempTitel isEqualToString:dasProjekt])
 		  {
-			  [ProjektNameIndex addIndex:index];
-		  }	
+    [ProjektNameIndex addIndex:index];
+		  }
 		  NSMutableDictionary* tempDic=[[NSMutableDictionary alloc]initWithCapacity:0];
 		  
 		  NSNumber* tempOK=[einProjektDic objectForKey:@"ok"];
 		  if (tempOK)
 		  {
-			  [tempDic setObject:tempOK forKey:@"ok"];
+    [tempDic setObject:tempOK forKey:@"ok"];
 		  }
 		  else
 		  {
-			  [tempDic setObject:[NSNumber numberWithBool:YES] forKey:@"ok"]; // default ist: Projekt aktiviert
+    [tempDic setObject:[NSNumber numberWithBool:YES] forKey:@"ok"]; // default ist: Projekt aktiviert
 		  }
 		  [tempDic setObject:tempTitel forKey:@"projekt"];
 		  
 		  NSNumber* tempFix=[einProjektDic objectForKey:@"fix"];
 		  if (tempFix)
 		  {
-			  [tempDic setObject:tempFix forKey:@"fix"];
+    [tempDic setObject:tempFix forKey:@"fix"];
 		  }
 		  else
 		  {
-			  [tempDic setObject:[NSNumber numberWithBool:NO] forKey:@"fix"]; // default ist: Titel sind nicht fixiert
+    [tempDic setObject:[NSNumber numberWithBool:NO] forKey:@"fix"]; // default ist: Titel sind nicht fixiert
 		  }
-
+    
 		  NSNumber* tempMitUserPW=[einProjektDic objectForKey:@"mituserpw"];
 		  if (tempMitUserPW)
 		  {
-			  [tempDic setObject:tempMitUserPW forKey:@"mituserpw"];
+    [tempDic setObject:tempMitUserPW forKey:@"mituserpw"];
 		  }
 		  else
 		  {
-			  [tempDic setObject:[NSNumber numberWithBool:NO] forKey:@"mituserpw"];// default ist: userpasswort ist nicht aktiviert
+    [tempDic setObject:[NSNumber numberWithBool:NO] forKey:@"mituserpw"];// default ist: userpasswort ist nicht aktiviert
 		  }
 		  
 		  [tempDic setObject:tempTitel forKey:@"projekt"];
@@ -531,9 +534,9 @@ vomStart=NO;
 		  else
 		  {
 		  [tempDic setObject:[NSArray array] forKey:@"titelarray"]; // leerer Array
-
+    
 		  }
-
+    
 		  NSArray* tempSessionLeserArray=[einProjektDic objectForKey:@"sessionleserarray"];
 		  if (tempSessionLeserArray)
 		  {
@@ -542,22 +545,22 @@ vomStart=NO;
 		  else
 		  {
 		  [tempDic setObject:[NSArray array] forKey:@"sessionleserarray"];// leerer Array
-
+    
 		  }
-
+    
 		  NSString* tempSessionDatum=[einProjektDic objectForKey:@"sessiondatum"];
 		  if (tempSessionDatum)
 		  {
-           [tempDic setObject:tempSessionDatum forKey:@"sessiondatum"];
+    [tempDic setObject:tempSessionDatum forKey:@"sessiondatum"];
 		  }
 		  else
 		  {
 		  [tempDic setObject:[NSDateFormatter localizedStringFromDate:[NSDate date] dateStyle:NSDateFormatterMediumStyle timeStyle:NSDateFormatterMediumStyle] forKey:@"sessiondatum"]; // heute
-
+    
 		  }
-
-
-
+    
+    
+    
 		  NSString* tempProjektPfad=[einProjektDic objectForKey:@"projektpfad"];
 		  if (tempProjektPfad)
 		  {
@@ -566,33 +569,39 @@ vomStart=NO;
 		  else
 		  {
 		  [tempDic setObject:[NSString string] forKey:@"projektpfad"];
-
+    
 		  }
 		  
 		  [ProjektArray addObject:tempDic];
 		  
-	  }
-	  index++;
-  }//while
+    }
+    index++;
+    }//while
     */
-	 NSLog(@"derArray: %@",[ProjektArray description]);
-  //NSLog(@"ProjektNameIndex: %@",[ProjektNameIndex description]);
-  [ProjektTable reloadData];
-  [AuswahlenTaste setEnabled:YES];
-  [CancelTaste setEnabled:YES];
-  [ProjektTable selectRowIndexes:ProjektNameIndex byExtendingSelection:NO];
+   // NSLog(@"derArray: %@",[ProjektArray description]);
+   //NSLog(@"ProjektNameIndex: %@",[ProjektNameIndex description]);
+   long pos = [ProjektArray indexOfObject:dasProjekt];
+   if (pos < NSNotFound)
+   {
+      [ProjektNameIndex addIndex:pos];
+   }
+   
+   [ProjektTable reloadData];
+   [AuswahlenTaste setEnabled:YES];
+   [CancelTaste setEnabled:NO];
+   [ProjektTable selectRowIndexes:ProjektNameIndex byExtendingSelection:NO];
   	if ([ProjektArray count]>1)
-	{
-	//[EntfernenTaste setEnabled:YES];
-	 
-	}
-[ProjektTable scrollRowToVisible: [ProjektNameIndex firstIndex]];
-
-  [AuswahlenTaste setKeyEquivalent:@""];
-  [SchliessenTaste setKeyEquivalent:@""];
-//  [SchliessenTaste setEnabled:YES];
-//  [[self window]makeFirstResponder:EingabeFeld];
-  aktuellesProjekt=[NSString stringWithString:dasProjekt];
+   {
+      [EntfernenTaste setEnabled:YES];
+      
+   }
+   [ProjektTable scrollRowToVisible: [ProjektNameIndex firstIndex]];
+   
+   [AuswahlenTaste setKeyEquivalent:@""];
+   [SchliessenTaste setKeyEquivalent:@""];
+   //  [SchliessenTaste setEnabled:YES];
+   //  [[self window]makeFirstResponder:EingabeFeld];
+   aktuellesProjekt=[NSString stringWithString:dasProjekt];
 }
 
 - (void)setMitUserPasswort:(int)derStatus
@@ -746,7 +755,7 @@ vomStart=derStatus;
 		
 		if (istProjektZeile)
 		{
-			[cell setTextColor:[NSColor lightGrayColor]];
+			[cell setTextColor:[NSColor grayColor]];
 		}
 		else
 		{

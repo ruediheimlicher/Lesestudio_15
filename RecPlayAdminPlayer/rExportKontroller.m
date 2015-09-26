@@ -58,7 +58,7 @@ NSString*	RPExportformatKey;
  return[RPExportdaten length];
  }
  
- - (int)ExportPrefsSchreiben
+ - (long)ExportPrefsSchreiben
  {
  	short l=[RPExportdaten length];
 	if(l>0)
@@ -532,7 +532,7 @@ NSString*	RPExportformatKey;
 }
 
 
-- (int) AufnahmeExportierenMitPfad:(NSString*)derAufnahmePfad 
+- (long) AufnahmeExportierenMitPfad:(NSString*)derAufnahmePfad
 					 mitUserDialog:(BOOL)userDialogOK
 				 mitSettingsDialog:(BOOL)settingsDialogOK
 {
