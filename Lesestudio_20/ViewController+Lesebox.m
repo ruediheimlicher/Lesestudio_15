@@ -1211,7 +1211,7 @@ enum
            [Warnung runModal];
            
            [Utils setPListBusy:NO anPfad:self.LeseboxPfad];
-            [self terminate:NULL];
+            [NSApp terminate:NULL];
         }
         
      }
@@ -1463,7 +1463,7 @@ enum
          {
             NSLog(@"manuell");
             [Utils setPListBusy:NO anPfad:self.LeseboxPfad];
-            [self terminate:NULL];
+            [NSApp terminate:NULL];
             
          }break;
          case NSAlertThirdButtonReturn:
