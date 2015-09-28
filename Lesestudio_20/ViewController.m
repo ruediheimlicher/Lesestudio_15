@@ -529,7 +529,7 @@ NSString*	RPDevicedatenKey=	@"RPDevicedaten";
       {
          NSLog(@"switch RPModus: terminate");
          [Utils setPListBusy:NO anPfad:self.LeseboxPfad];
-         [self terminate:NULL];
+         [NSApp terminate:NULL];
          
       }
          
@@ -747,6 +747,8 @@ NSString*	RPDevicedatenKey=	@"RPDevicedaten";
    {
       [item setEnabled:YES];
    }
+   NSLog(@"viewDidLoad end");
+   [[self.view window] display];
    //NSLog(@"MenuItem: Modus: %@",[[appMenu itemWithTitle:@"Admin"]title]);
 }
 
