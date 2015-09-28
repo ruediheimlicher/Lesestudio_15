@@ -218,6 +218,7 @@ Setzt die Variablen in Utils.m nach den Vorgaben der PList bei beginn des Progra
 
 - (NSArray*)LeseboxCompleteAnPfad:(NSString*)leseboxpfad
 {
+   NSLog(@"LeseboxCompleteAnPfad");
    BOOL istDir=0;
    NSError* err;
    NSMutableArray* LeseboxFehlerArray = [[NSMutableArray alloc]initWithCapacity:0];
@@ -238,7 +239,7 @@ Setzt die Variablen in Utils.m nach den Vorgaben der PList bei beginn des Progra
          // ProjektOrder im Archiv
          NSMutableArray* tempProjektOrdnerArray = (NSMutableArray*)[Filemanager contentsOfDirectoryAtPath:tempArchivPfad error: &err];
          [tempProjektOrdnerArray removeObject:@".DS_Store"];
-         NSLog(@"tempProjektOrdnerArray: %@",tempProjektOrdnerArray);
+         NSLog(@"LeseboxCompletetempProjektOrdnerArray: %@",tempProjektOrdnerArray);
          
          
          
@@ -1222,7 +1223,7 @@ return versionOK;
 				{
 					case NSAlertFirstButtonReturn://
 					{ 
-						NSLog(@"NSAlertFirstButtonReturn");
+						NSLog(@"NamenArrayAusString NSAlertFirstButtonReturn");
 						
 					}break;
 						
@@ -2284,7 +2285,7 @@ return versionOK;
 			{
 				case NSAlertFirstButtonReturn://
 				{ 
-					NSLog(@"NSAlertFirstButtonReturn");
+					NSLog(@"Projektordereinrichten NSAlertFirstButtonReturn");
 					
 				}break;
 					
@@ -2407,13 +2408,14 @@ return versionOK;
 	  
 	int modalAntwort = [NSApp runModalForWindow:[UEinzelNamenPanel window]];
 	//int modalAntwort = [NSApp runModalSession:ProjektSession];
-	//NSLog(@"showProjektliste Antwort: %d",modalAntwort);
+	NSLog(@"showProjektliste EinzelnamenArrayAntwort: %d",modalAntwort);
 	[NSApp endModalSession:NamenSession];
 	//[[ProjektPanel window] orderOut:NULL]; 
-	NSArray* tempNamenArray=[NSArray array];  
+	NSArray* tempNamenArray=[NSArray array];
+   NSLog(@"showProjektliste EinzelnamenArray Antwort: %d",modalAntwort);
 	if (modalAntwort==1)
 	{
-	tempNamenArray=[UEinzelNamenPanel NamenArray];
+      tempNamenArray=[UEinzelNamenPanel NamenArray];
 	}
 	return tempNamenArray;
 }

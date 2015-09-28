@@ -52,7 +52,7 @@ enum
    NSString* KommentarString=@"Anmerkungen";
    self.istSystemVolume=[Utils istSystemVolumeAnPfad:self.LeseboxPfad];
    //NSLog(@"Leseboxvorbereiten istSystemVolume: %d",self.istSystemVolume);
-   
+   NSLog(@"Leseboxvorbereiten vor Leseboxcomplete: LeseboxPfad: %@",self.LeseboxPfad);
    NSArray* checkArray = [Utils LeseboxCompleteAnPfad: self.LeseboxPfad];
    NSLog(@"LeseboxComplete *%@*",checkArray);
    
@@ -369,6 +369,10 @@ enum
       if ([self.PListDic objectForKey:@"timeoutdelay"])
       {
          self.TimeoutDelay=[[self.PListDic objectForKey:@"timeoutdelay"]intValue];
+         if (self.TimeoutDelay==0)
+         {
+            self.TimeoutDelay=60;
+         }
       }
       else
       {
