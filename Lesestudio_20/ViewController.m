@@ -1058,7 +1058,6 @@ return YES;
    {
       [Utils setPListBusy:NO anPfad:self.LeseboxPfad];
       [NSApp terminate:self];
-      
    }
    
 }
@@ -1191,7 +1190,7 @@ return YES;
 
 - (void) VolumesAktion:(NSNotification*)note
 {
-   //NSLog(@"VolumesAktion");
+   NSLog(@"VolumesAktion");
    NSNumber* n=[[note userInfo]objectForKey:@"LeseboxDa"];
    self.LeseboxDa=[n boolValue];
    if ([n intValue]==0)//Abbrechen
@@ -1205,9 +1204,10 @@ return YES;
    }
    if ([n intValue]==1)//
    {
-      //NSLog(@"URL: %@",[[note userInfo]objectForKey:@"url"]);
+      NSLog(@"VolumesAktion URL: %@",[[note userInfo]objectForKey:@"url"]);
+      
    }
-   
+   //[VolumesPanel reportClose:nil];
    //NSLog(@"VolumesAktion: number %d   ",[n intValue]);
 }
 

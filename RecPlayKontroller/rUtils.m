@@ -471,7 +471,7 @@ Die Dics enthalten den Pfad und eine Anzeige für die Lesebox
 	//NSLog(@"cb: %@  Lesebox: %@ HomeLeseboxPfad: %@",cb,lb,HomeLeseboxPfad);
 	
 	int HomeLeseboxOK=0;
-	if ([Filemanager fileExistsAtPath:HomeLeseboxPfad isDirectory:&istOrdner]&&istOrdner)//Lesebox vorhaanden auf home
+	if ([Filemanager fileExistsAtPath:HomeLeseboxPfad isDirectory:&istOrdner]&&istOrdner)//Lesebox vorhanden auf home
 		{
 			//NSLog(@"Utils HomeLeseboxPfad: %@",HomeLeseboxPfad);
 			HomeLeseboxOK=2;//Lesebox ist da
@@ -491,6 +491,7 @@ Die Dics enthalten den Pfad und eine Anzeige für die Lesebox
 	[HomeDic setObject:@"Home" forKey:@"host"];
 	[UserMitLeseboxArray addObject:HomeDic];//Dic für das Volume anfügen;
    
+   //return UserMitLeseboxArray;
 			
 	//Eingeloggte Volumes mit Lesebox suchen
 	NSMutableArray * volumesArray=[NSMutableArray arrayWithArray:[workspace mountedLocalVolumePaths]];

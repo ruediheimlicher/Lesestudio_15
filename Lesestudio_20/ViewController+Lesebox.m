@@ -24,10 +24,10 @@ enum
 {
    NSArray* NetworkCompArray=[Utils checkNetzwerkVolumes];
    
-   //NSLog(@"Leseboxvorbereiten	NetworkCompArray: %@",[NetworkCompArray description]);
+   NSLog(@"Leseboxvorbereiten	NetworkCompArray: %@",[NetworkCompArray description]);
    
    NSArray* UserMitLeseboxArray=[Utils checkUsersMitLesebox];
-   //NSLog(@"Leseboxvorbereiten	 UserMitLeseboxArray: %@",[UserMitLeseboxArray description]);
+   NSLog(@"Leseboxvorbereiten	 UserMitLeseboxArray: %@",[UserMitLeseboxArray description]);
    
    
    //	LeseboxDa=YES;
@@ -182,10 +182,6 @@ enum
          [self.UserPasswortArray setArray:[self.PListDic objectForKey:@"userpasswortarray"]];//Aus PList einsetzen
       }
       
-      
-      
-
-         
       //NSLog(@"ProjektArray: %@",[self.ProjektArray description]);
       if ([self.PListDic objectForKey:@"projektarray"])// && [[self.PListDic objectForKey:@"projektarray"]count])
       {
@@ -613,14 +609,15 @@ enum
    //Für Externe HDs zeigt der Leseboxpfad auf einen Ordner direkt auf der HD.
    //Die PList wird im Ordner 'Data' in der Lesebox abgelegt.
    
-   self.LeseboxURL =[NSURL URLWithString:self.LeseboxPfad];
+   self.LeseboxURL =[NSURL fileURLWithPath:self.LeseboxPfad];
    // NSLog(@"LeseboxPfad: %@ LeseboxURL: %@",self.LeseboxPfad,self.LeseboxURL);
-   // NSLog(@"chooseLeseboxPfadVon: Antwort: %d  LeseboxPfad: %@",modalAntwort,tempLeseboxPfad);
+    NSLog(@"chooseLeseboxPfadMitUserArray: Antwort: %d  LeseboxPfad: %@",modalAntwort,tempLeseboxPfad);
    
    [NSApp endModalSession:VolumeSession];
    
    [[VolumesPanel window] orderOut:NULL];
-   //NSLog(@"VolumesPanel: Antwort: %d",modalAntwort);
+   
+   NSLog(@"chooseLeseboxPfadMitUserArray VolumesPanel: Antwort: %d tempLeseboxPfad: %@",modalAntwort, tempLeseboxPfad);
    
    return tempLeseboxPfad;
    

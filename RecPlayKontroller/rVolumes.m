@@ -323,16 +323,17 @@
 
 - (IBAction)toggleDrawer:(id)sender;
 {
+   NSLog(@"toggleDrawer state: %ld",(long)[sender state]);
 	if ([NetzwerkDrawer state]==NSDrawerClosedState)
-	{
-		[NetzwerkDrawer close:sender];
-	}
-	else
 	{
 		[NetzwerkDrawer open:sender];
 	}
+	else
+	{
+		[NetzwerkDrawer close:sender];
+	}
 	
-	[NetzwerkDrawer toggle:sender];
+	//[NetzwerkDrawer toggle:sender];
 }
 
 - (IBAction)Abbrechen:(id)sender
@@ -346,6 +347,13 @@
     [NSApp stopModalWithCode:0];
 	[[self window] orderOut:NULL];
    [NSApp terminate:self];
+}
+
+- (IBAction)reportClose:(id)sender
+{
+   [NSApp stopModalWithCode:0];
+   [[self window] orderOut:NULL];
+
 }
 
 - (IBAction)HomeDirectory:(id)sender
@@ -482,6 +490,7 @@
        
        if (result == NSModalResponseOK)
        {
+          NSLog(@"CompletionHandle NSModalResponseOK");
          	NSMutableDictionary* LeseboxDic=[NSMutableDictionary dictionaryWithObject:[LeseboxDialog URL] forKey:@"url"];
           [LeseboxDic setObject:[NSNumber numberWithInt:1]forKey:@"LeseboxDa"];
           NSNotificationCenter* nc=[NSNotificationCenter defaultCenter];
@@ -545,7 +554,7 @@
 	//[nc postNotificationName:@"VolumeWahl" object:self userInfo:LeseboxDic];
 	tempLeseboxPfad=[NSString string];
 }
-	
+	 [NSApp stopModalWithCode:3];
 	return tempLeseboxPfad;
 }
 
@@ -608,12 +617,34 @@ NSLog(@"VolumepfadAktion note: %@",[[note userInfo]description]);
 {
    NSLog(@"\nreportOpenNetwork\n\n");
    NSString* NetwerkLeseboxPfad=[self chooseNetworkLeseboxPfad];
-   
-   if (NetwerkLeseboxPfad)
+       if (NetwerkLeseboxPfad)
    {
       NSURL* NetzURL=[NSURL fileURLWithPath:NetwerkLeseboxPfad];
       //CFStringRef=CFURLCopyHostName
       NSLog(@"\nende reportOpenNetwork: URL: %@\n\n",NetzURL);
+      LeseboxPfad=[NetzURL path];
+      
+      
+      NSNumber* n=[NSNumber numberWithBool:NO];
+      NSMutableDictionary* LeseboxDic=[NSMutableDictionary dictionaryWithObject:n forKey:@"LeseboxDa"];
+      [LeseboxDic setObject:[NSNumber numberWithBool:istSystemVolume] forKey:@"istsysvol"];
+      [LeseboxDic setObject:NetwerkLeseboxPfad forKey:@"leseboxpfad"];
+      NSNotificationCenter* nc=[NSNotificationCenter defaultCenter];
+  //    [nc postNotificationName:@"VolumeWahl" object:self userInfo:LeseboxDic];
+  
+      
+      //NSLog(@"LeseboxDic: %@",[LeseboxDic description]);
+      //NSMutableDictionary* UserDic=[NSMutableDictionary dictionaryWithObject:LeseboxPfad forKey:@"LeseboxVolume"];
+      //NSNotificationCenter* nc=[NSNotificationCenter defaultCenter];
+      //[nc postNotificationName:@"VolumeWahl" object:self userInfo:UserDic];[
+     // [NSApp stopModalWithCode:3];
+
+      
+   }
+   else
+   {
+      LeseboxPfad=@"";
+      [NSApp stopModalWithCode:0];
    }
    
 }
@@ -771,6 +802,41 @@ NSLog(@"VolumepfadAktion note: %@",[[note userInfo]description]);
 	}
 	
 	
+}
+
+
+- (IBAction)reportLocalKnopf:(id)sender
+{
+   NSLog(@"reportLocalKnopf");
+   
+   istSystemVolume=NO;
+   NSString* lb=@"Lesebox";
+   //NSLog(@"reportAuswahlen lb: %@",lb);
+   LeseboxPfad=[[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]stringByAppendingPathComponent:@"Lesebox"];
+   istSystemVolume=YES;
+
+   
+   
+   NSLog(@"Volumes reportLocalKnopf: LeseboxPfad: %@",LeseboxPfad);
+   
+   //Der Leseboxpfad wird in chooselesebox gelesen und in Leseboxvorbereiten gesetzt
+   
+   
+   NSNumber* n=[NSNumber numberWithBool:YES];
+   NSMutableDictionary* LeseboxDic=[NSMutableDictionary dictionaryWithObject:n forKey:@"LeseboxDa"];
+   [LeseboxDic setObject:[NSNumber numberWithBool:istSystemVolume] forKey:@"istsysvol"];
+   [LeseboxDic setObject:LeseboxPfad forKey:@"leseboxpfad"];
+   NSNotificationCenter* nc=[NSNotificationCenter defaultCenter];
+   [nc postNotificationName:@"VolumeWahl" object:self userInfo:LeseboxDic];
+   //NSLog(@"LeseboxDic: %@",[LeseboxDic description]);
+   //NSMutableDictionary* UserDic=[NSMutableDictionary dictionaryWithObject:LeseboxPfad forKey:@"LeseboxVolume"];
+   //NSNotificationCenter* nc=[NSNotificationCenter defaultCenter];
+   //[nc postNotificationName:@"VolumeWahl" object:self userInfo:UserDic];[
+   [NSApp stopModalWithCode:3];
+   
+   return;
+   
+   
 }
 
 - (IBAction)checkUser:(id)sender
