@@ -2397,6 +2397,7 @@ return versionOK;
 	  {
 		UEinzelNamenPanel=[[rEinzelNamen alloc]init];
 	  }
+   
 	//NSLog(@"showNamenListe nach init:ProjektArray: %@  ",[ProjektArray description]);
 	//NSLog(@"showNamenListe nach init:ProjektArray: %@  \nProjektPfad: %@",[UProjektArray description],UProjektPfad);
 	//NSLog(@"showNamenListe nach init:ProjektPfad: %@",UProjektPfad);

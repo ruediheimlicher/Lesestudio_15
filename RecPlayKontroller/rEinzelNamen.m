@@ -242,6 +242,9 @@ if (index>=0)
 	NSNotificationCenter* nc=[NSNotificationCenter defaultCenter];
 	[nc postNotificationName:@"EinzelNamen" object:self userInfo:NotificationDic];
 
+   [NamenArray removeAllObjects];
+   [NamenTable reloadData];
+   [NamenListeView setString:@""];
 
 	[NSApp stopModalWithCode:1];
 	[[self window] orderOut:NULL];
@@ -271,7 +274,9 @@ if (index>=0)
    NSNotificationCenter* nc=[NSNotificationCenter defaultCenter];
    [nc postNotificationName:@"NamenEinsetzen" object:self userInfo:NotificationDic];
 
-   
+   [NamenArray removeAllObjects];
+   [NamenTable reloadData];
+
 }
 
 
