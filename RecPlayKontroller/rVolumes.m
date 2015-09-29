@@ -39,8 +39,8 @@
 	SEL DoppelSelektor;
 	DoppelSelektor=@selector(VolumeOK:);
 	
-	[UserTable setDoubleAction:DoppelSelektor];
-	[UserTable reloadData];
+//	[UserTable setDoubleAction:DoppelSelektor];
+//	[UserTable reloadData];
 	
 	[NetworkTable setDataSource:self];
 	[NetworkTable setDelegate: self];
@@ -74,6 +74,14 @@
 //	[RecPlayIcon setImage:RecPlayImage];
 //	[NetzwerkDrawer setMinContentSize:NSMakeSize(100, 100)];
     //[NetzwerkDrawer setMaxContentSize:NSMakeSize(400, 400)];
+   
+   NSRect frame = [AuswahlenKnopf frame];
+   NSLog(@"h: %2.2f",frame.size.height);
+   frame.size.height = 48.0;
+//   [AuswahlenKnopf  setFrame: frame];
+
+   
+   
 	[AbbrechenKnopf setToolTip:@"Programm beenden."];
 	[AuswahlenKnopf setToolTip:@"Den angeklickten Benutzer auswählen."];
 	[NetzwerkKnopf setToolTip:@"Öffnet ein Dialogfeld, um die Verbindung zu einen Benutzer im Netzwerk einzurichten."];
@@ -236,7 +244,7 @@
 
 	int erfolg=[[self window]makeFirstResponder:UserTable];
 
-	[AuswahlenKnopf setEnabled:YES];
+	//[AuswahlenKnopf setEnabled:YES];
 	[AuswahlenKnopf setKeyEquivalent:@"\r"];
 	
 //	return;
@@ -325,9 +333,12 @@
 {
    if (!NetzwerkDrawer)
    {
-     // NetzwerkDrawer =
+     //NetzwerkDrawer = []
    }
-   
+   if (!NetzwerkDrawer)
+   {
+      return;
+   }
 	if ([NetzwerkDrawer state]==NSDrawerClosedState)
 	{
 	//	[NetzwerkDrawer close:sender];
@@ -493,6 +504,7 @@
           NSNotificationCenter* nc=[NSNotificationCenter defaultCenter];
           [nc postNotificationName:@"VolumeWahl" object:self userInfo:LeseboxDic];
           [PfadFeld setStringValue:[[LeseboxDialog URL]path]];
+          [AuswahlenKnopf setEnabled:YES];
        }
        
     }];
@@ -873,7 +885,7 @@ NSLog(@"VolumepfadAktion note: %@",[[note userInfo]description]);
 	}//count
 	[PrufenKnopf setEnabled:NO];
 	[AnmeldenKnopf setEnabled:YES];
-	[AuswahlenKnopf setEnabled:YES];
+	//[AuswahlenKnopf setEnabled:YES];
 
 	[[self window]makeFirstResponder:UserTable];
 	NSLog(@"checkUser: %@",[UserArray description]);
