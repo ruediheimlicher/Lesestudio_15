@@ -323,13 +323,18 @@
 
 - (IBAction)toggleDrawer:(id)sender;
 {
+   if (!NetzwerkDrawer)
+   {
+     // NetzwerkDrawer =
+   }
+   
 	if ([NetzwerkDrawer state]==NSDrawerClosedState)
 	{
-		[NetzwerkDrawer close:sender];
+	//	[NetzwerkDrawer close:sender];
 	}
 	else
 	{
-		[NetzwerkDrawer open:sender];
+	//	[NetzwerkDrawer open:sender];
 	}
 	
 	[NetzwerkDrawer toggle:sender];

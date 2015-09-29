@@ -698,45 +698,45 @@ vomStart=derStatus;
 
 - (BOOL)tableView:(NSTableView *)tableView shouldSelectRow:(int)row
 {
-  //NSLog(@"shouldSelectRow");
-		//if(tableView ==[window firstResponder])
-  NSString* tempProjektString=[[ProjektArray objectAtIndex:row]objectForKey:@"projekt"];
-  BOOL istAktiviert=[[[ProjektArray objectAtIndex:row]objectForKey:@"ok"]boolValue];
-  //NSLog(@"istAktiviert: %d",istAktiviert);
-  BOOL istProjektZeile=[tempProjektString isEqualToString:aktuellesProjekt];
-  if ([tableView numberOfSelectedRows]&&(!istProjektZeile))
-  {
-	  [EntfernenTaste setEnabled:YES];
-	  //[SchliessenTaste setEnabled:YES];
-	  if (istAktiviert)
-	  {
-		  [AuswahlenTaste setEnabled:YES];
-		  [AuswahlenTaste setKeyEquivalent:@"\r"];
-		  [SchliessenTaste setKeyEquivalent:@""];
-	  }
-	  else
-	  {//Projekt nicht aktiviert
-		if (!vomStart)
-		{
-		  [AuswahlenTaste setEnabled:NO];
-		  }
-		  [SchliessenTaste setKeyEquivalent:@"\r"];
-		  
-	  }
-  }
-		  else
+   //NSLog(@"shouldSelectRow");
+   //if(tableView ==[window firstResponder])
+   NSString* tempProjektString=[[ProjektArray objectAtIndex:row]objectForKey:@"projekt"];
+   BOOL istAktiviert=[[[ProjektArray objectAtIndex:row]objectForKey:@"ok"]boolValue];
+   //NSLog(@"istAktiviert: %d",istAktiviert);
+   BOOL istProjektZeile=[tempProjektString isEqualToString:aktuellesProjekt];
+   if ([tableView numberOfSelectedRows]&&(!istProjektZeile))
+   {
+      [EntfernenTaste setEnabled:YES];
+      //[SchliessenTaste setEnabled:YES];
+      if (istAktiviert)
+      {
+         [AuswahlenTaste setEnabled:YES];
+         // [AuswahlenTaste setKeyEquivalent:@"\r"];
+         // [SchliessenTaste setKeyEquivalent:@""];
+      }
+      else
+      {//Projekt nicht aktiviertns
+         if (!vomStart)
+         {
+            [AuswahlenTaste setEnabled:NO];
+         }
+         //[SchliessenTaste setKeyEquivalent:@"\r"];
+         
+      }
+   }
+   else
 			{//ist Projektzeile
-			//			5.5.08	[AuswahlenTaste setEnabled:NO];
-			[EntfernenTaste setEnabled:NO];
-
-			[AuswahlenTaste setKeyEquivalent:@""];
-			[SchliessenTaste setKeyEquivalent:@"\r"];
-			
-			}
-		  
-  
-  
-  return YES;
+            //			5.5.08	[AuswahlenTaste setEnabled:NO];
+            [EntfernenTaste setEnabled:NO];
+            
+            [AuswahlenTaste setKeyEquivalent:@""];
+            [SchliessenTaste setKeyEquivalent:@"\r"];
+            
+         }
+   
+   
+   
+   return YES;
 }
 
 - (void)tableView:(NSTableView *)tableView willDisplayCell:(id)cell forTableColumn:(NSTableColumn *)tableColumn row:(int)row
@@ -755,11 +755,13 @@ vomStart=derStatus;
 		
 		if (istProjektZeile)
 		{
-			[cell setTextColor:[NSColor grayColor]];
+			[cell setTextColor:[NSColor darkGrayColor]];
+         //[EntfernenTaste setEnabled:NO];
 		}
 		else
 		{
 			[cell setTextColor:[NSColor blackColor]];
+         //[EntfernenTaste setEnabled:YES];
 		}
 	}
 }//willDisplayCell
@@ -769,6 +771,8 @@ vomStart=derStatus;
 {
 	if ([ProjektTable numberOfSelectedRows]==0)
 	{
+      [EntfernenTaste setEnabled:NO];
+
 		//[OKKnopf setEnabled:NO];
 		//[OKKnopf setKeyEquivalent:@""];
 		//[HomeKnopf setKeyEquivalent:@"\r"];

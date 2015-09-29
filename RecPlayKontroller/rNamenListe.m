@@ -98,6 +98,10 @@
 	return [NamenArray count];
 }
 
+- (void)setProjekt:(NSString*)zielprojekt
+{
+   aktuellesProjekt = zielprojekt   ;
+}
 
 - (IBAction)reportCancel:(id)sender
 {

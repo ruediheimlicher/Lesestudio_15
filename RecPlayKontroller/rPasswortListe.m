@@ -99,6 +99,7 @@ else
 	
 }
 
+
 - (void)setPasswortArray:(NSArray*)derArray
 {
 	[PasswortArray removeAllObjects];

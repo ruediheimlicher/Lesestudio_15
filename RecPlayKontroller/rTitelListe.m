@@ -98,6 +98,15 @@ NSMutableDictionary* tempTitelDic=[[NSMutableDictionary alloc]initWithCapacity:0
 //[[[TitelTable tableColumnWithIdentifier:@"titel"]dataCellForRow:[TitelTable selectedRow]]selectText:nil];
 }
 
+- (void)setProjekt:(NSString*)zielprojekt
+{
+   aktuellesProjekt = zielprojekt   ;
+   [ProjektFeld setStringValue:zielprojekt];
+   
+   [SchliessenTaste setEnabled:[TitelArray count]]; // Schliessen nur wenn Titel vorhanden. sonst abbreche
+}
+
+
 - (IBAction)reportNeuerTitel:(id)sender
 {
 	if ([[EingabeFeld stringValue]length])
@@ -131,12 +140,48 @@ NSMutableDictionary* tempTitelDic=[[NSMutableDictionary alloc]initWithCapacity:0
 
 - (IBAction)reportCancel:(id)sender
 {
-[TitelTable selectRowIndexes:[NSIndexSet indexSetWithIndex:0]byExtendingSelection:NO];
-[[TitelTable tableColumnWithIdentifier:@"titel"]setEditable:NO];
-[NSApp stopModalWithCode:0];
-[[self window]orderOut:NULL];
-
+   if ([TitelArray count])
+   {
+      [NSApp stopModalWithCode:1];
+      [[self window]orderOut:NULL];
+      
+   }
+   else
+   {
+      NSAlert *Warnung = [[NSAlert alloc] init];
+      [Warnung setMessageText:@"Leere Titelliste"];
+      [Warnung setInformativeText:@"Für dieses Projekt muss die Titelliste mindestes einen Titel enthalten."];
+      [Warnung setAlertStyle:NSWarningAlertStyle];
+      
+      [Warnung addButtonWithTitle:@"Titel eingeben"];
+      [Warnung addButtonWithTitle:[NSString stringWithFormat:@"Fixierung für Projekt %@ aufheben",aktuellesProjekt]];
+      
+      NSModalResponse antwort = [Warnung runModal];
+      if (antwort==NSAlertFirstButtonReturn)
+      {
+         NSLog(@"Titelliste reportCancel: NSAlertFirstButtonReturn");
+      }
+      else if (antwort==NSAlertSecondButtonReturn)
+      {
+         NSLog(@"Titelliste reportCancel: NSAlertSecondButtonReturn");
+         
+         [TitelTable selectRowIndexes:[NSIndexSet indexSetWithIndex:0]byExtendingSelection:NO];
+         [[TitelTable tableColumnWithIdentifier:@"titel"]setEditable:NO];
+         NSMutableDictionary* NotificationDic=[[NSMutableDictionary alloc]initWithCapacity:0];
+         [NotificationDic setObject:TitelArray  forKey:@"titelarray"];
+         
+         [NotificationDic setObject:[ProjektFeld stringValue] forKey:@"projekt"];
+         
+         NSNotificationCenter* nc=[NSNotificationCenter defaultCenter];
+         [nc postNotificationName:@"titelliste" object:self userInfo:NotificationDic];
+         [NSApp stopModalWithCode:0];
+         [[self window]orderOut:NULL];
+      }
+   }
+   
+   
 }
+
 
 
 - (IBAction)reportClose:(id)sender
@@ -146,13 +191,14 @@ NSMutableDictionary* tempTitelDic=[[NSMutableDictionary alloc]initWithCapacity:0
 NSMutableDictionary* NotificationDic=[[NSMutableDictionary alloc]initWithCapacity:0];
 [NotificationDic setObject:TitelArray  forKey:@"titelarray"];
 
-//[NotificationDic setObject:[ProjektFeld stringValue] forKey:@"projekt"];
+[NotificationDic setObject:[ProjektFeld stringValue] forKey:@"projekt"];
 
 NSNotificationCenter* nc=[NSNotificationCenter defaultCenter];
 [nc postNotificationName:@"titelliste" object:self userInfo:NotificationDic];
 
 [NSApp stopModalWithCode:1];
 [[self window]orderOut:NULL];
+
 
 }
 #pragma mark -

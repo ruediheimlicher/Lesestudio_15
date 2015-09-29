@@ -2377,7 +2377,7 @@ return versionOK;
      }
    int modalAntwort = [NSApp runModalForWindow:[UNamenListePanel window]];
    //int modalAntwort = [NSApp runModalSession:ProjektSession];
-   //NSLog(@"showProjektliste Antwort: %d",modalAntwort);
+   //NSLog(@"showNamenliste Antwort: %d",modalAntwort);
    [NSApp endModalSession:NamenSession];
    //[[ProjektPanel window] orderOut:NULL];
    
@@ -2672,7 +2672,7 @@ return versionOK;
 - (void)UNamenEinsetzenAktion:(NSNotification*)note
 {
 	//NSLog(@"\n\n*UNamenEinsetzenAktion	UProjektArray: %@\n",[UProjektArray description]);
-	NSLog(@"\n\n*UNamenEinsetzenAktion userInfo: %@",[[note userInfo] description]);
+	//NSLog(@"\n\n*UNamenEinsetzenAktion userInfo: %@",[[note userInfo] description]);
 	//NSLog(@"*UNamenEinsetzenAktion  UArchivPfad:%@",UArchivPfad);
    
    // Ordner der wirklich aufzunehehmenden Namen
@@ -2789,8 +2789,8 @@ return versionOK;
 		}//switch 		einsetzenVariante
 		
 	}
-	NSLog(@"*UNamenEinsetzenAktion  tempPfadArray:\n%@",[tempPfadArray description]); // Namen sollen eingesetzt werden
-	NSLog(@"*UNamenEinsetzenAktion  doppelteNamenArray:\n%@",[doppelteNamenArray description]); // Namen sind schon vorhanden
+	//NSLog(@"*UNamenEinsetzenAktion  tempPfadArray:\n%@",[tempPfadArray description]); // Namen sollen eingesetzt werden
+	//NSLog(@"*UNamenEinsetzenAktion  doppelteNamenArray:\n%@",[doppelteNamenArray description]); // Namen sind schon vorhanden
 	
 	NSMutableArray* fehlendeOrdnerArray=[[NSMutableArray alloc]initWithCapacity:0]; // Ordner fuer Namen mit Misserfolg
    NSMutableArray* eingesetzteNamenArray=[[NSMutableArray alloc]initWithCapacity:0]; // Ordner fuer Namen mit Misserfolg
@@ -2820,7 +2820,7 @@ return versionOK;
       
    }//while
    NSLog(@"*UNamenEinsetzenAktion  fehlendeOrdnerArray:%@",[fehlendeOrdnerArray description]);
-   NSLog(@"*UNamenEinsetzenAktion  eingesetzteNamenArray:%@",[eingesetzteNamenArray description]);
+   //NSLog(@"*UNamenEinsetzenAktion  eingesetzteNamenArray:%@",[eingesetzteNamenArray description]);
 	
 	if ([fehlendeOrdnerArray count])
 	{
@@ -2837,7 +2837,7 @@ return versionOK;
 		[Warnung setAlertStyle:NSWarningAlertStyle];
 		
 		//[Warnung setIcon:RPImage];
-		int antwort=[Warnung runModal];
+	//	int antwort=[Warnung runModal];
 	}
    
 	NSMutableDictionary* NotificationDic=[[NSMutableDictionary alloc]initWithCapacity:0];

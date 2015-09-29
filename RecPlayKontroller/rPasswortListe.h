@@ -13,7 +13,7 @@
 	
 	NSMutableArray* PasswortArray;
 	NSMutableDictionary* PasswortDic;
-
+   
 }
 
 - (IBAction)reportBearbeiten:(id)sender;

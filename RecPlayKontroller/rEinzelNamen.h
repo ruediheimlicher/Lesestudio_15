@@ -11,6 +11,7 @@
     IBOutlet		id			OKTaste;
     IBOutlet		id			SchliessenTaste;
     IBOutlet		id			UbernehmenTaste;
+      IBOutlet		id			ProjektFeld;
     rEingabeFeld*				VornamenFeld;
 	IBOutlet		id          NamenListeView;
 	NSMutableArray*				NamenArray;
@@ -27,5 +28,6 @@
 - (NSString*)stringSauberVon:(NSString*)derString;
 - (IBAction)addNamenZeile:(id)sender;
 - (NSArray*)NamenArray;
+- (void)setProjekt:(NSString*)zielprojekt;
 
 @end

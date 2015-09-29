@@ -46,8 +46,11 @@ enum
    BOOL ArchivOK=NO;
    BOOL ProjektListeOK=NO;
    
+   BOOL TitelListeOK=NO;
+   
    self.istSystemVolume=NO;
    BOOL NamenListeOK=NO;
+   
    NSString* ArchivString=[NSString stringWithFormat:@"Archiv"];
    NSString* KommentarString=@"Anmerkungen";
    self.istSystemVolume=[Utils istSystemVolumeAnPfad:self.LeseboxPfad];
@@ -198,7 +201,7 @@ enum
             // checken, ob alle in der Lesebox vorhandenen Projektorder  erfasst sind
             NSString* tempArchivPfad = [self.LeseboxPfad stringByAppendingPathComponent:@"Archiv"];
             NSArray* ArchivProjektNamenArray = [Utils OrderNamenAnPfad:tempArchivPfad];
-            NSLog(@"LB vorbereiten: PListProjektnamenArray: %@ ArchivProjektNamenArray: %@",PListProjektnamenArray,ArchivProjektNamenArray);
+            //NSLog(@"LB vorbereiten: PListProjektnamenArray: %@ ArchivProjektNamenArray: %@",PListProjektnamenArray,ArchivProjektNamenArray);
             for (long archivindex=0;archivindex < [ArchivProjektNamenArray count];archivindex++)
             {
                NSString* rawprojekt = [ArchivProjektNamenArray objectAtIndex:archivindex];
@@ -232,7 +235,7 @@ enum
                   {
                      charprojektda=YES;
                      projektvorhanden++;
-                     NSLog(@"rawplistchar: *%s* rawchar: *%s* charprojektda: %hhd",rawplistchar,rawchar,charprojektda);
+                    // NSLog(@"rawplistchar: *%s* rawchar: *%s* charprojektda: %hhd",rawplistchar,rawchar,charprojektda);
                   }
                   else
                   {
@@ -244,7 +247,7 @@ enum
                   {
                      rawprojektda=YES;
                      projektvorhanden++;
-                     NSLog(@"rawprojekt: *%@* rawplistprojekt: *%@* rawprojektda: %hhd",rawprojekt,rawplistprojekt,rawprojektda);
+                     //NSLog(@"rawprojekt: *%@* rawplistprojekt: *%@* rawprojektda: %hhd",rawprojekt,rawplistprojekt,rawprojektda);
 
                   }
                   else
@@ -257,7 +260,7 @@ enum
                   {
                      projektda=YES;
                      projektvorhanden++;
-                     NSLog(@"tempProjektName: *%@* tempPListProjektName: *%@* projektda: %hhd",tempProjektName,tempPlistProjektName,projektda);
+                     //NSLog(@"tempProjektName: *%@* tempPListProjektName: *%@* projektda: %hhd",tempProjektName,tempPlistProjektName,projektda);
 
                   }
                   else
@@ -298,11 +301,11 @@ enum
             NSString* PListName=@"Lesebox.plist";
             NSString* tempPListPfad=[DataPath stringByAppendingPathComponent:PListName];
             BOOL PListOK=[self.PListDic writeToFile:tempPListPfad atomically:YES];
-            NSLog(@"\nsavePList: PListOK: %d",PListOK);
+            //NSLog(@"\nsavePList: PListOK: %d",PListOK);
             
             // [self savePList:self.PListDic anPfad:tempArchivPfad];
             
-            NSLog(@"LB vorbereiten vor update: ProjektArray: %@",[[self.ProjektArray valueForKey:@"projekt"]description]);
+            //NSLog(@"LB vorbereiten vor update: ProjektArray: %@",[[self.ProjektArray valueForKey:@"projekt"]description]);
             
             
          }
@@ -466,6 +469,12 @@ enum
       //NSLog(@"//Umgebung: %d  ProjektPfad: %@",Umgebung, ProjektPfad);
       
       NamenListeOK=[self NamenListeValidAnPfad:self.ProjektPfad];
+      
+      TitelListeOK = [self TitelListeValidAnPfad:self.ProjektPfad];
+      
+      
+      
+      
       if (!NamenListeOK)//keine Namen im Projektordner
       {
          //NSLog(@"NamenListeOK=NO: Umgebung: %d  ProjektPfad: %@",Umgebung, ProjektPfad);
@@ -789,7 +798,8 @@ enum
                case NSAlertFirstButtonReturn://
                {
                   NSLog(@"NSAlertFirstButtonReturn: Liste anlegen");
-                  [self showTitelListe:NULL];
+                  //[self showTitelListe:NULL];
+                  [self showTitelListeInProjekt:tempProjekt];
                }break;
                   
                case NSAlertSecondButtonReturn://Fix aufgeben
@@ -1482,7 +1492,107 @@ enum
    
 }
 
+- (BOOL)TitelListeValidAnPfad:(NSString*)derProjektPfad
+{
+   NSLog(@"projektarray: %@",self.ProjektArray);
+   NSString* tempProjekt = [derProjektPfad lastPathComponent];
+   long projektindex = [[self.ProjektArray valueForKey:@"projekt"] indexOfObject:tempProjekt];
+   BOOL titellisteOK=NO;
+   if (!(projektindex == NSNotFound))
+   {
+      BOOL tempFix = [[[self.ProjektArray objectAtIndex:projektindex]objectForKey:@"fix"]boolValue];
+      
+      if (tempFix) // Titelliste fixiert
+      {
+         NSMutableArray* tempTitelListe;
+         if ([[self.ProjektArray objectAtIndex:projektindex]objectForKey:@"titelarray"]) // titelarray da
+         {
+            tempTitelListe = (NSMutableArray*)[[self.ProjektArray objectAtIndex:projektindex]objectForKey:@"titelarray"];
+            if ([tempTitelListe count])
+            {
+               return YES;
+            }
+          }
+         else // leere Liste anlegen
+         {
+            tempTitelListe = [[NSMutableArray alloc]initWithCapacity:0];
+         }
+         // Titelliste erforderlich, aber leer
+         // Alert
+         NSAlert *Warnung = [[NSAlert alloc] init];
+         [Warnung addButtonWithTitle:@"Titelliste anlegen"];
+         [Warnung addButtonWithTitle:@"Fixierung aufheben"];
+         //[Warnung addButtonWithTitle:@""];
+         // [Warnung addButtonWithTitle:@"Abbrechen"];
+         [Warnung setMessageText:[NSString stringWithFormat:@"%@",@"Keine Titelliste"]];
+         
+         NSString* s1=@"Die Titel für dieses Projekt sind fixiert.";
+         NSString* s2=@"Die Titelliste enthält aber noch keine Titel.";
+         NSString* InformationString=[NSString stringWithFormat:@"%@\n%@",s1,s2];
+         [Warnung setInformativeText:InformationString];
+         [Warnung setAlertStyle:NSWarningAlertStyle];
+         
+         long antwort=[Warnung runModal];
+         switch (antwort)//Liste anlegen
+         {
+            case NSAlertFirstButtonReturn://
+            {
+               NSLog(@"NSAlertFirstButtonReturn: Liste anlegen");
+               //[self showTitelListe:NULL];
+               [self showTitelListeInProjekt:tempProjekt];
+            }break;
+               
+            case NSAlertSecondButtonReturn://Fix aufgeben
+            {
+               NSLog(@"ProjektListeAktion NSAlertSecondButtonReturn: Fixierung fuer Projekt aufheben");
+               [[self.ProjektArray objectAtIndex:projektindex] setObject:[NSNumber numberWithInt:0]forKey:@"fix"];
+               //PList aktualisieren
+               
+               NSLog(@"ProjektListeAktion  PListDic lesen LeseboxPfad: %@",self.LeseboxPfad);
+               NSDictionary* tempAktuellePListDic=[Utils PListDicVon:self.LeseboxPfad aufSystemVolume:self.istSystemVolume];
+               if ([tempAktuellePListDic objectForKey:@"projektarray"])//Es hat schon einen ProjektArray
+               {
+                  NSMutableArray* tempProjektArray=(NSMutableArray*)[tempAktuellePListDic objectForKey:@"projektarray"];
+                  NSUInteger ProjektIndex=[[tempProjektArray valueForKey:@"projekt"] indexOfObject:tempProjekt];
+                  
+                  if (ProjektIndex < NSNotFound)
+                  {
+                     //NSLog(@"ProjektListeAktion: tempProjektArray objectAtIndex:ProjektIndex: %@",[[tempProjektArray objectAtIndex:ProjektIndex]description]);
+                     [[tempProjektArray objectAtIndex:ProjektIndex]setObject:[NSNumber numberWithInt:0] forKey:@"fix"];
+                     //NSLog(@"ProjektListeAktion nach reset fix: tempProjektArray objectAtIndex:ProjektIndex: %@",[[tempProjektArray objectAtIndex:ProjektIndex]description]);
+                     [self saveTitelFix:NO inProjekt:tempProjekt];
+                  }
+                  else
+                  {
+                     NSLog(@"ProjektListeAktion  : titelfix: Projekt nicht gefunden");
+                  }
+                  
+                  
+                  //NSLog(@"ProjektListeAktion: Projektarray aus PList lastObject: %@",[[[tempAktuellePListDic objectForKey:@"projektarray"]lastObject]description]);
+                  //NSLog(@"ProjektListeAktion: Projektarray neu: %@",[[ProjektArray lastObject]description]);
+                  
+               }
+               [[self.ProjektArray objectAtIndex:projektindex]setObject:[NSNumber numberWithInt:0] forKey:@"fix"];
+               
+               
+               
+               
+               
+            }break;
+               
+         }//switch
 
+         
+      }// if fix
+      else
+      {
+         return YES; // keine Titelliste erforderlich
+      }
+      
+   }
+   
+   return titellisteOK;
+}
 
 
 - (BOOL)NamenListeValidAnPfad:(NSString*)derProjektPfad
@@ -2502,7 +2612,8 @@ enum
                case NSAlertFirstButtonReturn://
                {
                   NSLog(@"NSAlertFirstButtonReturn: Liste anlegen");
-                  [self showTitelListe:NULL];
+                  //[self showTitelListe:NULL];
+                  [self showTitelListeInProjekt:dasProjekt];
                }break;
                   
                case NSAlertSecondButtonReturn://Fix aufgeben
@@ -3153,37 +3264,10 @@ enum
    
    }//if notFound
 
-   /*
-   NSMutableDictionary* tempPListDic=[[NSMutableDictionary alloc]initWithContentsOfFile:PListPfad];
    
-   NSLog(@"***\n   saveTitelListe           saveSessionForUser PList aus Datei : %@",[tempPListDic description]);
-
-   
-   if (tempPListDic)
-   {
-      if ([tempPListDic objectForKey:@"projektarray"])
-      {
-         NSMutableArray* tempProjektArray=[tempPListDic objectForKey:@"projektarray"];
-         NSUInteger ProjektIndex=[[tempProjektArray valueForKey:@"projekt"]indexOfObject:dasProjekt];
-         if (ProjektIndex<NSNotFound)//Projekt ist da
-         {
-            [[tempProjektArray objectAtIndex:ProjektIndex]setObject:[dieTitelListe copy]forKey:@"titelarray"];
-         }//if notFound
-         else
-         {
-            
-         }
-         
-         
-         
-      }//if projektarray
-      
-   }//if tempPListDic
-  */
-   //self.PListDic = tempPListDic;
    NSLog(@"***\n      saveTitelListe     PList nach : %@",[self.PListDic description]);
    
-   
+   // PList sichern
    BOOL PListOK=[self.PListDic writeToFile:PListPfad atomically:YES];
    NSLog(@"PListOK: %d",PListOK);
    
@@ -3204,6 +3288,7 @@ enum
    
    NSString* DataPath=[self.LeseboxPfad stringByAppendingPathComponent:@"Data"];
    BOOL istDirectory=YES;
+   // Data-Ordner da?
    if(!([Filemanager fileExistsAtPath:DataPath isDirectory:&istDirectory]&&istDirectory))
    {
       BOOL DataOK=[Filemanager createDirectoryAtPath:DataPath  withIntermediateDirectories:NO attributes:NULL error:NULL];
@@ -3235,6 +3320,39 @@ enum
    
    BOOL PListOK=[tempPListDic writeToFile:PListPfad atomically:YES];
    NSLog(@"PListOK: %d",PListOK);
+   if (self.PListDic)
+   {
+      if ([self.PListDic objectForKey:@"projektarray"])
+      {
+         NSMutableArray* tempProjektArray=[self.PListDic objectForKey:@"projektarray"];
+         long ProjektIndex=[[tempProjektArray valueForKey:@"projekt"]indexOfObject:dasProjekt];
+         if (ProjektIndex<NSNotFound)//Projekt ist da
+         {
+            [[[self.PListDic objectForKey:@"projektarray"] objectAtIndex:ProjektIndex]setObject:[NSNumber numberWithBool:derStatus]forKey:@"fix"];
+         }//if notFound
+         else
+         {
+            
+         }
+         [[self.ProjektArray objectAtIndex:ProjektIndex]setObject:[NSNumber numberWithBool:derStatus] forKey:@"fix"];
+         
+         if (derStatus)
+         {
+            NSImage* roterpunkt = [NSImage imageNamed:@"fixiert"];
+            [self.titelfixcheck setImage:roterpunkt];
+         }
+         else
+         {
+            NSImage* gruenerpunkt = [NSImage imageNamed:@"editierbar"];
+            [self.titelfixcheck setImage:gruenerpunkt];
+         }
+
+      }//if projektarray
+      
+   }//if tempPListDic
+
+   
+   
    
    //[tempUserInfo release];
 }
@@ -3957,8 +4075,65 @@ enum
 }
 
 
-
 - (IBAction)showTitelListe:(id)sender
+{
+   if (![self checkAdminZugang])
+   {
+      return;
+   }
+   
+   //NSLog(@"\n\n\n										showTitelListe\n");
+   if (!TitelListePanel)
+   {
+      TitelListePanel=[[rTitelListe alloc]init];
+   }
+   NSLog(@"showTitelliste Start  Projekt: %@: ProjektArray: %@",[self.ProjektPfad lastPathComponent],[self.ProjektArray description]);
+   
+   //ProjektArray aktualisieren mitneuen Werten aus aktueller PList
+   [self.ProjektArray setArray:[Utils ProjektArrayAusPListAnPfad:self.LeseboxPfad]];
+   NSLog(@"showTitelListe: ProjektArray: %@",[self.ProjektArray description]);
+   NSModalSession TitelSession=[NSApp beginModalSessionForWindow:[TitelListePanel window]];
+   
+   NSArray* tempProjektNamenArray;
+   
+   tempProjektNamenArray=[self.ProjektArray valueForKey:@"projekt"];
+   
+   //	Projektarray aus PList
+   //	tempProjektNamenArray=[[[Utils PListDicVon:LeseboxPfad aufSystemVolume:NO]objectForKey:@"projektarray"] valueForKey:@"projekt"];
+   if (tempProjektNamenArray)
+   {
+      
+      NSUInteger ProjektIndex=[tempProjektNamenArray indexOfObject:[self.ProjektPfad lastPathComponent]];
+      
+      NSArray* tempTitelArray;
+      
+      if (!(ProjektIndex==NSNotFound))
+      {
+         
+         tempTitelArray=[[self.ProjektArray objectAtIndex:ProjektIndex]objectForKey:@"titelarray"];
+         
+         {
+            //NSLog(@"showTitelListe:index: %d tempTitelArray: %@",ProjektIndex,[tempTitelArray description]);
+            
+            [TitelListePanel setTitelArray:tempTitelArray  inProjekt:[self.ProjektPfad lastPathComponent]];
+            
+            //NSLog(@"showTitelliste nach  setTitelArray Projekt: %@:  ProjektArray: %@",[ProjektPfad lastPathComponent],[ProjektArray description]);
+         }
+      }//if [ProjektArray valueForKey:@"projekt"]
+      
+   }//if tempProjektNamenArray
+   int modalAntwort = [NSApp runModalForWindow:[TitelListePanel window]];
+   
+   //Rückmeldung durch Notifikation
+   
+   
+   //NSLog(@"showTitelListe Antwort: %d",modalAntwort);
+   [NSApp endModalSession:TitelSession];
+   
+   
+}
+
+- (void)showTitelListeInProjekt:(NSString*)zielprojekt
 {
    if (![self checkAdminZugang])
    {
@@ -3970,13 +4145,14 @@ enum
    {
       TitelListePanel=[[rTitelListe alloc]init];
    }
-   //NSLog(@"showTitelliste Start  Projekt: %@: ProjektArray: %@",[ProjektPfad lastPathComponent],[ProjektArray description]);
+   NSLog(@"showTitelliste Start  Projekt: %@: ProjektArray: %@",[self.ProjektPfad lastPathComponent],[self.ProjektArray description]);
    
    //ProjektArray aktualisieren mitneuen Werten aus aktueller PList
    [self.ProjektArray setArray:[Utils ProjektArrayAusPListAnPfad:self.LeseboxPfad]];
-   NSLog(@"showTitelListe: ProjektArray: %@",[self.ProjektArray description]);
+   NSLog(@"showTitelListe: ProjektArray Projekt: %@ %@",zielprojekt,[self.ProjektArray description]);
    NSModalSession TitelSession=[NSApp beginModalSessionForWindow:[TitelListePanel window]];
    
+   [TitelListePanel setProjekt:zielprojekt];
    NSArray* tempProjektNamenArray;
    
    tempProjektNamenArray=[self.ProjektArray valueForKey:@"projekt"];
@@ -4028,34 +4204,51 @@ enum
       
    }
    
+   
    if ([[note userInfo] objectForKey:@"titelarray"])
    {
+      
       NSLog(@"TitelListeAktion: TitelArray: %@",[[[note userInfo] objectForKey:@"titelarray"]description]);
-      NSArray* tempTitelArray=[[[note userInfo] objectForKey:@"titelarray"]copy];
       
       NSArray* tempProjektNamenArray=[self.ProjektArray valueForKey:@"projekt"];//Liste der Projektnamen
       //NSLog(@"tempProjektNamenArray: %@",[tempProjektNamenArray description]);
       
+      //index des Projekts
       NSUInteger ProjektIndex=[tempProjektNamenArray indexOfObject:[self.ProjektPfad lastPathComponent]];
-      NSLog(@"ProjektIndex: %d",ProjektIndex);
-      if (!(ProjektIndex == NSNotFound))
-         
+      NSLog(@"ProjektIndex: %ld",ProjektIndex);
+      
+     NSArray* tempTitelArray=[[[note userInfo] objectForKey:@"titelarray"]copy];
+      if ([tempTitelArray count] )
       {
-         //NSLog(@"TitelListeAktion: Projekt ist da: %@ ",[ProjektPfad lastPathComponent]);
-         NSDictionary* tempDic=[self.ProjektArray objectAtIndex:ProjektIndex];
-         NSLog(@"tempDic: %@",[tempDic description]);
- //        [[self.ProjektArray objectAtIndex:ProjektIndex]setObject:tempTitelArray forKey:@"titelarray"];
+         if (!(ProjektIndex == NSNotFound))
+         {
+            //NSLog(@"TitelListeAktion: Projekt ist da: %@ ",[ProjektPfad lastPathComponent]);
+            NSDictionary* tempDic=[self.ProjektArray objectAtIndex:ProjektIndex];
+            NSLog(@"tempDic: %@",[tempDic description]);
+            //        [[self.ProjektArray objectAtIndex:ProjektIndex]setObject:tempTitelArray forKey:@"titelarray"];
+         }
+         // sichern in Projektarray und PList
+         [self saveTitelListe:tempTitelArray inProjekt:[self.ProjektPfad lastPathComponent]];
+        
+         // ProjektArray update
+         [[self.ProjektArray objectAtIndex:ProjektIndex]setObject:tempTitelArray forKey:@"titelarray"];
+      } // if count
+      else // Fixierung aufhebnen
+      {
+         NSLog(@"TitellisteAktion Fixierung aufheben in Projekt: %@",[self.ProjektPfad lastPathComponent]);
+         
+         
+         [self saveTitelFix:NO inProjekt:[self.ProjektPfad lastPathComponent]];
+         
+         // ProjektArray update
+         [[self.ProjektArray objectAtIndex:ProjektIndex]setObject:[NSNumber numberWithBool:NO] forKey:@"fix"];
       }
-      
-      [self saveTitelListe:tempTitelArray inProjekt:[self.ProjektPfad lastPathComponent]];
-      
-      //NSLog(@"TitellisteAktion: ProjektArray Schluss: %@",[ProjektArray description]);
+      //NSLog(@"TitellisteAktion: ProjektArray Schluss: %@",[self.ProjektArray description]);
    }
    else
    {
       NSLog(@"TitellisteAktion: noch kein Titelarray");
    }
-   
    
 }
 

@@ -322,7 +322,7 @@
 - (IBAction)terminate:(id)sender;
 - (IBAction)ArchivZurListe:(id)sender;
 - (IBAction)anderesProjektMitTitel:(NSString*)derTitel;
-
+- (void)ProjektStartAktion:(NSNotification*)note;
 
 - (BOOL)Leseboxvorbereiten;
 - (NSString*) chooseLeseboxPfadMitUserArray:(NSArray*)derUserArray undNetworkArray:(NSArray*)derNetworkArray;
@@ -355,6 +355,9 @@
 - (void)startAdminTimer;
 - (void)AdminEntfernenNotificationAktion:(NSNotification*)note;
 - (void)NameIstEntferntAktion:(NSNotification*)note;
+
+- (void)showTitelListeInProjekt:(NSString*)zielprojekt;
+
 @end // Lesebox
 
 // Category AVRecorder
