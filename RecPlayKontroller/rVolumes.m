@@ -455,103 +455,108 @@
 
 - (NSString*)chooseNetworkLeseboxPfad
 {
-
-	BOOL erfolg=NO;
-	NSFileManager *Filemanager=[NSFileManager defaultManager];
-	NSString* lb=@"Lesebox";
-	NSString* NetzPfad=@"//Volumes";
-	NSOpenPanel * LeseboxDialog=[NSOpenPanel openPanel];
-	[LeseboxDialog setCanChooseDirectories:YES];
-	[LeseboxDialog setCanChooseFiles:NO];
-	[LeseboxDialog setAllowsMultipleSelection:NO];
+   
+   BOOL erfolg=NO;
+   NSFileManager *Filemanager=[NSFileManager defaultManager];
+   NSString* lb=@"Lesebox";
+   NSString* NetzPfad=@"//Volumes";
+   NSOpenPanel * LeseboxDialog=[NSOpenPanel openPanel];
+   [LeseboxDialog setCanChooseDirectories:YES];
+   [LeseboxDialog setCanChooseFiles:NO];
+   [LeseboxDialog setAllowsMultipleSelection:NO];
    NSString* s1=@"Auf welchem Computer soll die Lesebox eingerichtet werden?";
    NSString* s2=@"Die Lesebox auch nach dem Login eingerichtet werden";
    NSString* s3=@"Auswahl des Orders, in dem die Lesebox liegt oder dem die Lesebox eingerichtet werden soll";
-	NSFont* TitelFont=[NSFont fontWithName:@"Helvetica" size: 24];
-	NSString* DialogTitelString=[NSString stringWithFormat:@"%@\r\r%@\r%@",s1,s2,s3];
-	//[DialogTitelString setFont:TitelFont];
-
-	[LeseboxDialog setMessage:DialogTitelString];
-	
-	[LeseboxDialog setCanCreateDirectories:YES];
-	NSString* tempLeseboxPfad;
-	int LeseboxHit=0;
-	
-	//LeseboxHit=[LeseboxDialog runModalForDirectory:NSHomeDirectory() file:@"Network" types:NULL];
-	//LeseboxHit=[LeseboxDialog runModalForDirectory:NetzPfad file:@"Network" types:NULL];
-	
+   NSFont* TitelFont=[NSFont fontWithName:@"Helvetica" size: 24];
+   NSString* DialogTitelString=[NSString stringWithFormat:@"%@\r\r%@\r%@",s1,s2,s3];
+   //[DialogTitelString setFont:TitelFont];
+   
+   [LeseboxDialog setMessage:DialogTitelString];
+   
+   [LeseboxDialog setCanCreateDirectories:YES];
+   NSString* tempLeseboxPfad;
+   int LeseboxHit=0;
+   
+   //LeseboxHit=[LeseboxDialog runModalForDirectory:NSHomeDirectory() file:@"Network" types:NULL];
+   //LeseboxHit=[LeseboxDialog runModalForDirectory:NetzPfad file:@"Network" types:NULL];
+   
    [LeseboxDialog beginSheetModalForWindow:[self window] completionHandler:^(NSInteger result)
-   // [LeseboxDialog beginWithCompletionHandler:^(NSInteger result)
-
+    //[LeseboxDialog beginWithCompletionHandler:^(NSInteger result)
+    
     {
        
        if (result == NSModalResponseOK)
        {
+          NSLog(@"NSModalResponseOK pfad: %@",[[LeseboxDialog URL]path]);
          	NSMutableDictionary* LeseboxDic=[NSMutableDictionary dictionaryWithObject:[LeseboxDialog URL] forKey:@"url"];
           [LeseboxDic setObject:[NSNumber numberWithInt:1]forKey:@"LeseboxDa"];
           NSNotificationCenter* nc=[NSNotificationCenter defaultCenter];
           [nc postNotificationName:@"VolumeWahl" object:self userInfo:LeseboxDic];
-
+          [PfadFeld setStringValue:[[LeseboxDialog URL]path]];
        }
-
+       
     }];
    
    /*
-   [LeseboxDialog beginSheetForDirectory:NetzPfad file:NULL types:NULL  
-								  modalForWindow:[self window] 
-									modalDelegate:self 
-								  didEndSelector:@selector(LeseboxpfadChoosed: returnCode: contextInfo:) 
-									  contextInfo:NULL];
-	*/
-    /*
+    [LeseboxDialog beginSheetForDirectory:NetzPfad file:NULL types:NULL
+    modalForWindow:[self window]
+    modalDelegate:self
+    didEndSelector:@selector(LeseboxpfadChoosed: returnCode: contextInfo:)
+    contextInfo:NULL];
+    */
+   /*
 		  [Warnung beginSheetModalForWindow:AdminFenster
-						  modalDelegate:self
-						 didEndSelector:@selector(alertDidEnd: returnCode: contextInfo:)
-							contextInfo:@"TextchangedWarnung"];
-
-	*/
-	if (LeseboxHit==NSModalResponseOK)
-	{
-		tempLeseboxPfad=[[LeseboxDialog URL]path]; //gewähltes "home" 
-		NSLog(@"choose: LeseboxPfad roh: %@",tempLeseboxPfad);
-		NSArray* tempPfadArray=[tempLeseboxPfad pathComponents];
-		//NSLog(@"tempPfadArray: %@",[tempPfadArray description]);
-		if ([tempPfadArray count]>2)
-		{
-			NSArray* UserPfadArray=[tempPfadArray subarrayWithRange:NSMakeRange(0,3)];
-			NSString* UserPfad=[NSString pathWithComponents:UserPfadArray];
-			//NSLog(@"UserPfad: %@",UserPfad);
-			
-			BOOL LeseboxCheck=[self checkUserAnPfad:tempLeseboxPfad];
-			NSLog(@"tempLeseboxPfad: %@  LeseboxCheck: %d",tempLeseboxPfad,LeseboxCheck);
-			
-		}
-		else
-		{
-			//Kein gültiger Pfad
-			NSAlert *Warnung = [[NSAlert alloc] init];
-			[Warnung addButtonWithTitle:@"OK"];			
-			[Warnung setMessageText:@"Kein gültiger Pfad"];
-			[Warnung setAlertStyle:NSWarningAlertStyle];
-			
-			//[Warnung setIcon:RPImage];
-			[Warnung runModal];
-
-			tempLeseboxPfad=[NSString string];
-		}
-		
-	}
-	else//Abbrechen
-	{
-		//tempLeseboxPfad=[NSString string];
-		//NSNumber* n=[NSNumber numberWithBool:NO];
-		//NSMutableDictionary* LeseboxDic=[NSMutableDictionary dictionaryWithObject:n forKey:@"LeseboxDa"];
-		//NSNotificationCenter* nc=[NSNotificationCenter defaultCenter];
-	//[nc postNotificationName:@"VolumeWahl" object:self userInfo:LeseboxDic];
-	tempLeseboxPfad=[NSString string];
-}
-	
-	return tempLeseboxPfad;
+    modalDelegate:self
+    didEndSelector:@selector(alertDidEnd: returnCode: contextInfo:)
+    contextInfo:@"TextchangedWarnung"];
+    
+    */
+   
+   // Nicht verwendet, von CompletionHandler uebersprungen
+   /*
+    if (LeseboxHit==NSModalResponseOK)
+    {
+    tempLeseboxPfad=[[LeseboxDialog URL]path]; //gewähltes "home"
+    NSLog(@"choose: LeseboxPfad roh: %@",tempLeseboxPfad);
+    NSArray* tempPfadArray=[tempLeseboxPfad pathComponents];
+    //NSLog(@"tempPfadArray: %@",[tempPfadArray description]);
+    if ([tempPfadArray count]>2)
+    {
+    NSArray* UserPfadArray=[tempPfadArray subarrayWithRange:NSMakeRange(0,3)];
+    NSString* UserPfad=[NSString pathWithComponents:UserPfadArray];
+    //NSLog(@"UserPfad: %@",UserPfad);
+    
+    BOOL LeseboxCheck=[self checkUserAnPfad:tempLeseboxPfad];
+    NSLog(@"tempLeseboxPfad: %@  LeseboxCheck: %d",tempLeseboxPfad,LeseboxCheck);
+    
+    }
+    else
+    {
+    //Kein gültiger Pfad
+    NSAlert *Warnung = [[NSAlert alloc] init];
+    [Warnung addButtonWithTitle:@"OK"];
+    [Warnung setMessageText:@"Kein gültiger Pfad"];
+    [Warnung setAlertStyle:NSWarningAlertStyle];
+    
+    //[Warnung setIcon:RPImage];
+    [Warnung runModal];
+    
+    tempLeseboxPfad=[NSString string];
+    }
+    
+    }
+    else//Abbrechen
+    {
+    //tempLeseboxPfad=[NSString string];
+    //NSNumber* n=[NSNumber numberWithBool:NO];
+    //NSMutableDictionary* LeseboxDic=[NSMutableDictionary dictionaryWithObject:n forKey:@"LeseboxDa"];
+    //NSNotificationCenter* nc=[NSNotificationCenter defaultCenter];
+    //[nc postNotificationName:@"VolumeWahl" object:self userInfo:LeseboxDic];
+    tempLeseboxPfad=[NSString string];
+    
+    }
+    */
+   return tempLeseboxPfad;
 }
 
 - (void)VolumepfadAktion:(NSNotification*)note
@@ -629,7 +634,25 @@ NSLog(@"VolumepfadAktion note: %@",[[note userInfo]description]);
 	istSystemVolume=NO;
 	NSString* lb=@"Lesebox";
 	//NSLog(@"reportAuswahlen lb: %@",lb);
-	if ([UserTable numberOfSelectedRows])
+   
+   //NSLog(@"Externe HD oder Server UserPfad: %@",UserPfad);
+   
+   NSString* UserPfad= [PfadFeld stringValue];
+   if ([[UserPfad lastPathComponent]isEqualToString:lb])// Schon eine LB vorhanden
+   {
+      // Nichts anhaengen
+   }
+   else
+   {
+      UserPfad=[UserPfad stringByAppendingPathComponent:lb];
+   }
+   NSLog(@"Server LeseboxPfad: %@",LeseboxPfad);
+   LeseboxPfad=UserPfad;
+
+   
+   
+   /*
+   if ([UserTable numberOfSelectedRows])
 	{
 		int Zeile=[UserTable selectedRow];
 		
@@ -649,6 +672,9 @@ NSLog(@"VolumepfadAktion note: %@",[[note userInfo]description]);
 			NSString* Hostname=[[UserArray objectAtIndex:Zeile]objectForKey:@"host"];
 			NSString* UserPfad=[NSString string];;
 			int LeseboxOrt=[[[UserArray objectAtIndex:Zeile]objectForKey:@"leseboxort"]intValue];
+         
+         LeseboxOrt = 2;
+         
 			//NSLog(@"Volumes:	LeseboxOrt: %d",LeseboxOrt);
 			switch (LeseboxOrt)
 			{
@@ -707,7 +733,7 @@ NSLog(@"VolumepfadAktion note: %@",[[note userInfo]description]);
 	}
 	
 	//NSLog(@"Volumes reportAuswahlen: LeseboxPfad: %@",LeseboxPfad);
-	
+	*/
 	//Der Leseboxpfad wird in chooselesebox gelesen und in Leseboxvorbereiten gesetzt
 	
 	

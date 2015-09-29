@@ -1205,7 +1205,7 @@ return YES;
    }
    if ([n intValue]==1)//
    {
-      //NSLog(@"URL: %@",[[note userInfo]objectForKey:@"url"]);
+      NSLog(@"URL: %@",[[note userInfo]objectForKey:@"url"]);
    }
    
    //NSLog(@"VolumesAktion: number %d   ",[n intValue]);

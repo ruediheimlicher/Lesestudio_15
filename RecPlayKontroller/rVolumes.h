@@ -21,6 +21,8 @@
 	IBOutlet id LesestudioString;
 	IBOutlet id StartString;
 	IBOutlet id NetzwerkDrawer;
+   
+   
 	
 	IBOutlet id PfadFeld;
 	IBOutlet id LeseboxerfolgFeld;
