@@ -100,7 +100,11 @@ NSString*	RPDevicedatenKey=	@"RPDevicedaten";
    //
    
    
-   
+   NSBundle* LesestudioBundle = [NSBundle mainBundle];
+   NSString* ResourcePfad = [[LesestudioBundle bundlePath]stringByAppendingPathComponent:@"Contents/Resources"];
+   NSArray* mainarray = [[NSFileManager defaultManager]contentsOfDirectoryAtPath:ResourcePfad error:nil];
+   NSLog(@"mainarray: %@",mainarray);
+
    
    
 //   [self initWithNibName:self.nibName bundle:nil];
@@ -718,13 +722,6 @@ NSString*	RPDevicedatenKey=	@"RPDevicedaten";
       
    }
  
-
-  
-
-   
-   
-   
-   
    
    
    NSMenu *appMenu = [[mainMenu itemWithTitle:@"Modus"] submenu];
@@ -742,7 +739,7 @@ NSString*	RPDevicedatenKey=	@"RPDevicedaten";
    [[mainMenu itemWithTitle:@"Modus"]setEnabled:YES];
    [[appMenu itemWithTitle:@"Admin"]setEnabled:YES];
    
-
+ 
    for (NSMenuItem *item in [appMenu itemArray])
    {
       [item setEnabled:YES];

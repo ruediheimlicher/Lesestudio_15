@@ -53,7 +53,8 @@
 - (void) setHomeStatus:(BOOL) derStatus;
 - (void) setUserArray:(NSArray*) dieUser;
 - (void)setNetworkArray:(NSArray*) derNetworkArray;
-
+- (void) setLeseboxPfad:(NSString*)leseboxpfad;
+- (void) setLeseboxOK:(BOOL)status;
 - (NSString*)LeseboxPfad;
 - (BOOL)istSystemVolume;
 @end

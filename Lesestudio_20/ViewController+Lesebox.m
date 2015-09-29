@@ -24,10 +24,17 @@ enum
 {
    NSArray* NetworkCompArray=[Utils checkNetzwerkVolumes];
    
-   //NSLog(@"Leseboxvorbereiten	NetworkCompArray: %@",[NetworkCompArray description]);
-   
+   NSLog(@"Leseboxvorbereiten	NSHomeDirectory: %@",NSHomeDirectory());
+   NSLog(@"Leseboxvorbereiten	NetworkCompArray: %@",[NetworkCompArray description]);
+   NSString *bundlePfad = [[NSBundle mainBundle] bundlePath];
+   NSLog(@"Leseboxvorbereiten	bundlePfad: %@",bundlePfad);
+   if ([bundlePfad rangeOfString:@"Lesebox"].location < NSNotFound)
+   {
+      
+   }
+
    NSArray* UserMitLeseboxArray=[Utils checkUsersMitLesebox];
-   //NSLog(@"Leseboxvorbereiten	 UserMitLeseboxArray: %@",[UserMitLeseboxArray description]);
+   NSLog(@"Leseboxvorbereiten	 UserMitLeseboxArray: %@",[UserMitLeseboxArray description]);
    
    
    //	LeseboxDa=YES;
@@ -608,9 +615,47 @@ enum
    }
    NSModalSession VolumeSession=[NSApp beginModalSessionForWindow:[VolumesPanel window]];
    
+   NSString *bundlePfad = [[NSBundle mainBundle] bundlePath];
+   NSLog(@"Leseboxvorbereiten	bundlePfad: %@",bundlePfad);
+   NSArray* homeArray = [[NSFileManager defaultManager]contentsOfDirectoryAtPath:[bundlePfad stringByDeletingLastPathComponent] error:nil];
+ 
+   long leseboxindex = [homeArray indexOfObject:@"Lesebox"];
+   NSLog(@"Leseboxvorbereiten	homeArray: %@ leseboxindex: %ld",homeArray,leseboxindex);
+   if (leseboxindex < NSNotFound)
+   {
+      NSString* tempLeseboxPfad =[[bundlePfad stringByDeletingLastPathComponent]stringByAppendingPathComponent:@"Lesebox" ];
+       BOOL isDir;
+      if ([[NSFileManager defaultManager]fileExistsAtPath:tempLeseboxPfad isDirectory:&isDir] && isDir)
+      {
+         [VolumesPanel setLeseboxPfad:tempLeseboxPfad];
+         [VolumesPanel setLeseboxOK:YES];
+      }
+      else
+      {
+          [VolumesPanel setLeseboxPfad:@"--"];
+      }
+   }
+   else
+   {
+      [VolumesPanel setLeseboxPfad:@"--"];
+   }
+   /*
+   if ([bundlePfad rangeOfString:@"Lesebox"].location < NSNotFound)
+   {
+      [VolumesPanel setLeseboxPfad:[[bundlePfad stringByDeletingLastPathComponent]stringByAppendingPathComponent:@"Lesebox" ]];
+   }
+   else
+   {
+      [VolumesPanel setLeseboxPfad:[bundlePfad stringByDeletingLastPathComponent]];
+   }
+*/
+ //  [VolumesPanel setLeseboxPfad:[homeArray componentsJoinedByString:@" "]];
+
    //in VolumesPanel Daten einsetzen
    [VolumesPanel setUserArray:tempUserArray];
-   //NSLog(@"tempUserArray eingesetzt");
+ 
+   
+   NSLog(@" eingesetzt");
    //	if ([tempNetworkArray count])
    //	[VolumesPanel setNetworkArray:tempNetworkArray];
    //    NSLog(@"tempNetworkArray eingesetzt");

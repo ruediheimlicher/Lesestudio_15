@@ -98,6 +98,16 @@
 {
 //	[HomeKnopf setEnabled:derStatus];
 }
+- (void) setLeseboxPfad:(NSString*)leseboxpfad
+{
+   	[PfadFeld setStringValue:leseboxpfad];
+}
+
+- (void) setLeseboxOK:(BOOL)status
+{
+   [AuswahlenKnopf setEnabled:status];
+}
+
 
 - (void) setUserArray:(NSArray*) dieUser
 {
@@ -472,9 +482,16 @@
    NSString* lb=@"Lesebox";
    NSString* NetzPfad=@"//Volumes";
    NSOpenPanel * LeseboxDialog=[NSOpenPanel openPanel];
+   NSImage* OpenPanelImg=[NSImage imageNamed:@"MicroIcon120.png"];
+   NSRect cellFeld = NSMakeRect(0, 0, 120, 120);
+   NSImageView* OpenPanelView = [[NSImageView alloc] initWithFrame:cellFeld];
+ [OpenPanelView setImage:OpenPanelImg];
+   LeseboxDialog.accessoryView = OpenPanelView;
    [LeseboxDialog setCanChooseDirectories:YES];
    [LeseboxDialog setCanChooseFiles:NO];
    [LeseboxDialog setAllowsMultipleSelection:NO];
+   LeseboxDialog.prompt = @"Ordner auswählen";
+   [LeseboxDialog setDirectoryURL:[NSURL fileURLWithPath:[NSHomeDirectory()stringByAppendingPathComponent:@"Documents"]]];
    NSString* s1=@"Auf welchem Computer soll die Lesebox eingerichtet werden?";
    NSString* s2=@"Die Lesebox auch nach dem Login eingerichtet werden";
    NSString* s3=@"Auswahl des Orders, in dem die Lesebox liegt oder dem die Lesebox eingerichtet werden soll";

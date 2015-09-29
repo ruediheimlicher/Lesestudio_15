@@ -391,143 +391,64 @@ NSString*	RPExportformatKey;
 		NSLog(@"RPExport nicht da");
 		[Filemanager createDirectoryAtPath:ExportOrdnerPfad  withIntermediateDirectories:NO attributes:NULL error:NULL];
 	  }
+   
 
 	NSString* ExportAufnahmeName=[AdminPlayPfad lastPathComponent];
-	//NSLog(@"ExportAufnahmeName: %@",ExportAufnahmeName);
-	[ExportAufnahmeName getCharacters:buffer];
+	NSLog(@"AdminPlayPfad : %@ ExportAufnahmeName: %@",AdminPlayPfad,ExportAufnahmeName);
+   
+   
 	
 	//NSLog(@"Nach ExportPanel: ExportOrdnerPfad %@",ExportOrdnerPfad);
 	NSString* removePfad=[NSString stringWithString:ExportOrdnerPfad];
-	removePfad=[removePfad stringByAppendingPathComponent:ExportAufnahmeName];
+	NSString*  ExportPfad=[ExportOrdnerPfad stringByAppendingPathComponent:ExportAufnahmeName];
 	
-	if ([Filemanager fileExistsAtPath:removePfad])
+	if ([Filemanager fileExistsAtPath:ExportPfad])
 	{
-		erfolg=[Filemanager removeItemAtURL:[NSURL fileURLWithPath:removePfad] error:nil];
-		//NSLog(@"File schon da:removeFileAtPath:%d",erfolg);
+		erfolg=[Filemanager removeItemAtURL:[NSURL fileURLWithPath:ExportPfad] error:nil];
+		NSLog(@"File schon da:removeFileAtPath:%d",erfolg);
 	}
+   
+   
 	
+   int exporterfolg =[Filemanager copyItemAtPath:AdminPlayPfad toPath:ExportPfad error:nil];
 	//Ordner für Ablage ohne showUserSettingsDialog in exportFlags
 	//ExportOrdnerPfad=[tempExportOrdnerPfad stringByAppendingPathComponent:@"Export"];
-	
-	
-	status = FSPathMakeRef((UInt8*)[ExportOrdnerPfad fileSystemRepresentation],  &tempExportordnerRef, NULL);
-	if (status)
-	{
-		NSLog(@"FSPathMakeRef failed: %d",status);
-		return ;
-	}
-	status = FSCreateFileUnicode(&tempExportordnerRef, [ExportAufnahmeName length], 
-								 buffer, kFSCatInfoNone, NULL, NULL, &tempExportFSSpec);//SSpec der neuen Aufnahme
-		if (status)
-		{
-			if (status==dupFNErr)
-			{
-				//NSLog(@"FSCreateFileUnicode doppelt: %d",status);
-			}
-			else
-			{
-				//NSLog(@"FSCreateFileUnicode failed: %d",status);
-				return;
-			}
-		}
-		
-		if ([Filemanager fileExistsAtPath:AdminPlayPfad])
-		{
-			
 
-			NSError* loadErr;
-			NSURL *movieURL = [NSURL fileURLWithPath:AdminPlayPfad];
+   if ([Filemanager fileExistsAtPath:AdminPlayPfad])
+      {
          
-         /*
-			QTMovie* tempMovie= [[QTMovie alloc]initWithURL:movieURL error:&loadErr];
-			if (loadErr)
-			{
-				NSAlert *theAlert = [NSAlert alertWithError:loadErr];
-				[theAlert runModal]; // Ignore return value.
-			}
-			if (!tempMovie)
-				NSLog(@"Kein Movie da");
-			// retrieve the QuickTime-style movie (type "Movie" from QuickTime/Movies.h) 
-			
-			Movie tempExportMovie =[tempMovie quickTimeMovie];
-			
-			
-			
-			
-			//			NSSavePanel * AdminExportDialog=[NSSavePanel savePanel];
-			//			[AdminExportDialog setCanCreateDirectories:YES];
-			//			[AdminExportDialog setMessage:@"Wo soll diese Aufnahme gespeichert werden?"];
-			
-			NSString* tempExportPfad;
-			int AdminExportHit=0;
-			{
-				//LeseboxHit=[LeseboxDialog runModalForDirectory:DocumentsPfad file:@"Lesebox" types:nil];
-				//AdminExportHit=[AdminExportDialog runModalForDirectory:NSHomeDirectory() file:@"ExportFile" types:nil];
-			}
-			//if (AdminExportHit==NSOKButton)
-			
-			{
-				//tempExportPfad=[[AdminExportDialog filename]retain]; //"home"
-				
-				
-				long exportFlags = showUserSettingsDialog |
-				movieToFileOnlyExport |
-				movieFileSpecValid |
-				kQTFileTypeAIFF|
-				createMovieFileDeleteCurFile ;
-				
-          long exportFlags = movieToFileOnlyExport |
-				 movieFileSpecValid |
-				 kQTFileTypeAIFF|
-				 createMovieFileDeleteCurFile ;
-				
-				
-				
-				
-				
-				// If the movie is currently playing stop it
-				if (GetMovieRate(tempExportMovie))
-					StopMovie(tempExportMovie);
-				
-				// use the default progress procedure, if any
-				SetMovieProgressProc(tempExportMovie,					// the movie specifier
-											(MovieProgressUPP)-1L,		// pointer to a progress function; -1 indicades default
-											0);						// reference constant
-				
-				
-				
-				
-				// export the movie into a file
-				//NSLog(@"vor ConvertMovieToFile");
-				
-				OSErr err=ConvertMovieToFile(tempExportMovie,					// the movie to convert
-													  NULL,						// all tracks in the movie
-													  &tempExportFSSpec,			// the output file
-													  0,							// the output file type
-													  0,							// the output file creator
-													  smSystemScript,				// the script
-													  NULL, 						// no resource ID to be returned
-													  exportFlags,					// no flags
-													  0L);							// no specific component
-				if (err)
-				{	
-					NSLog(@"ConvertMovieToFile misslungen: %d",err);
-					//if (theExporter)
-					{
-						//	CloseComponent(theExporter);
-					}
-					
-				}					   
-			
-			}//NSOKButton
-          */
-		}//File exists
+         
+         NSSavePanel * AdminExportDialog=[NSSavePanel savePanel];
+         AdminExportDialog.allowedFileTypes = [NSArray arrayWithObject:@"m4a"];
+         AdminExportDialog.prompt = @"Aufnahme exportieren";
+         [AdminExportDialog setNameFieldStringValue:[AdminPlayPfad lastPathComponent]];
+         [AdminExportDialog setDirectoryURL:[NSURL fileURLWithPath:[NSHomeDirectory()stringByAppendingPathComponent:@"Documents"]]];
+         [AdminExportDialog setCanCreateDirectories:YES];
+         [AdminExportDialog setMessage:@"Wo soll diese Aufnahme gespeichert werden?"];
+         [AdminExportDialog setCanSelectHiddenExtension:NO];
+         
+         NSString* tempExportPfad;
+         long AdminExportHit=0;
+         {
+            AdminExportHit=[AdminExportDialog runModal];
+         }
+         if (AdminExportHit==NSModalResponseOK)
+         {
+            tempExportPfad=[[AdminExportDialog URL] path]; //"home"
+            NSLog(@"tempExportPfad: %@",tempExportPfad);
+            
+            if ([Filemanager fileExistsAtPath:tempExportPfad])
+            {
+               erfolg=[Filemanager removeItemAtURL:[NSURL fileURLWithPath:tempExportPfad] error:nil];
+               //NSLog(@"Export: removeFileAtPath: erfolg: %d",erfolg);
+               
+            }
+            int exporterfolg =[Filemanager copyItemAtPath:AdminPlayPfad toPath:tempExportPfad error:nil];
+            
+         }//NSOKButton
+         
+      }//File exists
 		
-		if ([Filemanager fileExistsAtPath:removePfad])
-		{
-			erfolg=[Filemanager removeItemAtURL:[NSURL fileURLWithPath:removePfad] error:nil];
-			//NSLog(@"Export: removeFileAtPath: erfolg: %d",erfolg);
-		}
 		Textchanged=NO;
 }
 
@@ -555,44 +476,44 @@ NSString*	RPExportformatKey;
 	
 	NSString* ExportAufnahmeName=[derAufnahmePfad lastPathComponent];
 	
-	/*
+	
 	 if (userDialogOK)//eventuell andere Pfade
-	 {
-	 //NSLog(@"ExportOrdnerPfad: %@",ExportOrdnerPfad);
-	 NSSavePanel * AdminExportDialog=[NSSavePanel savePanel];
-	 [AdminExportDialog setCanCreateDirectories:YES];
-	 [AdminExportDialog setMessage:@"Wo soll die Aufnahme gespeichert werden?"];
-	 NSLog(@"\nAdminExportDialog: \nExportOrdnerPfad: %@  ExportAufnahmeName: %@",ExportOrdnerPfad,ExportAufnahmeName);
-	 //		[AdminExportDialog setRequiredFileType:@"aif"];
-	 //		[AdminExportDialog setRequiredFileType:@"wav"];
-	 [AdminExportDialog setRequiredFileType:[ExportAufnahmeName pathExtension]];
-	 [AdminExportDialog setCanCreateDirectories:YES];
-	 [AdminExportDialog setCanSelectHiddenExtension:YES];
+    {
+       //NSLog(@"ExportOrdnerPfad: %@",ExportOrdnerPfad);
+       NSSavePanel * AdminExportDialog=[NSSavePanel savePanel];
+       [AdminExportDialog setCanCreateDirectories:YES];
+       [AdminExportDialog setMessage:@"Wo soll die Aufnahme gespeichert werden?"];
+       NSLog(@"\nAdminExportDialog: \nExportOrdnerPfad: %@  ExportAufnahmeName: %@",ExportOrdnerPfad,ExportAufnahmeName);
+       //		[AdminExportDialog setRequiredFileType:@"aif"];
+       //		[AdminExportDialog setRequiredFileType:@"wav"];
+       // [AdminExportDialog setRequiredFileType:[ExportAufnahmeName pathExtension]];
+       [AdminExportDialog setCanCreateDirectories:YES];
+       [AdminExportDialog setCanSelectHiddenExtension:NO];
+       
+       
+       
+       [AdminExportDialog setDirectoryURL:[NSURL fileURLWithPath:ExportOrdnerPfad]];
+       [AdminExportDialog setPrompt:@"Sichern"];
+       
+       [AdminExportDialog setNameFieldLabel:@"Sichern als:"];
+       [AdminExportDialog setTitle:@"Aufnahmen sichern"];
+       
+       //[[AdminExportDialog title]setFont:TextFont]:
+       int AdminExportHit=0;
+       {
+          //LeseboxHit=[LeseboxDialog runModalForDirectory:DocumentsPfad file:@"Lesebox" types:nil];
+          //			AdminExportHit=[AdminExportDialog runModalForDirectory:ExportOrdnerPfad file:ExportAufnahmeName ];
+       }
+       if (AdminExportHit==NSModalResponseOK)
+       {
+          NSString* tempExportAufnahmeName=[[AdminExportDialog URL] path]; //aus Dialog
+          ExportAufnahmeName=[tempExportAufnahmeName lastPathComponent];//Neuer Aufnahmename
+          ExportOrdnerPfad=[tempExportAufnahmeName stringByDeletingLastPathComponent];//Neuer ExportOrdnerPfad
+          NSLog(@"ExportOrdnerPfad: %@",ExportOrdnerPfad);
+          
+       }
+    }
 	 
-	 
-	 
-	 [AdminExportDialog setDirectory:ExportOrdnerPfad];
-	 [AdminExportDialog setPrompt:@"Sichern"];
-	 
-	 [AdminExportDialog setNameFieldLabel:@"Sichern als:"];
-	 [AdminExportDialog setTitle:@"Aufnahmen sichern"];
-	 
-	 //[[AdminExportDialog title]setFont:TextFont]:
-	 int AdminExportHit=0;
-	 {
-	 //LeseboxHit=[LeseboxDialog runModalForDirectory:DocumentsPfad file:@"Lesebox" types:nil];
-	 //			AdminExportHit=[AdminExportDialog runModalForDirectory:ExportOrdnerPfad file:ExportAufnahmeName ];
-	 }
-	 if (AdminExportHit==NSOKButton)
-	 {
-	 NSString* tempExportAufnahmeName=[[AdminExportDialog filename]retain]; //aus Dialog
-	 ExportAufnahmeName=[tempExportAufnahmeName lastPathComponent];//Neuer Aufnahmename
-	 ExportOrdnerPfad=[tempExportAufnahmeName stringByDeletingLastPathComponent];//Neuer ExportOrdnerPfad
-	 NSLog(@"ExportOrdnerPfad: %@",ExportOrdnerPfad);
-	 
-	 }
-	 }
-	 */
 	
 	
 	if ([ExportFormatString isEqualToString:AIFF])
