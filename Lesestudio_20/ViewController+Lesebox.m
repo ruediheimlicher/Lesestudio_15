@@ -22,18 +22,20 @@ enum
 
 - (BOOL)Leseboxvorbereiten
 {
-   NSArray* NetworkCompArray=[Utils checkNetzwerkVolumes];
    
-   NSLog(@"Leseboxvorbereiten	NSHomeDirectory: %@",NSHomeDirectory());
-   NSLog(@"Leseboxvorbereiten	NetworkCompArray: %@",[NetworkCompArray description]);
-   NSString *bundlePfad = [[NSBundle mainBundle] bundlePath];
-   NSLog(@"Leseboxvorbereiten	bundlePfad: %@",bundlePfad);
-   if ([bundlePfad rangeOfString:@"Lesebox"].location < NSNotFound)
-   {
-      
-   }
+   self.istSystemVolume= ![Utils istAufExternemVolume];
+   
+   NSLog(@"Leseboxvorbereiten istSystemVolume: %d",self.istSystemVolume);
+   
+  // NSArray* NetworkCompArray=[Utils checkNetzwerkVolumes];
+  // NSArray* NetworkCompArray=[NSArray array];
 
-   NSArray* UserMitLeseboxArray=[Utils checkUsersMitLesebox];
+   //NSLog(@"Leseboxvorbereiten	NSHomeDirectory: %@",NSHomeDirectory());
+   //NSLog(@"Leseboxvorbereiten	NetworkCompArray: %@",[NetworkCompArray description]);
+   //NSString *bundlePfad = [[NSBundle mainBundle] bundlePath];
+   //NSLog(@"Leseboxvorbereiten	bundlePfad: %@",bundlePfad);
+   
+   //NSArray* UserMitLeseboxArray=[Utils checkUsersMitLesebox];
    //NSLog(@"Leseboxvorbereiten	 UserMitLeseboxArray: %@",[UserMitLeseboxArray description]);
    
    
@@ -43,20 +45,19 @@ enum
    {
       //NSLog(@"User nach gewuenschter Lesebox fragen");
       //User nach gewuenschter Lesebox fragen
-      self.LeseboxPfad=(NSMutableString*)[self chooseLeseboxPfadMitUserArray:UserMitLeseboxArray undNetworkArray:NetworkCompArray];
+      self.LeseboxPfad=(NSMutableString*)[self chooseLeseboxPfad];
+      self.LeseboxURL =[NSURL fileURLWithPath:self.LeseboxPfad];
       //NSLog(@"User nach gewuenschter Lesebox fragen LeseboxPfad: %@",LeseboxPfad);
       //Rücgabe: LeseboxPfad ungeprüft
    }
    //NSLog(@"Leseboxvorbereiten: LeseboxPfad: %@",self.LeseboxPfad);
    
-   BOOL LeseboxOK=NO;
    BOOL ArchivOK=NO;
    BOOL ProjektListeOK=NO;
    
    BOOL TitelListeOK=NO;
    
-   self.istSystemVolume=NO;
-   BOOL NamenListeOK=NO;
+      BOOL NamenListeOK=NO;
    
    NSString* ArchivString=[NSString stringWithFormat:@"Archiv"];
    NSString* KommentarString=@"Anmerkungen";
@@ -75,6 +76,7 @@ enum
       //NSLog(@"Leseboxvorbereiten LeseboxOK=1 PListDic lesen");
       
       self.PListDic=[[Utils PListDicVon:self.LeseboxPfad aufSystemVolume:self.istSystemVolume]mutableCopy];
+      
       NSLog(@"Leseboxvorbereiten LeseboxOK=1 PListDic: %@",[self.PListDic description]);
       
       // Anfang busy
@@ -618,6 +620,82 @@ enum
    NSString *bundlePfad = [[NSBundle mainBundle] bundlePath];
    //NSLog(@"Leseboxvorbereiten	bundlePfad: %@",bundlePfad);
    NSArray* homeArray = [[NSFileManager defaultManager]contentsOfDirectoryAtPath:[bundlePfad stringByDeletingLastPathComponent] error:nil];
+   
+   long leseboxindex = [homeArray indexOfObject:@"Lesebox"];
+   //NSLog(@"Leseboxvorbereiten	homeArray: %@ leseboxindex: %ld",homeArray,leseboxindex);
+   if (leseboxindex < NSNotFound)
+   {
+      NSString* tempLeseboxPfad =[[bundlePfad stringByDeletingLastPathComponent]stringByAppendingPathComponent:@"Lesebox" ];
+      BOOL isDir;
+      if ([[NSFileManager defaultManager]fileExistsAtPath:tempLeseboxPfad isDirectory:&isDir] && isDir)
+      {
+         [VolumesPanel setLeseboxPfad:tempLeseboxPfad];
+         [VolumesPanel setLeseboxOK:YES];
+      }
+      else
+      {
+         [VolumesPanel setLeseboxPfad:@"--"];
+      }
+   }
+   else
+   {
+      [VolumesPanel setLeseboxPfad:@"--"];
+   }
+   
+   //in VolumesPanel Daten einsetzen
+   // [VolumesPanel setUserArray:tempUserArray];
+   
+   
+   // NSLog(@" eingesetzt");
+   //	if ([tempNetworkArray count])
+   //	[VolumesPanel setNetworkArray:tempNetworkArray];
+   //    NSLog(@"tempNetworkArray eingesetzt");
+   
+   long modalAntwort = [NSApp runModalForWindow:[VolumesPanel window]];
+   //NSLog(@"VolumesPanel: Antwort: %d",modalAntwort);
+   
+   //LeseboxPfad aus Panel abfragen
+   NSString* tempLeseboxPfad=[NSString stringWithString:[VolumesPanel LeseboxPfad]];
+   BOOL extvol = YES;
+   if ([tempLeseboxPfad rangeOfString:@"/Volumes"].location == NSNotFound) // /Volumes im Pfad bei externem Vol, Stick oa
+   {
+      extvol = NO;
+   }
+   
+   
+   
+   //Für Volumes mit System zeigt der Leseboxpfad auf einen Ordner in Documents
+   //Für Externe HDs zeigt der Leseboxpfad auf einen Ordner direkt auf der HD.
+   //Die PList wird im Ordner 'Data' in der Lesebox abgelegt.
+   
+   
+   // NSLog(@"LeseboxPfad: %@ LeseboxURL: %@",self.LeseboxPfad,self.LeseboxURL);
+   // NSLog(@"chooseLeseboxPfadVon: Antwort: %d  LeseboxPfad: %@",modalAntwort,tempLeseboxPfad);
+   
+   [NSApp endModalSession:VolumeSession];
+   
+   [[VolumesPanel window] orderOut:NULL];
+   //NSLog(@"VolumesPanel: Antwort: %d",modalAntwort);
+   
+   return tempLeseboxPfad;
+   
+}
+
+- (NSString*) chooseLeseboxPfad
+{
+   if (VolumesPanel)
+   {
+      
+   }
+   else
+   {
+      VolumesPanel = [[rVolumes alloc]init];
+   }
+   NSModalSession VolumeSession=[NSApp beginModalSessionForWindow:[VolumesPanel window]];
+   
+   NSString *bundlePfad = [[NSBundle mainBundle] bundlePath];
+   //NSLog(@"Leseboxvorbereiten	bundlePfad: %@",bundlePfad);
+   NSArray* homeArray = [[NSFileManager defaultManager]contentsOfDirectoryAtPath:[bundlePfad stringByDeletingLastPathComponent] error:nil];
  
    long leseboxindex = [homeArray indexOfObject:@"Lesebox"];
    //NSLog(@"Leseboxvorbereiten	homeArray: %@ leseboxindex: %ld",homeArray,leseboxindex);
@@ -640,21 +718,13 @@ enum
       [VolumesPanel setLeseboxPfad:@"--"];
    }
  
-   //in VolumesPanel Daten einsetzen
-  // [VolumesPanel setUserArray:tempUserArray];
- 
-   
-  // NSLog(@" eingesetzt");
-   //	if ([tempNetworkArray count])
-   //	[VolumesPanel setNetworkArray:tempNetworkArray];
-   //    NSLog(@"tempNetworkArray eingesetzt");
    
    long modalAntwort = [NSApp runModalForWindow:[VolumesPanel window]];
+   
    //NSLog(@"VolumesPanel: Antwort: %d",modalAntwort);
    
    //LeseboxPfad aus Panel abfragen
    NSString* tempLeseboxPfad=[NSString stringWithString:[VolumesPanel LeseboxPfad]];
-   self.istSystemVolume=[VolumesPanel istSystemVolume];
    
    //Für Volumes mit System zeigt der Leseboxpfad auf einen Ordner in Documents
    //Für Externe HDs zeigt der Leseboxpfad auf einen Ordner direkt auf der HD.
@@ -3014,11 +3084,11 @@ enum
    //const char* ch="ABCD\n";
    //const char* ch=[[[NSNumber numberWithUnsignedLong:'RPDF']stringValue] UTF8String];
    const char* ch=[[self.ProjektPfad lastPathComponent] UTF8String];
-   NSData* d=[NSData dataWithBytes:ch length:strlen(ch)];
+   NSData* projektpfadData=[NSData dataWithBytes:ch length:strlen(ch)];
    
    //NSData* d=[NSData dataWithBytes:LeseboxPfad length:[LeseboxPfad length]];
-   //NSLog(@"**savePListAktion: d: %@",d);
-   [self.PListDic setObject:d forKey:@"leseboxpfad"];
+   //NSLog(@"**savePListAktion: projektpfadData: %@",projektpfadData);
+   [self.PListDic setObject:projektpfadData forKey:@"leseboxpfad"];
    
    //NSData decodieren:
    //NSData* dd=[PListDic objectForKey:@"leseboxpfad"];

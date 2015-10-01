@@ -826,7 +826,24 @@ Gibt die Volumes im Ordner 'Network' zurück
 		return NetzobjekteDicArray;
 }
 
-- (BOOL)istSystemVolumeAnPfad:(NSString*)derLeseboxPfad		//unused
+- (BOOL)istAufExternemVolume
+{
+   BOOL istaufextvol = YES;
+   NSString *bundlePfad = [[NSBundle mainBundle] bundlePath];
+   NSLog(@"istAufExternemVolume	bundlePfad: %@",bundlePfad);
+
+   if ([bundlePfad rangeOfString:@"/Volumes"].location == NSNotFound) // /Volumes ist im Pfad bei externem Vol, Stick oa
+   {
+      istaufextvol = NO;
+   }
+   
+   return istaufextvol;
+}
+
+
+
+
+   - (BOOL)istSystemVolumeAnPfad:(NSString*)derLeseboxPfad		//unused
 {
    BOOL istSystemVolume=NO;
    NSString* HomeDirPfad=@"";
@@ -855,6 +872,8 @@ Gibt die Volumes im Ordner 'Network' zurück
    //NSLog(@"istSystemVolumeAnPfad istSystemVolume: %d",istSystemVolume);
    return istSystemVolume;
 }
+
+
 
 - (BOOL)setVersion
 {

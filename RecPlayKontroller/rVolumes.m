@@ -676,7 +676,8 @@ NSLog(@"VolumepfadAktion note: %@",[[note userInfo]description]);
    {
       UserPfad=[UserPfad stringByAppendingPathComponent:lb];
    }
-   NSLog(@"Server LeseboxPfad: %@",LeseboxPfad);
+   NSLog(@"Server UserPfad : %@",UserPfad);
+   NSLog(@"Server LeseboxPfad vor UserPfad: %@",LeseboxPfad);
    LeseboxPfad=UserPfad;
 
    

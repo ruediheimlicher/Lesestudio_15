@@ -112,7 +112,7 @@ NSString*	RPDevicedatenKey=	@"RPDevicedaten";
    NSBundle* LesestudioBundle = [NSBundle mainBundle];
    NSString* ResourcePfad = [[LesestudioBundle bundlePath]stringByAppendingPathComponent:@"Contents/Resources"];
    NSArray* mainarray = [[NSFileManager defaultManager]contentsOfDirectoryAtPath:ResourcePfad error:nil];
-   NSLog(@"mainarray: %@",mainarray);
+//   NSLog(@"mainarray: %@",mainarray);
 
    
    

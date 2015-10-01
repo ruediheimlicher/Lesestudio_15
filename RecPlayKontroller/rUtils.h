@@ -65,6 +65,7 @@
 - (NSString*)checkHomeLesebox;
 - (BOOL)setVersion;
 - (BOOL)istSystemVolumeAnPfad:(NSString*)derLeseboxPfad;
+- (BOOL)istAufExternemVolume;
 - (BOOL)LeseboxValidAnPfad:(NSString*)derLeseboxPfad aufSystemVolume:(BOOL)istSystemVolume;
 - (NSArray*)UOrdnernamenArrayVonKlassenliste;
 - (BOOL)ArchivValidAnPfad:(NSString*)derLeseboxPfad;
