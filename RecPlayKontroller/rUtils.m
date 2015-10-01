@@ -209,7 +209,7 @@ Setzt die Variablen in Utils.m nach den Vorgaben der PList bei beginn des Progra
          NSLog(@"unterordner: %@",[[unterordnerurl path]lastPathComponent]);
          [OrdnerNamenArray addObject:[[unterordnerurl path]lastPathComponent]];
       }
-      NSLog(@"OrdnerNamenArray: %@",OrdnerNamenArray);
+      //NSLog(@"OrdnerNamenArray: %@",OrdnerNamenArray);
 
    }// isDir
    return OrdnerNamenArray;
@@ -239,7 +239,7 @@ Setzt die Variablen in Utils.m nach den Vorgaben der PList bei beginn des Progra
          // ProjektOrder im Archiv
          NSMutableArray* tempProjektOrdnerArray = (NSMutableArray*)[Filemanager contentsOfDirectoryAtPath:tempArchivPfad error: &err];
          [tempProjektOrdnerArray removeObject:@".DS_Store"];
-         NSLog(@"LeseboxCompletetempProjektOrdnerArray: %@",tempProjektOrdnerArray);
+         //NSLog(@"LeseboxCompletetempProjektOrdnerArray: %@",tempProjektOrdnerArray);
          
          
          
@@ -249,7 +249,7 @@ Setzt die Variablen in Utils.m nach den Vorgaben der PList bei beginn des Progra
             NSString* rawprojekt = [tempProjektOrdnerArray objectAtIndex:projektindex];
             NSData* rawdata =[rawprojekt dataUsingEncoding:NSUTF8StringEncoding] ;
             NSString* encprojekt = [[NSString alloc] initWithData:rawdata encoding:NSUTF8StringEncoding ];
-            NSLog(@"rawprojekt: %@ encprojekt: %@",rawprojekt,encprojekt);
+            //NSLog(@"rawprojekt: %@ encprojekt: %@",rawprojekt,encprojekt);
             //[EingabeFeld stringValue] dataUsingEncoding:NSUTF8StringEncoding]
             
             
@@ -262,10 +262,10 @@ Setzt die Variablen in Utils.m nach den Vorgaben der PList bei beginn des Progra
             NSDirectoryEnumerator* projektenum = [Filemanager enumeratorAtURL:tempprojekturl includingPropertiesForKeys:nil options:0x07 errorHandler:nil];
             while(tempprojektname = [projektenum nextObject])
             {
-               NSLog(@"tempprojektname: %@",[[tempprojektname path]lastPathComponent]);
+               //NSLog(@"tempprojektname: %@",[[tempprojektname path]lastPathComponent]);
                [projektameArray addObject:[[tempprojektname path]lastPathComponent]];
             }
-            NSLog(@"projektameArray: %@",projektameArray);
+            //NSLog(@"projektameArray: %@",projektameArray);
             
             
             /*
@@ -290,7 +290,7 @@ Setzt die Variablen in Utils.m nach den Vorgaben der PList bei beginn des Progra
             {
                
                NSString* tempProjekt = [tempProjektOrdnerArray objectAtIndex:projektindex];
-               NSLog(@"tempProjekt: %@",tempProjekt);
+               //NSLog(@"tempProjekt: %@",tempProjekt);
                NSString* tempProjektPfad = [tempArchivPfad stringByAppendingPathComponent:tempProjekt];
                if ([Filemanager fileExistsAtPath:tempProjektPfad isDirectory: &istDir] && istDir) // ProjektOrdner da
                {
@@ -301,7 +301,7 @@ Setzt die Variablen in Utils.m nach den Vorgaben der PList bei beginn des Progra
                   [tempLeserOrdnerArray removeObject:@".DS_Store"];
                   
                   
-                  NSLog(@"tempLeserOrdnerArray: %@",tempLeserOrdnerArray);
+                  //NSLog(@"tempLeserOrdnerArray: %@",tempLeserOrdnerArray);
                   long anzLeser = [tempLeserOrdnerArray count];
                   if (anzLeser) // Leser vorhanden
                   {
@@ -1848,7 +1848,7 @@ return versionOK;
    {
       //  [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:&errorBuffer];
       tempPListDic=[[NSDictionary dictionaryWithContentsOfFile:PListPfad]mutableCopy];
-      NSLog(@"Utils tempPListDic: %@",[tempPListDic description]);
+      //NSLog(@"Utils tempPListDic: %@",[tempPListDic description]);
       if ([[[tempPListDic objectForKey:@"adminpw"]objectForKey:@"pw"]length]==0)
       {
          NSAlert *Warnung = [[NSAlert alloc] init];
@@ -3196,7 +3196,7 @@ if (UTimeoutDialogPanel)
    
    tempKopfString=[tempKopfString stringByAppendingString:[[derAufnahmePfad stringByDeletingPathExtension]lastPathComponent]];
    
-	NSLog(@"in createKommentarAufnahmepfad tempKopfString mit titel: %@",tempKopfString);
+	//NSLog(@"in createKommentarAufnahmepfad tempKopfString mit titel: %@",tempKopfString);
 
 	tempKopfString=[tempKopfString stringByAppendingString:@"\r"];
 	

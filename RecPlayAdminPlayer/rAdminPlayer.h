@@ -17,6 +17,7 @@
 #import "rMarkierung.h"
 #import "rNamenListe.h"
 #import "rAVPlayer.h"
+#import "rClean.h"
 
 #import "rAbspielanzeige.h"
 //#import "rUtils.h"
@@ -140,6 +141,8 @@
 
 	NSTimer*					CleanDelayTimer;
 	
+      // Clean/Export
+ 
 	NSString*					ExportOrdnerPfad;
 	NSMutableData*				RPExportdaten;
 	OSType						exportFormatFlag;

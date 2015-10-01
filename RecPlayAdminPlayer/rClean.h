@@ -27,6 +27,9 @@
 	IBOutlet id ExportAnzahlPop;
 	IBOutlet id ExportOptionenTaste;
 	IBOutlet id TaskTabSeite;
+   
+   IBOutlet id ExportTaste;
+   IBOutlet id ClearTaste;
 	
 	
 	NSMutableArray*			NamenArray;
@@ -49,6 +52,7 @@
 - (IBAction)reportNamen:(id)sender;
 - (IBAction)reportTitel:(id)sender;
 - (IBAction)sofortWeg:(id)sender;
+- (id) initWithRowCount:(int)rowCount;
 
 //- (void)setAuswahlOption:(int)dieOption;
 //- (void)setAuswahlOption:(int)dieOption;

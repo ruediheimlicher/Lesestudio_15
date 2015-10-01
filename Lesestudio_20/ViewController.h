@@ -75,6 +75,19 @@
    NSString*                     localDate;
    NSString*                     heuteDatumString;
    long                        heuteTagDesJahres;
+   
+   //
+   //Export
+   NSTimer*					CleanDelayTimer;
+   
+   NSString*					ExportOrdnerPfad;
+   NSMutableData*				RPExportdaten;
+   OSType						exportFormatFlag;
+   NSMutableString*			ExportFormatString;
+   FSSpec						UserExportSpec;
+   long                    UserExportParID;
+
+   int nurTitelZuNamenOption;
 }
 
 // Menues
@@ -383,7 +396,33 @@
 - (IBAction)forewardAVPlay:(id)sender;
 @end // AVRecorder
 
+// Category Clean
+@interface ViewController (Clean)
 
+- (void)CleanOptionNotificationAktion:(NSNotification*)note;
+- (void)CleanViewNotificationAktion:(NSNotification*)note;
+- (void)ClearNotificationAktion:(NSNotification*)note;
+- (void)Clean:(NSDictionary*)derCleanDic;
+//- (void)insMagazinMitPfad:(NSString*)derAufnahmePfad;
+
+- (void)setCleanTitelVonLeser:(NSString*)derLeser;
+- (void)setAlleTitel;
+- (void)Export:(NSDictionary*)derExportDic;
+- (void) AufnahmenArrayExportieren:(NSArray*)derAufnahmenArray
+                     mitUserDialog:(BOOL)userDialogOK;
+- (long) AufnahmeExportierenMitPfad:(NSString*)derAufnahmePfad
+                      mitUserDialog:(BOOL)userDialogOK
+                  mitSettingsDialog:(BOOL)settingsDialogOK;
+
+//
+- (NSArray*)sortNachABC:(NSArray*)derArray;
+- (NSArray*)sortNachNummer:(NSArray*)derArray;
+- (NSArray*)TitelMitAnzahlArrayVon:(NSString*)derLeser;
+- (NSString*)AufnahmeTitelVon:(NSString*) dieAufnahme;
+- (BOOL)AufnahmeIstMarkiertAnPfad:(NSString*)derAufnahmePfad;
+- (NSArray*)TitelArrayVon:(NSString*)derLeser anProjektPfad:(NSString*)derProjektPfad;
+
+@end // CleanKontroller
 
 
 

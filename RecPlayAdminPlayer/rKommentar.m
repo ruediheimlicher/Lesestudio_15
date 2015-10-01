@@ -2813,7 +2813,7 @@ typedef NS_ENUM(NSInteger, A)
             {
                case 0://Nur ein Projekt
                {
-                  NSLog(@"alleVonNameKommentarOption: Nur 1 Projekt AdminProjektPfad: %@ tempProjektName: %@",AdminProjektPfad,tempProjektName);
+                  //NSLog(@"alleVonNameKommentarOption: Nur 1 Projekt AdminProjektPfad: %@ tempProjektName: %@",AdminProjektPfad,tempProjektName);
                   
                   NSString* tempAdminProjektPfad=[[AdminProjektPfad stringByDeletingLastPathComponent]stringByAppendingPathComponent:tempProjektName];
                   //NSLog(@"tempAdminProjektPfad: %@",tempAdminProjektPfad);

@@ -483,10 +483,11 @@
    NSString* NetzPfad=@"//Volumes";
    NSOpenPanel * LeseboxDialog=[NSOpenPanel openPanel];
    NSImage* OpenPanelImg=[NSImage imageNamed:@"MicroIcon120.png"];
-   NSRect cellFeld = NSMakeRect(0, 0, 120, 120);
+   NSRect cellFeld = NSMakeRect(0, 0, 60, 60);
    NSImageView* OpenPanelView = [[NSImageView alloc] initWithFrame:cellFeld];
- [OpenPanelView setImage:OpenPanelImg];
+   [OpenPanelView setImage:OpenPanelImg];
    LeseboxDialog.accessoryView = OpenPanelView;
+   LeseboxDialog.title = @"Lesebox suchen";
    [LeseboxDialog setCanChooseDirectories:YES];
    [LeseboxDialog setCanChooseFiles:NO];
    [LeseboxDialog setAllowsMultipleSelection:NO];

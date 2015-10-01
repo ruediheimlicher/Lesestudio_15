@@ -672,7 +672,7 @@ if (dasItem<2)
 	NSString* leser=@"leser";
 	NSString* anzleser=@"anzleser";
 	NSParameterAssert([derTitelArray count]);
-	//NSLog(@"Clean setTitelArray AnzNamen: %d  %@",[derTitelArray count],[derTitelArray description]);	
+	NSLog(@"Clean setTitelArray AnzNamen: %d  %@",[derTitelArray count],[derTitelArray description]);	
 	
 	NSEnumerator* TitelEnumerator=[derTitelArray objectEnumerator];
 	id eineZeile;
@@ -1002,6 +1002,7 @@ return tempTitelArray;
 
 - (IBAction)reportExportAnzahl:(id)sender
 {
+   NSLog(@"reportExportAnzahl");
 
 }
 

@@ -5,13 +5,22 @@
 //  Created by Ruedi Heimlicher on 01.09.2015.
 //  Copyright (c) 2015 Ruedi Heimlicher. All rights reserved.
 //
+
+
+enum
+{
+   lastKommentarOption= 0,
+   alleVonNameKommentarOption,
+   alleVonTitelKommentarOption
+};
+
 enum
 {
    Datum=2,
    Bewertung,
    Noten,
    UserMark,
-   AdminMark,
+   kAdminMark,
    Kommentar
 };
 enum
@@ -327,6 +336,23 @@ NSString*	RPDevicedatenKey=	@"RPDevicedaten";
    [nc addObserver:self
           selector:@selector(AdminEntfernenNotificationAktion:)
               name:@"adminentfernen"
+            object:nil];
+
+   
+   
+   [nc addObserver:self
+          selector:@selector(CleanOptionNotificationAktion:)
+              name:@"CleanOption"
+            object:nil];
+   
+   [nc addObserver:self
+          selector:@selector(CleanViewNotificationAktion:)
+              name:@"CleanView"
+            object:nil];
+
+   [nc addObserver:self
+          selector:@selector(ExportNotificationAktion:)//Taste "Exportieren"
+              name:@"Export"
             object:nil];
 
    
@@ -4538,9 +4564,70 @@ if (!self.KommentarFenster)
       return;
    }
 
-   //NSLog(@"RecPlayController	showClean: sender tag: %d",[sender tag]);
-   // [AdminPlayer showCleanFenster:1];
-   // [AdminPlayer setCleanTask:0];
+   RPExportdaten=[NSMutableData dataWithCapacity:0];
+   ExportFormatString=[NSMutableString stringWithCapacity:0];
+   [ExportFormatString setString:@"AIFF"];
+   
+   
+  NSString* tempProjektPfad=[self.ArchivPfad stringByAppendingPathComponent:self.ProjektPfad];
+   
+   self.ProjektNamenArray=[[NSMutableArray alloc] initWithArray:[[NSFileManager defaultManager] contentsOfDirectoryAtPath:self.ProjektPfad error:NULL]];
+   
+   [self.ProjektNamenArray removeObject:@".DS_Store"];
+   long AnzLeser=[self.ProjektNamenArray count];											//Anzahl Leser
+   if (AnzLeser==0)
+   {
+      
+      NSAlert *Warnung = [[NSAlert alloc] init];
+      [Warnung addButtonWithTitle:@"OK"];
+      //[Warnung addButtonWithTitle:@"Cancel"];
+      [Warnung setMessageText:@"Leerer Projektordner"];
+      [Warnung setInformativeText:@"Es hat noch keine Projekte im Projektordner. "];
+      [Warnung setAlertStyle:NSWarningAlertStyle];
+      [Warnung beginSheetModalForWindow:[self.view window]
+                      completionHandler:nil];
+      NSLog(@"!!! Es hat noch keine Projekte im Projektordner");
+      
+      [self beenden];
+      return;
+   }
+   //NSLog(@"setAdminPlayer AdminProjektNamenArray: %@", AdminProjektNamenArray);
+   
+   if ([[self.ProjektNamenArray objectAtIndex:0] hasPrefix:@".DS"])					//Unsichtbare Ordner entfernen
+   {
+      [self.ProjektNamenArray removeObjectAtIndex:0];
+      AnzLeser--;
+   }
+
+   if (!self.CleanFenster)
+	  {
+        self.CleanFenster=[[rClean alloc]initWithRowCount:[self.ProjektNamenArray count]];
+     }
+   
+   //NSLog(@"AdminPlayer showClean: tab: %d",tab);
+   
+   nurTitelZuNamenOption=0;
+   
+   [self.CleanFenster showWindow:self];
+   
+   //[self.CleanFenster setAnzahlPopMenu:AnzahlOption];
+   
+   NSMutableDictionary* SettingDic=[NSMutableDictionary dictionaryWithObject:ExportFormatString
+                                                                      forKey:@"exportformat"];
+   [self.CleanFenster setClean:SettingDic];
+   
+   [self.CleanFenster setNamenArray:self.ProjektNamenArray];
+   
+   //    [AdminPlayer setCleanTask:0];
+
+   
+   NSLog(@"RecPlayController	showClean: sender tag: %ld",[sender tag]);
+   if(!self.AdminPlayer)
+   {
+ //     self.AdminPlayer=[[rAdminPlayer alloc]init];
+   }
+//    [AdminPlayer showCleanFenster:1];
+
 }
 
 - (IBAction)showExport:(id)sender
@@ -4549,9 +4636,9 @@ if (!self.KommentarFenster)
    {
       return;
    }
-   //NSLog(@"RecPlayController	showExport: sender tag: %d",[sender tag]);
-   // [AdminPlayer showCleanFenster:2];
-   // [AdminPlayer setCleanTask:1];
+   NSLog(@"RecPlayController	showExport: sender tag: %d",[sender tag]);
+    [AdminPlayer showCleanFenster:2];
+    [AdminPlayer setCleanTask:1];
 }
 
 - (IBAction)MarkierungenWeg:(id)sender

@@ -2580,8 +2580,6 @@ return tempTitelDicArray;
 				  }
 			}//[tempAufnahmen count]
 		  
-		  
-		  
 }//if exists LeserPfad
 
 //NSLog(@"TitelMitAnzahlArrayVon: %@   %@",derLeser, [tempTitelDicArray description]);

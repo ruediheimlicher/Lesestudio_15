@@ -144,11 +144,13 @@ const short kRecPlayUmgebung=0;
 		   selector:@selector(ClearNotificationAktion:)//Taste "Lšschen"
 			   name:@"Clear"
 			 object:nil];
-	
+
+   /*
 	[nc addObserver:self
 		   selector:@selector(ExportNotificationAktion:)//Taste "Exportieren"
 			   name:@"Export"
 			 object:nil];
+   */
 /*
 	[nc addObserver:self
 		   selector:@selector(ExportFormatDialogAktion:)//Taste "Optionen"
@@ -4316,10 +4318,10 @@ NSNumber* UmgebungNumber=[[note userInfo]objectForKey:@"Umgebung"];
 
 - (void)showCleanFenster:(int)tab
 {
-	NSLog(@"AdminPlayer showClean  AnzNamen: %d",[AdminProjektNamenArray count]);
+	NSLog(@"AdminPlayer showClean  AnzNamen: %ld",[AdminProjektNamenArray count]);
 	if (!CleanFenster)
 	  {
-//		CleanFenster=[[rClean alloc]initWithRowCount:[AdminProjektNamenArray count]];
+		CleanFenster=[[rClean alloc]initWithRowCount:[AdminProjektNamenArray count]];
 	}
 	
 	//NSLog(@"AdminPlayer showClean: tab: %d",tab);
