@@ -139,13 +139,13 @@ const short kRecPlayUmgebung=0;
 		   selector:@selector(CleanViewNotificationAktion:)
 			   name:@"CleanView"
 			 object:nil];
-
+/*
 	[nc addObserver:self
 		   selector:@selector(ClearNotificationAktion:)//Taste "Lšschen"
 			   name:@"Clear"
 			 object:nil];
 
-   /*
+ 
 	[nc addObserver:self
 		   selector:@selector(ExportNotificationAktion:)//Taste "Exportieren"
 			   name:@"Export"

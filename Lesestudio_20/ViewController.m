@@ -354,6 +354,10 @@ NSString*	RPDevicedatenKey=	@"RPDevicedaten";
           selector:@selector(ExportNotificationAktion:)//Taste "Exportieren"
               name:@"Export"
             object:nil];
+   [nc addObserver:self
+          selector:@selector(ClearNotificationAktion:)//Taste "Löschen"
+              name:@"Clear"
+            object:nil];
 
    
    NSArray* windowViewArray = [[self view] subviews];

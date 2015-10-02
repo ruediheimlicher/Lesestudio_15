@@ -100,6 +100,7 @@
 - (BOOL)setKommentar:(NSString*)derKommentarString inAufnahmeAnPfad:(NSString*)derAufnahmePfad;
 - (NSString*)KommentarStringVonAufnahmeAnPfad:(NSString*)derAufnahmePfad;
 
+- (NSString*)stringvon:(NSString*)eingangstring;
 - (int)localTagvonDatumString:(NSString*)datumstring;
 - (int)localMonatvonDatumString:(NSString*)datumstring;
 - (int)localJahrvonDatumString:(NSString*)datumstring;

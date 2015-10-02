@@ -1,4 +1,5 @@
 #import "rClean.h"
+
 enum
 {
 	zweiAufnahmen=2,
@@ -32,6 +33,17 @@ enum
 
 
 @implementation rClean
+
+
+- (NSString*)stringvon:(char*)eingangstring
+{
+   
+  // NSData *data = [eingangstring dataUsingEncoding:NSMacOSRomanStringEncoding ];
+   
+   return [[NSString alloc] initWithCString:eingangstring encoding:NSMacOSRomanStringEncoding];
+}
+
+
 - (id) initWithRowCount:(int)rowCount
 {
 	self=[super initWithWindowNibName:@"RPClean"];
@@ -672,19 +684,26 @@ if (dasItem<2)
 	NSString* leser=@"leser";
 	NSString* anzleser=@"anzleser";
 	NSParameterAssert([derTitelArray count]);
-	NSLog(@"Clean setTitelArray AnzNamen: %d  %@",[derTitelArray count],[derTitelArray description]);	
+	NSLog(@"Clean setTitelArray AnzNamen: %ld  %@",[derTitelArray count],[derTitelArray description]);
 	
 	NSEnumerator* TitelEnumerator=[derTitelArray objectEnumerator];
 	id eineZeile;
 	int index=0;
 	while (eineZeile=[TitelEnumerator nextObject])
 	  {
-		//NSLog(@"setTitelArray eineZeile: %@",[eineZeile description]);
+		NSLog(@"setTitelArray eineZeile: %@",[eineZeile description]);
 		NSMutableDictionary* tempZeilenDic=[NSMutableDictionary dictionaryWithObject:[eineZeile objectForKey:titel]
 																			  forKey:titel];
 		[tempZeilenDic setObject:[eineZeile objectForKey:anzahl] forKey:anzahl];
-		[tempZeilenDic setObject:[eineZeile objectForKey:leser] forKey:leser];
-		[tempZeilenDic setObject:[eineZeile objectForKey:anzleser] forKey:anzleser];
+        if ([eineZeile objectForKey:leser])
+        {
+           [tempZeilenDic setObject:[eineZeile objectForKey:leser] forKey:leser];
+        }
+        if ([eineZeile objectForKey:anzleser])
+             {
+                [tempZeilenDic setObject:[eineZeile objectForKey:anzleser] forKey:anzleser];
+             }
+        
 		[tempZeilenDic setObject:[NSNumber numberWithBool:NO] forKey:@"auswahl"];
 		[tempZeilenDic setObject:[NSNumber numberWithInt:TitelViewTag] forKey:@"view"];
 		[self setData:tempZeilenDic forRow:index];
@@ -852,7 +871,11 @@ return tempTitelArray;
 			NSMutableDictionary* CleanOptionDic=[NSMutableDictionary dictionaryWithObject:tempNamenArrray forKey:@"clearnamen"];
 			[CleanOptionDic setObject:tempTitelArray forKey:@"cleartitel"];
 			[CleanOptionDic setObject:[NSNumber numberWithInt:(int)[[ClearBehaltenVariante selectedCell]tag]] forKey:@"clearbehalten"];
+           // 0: nur markierte behalten   1: alle loeschen bis auf 'anzahlvariante
+           
 			[CleanOptionDic setObject:[NSNumber numberWithInt:(int)[[EntfernenVariante selectedCell]tag]] forKey:@"clearentfernen"];
+           // 0: Papierkorb   1: Magazin  2: ex
+           
 			int rest=(int)[[ClearAnzahlPop selectedItem]tag];
 			
 			if (rest==0)
@@ -861,19 +884,22 @@ return tempTitelArray;
 				//NSAlertSecondButtonReturn    = 1001,
 				//NSAlertThirdButtonReturn        = 1002
 				
-				NSString* FehlerString=@"Wirklich alle Aufnahmen fŸr diese Titel loeschen?";
-				NSAlert *Warnung = [[NSAlert alloc] init];
-				[Warnung addButtonWithTitle:[NSString stringWithUTF8String:"Alle lšschen"]];
-				[Warnung addButtonWithTitle:[NSString stringWithUTF8String:"Anzahl Šndern"]];
-				[Warnung setMessageText:@"Warnung"];
-				[Warnung setInformativeText:FehlerString];
-				[Warnung setAlertStyle:NSWarningAlertStyle];
+            NSString* FehlerString=[self stringvon:"Wirklich alle Aufnahmen fuer diese Titel loeschen?"];
+				NSAlert *NullWarnung = [[NSAlert alloc] init];
+              // [@"š" dataUsingEncoding:NSUTF8StringEncoding]
+				[NullWarnung addButtonWithTitle:@"Alle loeschen"];
+      
+              [NullWarnung addButtonWithTitle:@"Alle loeschen"	];
+              [NullWarnung addButtonWithTitle:[NSString stringWithUTF8String:"Anzahl aendern"]];
+				[NullWarnung setMessageText:@"Warnung"];
+				[NullWarnung setInformativeText:FehlerString];
+				[NullWarnung setAlertStyle:NSWarningAlertStyle];
 				//[Warnung beginSheetModalForWindow:[self window]
 				//					modalDelegate:self
 				//				   didEndSelector:@selector(alertDidEnd:returnCode:contextInfo:) 
 				//					  contextInfo:nil];
-				int Antwort=(int)[Warnung runModal];
-				NSLog(@"Antwort: %d",Antwort);
+				NSModalResponse Antwort=[NullWarnung runModal];
+				NSLog(@"Antwort: %ld",Antwort);
 				if (Antwort==NSAlertSecondButtonReturn)
 				{
 					return;
@@ -960,6 +986,7 @@ return tempTitelArray;
 			NSNotificationCenter * nc;
 			nc=[NSNotificationCenter defaultCenter];
 			[nc postNotificationName:@"Export" object: self userInfo:CleanOptionDic];
+         
 		}
 		else
 		{
@@ -992,7 +1019,7 @@ return tempTitelArray;
 		
 	}
 	
-	[self NamenListeLeeren];
+//	[self NamenListeLeeren];
 	[self deselectNamenListe];
 
 }

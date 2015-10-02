@@ -2607,12 +2607,20 @@ return versionOK;
 	NSString* tempNamenPfad=[derNamenPfad copy];//Pfad akt. Aufn.
 		NSFileManager* Filemanager=[NSFileManager defaultManager];
 		NSLog(@"inPapierkorbmitPfad: %@",derNamenPfad);
-		if ([Filemanager fileExistsAtPath:tempNamenPfad isDirectory:&istDirectory]&&istDirectory)
+		if ([Filemanager fileExistsAtPath:tempNamenPfad isDirectory:&istDirectory]&&!istDirectory)
 		{
 			//[self moveFileToUserTrash:tempAufnahmePfad];	
 			fehler=[self fileInPapierkorb:tempNamenPfad];//0 ist OK
 														 //NSLog(@"inPapierkorb result von Aufnahme: %d",result);
-		}
+         // Anmerkungen loeschen
+         NSString* tempAnmerkungName =[[[tempNamenPfad lastPathComponent] stringByDeletingPathExtension]stringByAppendingPathExtension:@"txt"];
+         NSString* tempAnmerkungPfad = [[[tempNamenPfad stringByDeletingLastPathComponent]stringByAppendingPathComponent:@"Anmerkungen"]stringByAppendingPathComponent:tempAnmerkungName];
+         if ([Filemanager fileExistsAtPath:tempAnmerkungPfad isDirectory:&istDirectory]&&!istDirectory)
+         {
+            //[self moveFileToUserTrash:tempAufnahmePfad];
+            fehler=[self fileInPapierkorb:tempAnmerkungPfad];//0 ist OK
+         }
+      }
 		return fehler;
 }
 		
@@ -2661,9 +2669,20 @@ return versionOK;
       // Ordner verscjhieben
       BOOL magazinOK=[Filemanager moveItemAtURL:[NSURL fileURLWithPath:tempNamenPfad]  toURL:[NSURL fileURLWithPath:tempZielPfad] error:nil];
       NSLog(@"magazinOK: %d",magazinOK);
+      
+      // Anmerkungen verschieben
+      NSString* tempAnmerkungName =[[[tempNamenPfad lastPathComponent] stringByDeletingPathExtension]stringByAppendingPathExtension:@"txt"];
+      NSString* tempAnmerkungPfad = [[[tempNamenPfad stringByDeletingLastPathComponent]stringByAppendingPathComponent:@"Anmerkungen"]stringByAppendingPathComponent:tempAnmerkungName];
+      if ([Filemanager fileExistsAtPath:tempAnmerkungPfad isDirectory:&istDirectory]&&!istDirectory)
+      {
+         //[self moveFileToUserTrash:tempAufnahmePfad];
+         fehler=[Filemanager moveItemAtURL:[NSURL fileURLWithPath:tempAnmerkungPfad]  toURL:[NSURL fileURLWithPath:tempZielPfad] error:nil];//0 ist OK
+      }
+
+      
    }
 	
-	return fehler;  
+	return fehler;
 	
 }
 
@@ -2675,10 +2694,19 @@ return versionOK;
 	NSFileManager* Filemanager=[NSFileManager defaultManager];
 	NSLog(@"exMitPfad: %@",tempNamenPfad);
 	BOOL ExOK=NO;
-		if ([Filemanager fileExistsAtPath:tempNamenPfad isDirectory:&istDirectory]&&istDirectory)
+		if ([Filemanager fileExistsAtPath:tempNamenPfad isDirectory:&istDirectory]&&!istDirectory)
 		  {
-				ExOK=[Filemanager removeItemAtURL:[NSURL fileURLWithPath:tempNamenPfad]error:nil];
+				ExOK=[Filemanager removeItemAtURL:[NSURL fileURLWithPath:tempNamenPfad]error:nil];//0 ist OK
 				NSLog(@"ex: result von ex: %d",fehler);
+           
+           // Anmerkungen entfernen
+           NSString* tempAnmerkungName =[[[tempNamenPfad lastPathComponent] stringByDeletingPathExtension]stringByAppendingPathExtension:@"txt"];
+           NSString* tempAnmerkungPfad = [[[tempNamenPfad stringByDeletingLastPathComponent]stringByAppendingPathComponent:@"Anmerkungen"]stringByAppendingPathComponent:tempAnmerkungName];
+           if ([Filemanager fileExistsAtPath:tempAnmerkungPfad isDirectory:&istDirectory]&&!istDirectory)
+           {
+              ExOK=[Filemanager removeItemAtURL:[NSURL fileURLWithPath:tempAnmerkungPfad]error:nil];//0 ist OK
+           }
+           
 		  }
 		if (!ExOK)
 		{
@@ -3458,6 +3486,15 @@ OSErr rUtils_AddUserDataTextToMovie (Movie theMovie, char *theText, OSType theTy
 }
 
 #pragma mark -
+
+
+- (NSString*)stringvon:(NSString*)eingangstring
+{
+
+NSData *data = [eingangstring dataUsingEncoding:NSUTF8StringEncoding];
+return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+}
+
 #pragma mark calendar
 NSUInteger dayOfYearForDate(NSDate *dasDatum)
 {
