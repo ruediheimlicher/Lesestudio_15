@@ -26,7 +26,7 @@
 	IBOutlet id ExportFormatPop;
 	IBOutlet id ExportAnzahlPop;
 	IBOutlet id ExportOptionenTaste;
-	IBOutlet id TaskTabSeite;
+	IBOutlet NSTabView* TaskTabSeite;
    
    IBOutlet id ExportTaste;
    IBOutlet id ClearTaste;

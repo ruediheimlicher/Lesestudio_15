@@ -31,7 +31,7 @@ enum
 	//NSString* alle=@"alle";
 	NSString* selektiertenamenzeile=@"selektiertenamenzeile";
 
-	//NSLog(@"CleanNotifikationAktion note: %@",[note object]);
+	NSLog(@"AdminPlayer CleanNotifikationAktion note: %@",[note object]);
 	NSDictionary* OptionDic=[note userInfo];
 	
 	//Pop AnzahlNamen

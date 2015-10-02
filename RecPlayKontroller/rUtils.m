@@ -3094,6 +3094,7 @@ if (UTimeoutDialogPanel)
       NSLog(@"saveKommentarFuerLeser: Kein Leser");
       return NO;
    }
+   
    NSString* tempAufnahme=[derAufnahmePfad lastPathComponent];	//Name der Aufnahme
    NSString* tempLeserOrdnerPfad=[derAufnahmePfad stringByDeletingLastPathComponent];	//Leserordnerpfad
    NSString* KommentarOrdnerString=@"Anmerkungen";

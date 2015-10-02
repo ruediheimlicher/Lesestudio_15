@@ -196,6 +196,7 @@ enum
       
       
       
+      
 
          
       //NSLog(@"ProjektArray: %@",[self.ProjektArray description]);
@@ -419,6 +420,16 @@ enum
          [self.PListDic setObject:[NSNumber numberWithLong:heuteTagDesJahres] forKey:@"lastdate"];
       }
       
+      
+      
+      if ([self.PListDic objectForKey:@"leseboxpfad"])
+      {
+         NSLog(@"Leseboxvorbereiten LeseboxPfad aus PList: %@",[self.PListDic objectForKey:@"leseboxpfad"]);
+         // [[NSString alloc] initWithData:theData encoding:NSUTF8StringEncoding];
+         NSString* tempPfad = [[NSString alloc ]initWithData:[self.PListDic objectForKey:@"leseboxpfad"] encoding:NSUTF8StringEncoding];
+         NSLog(@"Leseboxvorbereiten tempPfad: %@",tempPfad);
+      }
+
       //NSLog(@"Leseboxvorbereiten ProjektArray aus PList: %@",[self.ProjektArray description]);
       //NSLog(@"Leseboxvorbereiten adminpw aus PList: %@",[[self.PListDic objectForKey:@"adminpw"] description]);
       
@@ -656,11 +667,6 @@ enum
    
    //LeseboxPfad aus Panel abfragen
    NSString* tempLeseboxPfad=[NSString stringWithString:[VolumesPanel LeseboxPfad]];
-   BOOL extvol = YES;
-   if ([tempLeseboxPfad rangeOfString:@"/Volumes"].location == NSNotFound) // /Volumes im Pfad bei externem Vol, Stick oa
-   {
-      extvol = NO;
-   }
    
    
    
@@ -3011,13 +3017,14 @@ enum
       [tempPListDic setObject:[NSNumber numberWithInt:(int)self.TimeoutDelay] forKey:@"timeoutdelay"];
       [tempPListDic setObject:[NSNumber numberWithInt:self.KnackDelay] forKey:@"knackdelay"];
       
-      const char* ch=[[self.ProjektPfad lastPathComponent] UTF8String];
-      NSData* d=[NSData dataWithBytes:ch length:strlen(ch)];
-      
+      //const char* ch=[[self.ProjektPfad lastPathComponent] UTF8String];
+      //NSData* d=[NSData dataWithBytes:ch length:strlen(ch)];
+      NSData* leseboxpfadData = [self.LeseboxPfad dataUsingEncoding:NSUTF8StringEncoding];
       //NSData* d=[NSData dataWithBytes:LeseboxPfad length:[LeseboxPfad length]];
       //NSLog(@"**savePListAktion: d: %@",d);
-      [tempPListDic setObject:d forKey:@"leseboxpfad"];
       
+      [tempPListDic setObject:leseboxpfadData forKey:@"leseboxpfad"];
+      [self.PListDic setObject:leseboxpfadData forKey:@"leseboxpfad"];
       
       NSFileManager *Filemanager=[NSFileManager defaultManager];
       
@@ -3083,12 +3090,12 @@ enum
    }
    //const char* ch="ABCD\n";
    //const char* ch=[[[NSNumber numberWithUnsignedLong:'RPDF']stringValue] UTF8String];
-   const char* ch=[[self.ProjektPfad lastPathComponent] UTF8String];
-   NSData* projektpfadData=[NSData dataWithBytes:ch length:strlen(ch)];
+   //const char* ch=[[self.ProjektPfad lastPathComponent] UTF8String];
+   //NSData* projektpfadData=[NSData dataWithBytes:ch length:strlen(ch)];
    
    //NSData* d=[NSData dataWithBytes:LeseboxPfad length:[LeseboxPfad length]];
    //NSLog(@"**savePListAktion: projektpfadData: %@",projektpfadData);
-   [self.PListDic setObject:projektpfadData forKey:@"leseboxpfad"];
+  // [self.PListDic setObject:projektpfadData forKey:@"leseboxpfad"];
    
    //NSData decodieren:
    //NSData* dd=[PListDic objectForKey:@"leseboxpfad"];

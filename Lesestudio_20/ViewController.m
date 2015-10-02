@@ -4566,7 +4566,7 @@ if (!self.KommentarFenster)
 
    RPExportdaten=[NSMutableData dataWithCapacity:0];
    ExportFormatString=[NSMutableString stringWithCapacity:0];
-   [ExportFormatString setString:@"AIFF"];
+   [ExportFormatString setString:@"m4a"];
    
    
   NSString* tempProjektPfad=[self.ArchivPfad stringByAppendingPathComponent:self.ProjektPfad];
@@ -4622,6 +4622,15 @@ if (!self.KommentarFenster)
 
    
    NSLog(@"RecPlayController	showClean: sender tag: %ld",[sender tag]);
+   if ([sender tag] == 40006)
+   {
+   [self.CleanFenster setTaskTab:0];
+   }
+   else if ([sender tag] == 40007)
+   {
+      [self.CleanFenster setTaskTab:1];
+   }
+
    if(!self.AdminPlayer)
    {
  //     self.AdminPlayer=[[rAdminPlayer alloc]init];

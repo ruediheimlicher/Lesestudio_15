@@ -111,7 +111,7 @@ enum
 	//NSLog(@"awake fertig");
 	
 	//NSArray* FormatArray =[NSArray arrayWithObjects: AIFF,WAVE,MOV,MP3,nil];
-	NSArray* FormatArray =[NSArray arrayWithObjects: @"AIFF",@"WAVE",nil];
+	NSArray* FormatArray =[NSArray arrayWithObjects: @"m4a",@"AIFF",@"WAVE",nil];
 	[ExportFormatPop removeAllItems];
 	[ExportFormatPop addItemsWithTitles:FormatArray];
 	NSString* item0=[[TaskTabSeite tabViewItemAtIndex:0]identifier];
