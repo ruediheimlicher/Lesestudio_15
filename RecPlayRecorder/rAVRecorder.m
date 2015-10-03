@@ -864,8 +864,8 @@ NSError *error = nil;
 {
    float zeit = CMTimeGetSeconds([captureOutput recordedDuration]);
    aufnahmezeit = [[NSNumber numberWithFloat:zeit]intValue];
-  // aufnahmezeit = lrintf(zeit);
-  
+   // aufnahmezeit = lrintf(zeit);
+   
    //NSLog(@"didFinishRecordingToOutputFileAtURL: %@ an Leserpfad : %@ zeit: %f aufnahmezeit: %d",outputFileURL,LeserPfad,zeit,aufnahmezeit);
    
    NSNotificationCenter * nc=[NSNotificationCenter defaultCenter];
@@ -880,7 +880,7 @@ NSError *error = nil;
          [NSApp presentError:recordError];
       });
       [saveDic setObject:[NSNumber numberWithLong:aufnahmezeit] forKey:@"aufnahmezeit"];
-
+      
       [saveDic setObject:[NSNumber numberWithInt:0] forKey:@"recorderfolg"];
       NSAlert *Warnung = [[NSAlert alloc] init];
       [Warnung addButtonWithTitle:@"OK"];
@@ -900,7 +900,7 @@ NSError *error = nil;
    {
       [saveDic setObject:[NSNumber numberWithInt:1] forKey:@"recorderfolg"];
       [saveDic setObject:[NSNumber numberWithInt:aufnahmezeit] forKey:@"aufnahmezeit"];
-
+      
       // Move the recorded temporary file to a user-specified location
       //     NSSavePanel *savePanel = [NSSavePanel savePanel];
       //  [savePanel setAllowedFileTypes:[NSArray arrayWithObject:AVFileTypeQuickTimeMovie]];
@@ -912,7 +912,7 @@ NSError *error = nil;
       // tempOrdner fuer getrimmte tempAufnahme
       
       NSString* tempTrimmPfad =[tempDirPfad   stringByAppendingPathExtension:@"m4a"];
-    //  NSLog(@"tempTrimmPfad: %@",tempTrimmPfad);
+      //  NSLog(@"tempTrimmPfad: %@",tempTrimmPfad);
       NSURL* tempTrimmURL = [NSURL  fileURLWithPath:tempTrimmPfad];
       
       int cuterfolg = [self  cutFileAtURL:outputFileURL toURL:tempTrimmURL];
@@ -925,72 +925,72 @@ NSError *error = nil;
       
       return;
       /*
-      [[NSFileManager defaultManager] removeItemAtURL:[NSURL  fileURLWithPath:LeserPfad] error:nil]; // attempt to remove file at the desired save location before moving the recorded file to that location
-      
-      NSError *error = nil;
-      if ([[NSFileManager defaultManager] moveItemAtURL:tempTrimmURL toURL:[NSURL  fileURLWithPath:LeserPfad] error:&error]) // move OK
-      {
-         NSLog(@"move 1");
-         // Platz machen
-         [[NSFileManager defaultManager] removeItemAtURL:tempTrimmURL error:nil];
-         // Movie abspielen
-         //   [[NSWorkspace sharedWorkspace] openURL:[savePanel URL]];
-      }
-      else // Fehler mit move
-      {
-         NSAlert *Warnung = [[NSAlert alloc] init];
-         [Warnung addButtonWithTitle:@"OK"];
-         // [Warnung setMessageText:NSLocalizedString(@"No Marked Records",@"Keine markierten Aufnahmen")];
-         [Warnung setMessageText:@"Fehler beim Sichern der Aufnahmen: Keine markierten Aufnahmen."];
-         
-         [Warnung setAlertStyle:NSWarningAlertStyle];
-         
-         //[Warnung setIcon:RPImage];
-         int antwort=[Warnung runModal];
-         
-         NSLog(@"Fehler beim Sichern der Aufnahmen");
-         [[NSFileManager defaultManager] removeItemAtURL:tempTrimmURL error:nil];
-      }
-      return;
-      NSSavePanel *savePanel = [NSSavePanel savePanel];
-      
-      savePanel.allowedFileTypes = [NSArray arrayWithObjects:@"m4a",@"mov",nil];
-      [savePanel beginSheetModalForWindow:[self RecorderFenster] completionHandler:^(NSInteger result)
+       [[NSFileManager defaultManager] removeItemAtURL:[NSURL  fileURLWithPath:LeserPfad] error:nil]; // attempt to remove file at the desired save location before moving the recorded file to that location
+       
+       NSError *error = nil;
+       if ([[NSFileManager defaultManager] moveItemAtURL:tempTrimmURL toURL:[NSURL  fileURLWithPath:LeserPfad] error:&error]) // move OK
        {
-          NSLog(@"result: %ld",(long)result);
-          NSError *error = nil;
-          if (result == NSOKButton)
-          {
-             
-             NSLog(@"savePanel URL: %@",[savePanel URL]);
-             
-             [[NSFileManager defaultManager] removeItemAtURL:[savePanel URL] error:nil]; // attempt to remove file at the desired save location before moving the recorded file to that location
-             if ([[NSFileManager defaultManager] moveItemAtURL:tempTrimmURL toURL:[savePanel URL] error:&error])
-             {
-                NSLog(@"savePanel move 1");
-                // Platz machen
-                [[NSFileManager defaultManager] removeItemAtURL:tempTrimmURL error:nil];
-                // Movie abspielen
-                //   [[NSWorkspace sharedWorkspace] openURL:[savePanel URL]];
-             }
-             else
-                
-             {
-                NSLog(@"savePanel move 0");
-                [savePanel orderOut:self];
-                //[self presentError:error modalForWindow:[self RecorderFenster] delegate:self didPresentSelector:@selector(didPresentErrorWithRecovery:contextInfo:) contextInfo:NULL];
-             }
-          }
-          else
-          {
-             
-             // remove the temporary recording file if it's not being saved
-             [[NSFileManager defaultManager] removeItemAtURL:outputFileURL error:nil];
-             // getrimmte Aufnahme entfernen, sofern nicht gesichert
-             //            [[NSFileManager defaultManager] removeItemAtURL:[NSURL fileURLWithPath:tempAufnahmePfad] error:nil];
-          }
+       NSLog(@"move 1");
+       // Platz machen
+       [[NSFileManager defaultManager] removeItemAtURL:tempTrimmURL error:nil];
+       // Movie abspielen
+       //   [[NSWorkspace sharedWorkspace] openURL:[savePanel URL]];
+       }
+       else // Fehler mit move
+       {
+       NSAlert *Warnung = [[NSAlert alloc] init];
+       [Warnung addButtonWithTitle:@"OK"];
+       // [Warnung setMessageText:NSLocalizedString(@"No Marked Records",@"Keine markierten Aufnahmen")];
+       [Warnung setMessageText:@"Fehler beim Sichern der Aufnahmen: Keine markierten Aufnahmen."];
+       
+       [Warnung setAlertStyle:NSWarningAlertStyle];
+       
+       //[Warnung setIcon:RPImage];
+       int antwort=[Warnung runModal];
+       
+       NSLog(@"Fehler beim Sichern der Aufnahmen");
+       [[NSFileManager defaultManager] removeItemAtURL:tempTrimmURL error:nil];
+       }
+       return;
+       NSSavePanel *savePanel = [NSSavePanel savePanel];
+       
+       savePanel.allowedFileTypes = [NSArray arrayWithObjects:@"m4a",@"mov",nil];
+       [savePanel beginSheetModalForWindow:[self RecorderFenster] completionHandler:^(NSInteger result)
+       {
+       NSLog(@"result: %ld",(long)result);
+       NSError *error = nil;
+       if (result == NSOKButton)
+       {
+       
+       NSLog(@"savePanel URL: %@",[savePanel URL]);
+       
+       [[NSFileManager defaultManager] removeItemAtURL:[savePanel URL] error:nil]; // attempt to remove file at the desired save location before moving the recorded file to that location
+       if ([[NSFileManager defaultManager] moveItemAtURL:tempTrimmURL toURL:[savePanel URL] error:&error])
+       {
+       NSLog(@"savePanel move 1");
+       // Platz machen
+       [[NSFileManager defaultManager] removeItemAtURL:tempTrimmURL error:nil];
+       // Movie abspielen
+       //   [[NSWorkspace sharedWorkspace] openURL:[savePanel URL]];
+       }
+       else
+       
+       {
+       NSLog(@"savePanel move 0");
+       [savePanel orderOut:self];
+       //[self presentError:error modalForWindow:[self RecorderFenster] delegate:self didPresentSelector:@selector(didPresentErrorWithRecovery:contextInfo:) contextInfo:NULL];
+       }
+       }
+       else
+       {
+       
+       // remove the temporary recording file if it's not being saved
+       [[NSFileManager defaultManager] removeItemAtURL:outputFileURL error:nil];
+       // getrimmte Aufnahme entfernen, sofern nicht gesichert
+       //            [[NSFileManager defaultManager] removeItemAtURL:[NSURL fileURLWithPath:tempAufnahmePfad] error:nil];
+       }
        }];
-      */
+       */
    }
    //AVCaptureInput* input = [[self session].inputs objectAtIndex:0];
    //[[self session] removeInput:input];

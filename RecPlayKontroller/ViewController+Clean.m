@@ -486,6 +486,11 @@ enum
                         id eineAufnahme;
                         while(eineAufnahme=[AufnahmenEnum nextObject])
                         {
+                           NSString* testtitel =[self AufnahmeTitelVon:eineAufnahme];
+                           if ([testtitel length] < 4)
+                               {
+                                  NSLog(@"kurzer titel: %@",testtitel);
+                               }
                            if ([exportTitelArray containsObject:[self AufnahmeTitelVon:eineAufnahme]])
                            {
                               NSString* tempLeserAufnahmePfad=[tempNamenPfad stringByAppendingPathComponent:eineAufnahme];
@@ -593,7 +598,7 @@ enum
             
          }//while NamenEnum
          
-         //NSLog(@"Export Ergebnis*** ExportTitelPfadArray: %@",[ExportTitelPfadArray description]);
+         NSLog(@"Export Ergebnis*** ExportTitelPfadArray: %@",[ExportTitelPfadArray description]);
          if ([ExportTitelPfadArray count])
          {
             
@@ -1054,7 +1059,7 @@ enum
                  }//if (NamenWeg>0)
                  else
                  {
-                    //Titel zu tempName zuf√ºgen
+                    //Titel zu tempName zufuegen
                     [CleanTitelDicArray addObjectsFromArray:[self.CleanFenster TitelArray]];
                     NSEnumerator* TitelDicEnum=[TitelMitAnzahlArray objectEnumerator];
                     id einTitel;

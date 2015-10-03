@@ -215,6 +215,17 @@ Setzt die Variablen in Utils.m nach den Vorgaben der PList bei beginn des Progra
    return OrdnerNamenArray;
 }
 
+- (NSString*)pfadOhneExtension:(NSString*)pfad
+{
+   NSSet* extensionSet = [NSSet setWithObjects:@"m4a",@"mp3",@"txt",@"doc",nil];
+   if ([extensionSet containsObject:[pfad pathExtension]]) // verirrte extension oder punkt im titel
+   {
+      return [pfad stringByDeletingPathExtension];
+   }
+   return pfad;
+}
+
+
 
 - (NSArray*)LeseboxCompleteAnPfad:(NSString*)leseboxpfad
 {
@@ -239,6 +250,9 @@ Setzt die Variablen in Utils.m nach den Vorgaben der PList bei beginn des Progra
          // ProjektOrder im Archiv
          NSMutableArray* tempProjektOrdnerArray = (NSMutableArray*)[Filemanager contentsOfDirectoryAtPath:tempArchivPfad error: &err];
          [tempProjektOrdnerArray removeObject:@".DS_Store"];
+         
+         [tempProjektOrdnerArray removeObject:@"ConvertFile"]; // kann anscheinend be Fehlern im Recorder auftreten
+         
          //NSLog(@"LeseboxCompletetempProjektOrdnerArray: %@",tempProjektOrdnerArray);
          
          

@@ -286,7 +286,7 @@ DQ
                                                 <action selector="reportExport:" target="-2" id="268"/>
                                             </connections>
                                         </button>
-                                        <matrix verticalHuggingPriority="750" allowsEmptySelection="NO" autosizesCells="NO" id="280">
+                                        <matrix hidden="YES" verticalHuggingPriority="750" allowsEmptySelection="NO" autosizesCells="NO" id="280">
                                             <rect key="frame" x="12" y="25" width="215" height="38"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -312,7 +312,7 @@ DQ
                                                 <action selector="reportExportFormatOption:" target="-2" id="311"/>
                                             </connections>
                                         </matrix>
-                                        <textField verticalHuggingPriority="750" id="283">
+                                        <textField hidden="YES" verticalHuggingPriority="750" id="283">
                                             <rect key="frame" x="14" y="77" width="355" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Wie sollen die Aufnahmen exportiert werden?" id="326">
@@ -321,7 +321,7 @@ DQ
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <popUpButton verticalHuggingPriority="750" id="284">
+                                        <popUpButton hidden="YES" verticalHuggingPriority="750" id="284">
                                             <rect key="frame" x="126" y="22" width="128" height="21"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <popUpButtonCell key="cell" type="push" title=" " bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="clipping" enabled="NO" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="286" id="327">

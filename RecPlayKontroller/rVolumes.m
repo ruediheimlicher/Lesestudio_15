@@ -100,6 +100,7 @@
 }
 - (void) setLeseboxPfad:(NSString*)leseboxpfad
 {
+   [SuchenKnopf setKeyEquivalent:@"\r"];
    	[PfadFeld setStringValue:leseboxpfad];
 }
 
@@ -523,6 +524,9 @@
           [nc postNotificationName:@"VolumeWahl" object:self userInfo:LeseboxDic];
           [PfadFeld setStringValue:[[LeseboxDialog URL]path]];
           [AuswahlenKnopf setEnabled:YES];
+          [AuswahlenKnopf setKeyEquivalent:@"\r"];
+          [[self window]makeFirstResponder:AuswahlenKnopf];
+
        }
        
     }];

@@ -23,6 +23,11 @@ enum
 - (BOOL)Leseboxvorbereiten
 {
    
+   NSString* teststring = @"ES 1 30. Juni 2010.m4a";
+   
+   NSString* resultat = [self AufnahmeTitelVon:teststring];
+   NSLog(@"teststring: %@ resultat: %@",teststring,resultat);
+   
    self.istSystemVolume= ![Utils istAufExternemVolume];
    
    NSLog(@"Leseboxvorbereiten istSystemVolume: %d",self.istSystemVolume);
@@ -4325,6 +4330,7 @@ enum
       //NSLog(@"tempProjektNamenArray: %@",[tempProjektNamenArray description]);
       
       //index des Projekts
+      
       NSUInteger ProjektIndex=[tempProjektNamenArray indexOfObject:[self.ProjektPfad lastPathComponent]];
       NSLog(@"ProjektIndex: %ld",ProjektIndex);
       
@@ -4337,12 +4343,18 @@ enum
             NSDictionary* tempDic=[self.ProjektArray objectAtIndex:ProjektIndex];
             NSLog(@"tempDic: %@",[tempDic description]);
             //        [[self.ProjektArray objectAtIndex:ProjektIndex]setObject:tempTitelArray forKey:@"titelarray"];
-         }
+         
          // sichern in Projektarray und PList
          [self saveTitelListe:tempTitelArray inProjekt:[self.ProjektPfad lastPathComponent]];
         
          // ProjektArray update
          [[self.ProjektArray objectAtIndex:ProjektIndex]setObject:tempTitelArray forKey:@"titelarray"];
+         }
+         else{
+            
+            NSLog(@"Fehler in Titellisteaktion: ProjektPfad: %@",self.ProjektPfad);
+         }
+      
       } // if count
       else // Fixierung aufhebnen
       {

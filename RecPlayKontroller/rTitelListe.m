@@ -111,6 +111,20 @@ NSMutableDictionary* tempTitelDic=[[NSMutableDictionary alloc]initWithCapacity:0
 {
 	if ([[EingabeFeld stringValue]length])
 	{
+      if ([[EingabeFeld stringValue] rangeOfString:@"."].location < NSNotFound) // Punkt im Titel nicht zulaessig
+      {
+         NSAlert *Warnung = [[NSAlert alloc] init];
+         [Warnung addButtonWithTitle:@"OK"];
+         [Warnung setMessageText:@"Falsches Zeichen"];
+         [Warnung setInformativeText:@"Der Titel darf keine Punkte enthalten."];
+         [Warnung setAlertStyle:NSWarningAlertStyle];
+         [Warnung runModal];
+         [[self window]makeFirstResponder:EingabeFeld];
+         //[[self.view window]makeFirstResponder:self.TitelPop];
+         
+         return;
+      }
+
 		NSMutableDictionary* tempTitelDic=[[NSMutableDictionary alloc]initWithCapacity:0];
 		//[tempTitelDic setObject:@"Projekt" forKey:@"projekt"];
 		[tempTitelDic setObject:[NSNumber numberWithBool:YES] forKey:@"ok"];
@@ -134,6 +148,7 @@ NSMutableDictionary* tempTitelDic=[[NSMutableDictionary alloc]initWithCapacity:0
 		[TitelArray removeObjectAtIndex:tempZeile];
 		[EntfernenTaste setEnabled:[TitelArray count]];
 		[TitelTable reloadData];
+      [SchliessenTaste setEnabled:YES];
 	}
 }
 

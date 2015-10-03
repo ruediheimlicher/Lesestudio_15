@@ -161,7 +161,7 @@ if (dasItem<2)
 	long selZeile=[sender  selectedRow];
 	//aus: shouldSelectRow
 	NSNumber* ZeilenNummer;
-	ZeilenNummer=[NSNumber numberWithInt:selZeile];
+	ZeilenNummer=[NSNumber numberWithLong:selZeile];
 	NSMutableDictionary* CleanZeilenDic=[NSMutableDictionary dictionaryWithObject:ZeilenNummer forKey:@"ZeilenNummer"];
 	[CleanZeilenDic setObject:[NSNumber numberWithInt:NamenViewTag] forKey:@"Quelle"];
 	NSString* tempName=[[NamenArray objectAtIndex:selZeile]objectForKey:@"name"];
@@ -178,7 +178,7 @@ if (dasItem<2)
 		  }
 		else
 		  {
-			//NSLog(@"shouldSelectRow*** NamenIndexSetvor: %@",[NamenIndexSet description]);
+			//NSLog(@"NamenCheckAktion *** NamenIndexSetvor: %@",[NamenIndexSet description]);
 			if ([NamenIndexSet containsIndex:selZeile])
 			  {
 				[NamenIndexSet removeIndex:selZeile];//Name schon im Set: lšschen
@@ -1119,7 +1119,7 @@ NSLog(@"reportExportFormat: Format: %@",[sender titleOfSelectedItem]);
 
 - (BOOL)tableView:(NSTableView *)aTableView shouldSelectRow:(int)row
 {
-	//NSLog(@"Clean Delegate aTableView  shouldSelectRow: %d",row);
+	NSLog(@"Clean Delegate aTableView  shouldSelectRow: %d",row);
 	//NSString* name=@"name";
 	//NSString* titel=@"titel";
 	
@@ -1202,7 +1202,7 @@ NSLog(@"reportExportFormat: Format: %@",[sender titleOfSelectedItem]);
 
 - (void)tableView:(NSTableView *)tableView willDisplayCell:(id)cell forTableColumn:(NSTableColumn *)tableColumn row:(int)row
 {
-	//NSLog(@"AdminDS willDisplayCell Zeile: %d", row);
+	//NSLog(@"Clean willDisplayCell Zeile: %d", row);
 	if ([[tableColumn identifier] isEqualToString:@"name"])
 	{
 		NSColor * MarkFarbe=[NSColor redColor];

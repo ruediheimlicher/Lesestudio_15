@@ -559,6 +559,7 @@
    //   [self.Fortschritt setDoubleValue:(pos+1)/dur*max];
 }
 
+
 - (IBAction)saveRecord:(id)sender
 {
    [AVAbspielplayer invalTimer];
@@ -577,6 +578,7 @@
 //      [item setEnabled:YES];
    }
   
+   
 
    //NSLog(@"saveRecord tag: %ld Leser: %@ ",(long)[sender tag],self.Leser);
    
@@ -614,6 +616,21 @@
       return;
    }
    
+   //Titel checken auf '.'
+   NSString* checktitel =  [[self.TitelPop cell]stringValue];
+   if ([checktitel rangeOfString:@"."].location < NSNotFound) // Punkt im Titel nicht zulaessig
+   {
+      NSAlert *Warnung = [[NSAlert alloc] init];
+      [Warnung addButtonWithTitle:@"OK"];
+      [Warnung setMessageText:@"Falsches Zeichen"];
+      [Warnung setInformativeText:@"Der Titel darf keine Punkte enthalten."];
+      [Warnung setAlertStyle:NSWarningAlertStyle];
+      [Warnung runModal];
+      [[self.view window]makeFirstResponder:self.TitelPop];
+
+      return;
+   }
+
    [self.Abspieldauerfeld setStringValue:@""];
    [self.Zeitfeld setStringValue:@""];
    [Abspielanzeige setLevel:0];
@@ -702,7 +719,16 @@
          
          Leserinitialen=[Leserinitialen stringByAppendingString:tempNummerString];
          Leserinitialen=[Leserinitialen stringByAppendingString:@" "];
-         NSString* titel =  [[[self.TitelPop cell]stringValue]stringByDeletingPathExtension];
+         NSLog(@"Titelpop: %@",[[self.TitelPop cell]stringValue]);
+       
+         //NSString* titel =  [[[self.TitelPop cell]stringValue]stringByDeletingPathExtension];
+         NSString* titel =  [[self.TitelPop cell]stringValue];
+         NSSet* extensionSet = [NSSet setWithObjects:@"m4a",@"mp3",@"txt",@"doc",nil];
+         if ([extensionSet containsObject:[titel pathExtension]]) // verirrte extension oder punkt im titel
+         {
+            titel = [titel stringByDeletingPathExtension];
+         }
+            
          
          
          if (([titel length]==0)||([titel isEqualToString:@"neue Aufnahme"]))
@@ -738,6 +764,7 @@
          
          
          tempAufnahmePfad=[self.LeserPfad stringByAppendingPathComponent:[AufnahmeTitel stringByDeletingPathExtension]];//Pfad im Ordner in der Lesebox
+         
          
          //NSLog(@"saveRecord tempAufnahmePfad : %@", tempAufnahmePfad);
          //[Manager movePath: neueAufnahmePfad toPath:tempAufnahmePfad handler:NULL];
