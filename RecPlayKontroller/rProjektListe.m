@@ -263,7 +263,7 @@ vomStart=NO;
 - (IBAction)reportClose:(id)sender
 { 
 
-  NSLog(@"\n\nProjektliste reportClose: ProjektArray: %@",ProjektArray);
+  //NSLog(@"\n\nProjektliste reportClose: ProjektArray: %@",ProjektArray);
   NSMutableDictionary* NotificationDic=[[NSMutableDictionary alloc]initWithCapacity:0];
 
 	[NotificationDic setObject:ProjektArray forKey:@"projektarray"];//eventuell sind Aktivierungen geändert
@@ -470,7 +470,7 @@ vomStart=NO;
 
 - (void)setProjektListeArray:(NSArray*)derArray inProjekt:(NSString*)dasProjekt
 {
-   NSLog(@"Projektliste setProjektListeArray: derArray: %@ \ndasProjekt: %@",[derArray description],dasProjekt);
+   //NSLog(@"Projektliste setProjektListeArray: derArray: %@ \ndasProjekt: %@",[derArray description],dasProjekt);
    [[self window]setInitialFirstResponder:ProjektTable];
    
    //  [ProjektArray removeAllObjects];

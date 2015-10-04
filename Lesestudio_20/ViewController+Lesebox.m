@@ -783,7 +783,7 @@ enum
    //NSLog(@"showProjektListe");
    //[ProjektPanel showWindow:self];
   // NSLog(@"showProjektListe nach init:ProjektArray: %@  ",[self.ProjektArray description]);
-   NSLog(@"ViewController showProjektListe nach init:ProjektArray: %@  \nProjektPfad: %@",[self.ProjektArray description],self.ProjektPfad);
+   //NSLog(@"ViewController showProjektListe nach init:ProjektArray: %@  \nProjektPfad: %@",[self.ProjektArray description],self.ProjektPfad);
    
    NSMutableArray* tempProjektArray = ( NSMutableArray*)[Utils ProjektArrayAusPListAnPfad:self.LeseboxPfad];
    if ([tempProjektArray count]==0)
@@ -861,8 +861,17 @@ enum
 
 - (void)ProjektListeAktion:(NSNotification*)note
 {
+   /*
+    sendertag:
+    CancelTaste:	0
+    AuswahlenTaste: 	1
+    EntfernenTaste: 	2
+    SchliessenTaste: 	3
+    InListeTaste: 	5
+    */
+   
    //Note von Projektliste über neue Projekte und/oder Änderungen am bestehenden Projektarray
-   NSLog(@"*ProjektListeAktion startProjektarray bei Rueckkehr von Panel: %@",[[[note userInfo] objectForKey:@"projektarray"]description]);
+   //NSLog(@"*ProjektListeAktion startProjektarray bei Rueckkehr von Panel: %@",[[[note userInfo] objectForKey:@"projektarray"]description]);
    //ProjektArray
    NSMutableArray* tempProjektArray=[[[note userInfo] objectForKey:@"projektarray"]mutableCopy];
    //NSLog(@"\n****ProjektListeAktion projektarray: %@",[[[note userInfo] objectForKey:@"projektarray"]description]);
@@ -874,7 +883,7 @@ enum
    {
       self.ProjektPfad=[self.ArchivPfad stringByAppendingPathComponent:[[[note userInfo] objectForKey:@"projekt"]copy]];
    }
-  // NSLog(@"\n****   ProjektListeAktion Projektpfad: %@",self.ProjektPfad);
+   // NSLog(@"\n****   ProjektListeAktion Projektpfad: %@",self.ProjektPfad);
    NSString* tempProjekt =[[note userInfo] objectForKey:@"projekt"];
    NSArray* tempProjektNamenArray = [tempProjektArray valueForKey:@"projekt"];
    long projektindex = [[tempProjektArray valueForKey:@"projekt"]indexOfObject:tempProjekt];
@@ -882,7 +891,7 @@ enum
    {
       return;
    }
-       
+   
    NSMutableDictionary* tempProjektDic = (NSMutableDictionary*)[tempProjektArray objectAtIndex:projektindex];
    
    int titelfix = [[[tempProjektArray objectAtIndex:projektindex] objectForKey:@"fix"]intValue];
@@ -896,7 +905,7 @@ enum
       // von anderesProjekteinrichten
       if ([tempProjektDic objectForKey:@"titelarray"]&&[[tempProjektDic objectForKey:@"titelarray"]count])
       {
-         NSLog(@"ProjektListeAktion Projekt: %@  Titelarray: %@",tempProjekt,[[tempProjektDic objectForKey:@"titelarray"] description]);
+         //NSLog(@"ProjektListeAktion Projekt: %@  Titelarray: %@",tempProjekt,[[tempProjektDic objectForKey:@"titelarray"] description]);
       }
       else //noch kein Eintrag im titelarray
       {
@@ -978,7 +987,7 @@ enum
             }//switch
          }//if titelfix
       }//noch keine Titelliste
-
+      
       
       //
    }
@@ -988,7 +997,7 @@ enum
       [self.titelfixcheck setImage:gruenerpunkt];
       
    }
-
+   
    if (tempProjektArray)
    {
       [self.ProjektArray setArray: tempProjektArray];
@@ -999,12 +1008,12 @@ enum
       [self savePListAktion:nil];
       
    }
-  
+   
    [self.TitelPop setEditable:!titelfix];//Nur wenn Titel editierbar
    [self.TitelPop setSelectable:!titelfix];
-
    
-
+   
+   
    
    
 }
@@ -1617,7 +1626,7 @@ enum
 
 - (BOOL)TitelListeValidAnPfad:(NSString*)derProjektPfad
 {
-   NSLog(@"projektarray: %@",self.ProjektArray);
+   //NSLog(@"TitelListeValidAnPfad projektarray: %@",self.ProjektArray);
    NSString* tempProjekt = [derProjektPfad lastPathComponent];
    long projektindex = [[self.ProjektArray valueForKey:@"projekt"] indexOfObject:tempProjekt];
    BOOL titellisteOK=NO;
@@ -4220,11 +4229,11 @@ enum
    {
       TitelListePanel=[[rTitelListe alloc]init];
    }
-   NSLog(@"showTitelliste Start  Projekt: %@: ProjektArray: %@",[self.ProjektPfad lastPathComponent],[self.ProjektArray description]);
+   //NSLog(@"showTitelliste Start  Projekt: %@: ProjektArray: %@",[self.ProjektPfad lastPathComponent],[self.ProjektArray description]);
    
    //ProjektArray aktualisieren mitneuen Werten aus aktueller PList
    [self.ProjektArray setArray:[Utils ProjektArrayAusPListAnPfad:self.LeseboxPfad]];
-   NSLog(@"showTitelListe: ProjektArray: %@",[self.ProjektArray description]);
+   //NSLog(@"showTitelListe: ProjektArray: %@",[self.ProjektArray description]);
    NSModalSession TitelSession=[NSApp beginModalSessionForWindow:[TitelListePanel window]];
    
    NSArray* tempProjektNamenArray;
@@ -4278,7 +4287,7 @@ enum
    {
       TitelListePanel=[[rTitelListe alloc]init];
    }
-   NSLog(@"showTitelliste Start  Projekt: %@: ProjektArray: %@",[self.ProjektPfad lastPathComponent],[self.ProjektArray description]);
+   //NSLog(@"showTitelliste Start  Projekt: %@: ProjektArray: %@",[self.ProjektPfad lastPathComponent],[self.ProjektArray description]);
    
    //ProjektArray aktualisieren mitneuen Werten aus aktueller PList
    [self.ProjektArray setArray:[Utils ProjektArrayAusPListAnPfad:self.LeseboxPfad]];

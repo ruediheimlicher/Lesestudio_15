@@ -4767,7 +4767,7 @@ if (!self.KommentarFenster)
       [self setProjektMenu];
       [ProjektPanel setNeuesProjekt];
       [ProjektPanel setProjektListeArray:self.ProjektArray inProjekt:neuesProjektName];
-      NSLog(@"\n\n                    +++++   neuesProjektAktion Schluss: ProjektArray: %@\n",[self.ProjektArray description]);
+      //NSLog(@"\n\n                    +++++   neuesProjektAktion Schluss: ProjektArray: %@\n",[self.ProjektArray description]);
       
       [self saveNeuesProjekt:neuesProjektDic];
       //*      [AdminPlayer setAdminProjektArray:ProjektArray];
