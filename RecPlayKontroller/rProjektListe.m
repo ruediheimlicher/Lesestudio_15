@@ -640,7 +640,7 @@ vomStart=derStatus;
 - (void)controlTextDidBeginEditing:(NSNotification *)aNotification
 {
 	//NSLog(@"controlTextDidBeginEditing: %@",[[[aNotification  userInfo]objectForKey:@"NSFieldEditor"]description]);
-	//[InListeTaste setKeyEquivalent:@"\r"];
+   
 	[EntfernenTaste setEnabled:NO];
 	[AuswahlenTaste setEnabled:NO];
 	[FixTaste setEnabled:YES];
@@ -652,6 +652,7 @@ vomStart=derStatus;
 	//[EingabeFeld selectText:NULL];
 	[InListeTaste setEnabled:YES];
 	[InListeTaste setKeyEquivalent:@"\r"];
+   [AuswahlenTaste setKeyEquivalent:@""];
 }
 #pragma mark -
 #pragma mark ProjectTable Data Source:
@@ -704,6 +705,7 @@ vomStart=derStatus;
    BOOL istAktiviert=[[[ProjektArray objectAtIndex:row]objectForKey:@"ok"]boolValue];
    //NSLog(@"istAktiviert: %d",istAktiviert);
    BOOL istProjektZeile=[tempProjektString isEqualToString:aktuellesProjekt];
+   [InListeTaste setKeyEquivalent:@""];
    if ([tableView numberOfSelectedRows]&&(!istProjektZeile))
    {
       [EntfernenTaste setEnabled:YES];
@@ -711,8 +713,8 @@ vomStart=derStatus;
       if (istAktiviert)
       {
          [AuswahlenTaste setEnabled:YES];
-         // [AuswahlenTaste setKeyEquivalent:@"\r"];
-         // [SchliessenTaste setKeyEquivalent:@""];
+          [AuswahlenTaste setKeyEquivalent:@"\r"];
+          [SchliessenTaste setKeyEquivalent:@""];
       }
       else
       {//Projekt nicht aktiviertns
@@ -720,7 +722,9 @@ vomStart=derStatus;
          {
             [AuswahlenTaste setEnabled:NO];
          }
-         //[SchliessenTaste setKeyEquivalent:@"\r"];
+         
+         [AuswahlenTaste setKeyEquivalent:@""];
+         [SchliessenTaste setKeyEquivalent:@"\r"];
          
       }
    }
@@ -728,7 +732,7 @@ vomStart=derStatus;
 			{//ist Projektzeile
             //			5.5.08	[AuswahlenTaste setEnabled:NO];
             [EntfernenTaste setEnabled:NO];
-            
+            [AuswahlenTaste setEnabled:NO];
             [AuswahlenTaste setKeyEquivalent:@""];
             [SchliessenTaste setKeyEquivalent:@"\r"];
             

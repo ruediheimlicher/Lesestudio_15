@@ -127,7 +127,7 @@
    //int erfolg=[[self RecPlayFenster]makeFirstResponder:[self RecPlayFenster]];
    
    
-   [[self.TitelPop cell] addItemWithObjectValue:[[[self.TitelPop cell]stringValue]stringByDeletingPathExtension]];
+   [[self.TitelPop cell] addItemWithObjectValue:[[[self.TitelPop cell]stringValue]pfadOhneExtension]];
    [[self.TitelPop cell] setEnabled:NO];
    self. Aufnahmedauer=0;
    
@@ -721,12 +721,12 @@
          Leserinitialen=[Leserinitialen stringByAppendingString:@" "];
          NSLog(@"Titelpop: %@",[[self.TitelPop cell]stringValue]);
        
-         //NSString* titel =  [[[self.TitelPop cell]stringValue]stringByDeletingPathExtension];
+         //NSString* titel =  [[[self.TitelPop cell]stringValue]pfadOhneExtension];
          NSString* titel =  [[self.TitelPop cell]stringValue];
          NSSet* extensionSet = [NSSet setWithObjects:@"m4a",@"mp3",@"txt",@"doc",nil];
          if ([extensionSet containsObject:[titel pathExtension]]) // verirrte extension oder punkt im titel
          {
-            titel = [titel stringByDeletingPathExtension];
+            titel = [titel pfadOhneExtension];
          }
             
          
@@ -763,7 +763,7 @@
          }
          
          
-         //tempAufnahmePfad=[self.LeserPfad stringByAppendingPathComponent:[AufnahmeTitel stringByDeletingPathExtension]];//Pfad im Ordner in der Lesebox
+         //tempAufnahmePfad=[self.LeserPfad stringByAppendingPathComponent:[AufnahmeTitel pfadOhneExtension]];//Pfad im Ordner in der Lesebox
          tempAufnahmePfad=[self.LeserPfad stringByAppendingPathComponent:[Utils pfadOhneExtension:AufnahmeTitel]];//Pfad im Ordner in der Lesebox
          
          
@@ -787,7 +787,7 @@
             {
             //   [self updateProjektArray];
               // [self.ArchivDaten resetArchivDaten];
-               [self.ArchivDaten insertAufnahmePfad:[AufnahmeTitel stringByDeletingPathExtension] forRow:0];
+               [self.ArchivDaten insertAufnahmePfad:[AufnahmeTitel pfadOhneExtension] forRow:0];
                
                [self.ArchivView reloadData];
                self.ArchivZeilenhit=NO;

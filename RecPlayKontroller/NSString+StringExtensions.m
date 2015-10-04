@@ -10,14 +10,15 @@
 
 @implementation NSString (StringExtensions)
 
-- (NSString*)pfadOhneExtension:(NSString*)pfad
+- (NSString*)pfadOhneExtension
 {
    NSSet* extensionSet = [NSSet setWithObjects:@"m4a",@"mp3",@"txt",@"doc",nil];
-   if ([extensionSet containsObject:[pfad pathExtension]]) // verirrte extension oder punkt im titel
+   if ([extensionSet containsObject:[self pathExtension]]) // verirrte extension oder punkt im titel
    {
-      return [pfad stringByDeletingPathExtension];
+      return [self stringByDeletingPathExtension];
    }
-   return pfad;
+   return self;
 }
+
 
 @end

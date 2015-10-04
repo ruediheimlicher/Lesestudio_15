@@ -9,5 +9,5 @@
 #import <Foundation/Foundation.h>
 
 @interface NSString (StringExtensions)
-- (NSString*)pfadOhneExtension:(NSString*)pfad;
+- (NSString*)pfadOhneExtension;
 @end
