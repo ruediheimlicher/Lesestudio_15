@@ -253,7 +253,7 @@
 	[UserTable setEnabled:YES];
 	
 
-	int erfolg=[[self window]makeFirstResponder:UserTable];
+//	int erfolg=[[self window]makeFirstResponder:UserTable];
 
 	//[AuswahlenKnopf setEnabled:YES];
 	[AuswahlenKnopf setKeyEquivalent:@"\r"];
@@ -525,7 +525,7 @@
           [PfadFeld setStringValue:[[LeseboxDialog URL]path]];
           [AuswahlenKnopf setEnabled:YES];
           [AuswahlenKnopf setKeyEquivalent:@"\r"];
-          [[self window]makeFirstResponder:AuswahlenKnopf];
+         // [[self window]makeFirstResponder:AuswahlenKnopf];
 
        }
        

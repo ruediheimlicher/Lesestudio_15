@@ -28,6 +28,8 @@
 
 #import "rTestfensterController.h"
 
+#import "NSString+StringExtensions.h"
+
 @protocol ExportProgressWindowControllerDelegate;
 @class AVAssetExportSession;
 

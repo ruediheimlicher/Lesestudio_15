@@ -2117,6 +2117,15 @@ enum
       //NSLog(@"beginAdminPlayer: Projektarray neu");
       
    }
+   if (self.ProjektArray && [self.ProjektArray count])
+   {
+      // Alles OK
+   }
+   else
+   {
+      NSLog(@"beginAdminPlayer: Projektarray neu anlegen");
+      self.ProjektArray = [Utils ProjektArrayAusPListAnPfad:self.LeseboxPfad];
+   }
    
    NSLog(@"beginAdminPlayer: Projektarray LAST object: %@",[[self.ProjektArray lastObject]description]);
 

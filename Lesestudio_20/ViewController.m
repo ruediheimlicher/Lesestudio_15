@@ -3115,7 +3115,9 @@ QTMovie* qtMovie;
          NSString* tempAufnahme =[TitelArray objectAtIndex:k];
          if ([tempAufnahme rangeOfString:@"m4a"].location <NSNotFound)
          {
-            [TitelArray replaceObjectAtIndex:k withObject:[tempAufnahme stringByDeletingPathExtension]];
+            tempAufnahme = [tempAufnahme pfadOhneExtension:tempAufnahme];
+            [TitelArray replaceObjectAtIndex:k withObject:tempAufnahme ];
+            //[TitelArray replaceObjectAtIndex:k withObject:[tempAufnahme stringByDeletingPathExtension]];
          }
          
          //if([[TitelArray objectAtIndex:k] isEqualToString:@"Anmerkungen"])
