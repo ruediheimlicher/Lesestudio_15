@@ -26,8 +26,8 @@
    // [NSApp stopModalWithCode:1];
 	long var=[[EntfernenVariante selectedCell]tag];
 	//NSLog(@"OKSheet:  stopModalWithCode tag: %d",var);
-	NSNumber* VariantenNummer=[NSNumber numberWithLong:var];
-	NSMutableDictionary* VariantenDic=[NSMutableDictionary dictionaryWithObject:VariantenNummer forKey:@"EntfernenVariante"];
+	//NSNumber* VariantenNummer=[NSNumber numberWithLong:var];
+	//NSMutableDictionary* VariantenDic=[NSMutableDictionary dictionaryWithObject:VariantenNummer forKey:@"EntfernenVariante"];
 	//NSNotificationCenter* nc=[NSNotificationCenter defaultCenter];
 	//[nc postNotificationName:@"EntfernenOption" object:self userInfo:VariantenDic];
    [NSApp stopModalWithCode:var];

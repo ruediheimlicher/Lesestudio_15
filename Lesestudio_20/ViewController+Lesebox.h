@@ -8,9 +8,4 @@
 
 #import "ViewController.h"
 
-@interface ViewController (Lesebox)
-{
-   
-}
 
-@end

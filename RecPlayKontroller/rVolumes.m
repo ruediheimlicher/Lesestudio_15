@@ -268,7 +268,7 @@
 	NSEnumerator* UserEnum=[UserArray reverseObjectEnumerator];
 	id einUserDic;
 	BOOL keineLesebox=YES;//noch kein User mit Lesebox gefunden
-	int LeseboxIndex=[UserArray count];//letzte zeile
+	int LeseboxIndex=(int)[UserArray count];//letzte zeile
 	while((einUserDic=[UserEnum nextObject])&&keineLesebox)
 	{
 		//NSLog(@"einUserDic: %@",[einUserDic description]);
@@ -800,7 +800,7 @@ NSLog(@"VolumepfadAktion note: %@",[[note userInfo]description]);
 		[ComputerName replaceOccurrencesOfString:@"." withString:@"-" options:NSLiteralSearch range:NSMakeRange(0, [ComputerName length])];
 		[ComputerName replaceOccurrencesOfString:@" " withString:@"-" options:NSLiteralSearch range:NSMakeRange(0, [ComputerName length])];
 		NSArray* MV=[[NSWorkspace sharedWorkspace]mountedLocalVolumePaths];
-		int AnzUser=[MV count];
+		//int AnzUser=[MV count];
 		//NSLog(@"MV: %@  Anzahl: %d",[MV description], AnzUser);
 		BOOL istOK=NO;
 		NSString* afpString=@"afp://";

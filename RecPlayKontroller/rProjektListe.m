@@ -88,7 +88,7 @@ BOOL istAktiviert=[[[ProjektArray objectAtIndex:z]objectForKey:@"ok"]boolValue];
 [EntfernenTaste setEnabled:!(istProjektZeile)];
 [[ProjektArray objectAtIndex:z]setObject:[NSNumber numberWithBool:!istAktiviert] forKey:@"ok"];
 [ProjektTable reloadData];
-NSLog(@"okAktion: Zeile %d    istAktiviert: %d",z,istAktiviert);
+NSLog(@"okAktion: Zeile %f    istAktiviert: %d",z,istAktiviert);
 
 }
 
@@ -209,8 +209,8 @@ vomStart=NO;
 	  [Warnung setAlertStyle:NSWarningAlertStyle];
 	  
 	  //[Warnung setIcon:RPImage];
-	  int antwort=[Warnung runModal];
-	  NSNumber* EntfernenNumber=[NSNumber numberWithInt:antwort-1000];
+	  long antwort=[Warnung runModal];
+	  NSNumber* EntfernenNumber=[NSNumber numberWithInt:(int)antwort-1000];
 	  
 	  switch (antwort)
 	  {

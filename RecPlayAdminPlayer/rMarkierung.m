@@ -23,17 +23,21 @@
 
 - (void)setNamenString:(NSString*)derName
 {
-//	[NamenString setStringValue:derName];
+	[NamenString setStringValue:derName];
+   
 }
 - (IBAction)reportMarkierungVariante:(id)sender
 {
 	[NSApp stopModalWithCode:1];
-	int var=[[MarkierungVariante selectedCell]tag];
-	NSNumber* VariantenNummer=[NSNumber numberWithInt:var];
+	long var=[[MarkierungVariante selectedCell]tag];
+	NSNumber* VariantenNummer=[NSNumber numberWithLong:var];
 	NSMutableDictionary* VariantenDic=[NSMutableDictionary dictionaryWithObject:VariantenNummer forKey:@"MarkierungVariante"];
+   
 	NSNotificationCenter* nc=[NSNotificationCenter defaultCenter];
 	[nc postNotificationName:@"MarkierungOption" object:self userInfo:VariantenDic];
+   
 }
+
 - (IBAction)reportAbbrechen:(id)sender
 {
 	   [NSApp stopModalWithCode:0];

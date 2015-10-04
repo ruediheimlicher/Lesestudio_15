@@ -38,7 +38,7 @@
 	Level=derLevel;
 	
 	Level=Level/255.0*AnzFelder;
-	BOOL startDelay=NO;
+	//BOOL startDelay=NO;
 	BOOL startFix=NO;
 	
 	//Bedingung A

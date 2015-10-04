@@ -69,7 +69,7 @@
 
 - (int) anzVolumes
 {
-	return [ProjektArray count];
+	return (int)[ProjektArray count];
 }
 
 - (IBAction)neueZeile:(id)sender
@@ -81,7 +81,7 @@
 	[ProjektTable reloadData];
 	[[[ProjektTable tableColumnWithIdentifier:@"projekt"]dataCellForRow:0]setPlaceholderString:@"projekt"];
 	//NSString* s=[[ProjektTable tableColumnWithIdentifier:@"projekt"]dataCellForRow:0]selectAll:NULL];
-	int n=[ProjektTable columnWithIdentifier:@"projekt"];
+	//int n=[ProjektTable columnWithIdentifier:@"projekt"];
 	//NSLog(@"n: %d %@",n ,	s);
 	
 }
@@ -97,7 +97,7 @@
 
 - (IBAction)reportClose:(id)sender
 {
-	int ProjektIndex=[ProjektTable selectedRow];
+	long ProjektIndex=[ProjektTable selectedRow];
 	if (ProjektIndex>=0)
 	  {
 		NSString* ProjektString=[[ProjektArray objectAtIndex:ProjektIndex]objectForKey:@"projekt"];

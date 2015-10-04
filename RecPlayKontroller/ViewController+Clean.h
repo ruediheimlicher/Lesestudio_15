@@ -8,6 +8,3 @@
 
 #import "ViewController.h"
 
-@interface ViewController (Clean)
-
-@end

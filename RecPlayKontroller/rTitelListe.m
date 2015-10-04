@@ -263,7 +263,7 @@ return [einTitelDic objectForKey:[aTableColumn identifier]];
 - (void)tableView:(NSTableView *)aTableView 
    setObjectValue:(id)anObject 
    forTableColumn:(NSTableColumn *)aTableColumn 
-			  row:(int)rowIndex
+			  row:(long)rowIndex
 {
     NSMutableDictionary* einTitelDic;
     if (rowIndex<[TitelArray count])
@@ -274,21 +274,17 @@ return [einTitelDic objectForKey:[aTableColumn identifier]];
 	  }
 }
 
-- (BOOL)tableView:(NSTableView *)tableView shouldSelectRow:(int)row
+- (BOOL)tableView:(NSTableView *)tableView shouldSelectRow:(long)row
 {
-  //NSLog(@"shouldSelectRow");
-		//if(tableView ==[window firstResponder])
-  if ([tableView numberOfSelectedRows])
+   //NSLog(@"shouldSelectRow");
+   //if(tableView ==[window firstResponder])
+   if ([tableView numberOfSelectedRows])
 			{
-			[EinsetzenTaste setEnabled:NO];
-			[EntfernenTaste setEnabled:YES];
-			[SchliessenTaste setEnabled:YES];
-
-			}
-		  
-  
-  
-  return YES;
+            [EinsetzenTaste setEnabled:NO];
+            [EntfernenTaste setEnabled:YES];
+            [SchliessenTaste setEnabled:YES];
+         }
+   return YES;
 }
 
 

@@ -104,7 +104,7 @@ if ([[neuesPW1Feld stringValue]length]==0)
 		[Warnung addButtonWithTitle:@"Wiederholen"];
 		[Warnung addButtonWithTitle:@"Abbrechen"];
 		[Warnung setMessageText:@"Eingabefehler:"];
-		NSString* s=[NSString stringWithUTF8String:"Die zweite Eingabe stimmt nicht mit der ersten Ÿberein."];
+		NSString* s=[NSString stringWithUTF8String:"Die zweite Eingabe stimmt nicht mit der ersten ueberein."];
 		NSString* InformationString=[NSString stringWithFormat:@"%@",s];
 		[Warnung setInformativeText:InformationString];
 
@@ -314,8 +314,8 @@ return YES;
 
  -(BOOL)textShouldBeginEditing:(NSText *)textObject
  {
-	const char* PWChar=[[NameFeld stringValue] UTF8String];
-	NSData* neuesPWData=[NSData dataWithBytes:PWChar length:strlen(PWChar)];
+	//const char* PWChar=[[NameFeld stringValue] UTF8String];
+	//NSData* neuesPWData=[NSData dataWithBytes:PWChar length:strlen(PWChar)];
 	
 	//NSLog(@"**textShouldBeginEditing: neuesPWData: %@",neuesPWData);
 

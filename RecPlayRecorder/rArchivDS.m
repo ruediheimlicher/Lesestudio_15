@@ -86,7 +86,7 @@
 
 - (int)rowCount
 {
-    return [AufnahmeFiles count];
+    return (int)[AufnahmeFiles count];
 }
 
 #pragma mark -

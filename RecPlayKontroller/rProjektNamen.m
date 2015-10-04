@@ -44,7 +44,7 @@
 }
 - (int) anzVolumes
 {
-	return [OrdnerNamenArray count];
+	return (int)[OrdnerNamenArray count];
 }
 
 - (IBAction)reportCancel:(id)sender
@@ -61,7 +61,7 @@
 
 - (IBAction)reportKopieren:(id)sender
 {
-	int ProjektIndex=[ProjektOrdnerTable selectedRow];
+	int ProjektIndex=(int)[ProjektOrdnerTable selectedRow];
 	//NSLog(@"Projektnamen reportKopieren");
 	
 	if (ProjektIndex>=0)

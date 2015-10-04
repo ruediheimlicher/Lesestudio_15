@@ -6,7 +6,7 @@
 {
     IBOutlet id MarkierungVariante;
     IBOutlet id NamenString;
-	IBOutlet id TitelString;
+	IBOutlet NSTextField* TitelString;
 	IBOutlet id TextString;
 }
 - (void)setNamenString:(NSString*)derName;

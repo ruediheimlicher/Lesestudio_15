@@ -178,7 +178,7 @@ enum
             // nein: neuen Dic anlegen und einsetzen
             for (int titelindex = 0;titelindex < [TitelMitAnzahlArray count];titelindex++)
             {
-               NSDictionary* tempDic =[TitelMitAnzahlArray objectAtIndex:titelindex];
+               //NSDictionary* tempDic =[TitelMitAnzahlArray objectAtIndex:titelindex];
                long titelpos = [[CleanTitelDicArray valueForKey:@"titel"] indexOfObject:[[TitelMitAnzahlArray objectAtIndex:titelindex]objectForKey: @"titel"]];
                if (titelpos == NSNotFound )
                {
@@ -421,7 +421,7 @@ enum
       return;
    }
    
-   ExportFormatString=[NSString stringWithString: exportformatString];
+   ExportFormatString=(NSMutableString*)[NSString stringWithString: exportformatString];
    NSLog(@"Export: ExportFormatString: %@",[ExportFormatString description]);
    
    //[self ExportPrefsSchreiben];
@@ -667,7 +667,7 @@ enum
                      mitUserDialog:(BOOL)userDialogOK
 {
    OSErr err=0;
-   int anzAufnahmen = [derAufnahmenArray count];
+   int anzAufnahmen = (int)[derAufnahmenArray count];
    if ([derAufnahmenArray count]==0)
       return;
    NSMutableArray* fehlendeArray=[[NSMutableArray alloc]initWithCapacity:0];

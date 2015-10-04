@@ -941,7 +941,7 @@ return tempTitelArray;
 		NSAlert *Warnung = [[NSAlert alloc] init];
 		[Warnung addButtonWithTitle:@"OK"];
 		//[Warnung addButtonWithTitle:@"Cancel"];
-		[Warnung setMessageText:@"Fehler beim Lšschen:"];
+		[Warnung setMessageText:@"Fehler beim Loeschen:"];
 		[Warnung setInformativeText:FehlerString];
 		[Warnung setAlertStyle:NSWarningAlertStyle];
 		[Warnung runModal];

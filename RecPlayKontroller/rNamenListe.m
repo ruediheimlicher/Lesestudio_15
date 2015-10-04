@@ -77,9 +77,9 @@
 	[VornameFeld setToolTip:@"Vorname des neuen Lesers. Nur ein Wort, kein Leerschlag"];
 	[NameFeld setToolTip:@"Nachname des neuen Lesers. Nur ein Wort, kein Leerschlag"];
 	[ImportTaste setToolTip:@"NamenListe im Finder suchen"];
-   [EinsetzenVariante setToolTip:[NSString stringWithUTF8String:"Varianten für den Import neuer Namen."]];
+   [EinsetzenVariante setToolTip:[NSString stringWithUTF8String:"Varianten fuer den Import neuer Namen."]];
 	[NameInListeTaste setToolTip:@"Neue Namen in die Liste einsetzen."];
-	[UbernehmenTaste setToolTip:@"Neue Namen in die Liste übernehmen.\nDoppelte Namen werden ignoriert."];
+	[UbernehmenTaste setToolTip:@"Neue Namen in die Liste uebernehmen.\nDoppelte Namen werden ignoriert."];
    
    [NamenTab setDelegate:self];
 }
@@ -93,7 +93,7 @@
 	
 }
 
-- (int) anzNamen
+- (long) anzNamen
 {
 	return [NamenArray count];
 }

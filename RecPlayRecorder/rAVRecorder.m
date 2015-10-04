@@ -46,6 +46,8 @@
 
 @synthesize LeserPfad;
 
+
+
 - (void)setstartzeit:(double) t
 {
    startzeit = t;
@@ -889,7 +891,7 @@ NSError *error = nil;
       [Warnung setAlertStyle:NSWarningAlertStyle];
       
       //[Warnung setIcon:RPImage];
-      int antwort=[Warnung runModal];
+      [Warnung runModal];
       
       NSLog(@"Fehler beim Aufnehmen. Die Aufnahme wird entfernt.");
       [[NSFileManager defaultManager] removeItemAtURL:outputFileURL error:nil];

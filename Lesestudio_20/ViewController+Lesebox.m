@@ -84,7 +84,7 @@ enum
    //NSLog(@"Leseboxvorbereiten istSystemVolume: %d",self.istSystemVolume);
    NSLog(@"Leseboxvorbereiten vor Leseboxcomplete: LeseboxPfad: %@",self.LeseboxPfad);
    NSArray* checkArray = [Utils LeseboxCompleteAnPfad: self.LeseboxPfad];
-   NSLog(@"LeseboxComplete *%@*",checkArray);
+   //NSLog(@"LeseboxComplete *%@*",checkArray);
    
    self.LeseboxOK=[Utils LeseboxValidAnPfad:self.LeseboxPfad aufSystemVolume:self.istSystemVolume];//Lesebox checken, ev einrichten
    //NSLog(@"Leseboxvorbereiten nach LeseboxOK: LeseboxOK: %d  self.istSystemVolume: %d",self.LeseboxOK,self.istSystemVolume);
@@ -443,10 +443,10 @@ enum
       
       if ([self.PListDic objectForKey:@"leseboxpfad"])
       {
-         NSLog(@"Leseboxvorbereiten LeseboxPfad aus PList: %@",[self.PListDic objectForKey:@"leseboxpfad"]);
+         //NSLog(@"Leseboxvorbereiten LeseboxPfad aus PList: %@",[self.PListDic objectForKey:@"leseboxpfad"]);
          // [[NSString alloc] initWithData:theData encoding:NSUTF8StringEncoding];
-         NSString* tempPfad = [[NSString alloc ]initWithData:[self.PListDic objectForKey:@"leseboxpfad"] encoding:NSUTF8StringEncoding];
-         NSLog(@"Leseboxvorbereiten tempPfad: %@",tempPfad);
+         NSString* tempPListLeseboxPfad = [[NSString alloc ]initWithData:[self.PListDic objectForKey:@"leseboxpfad"] encoding:NSUTF8StringEncoding];
+         NSLog(@"Leseboxvorbereiten tempPListLeseboxPfad: %@",tempPListLeseboxPfad);
       }
 
       //NSLog(@"Leseboxvorbereiten ProjektArray aus PList: %@",[self.ProjektArray description]);
@@ -1459,7 +1459,7 @@ enum
             [tempProjektDic setObject:[tempPfad lastPathComponent] forKey:@"projekt"];
             NSArray* tempNamenArray=[Filemanager contentsOfDirectoryAtPath: tempPfad error:NULL];
             //NSLog(@"tempNamenArray: %@",[tempNamenArray description]);
-            int AnzNamen=[tempNamenArray count];
+            int AnzNamen= (int)[tempNamenArray count];
             if (AnzNamen)
             {
                if ([[tempNamenArray objectAtIndex:0] hasPrefix:@".DS"])
@@ -1895,7 +1895,7 @@ enum
    }
    
    
-   int modalAntwort = [NSApp runModalForWindow:[ProjektStartPanel window]];
+   int modalAntwort = (int)[NSApp runModalForWindow:[ProjektStartPanel window]];
    
    //NSLog(@"showProjektStart Antwort: %d",modalAntwort);
    
@@ -2155,7 +2155,7 @@ enum
    else
    {
       NSLog(@"beginAdminPlayer: Projektarray neu anlegen");
-      self.ProjektArray = [Utils ProjektArrayAusPListAnPfad:self.LeseboxPfad];
+      self.ProjektArray = (NSMutableArray*)[Utils ProjektArrayAusPListAnPfad:self.LeseboxPfad];
    }
    
    NSLog(@"beginAdminPlayer: Projektarray LAST object: %@",[[self.ProjektArray lastObject]description]);
@@ -2309,7 +2309,7 @@ enum
       
    }
    
-   int PopAnz=[self.ArchivnamenPop numberOfItems];
+   int PopAnz=(int)[self.ArchivnamenPop numberOfItems];
    //NSLog(@"ArchivnamenPop numberOfItems %d",PopAnz);
    
    if (PopAnz>1)//Alle ausser erstes Item entfernen (Name wählen)
@@ -3060,7 +3060,7 @@ enum
       [tempPListDic setObject:[NSNumber numberWithBool:self.mitUserPasswort] forKey:@"mituserpasswort"];
       [tempPListDic setObject:self.AdminPasswortDic forKey:@"adminpw"];
       [tempPListDic setObject:[NSNumber numberWithInt:(int)self.TimeoutDelay] forKey:@"timeoutdelay"];
-      [tempPListDic setObject:[NSNumber numberWithInt:self.KnackDelay] forKey:@"knackdelay"];
+      [tempPListDic setObject:[NSNumber numberWithLong:self.KnackDelay] forKey:@"knackdelay"];
       
       //const char* ch=[[self.ProjektPfad lastPathComponent] UTF8String];
       //NSData* d=[NSData dataWithBytes:ch length:strlen(ch)];
@@ -3551,7 +3551,7 @@ enum
          }
          else
          {
-            tempUserPWArray=[NSArray arrayWithObject:derPasswortDic];
+            tempUserPWArray=[NSMutableArray arrayWithObject:derPasswortDic];
          }
          [tempPListDic setObject:tempUserPWArray forKey:@"userpasswortarray"];
       }//if tempPListDic
@@ -3822,11 +3822,11 @@ enum
       [tempPListDic setObject:[NSNumber numberWithBool:self.mitUserPasswort] forKey:@"mituserpasswort"];
       [tempPListDic setObject:self.AdminPasswortDic forKey:@"adminpw"];
       [tempPListDic setObject:[NSNumber numberWithInt:(int)self.TimeoutDelay] forKey:@"timeoutdelay"];
-      [tempPListDic setObject:[NSNumber numberWithInt:self.KnackDelay] forKey:@"knackdelay"];
+      [tempPListDic setObject:[NSNumber numberWithInt:(int)self.KnackDelay] forKey:@"knackdelay"];
       
       
       
-      NSFileManager *Filemanager=[NSFileManager defaultManager];
+      //NSFileManager *Filemanager=[NSFileManager defaultManager];
       
       
       //NSLog(@"tempUserPfad: %@",tempUserPfad);
@@ -4218,7 +4218,7 @@ enum
    {
       [PasswortListePanel setPasswortArray:self.UserPasswortArray];
    }
-   int modalAntwort = [NSApp runModalForWindow:[PasswortListePanel window]];
+   long modalAntwort = [NSApp runModalForWindow:[PasswortListePanel window]];
    //NSLog(@"showPasswortliste Antwort: %d",modalAntwort);
    [NSApp endModalSession:PasswortSession];
    if (modalAntwort==1)//OK gedrückt
@@ -4278,7 +4278,7 @@ enum
       }//if [ProjektArray valueForKey:@"projekt"]
       
    }//if tempProjektNamenArray
-   int modalAntwort = [NSApp runModalForWindow:[TitelListePanel window]];
+  [NSApp runModalForWindow:[TitelListePanel window]];
    
    //Rückmeldung durch Notifikation
    
@@ -4337,7 +4337,7 @@ enum
       }//if [ProjektArray valueForKey:@"projekt"]
       
    }//if tempProjektNamenArray
-   int modalAntwort = [NSApp runModalForWindow:[TitelListePanel window]];
+   [NSApp runModalForWindow:[TitelListePanel window]];
    
    //Rückmeldung durch Notifikation
    
@@ -4420,5 +4420,6 @@ enum
    NSLog(@"AdminEntfernenNotificationAktion note: %@",[[note userInfo] description]);
    
 }
+
 
 @end

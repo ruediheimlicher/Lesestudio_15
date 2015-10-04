@@ -85,7 +85,7 @@
 			[Warnung addButtonWithTitle:@"OK"];
 			[Warnung setMessageText:@"Falsches Passwort"];
 			
-			NSString* s1=@"Es sind 3 Versuche mšglich";
+			NSString* s1=@"Es sind 3 Versuche erlaubt.";
 			NSString* s2=@"Das war Versuch ";
 			NSString* InformationString=[NSString stringWithFormat:@"%@\n%@ %d",s1,s2,PasswortFehler+1];
 			[Warnung setInformativeText:InformationString];

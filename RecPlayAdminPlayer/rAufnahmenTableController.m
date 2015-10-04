@@ -18,13 +18,13 @@
 
 - (IBAction)reportAuswahlOption:(id)sender;
 {
-NSLog(@"reportAuswahlOption: row: %d",[sender selectedRow]);
+NSLog(@"reportAuswahlOption: row: %ld",(long)[sender selectedRow]);
 [self setAufnahmenVonLeser:[LesernamenPop titleOfSelectedItem]];
 }
 
 - (IBAction)reportAufnahmenAuswahlOption:(id)sender;
 {
-   NSLog(@"reportAufnahmenAuswahlOption: row: %d",[sender selectedRow]);
+   NSLog(@"reportAufnahmenAuswahlOption: row: %ld",(long)[sender selectedRow]);
    
    [AdminDaten setAufnahmenMarkAuswahlOption:[sender selectedRow]];
    [NamenListe reloadData];
@@ -123,7 +123,7 @@ NSLog(@"tempName: %@",tempName);
 
 - (void)setUserMark:(BOOL)derStatus fuerZeile:(long)dieZeile
 {
-   NSLog(@"setUserMark zeile: %d",dieZeile);
+   NSLog(@"setUserMark zeile: %ld",dieZeile);
 	NSNumber* StatusNumber=[NSNumber numberWithBool:derStatus];
 	[[AufnahmenDicArray objectAtIndex:dieZeile]setObject:[StatusNumber stringValue] forKey:@"usermark"];
 	[AufnahmenTable reloadData];
@@ -231,7 +231,7 @@ NSLog(@"tempName: %@",tempName);
       if (inPopOK)
       {
          //[tempAufnahmenDic setObject:[NSNumber numberWithBool:UserMarkOK] forKey:@"usermark"];
-         [tempAufnahmenDic setObject:[NSNumber numberWithInt:[self AufnahmeNummerVon:eineAufnahme]] forKey:@"sort"];
+         [tempAufnahmenDic setObject:[NSNumber numberWithLong:[self AufnahmeNummerVon:eineAufnahme]] forKey:@"sort"];
          AufnahmeDa=YES;
          [tempAufnahmenDicArray addObject:tempAufnahmenDic];
          inPopOK=NO;

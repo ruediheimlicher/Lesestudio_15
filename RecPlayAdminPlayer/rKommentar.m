@@ -296,7 +296,7 @@ typedef NS_ENUM(NSInteger, A)
 	  {
         NSLog(@"alleKommentareZuTitel: Archiv ist leer");
         //NSString* ArchivLeerString=NSLocalizedString(@"There are no comments for this project",@"Für dieses Projekt hat es keine Anmerkungen");
-        NSString* ArchivLeerString=@"Für dieses Projekt hat es keine Anmerkungen";
+        NSString* ArchivLeerString=@"Fuer dieses Projekt hat es keine Anmerkungen";
         [alleKommentareArray addObject:ArchivLeerString];
      }
    
@@ -1488,7 +1488,7 @@ typedef NS_ENUM(NSInteger, A)
                         
                         if (zeile==1)//Titel
                         {
-                           tempString = [tempString stringByDeletingPathExtension];
+                           tempString = (NSMutableString*)[tempString stringByDeletingPathExtension];
                         }
                         if (zeile==5)//Anmerkungen
                         {
@@ -1846,8 +1846,8 @@ typedef NS_ENUM(NSInteger, A)
    //NSLog(@"*KommentarFenster  setKommentar* %@",derKommentarString);
    
    
-   NSString* TitelString=@"Anmerkungen vom ";
-   NSString* KopfString=[NSString stringWithFormat:@"%@  %@%@",TitelString,heuteDatumString,@"\r\r"];
+   //NSString* TitelString=@"Anmerkungen vom ";
+   NSString* KopfString=[NSString stringWithFormat:@"%@  %@%@",@"Anmerkungen vom ",heuteDatumString,@"\r\r"];
    
    //Font für Titelzeile
    NSFont* TitelFont;
@@ -2123,8 +2123,8 @@ typedef NS_ENUM(NSInteger, A)
    
    
    //NSString* TitelString=NSLocalizedString(@"Comments from ",@"Anmerkungen vom ");
-   NSString* TitelString=@"Anmerkungen vom ";
-   NSString* KopfString=[NSString stringWithFormat:@"%@  %@%@",TitelString,heuteDatumString,@"\r\r"];
+   //NSString* TitelString=@"Anmerkungen vom ";
+   NSString* KopfString=[NSString stringWithFormat:@"%@  %@%@",@"Anmerkungen vom ",heuteDatumString,@"\r\r"];
    
    //Font für Titelzeile
    NSFont* TitelFont;

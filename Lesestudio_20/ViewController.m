@@ -300,12 +300,13 @@ NSString*	RPDevicedatenKey=	@"RPDevicedaten";
           selector:@selector(RecordingAktion:)
               name:@"recording"
             object:nil];
-   
+
+   /*
    [nc addObserver:self
           selector:@selector(AbspielPosAktion:)
               name:@"abspielpos"
             object:nil];
-   
+   */
    
    [nc addObserver:self
           selector:@selector(ListeAktualisierenAktion:)
@@ -327,12 +328,12 @@ NSString*	RPDevicedatenKey=	@"RPDevicedaten";
           selector:@selector(NameIstEntferntAktion:)
               name:@"NameIstEntfernt"
             object:nil];
-   
+/*
    [nc addObserver:self
           selector:@selector(NameIstEingesetztAktion:)
               name:@"NameIstEingesetzt"
             object:nil];
-
+*/
    [nc addObserver:self
           selector:@selector(AdminEntfernenNotificationAktion:)
               name:@"adminentfernen"
@@ -357,6 +358,11 @@ NSString*	RPDevicedatenKey=	@"RPDevicedaten";
    [nc addObserver:self
           selector:@selector(ClearNotificationAktion:)//Taste "Löschen"
               name:@"Clear"
+            object:nil];
+
+   [nc addObserver:self
+          selector:@selector(MarkierungNotificationAktion:)//Fenster Markierung
+              name:@"MarkierungOption"
             object:nil];
 
    
@@ -4663,17 +4669,259 @@ if (!self.KommentarFenster)
 
 - (IBAction)MarkierungenWeg:(id)sender
 {
-   
-    [AdminPlayer MarkierungenEntfernen];
+    if ([self.ArchivnamenPop indexOfSelectedItem])
+   {
+      if (![self checkAdminZugang])
+      {
+         return;
+      }
+
+      [self MarkierungenEntfernenFuerLeser:[self.ArchivnamenPop titleOfSelectedItem]];
+   }
+   else
+   {
+      NSAlert *NamenWarnung = [[NSAlert alloc] init];
+      [NamenWarnung addButtonWithTitle:@"OK"];
+      //[RecorderWarnung addButtonWithTitle:@"Cancel"];
+      [NamenWarnung setMessageText:@"Kein Name"];
+      [NamenWarnung setInformativeText:@"Ein Name muss ausgewaehlt sein."];
+      [NamenWarnung setAlertStyle:NSWarningAlertStyle];
+      [NamenWarnung runModal];
+      return;
+      
+   }
 }
 
+- (void)MarkierungNotificationAktion:(NSNotification*)note
+{
+   int var=[[[note userInfo]objectForKey:@"MarkierungVariante"]intValue];
+   NSLog(@"MarkierungNotificationAktion  Variante: %d ",var);
+   switch (var)
+   {
+      case 0://Nur Leser
+      {
+         NSLog(@"MarkierungNotificationAktion Nur markierungen von einem Leser");
+         [self MarkierungEntfernenFuerLeser:[self.ArchivnamenPop titleOfSelectedItem]];
+         
+      }break;
+      case 1://alle
+      {
+         NSLog(@"MarkierungNotificationAktion alle  markierungen");
+         [self AlleMarkierungenEntfernen];
+      }break;
+   }//switch
+   
+}
+
+
+- (void)MarkierungEntfernenFuerLeser:(NSString*)leser
+{
+   //NSDictionary* tempZeilenDic=[AdminDaten dataForRow:dieZeile];
+   //NSLog(@"tempZeilenDic: %@",[tempZeilenDic description]);
+   
+   //NSString* tempName=[tempZeilenDic objectForKey:@"namen"];
+ //  int tempAnzahlAufnahmen=[[tempZeilenDic objectForKey:@"anz"]intValue];
+   
+   
+   //int x=[[[self.NamenListe tableColumnWithIdentifier:@"aufnahmen"]dataCellForRow:tempZeile]indexOfSelectedItem];
+   //NSLog(@"tempZeile: %d  tempItem: %d  x: %d",tempZeile,tempItem,x);
+   NSFileManager *Filemanager=[NSFileManager defaultManager];
+   NSString* tempLeserPfad=[self.ProjektPfad stringByAppendingPathComponent:leser];
+   NSLog(@"MarkierungEntfernenFuerZeile: tempLeserPfad: %@",tempLeserPfad);
+   
+   BOOL istOrdner=NO;
+   if ([Filemanager fileExistsAtPath:tempLeserPfad isDirectory:&istOrdner]&&istOrdner)//Ordner ist da
+   {
+      // Markierung in Anmerkungen loeschen
+      NSString* tempAnmerkungenPfad=[tempLeserPfad stringByAppendingPathComponent:@"Anmerkungen"];
+      if ([Filemanager fileExistsAtPath:tempAnmerkungenPfad isDirectory:&istOrdner]&&istOrdner)//Ordner ist da
+      {
+         NSLog(@"Anmerkungen sind da");
+         NSMutableArray* tempAnmerkungenArray=[[NSMutableArray alloc] initWithArray:[Filemanager contentsOfDirectoryAtPath:tempAnmerkungenPfad error:NULL]];
+         
+         if ([tempAnmerkungenArray count])
+         {
+               //[tempAnmerkungenArray removeObjectAtIndex:0];
+            
+                //[tempAnmerkungenArray removeObject:@"Anmerkungen"];// Ordner Kommentar entfernen
+            
+            
+            NSEnumerator* AnmerkungenEnum=[tempAnmerkungenArray objectEnumerator];
+            id eineAnmerkung;
+            while(eineAnmerkung=[AnmerkungenEnum nextObject])
+            {
+               NSString* tempAnmerkungPfad=[tempAnmerkungenPfad stringByAppendingPathComponent:eineAnmerkung];
+               if ([Filemanager fileExistsAtPath:tempAnmerkungPfad])
+               {
+                  
+                  NSLog(@"File exists: %@",tempAnmerkungPfad);
+                  [self saveAdminMarkFuerLeser:leser FuerAufnahme:eineAnmerkung
+                                  mitAdminMark:0];
+                  
+                  
+               }//file exists
+               
+            }//while
+         }//count
+         
+      }
+    }//Ordner ist da
+   else
+   {
+      NSLog(@"Kein Ordner da");	
+   }
+   
+}
+
+- (BOOL)saveAdminMarkFuerLeser:(NSString*) derLeser FuerAufnahme:(NSString*)dieAufnahme
+                  mitAdminMark:(long)dieAdminMark
+
+{
+   //NSLog(@"in saveAdminMarkFuerLeser Anfang Leser: %@ Aufnahme: %@ AdminMark: %d",derLeser,dieAufnahme,dieAdminMark);
+   
+   BOOL erfolg;
+   BOOL istDirectory;
+   NSFileManager *Filemanager=[NSFileManager defaultManager];
+   
+   NSString* tempLeser=[derLeser copy];
+   if ([tempLeser length]==0)
+   {
+      //NSLog(@"saveAdminMarkFuerLeser: Kein Leser");
+      return NO;
+   }
+   NSString* tempAufnahme;
+   tempAufnahme=[dieAufnahme copy];
+   //NSLog(@"\n");
+   NSString* tempAdminAufnahmePfad=[NSString stringWithString:self.ProjektPfad];
+   tempAdminAufnahmePfad=[tempAdminAufnahmePfad stringByAppendingPathComponent:tempLeser];
+   
+   NSString* KommentarOrdnerString=@"Anmerkungen";
+   NSString* tempAdminKommentarPfad=[[self.ProjektPfad copy] stringByAppendingPathComponent:tempLeser];
+   //NSLog(@"in saveAdminMarkFuerLeser tempAdminKommentarPfad: %@",tempAdminKommentarPfad);
+   if ([Filemanager fileExistsAtPath:tempAdminKommentarPfad isDirectory:&istDirectory])//Ordner des Lesers ist da
+   {
+      if (istDirectory)
+      {
+         tempAdminKommentarPfad=[tempAdminKommentarPfad stringByAppendingPathComponent:KommentarOrdnerString];
+         NSString* tempAnmerkungname = [[dieAufnahme stringByDeletingPathExtension]stringByAppendingPathExtension:@"txt"];
+         tempAdminKommentarPfad=[tempAdminKommentarPfad stringByAppendingPathComponent:tempAnmerkungname];
+         //NSLog(@"in saveAdminMarkFuerLeser tempAdminKommentarPfad: %@",tempAdminKommentarPfad);
+         if ([Filemanager fileExistsAtPath:tempAdminKommentarPfad])
+         {
+            NSString* tempKommentarString=[NSString stringWithContentsOfFile:tempAdminKommentarPfad encoding:NSMacOSRomanStringEncoding error:NULL];
+            NSMutableArray* tempKommentarArrary=(NSMutableArray *)[tempKommentarString componentsSeparatedByString:@"\r"];
+            //NSLog(@"tempKommentarArrary vor: %@",[tempKommentarArrary description]);
+            if (tempKommentarArrary &&[tempKommentarArrary count]>7)
+            {
+               NSNumber* AdminMarkNumber=[NSNumber numberWithLong:dieAdminMark];
+               //NSLog(@"saveMark		replaceObjectAtIndex1");
+               [tempKommentarArrary replaceObjectAtIndex:kAdminMark withObject:[AdminMarkNumber stringValue]];
+               //NSLog(@"tempKommentarArrary nach: %@ AdminMark:%d",[tempKommentarArrary description],[AdminMarkNumber intValue]);
+               
+               
+            }
+            NSString* newKommentarString=[tempKommentarArrary componentsJoinedByString:@"\r"];
+            //NSLog(@"newKommentarString: %@",newKommentarString);
+            [newKommentarString writeToFile:tempAdminKommentarPfad atomically:YES encoding:NSMacOSRomanStringEncoding error:NULL];
+         }//if Kommentar da
+         else
+         {
+            NSLog(@"Kein Kommentar an tempAdminKommentarPfad");
+         }
+         
+      }
+      else
+      {
+         NSLog(@"Kein Directory an tempAdminKommentarPfad");
+      }
+   }
+   else
+   {
+      NSLog(@"Kein Ordner an tempAdminKommentarPfad");
+   }
+   
+   return erfolg;
+   
+}
 
 - (IBAction)AlleMarkierungenWeg:(id)sender
 {
      [AdminPlayer AlleMarkierungenEntfernen];
 }
 
+- (void)MarkierungenEntfernenFuerLeser:(NSString*)leser
+{
+   if (!MarkierungFenster)
+   {
+      MarkierungFenster=[[rMarkierung alloc]init];
+   }
+   //	MarkierungSelektor=@selector(sheetDidEnd: returnCode: contextInfo:);
+   NSLog(@"MarkierungenWeg: Leser: %@",leser);
+   //[MarkierungFenster setNamenString:leser];
 
+   NSModalSession ProjektSession=[NSApp beginModalSessionForWindow:[MarkierungFenster window]];
+   [MarkierungFenster setNamenString:leser];
+   //[MarkierungFenster setNamenString:@"Globi"];
+
+ 
+   long modalAntwort = [NSApp runModalForWindow:[MarkierungFenster window]];
+   //[MarkierungFenster setNamenString:leser];
+   //Rückgabe wird von UKopierOrdnerWahlAktion gesetzt: -> UProjektName
+   //int modalAntwort = [NSApp runModalSession:ProjektSession];
+   NSLog(@"MarkierungenEntfernen Antwort: %ld",modalAntwort);
+   
+   
+   [NSApp endModalSession:ProjektSession];
+   
+   [NSApp endSheet:[MarkierungFenster window]];
+   
+   [[MarkierungFenster window] orderOut:NULL];
+   switch (modalAntwort)
+   {
+      case 0:
+      {
+         
+      }break;
+      case 1:
+      {
+         
+      }break;
+   }
+   NSLog(@"endSheet: Antwort: %ld",modalAntwort);
+}
+
+- (void)AlleMarkierungenEntfernen
+{
+   NSAlert *Warnung = [[NSAlert alloc] init];
+   [Warnung addButtonWithTitle:@"Markierungen entfernen"];
+   [Warnung addButtonWithTitle:@"Abbrechen"];
+   [Warnung setMessageText:@"Markierungen entfernen?"];
+   [Warnung setInformativeText:@"Sollen wirklich alle Markierungen von allen Lesern entfernt werden?"];
+   [Warnung setAlertStyle:NSWarningAlertStyle];
+   
+   NSModalResponse antwort = [Warnung runModal];
+   if (antwort==NSAlertFirstButtonReturn)
+   {
+      NSLog(@"alertDidEnd: NSAlertFirstButtonReturn");
+      [self Markierungenreset];
+      
+   }
+}
+
+- (void)Markierungenreset
+{
+   NSMutableArray* tempLesernamenArray = (NSMutableArray*)[self.ArchivnamenPop itemTitles];
+   NSLog(@"Markierungenreset tempLesernamenArray: %@",tempLesernamenArray );
+   //[tempLesernamenArray removeObject:@".DS_Store"];
+   [tempLesernamenArray removeObjectAtIndex:0];
+   int i;
+   
+   for (i=0;i<	[tempLesernamenArray count];i++)
+   {
+      [self MarkierungEntfernenFuerLeser:[tempLesernamenArray  objectAtIndex:i]];
+   }//for
+   
+}
 
 
 

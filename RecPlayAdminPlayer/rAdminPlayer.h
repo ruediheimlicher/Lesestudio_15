@@ -257,7 +257,7 @@
 
 
 
-- (IBAction)AufnahmeExportieren:(id)sender;
+//- (IBAction)AufnahmeExportieren:(id)sender;
 
 
 // Player

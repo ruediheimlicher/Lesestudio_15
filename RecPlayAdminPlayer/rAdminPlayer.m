@@ -157,11 +157,12 @@ const short kRecPlayUmgebung=0;
 			   name:@"ExportFormatDialog"
 			 object:nil];
 */
+   /*
 	[nc addObserver:self
 		   selector:@selector(MarkierungNotificationAktion:)//Fenster Markierung
 			   name:@"MarkierungOption"
 			 object:nil];
-	
+*/
 	[nc addObserver:self
 		   selector:@selector(AdminProjektListeAktion:)
 			   name:@"ProjektWahl"
@@ -318,7 +319,7 @@ const short kRecPlayUmgebung=0;
    [zurListeTaste setToolTip:@"Aktuelle Aufnahme aus dem Player entfernen."];
    [PlayTaste setToolTip:@"AusgewŠhlte Aufnahme in den Player verschieben."];
    [AdminNamenfeld setToolTip:@"Leser der aktuellen Aufnahme."];
-   [ProjektPop setToolTip:@"Liste der aktiven Projekte.\nKann im MenŸ 'Admin->Projektliste bearbeiten' bearbeitet werden."];
+   [ProjektPop setToolTip:@"Liste der aktiven Projekte.\nKann im Menu 'Admin->Projektliste bearbeiten' bearbeitet werden."];
    [AufnahmenTable setToolTip:@"Liste der Aufnahmen des ausgewŠhlten Lesers."];
    [LesernamenPop  setToolTip:@"Einen Leser im aktuellen Projekt auswŠhlen."];
    [DeleteTaste setToolTip:@"AusgewŠhlte Aufnahme an verschiedene Orte verschieben."];
@@ -2688,6 +2689,7 @@ const short kRecPlayUmgebung=0;
    {
       //NSLog(@"alertDidEnd: NSAlertFirstButtonReturn");
       [self Markierungenreset];
+ 
       
    }
 }
@@ -2813,7 +2815,7 @@ const short kRecPlayUmgebung=0;
          
          //RŸckgabe wird von UKopierOrdnerWahlAktion gesetzt: -> UProjektName
          //int modalAntwort = [NSApp runModalSession:ProjektSession];
-         NSLog(@"MarkierungenEntfernen Antwort: %d",modalAntwort);
+         NSLog(@"MarkierungenEntfernen Antwort: %ld",modalAntwort);
          [NSApp endModalSession:ProjektSession];
 
         
@@ -2906,7 +2908,7 @@ const short kRecPlayUmgebung=0;
    
    NSMutableArray* tempAufnahmeFilesArray = (NSMutableArray*)[AdminDaten AufnahmeFilesFuerZeile: zeile];
    long entfernenzeile = [tempAufnahmeFilesArray indexOfObject:AdminAktuelleAufnahme];
-   NSLog(@"AufnahmeLoeschen Daten auf Zeile: %d",entfernenzeile);
+   NSLog(@"AufnahmeLoeschen Daten auf Zeile: %ld",entfernenzeile);
    
   // return;
 	EntfernenFenster=[[rEntfernen alloc]init];
@@ -2955,7 +2957,7 @@ const short kRecPlayUmgebung=0;
    
  
    
-	NSLog(@"AufnahmeLoeschen: Antwort: %d",modalAntwort);
+	NSLog(@"AufnahmeLoeschen: Antwort: %ld",modalAntwort);
 	//NSLog(@"beginSheet: Antwort: %d",modalAntwort);
   //  [NSApp endSheet:[self.view window]];
    
@@ -4057,7 +4059,7 @@ const short kRecPlayUmgebung=0;
 	
 	if ([Quelle isEqualToString:@"AdminListe"])
 	  {
-		NSLog(@"(AdminEnterKeyNotifikationAktion  selektierteZeile): %d",selektierteZeile);
+		NSLog(@"(AdminEnterKeyNotifikationAktion  selektierteZeile): %f",selektierteZeile);
 		if (selektierteZeile>=0)
 		  {
 			if ([[AdminDaten AufnahmeFilesFuerZeile:selektierteZeile]count])
@@ -4316,12 +4318,12 @@ NSNumber* UmgebungNumber=[[note userInfo]objectForKey:@"Umgebung"];
 	}
 }
 
-- (void)showCleanFenster:(int)tab
+- (void)showCleanFenster:(long)tab
 {
 	NSLog(@"AdminPlayer showClean  AnzNamen: %ld",[AdminProjektNamenArray count]);
 	if (!CleanFenster)
 	  {
-		CleanFenster=[[rClean alloc]initWithRowCount:[AdminProjektNamenArray count]];
+		CleanFenster=[[rClean alloc]initWithRowCount:(int)[AdminProjektNamenArray count]];
 	}
 	
 	//NSLog(@"AdminPlayer showClean: tab: %d",tab);

@@ -369,13 +369,13 @@ return index;
       //[cell setTextAlignment:NSRightTextAlignment];
 		if ([[AufnahmeFiles objectAtIndex:row]count]) //Der Leser hat Aufnahmen
 		{
-         long col = 1;
+         //long col = 1;
          NSRect cellFeld = [tableView frameOfCellAtColumn:1 row:row];
 
 			NSImage* MarkOnImg=[NSImage imageNamed:@"MarkOnImg.tif"];
          NSImageView* MarkOnView = [[NSImageView alloc] initWithFrame:cellFeld];
          [MarkOnView setImage:MarkOnImg];
-			NSImage* MarkOffImg=[NSImage imageNamed:@"MarkOffImg.tif"];
+			//NSImage* MarkOffImg=[NSImage imageNamed:@"MarkOffImg.tif"];
 			//[MarkOnImg setBackgroundColor:[NSColor clearColor]];
 			//NSLog(@"MarkArrayvon Zeile %d : %@",row,[[MarkArray objectAtIndex:row] description]);
 			NSEnumerator* AufnahmenEnumerator=[[AufnahmeFiles objectAtIndex:row] objectEnumerator];
@@ -390,7 +390,7 @@ return index;
                inPopOK=NO;
             }
 
-            double menuIndex=[cell indexOfItemWithTitle:eineAufnahme];
+            //double menuIndex=[cell indexOfItemWithTitle:eineAufnahme];
             //NSLog(@"eineAufnahme: %@ index: %d  menuIndex: %d",eineAufnahme,index,menuIndex);
             BOOL tempState=NO;
             if ([[MarkArray objectAtIndex:row]count])

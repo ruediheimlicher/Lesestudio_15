@@ -8,8 +8,3 @@
 
 #import "ViewController.h"
 
-@interface ViewController (AVRecorder)
-
-
-
-@end

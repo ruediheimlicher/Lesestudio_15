@@ -206,7 +206,7 @@ Setzt die Variablen in Utils.m nach den Vorgaben der PList bei beginn des Progra
       }];
       while(unterordnerurl = [orderenum nextObject])
       {
-         NSLog(@"unterordner: %@",[[unterordnerurl path]lastPathComponent]);
+         //NSLog(@"unterordner: %@",[[unterordnerurl path]lastPathComponent]);
          [OrdnerNamenArray addObject:[[unterordnerurl path]lastPathComponent]];
       }
       //NSLog(@"OrdnerNamenArray: %@",OrdnerNamenArray);
@@ -2351,6 +2351,8 @@ return versionOK;
 	NSLog(@"ProjektordnerEinrichten end");
 	return OrdnereinrichtenOK;
 }
+
+
   
   - (void)UKopierOrdnerWahlAktion:(NSNotification*)note
 {

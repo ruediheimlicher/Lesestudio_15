@@ -42,7 +42,7 @@
 
 - (IBAction)reportBearbeiten:(id)sender
 {
-NSLog(@"reportBearbeiten: state: %d",[sender state]);
+NSLog(@"reportBearbeiten: state: %ld",(long)[sender state]);
 if ([sender state])
 {
 [BearbeitenTaste setTitle:@"Passwort sichern"];

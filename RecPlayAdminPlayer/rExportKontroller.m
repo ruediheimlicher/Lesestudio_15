@@ -364,7 +364,7 @@ NSString*	RPExportformatKey;
 
 - (OSErr)getExportEinstellungen
 {
-	NSFileManager *Filemanager=[NSFileManager defaultManager];
+	//NSFileManager *Filemanager=[NSFileManager defaultManager];
 	OSErr err=0;
 	NSLog(@"getExportEinstellungen");
 
@@ -372,7 +372,7 @@ NSString*	RPExportformatKey;
 }
 
 
-- (IBAction) AufnahmeExportieren:(id)sender
+- (IBAction)AufnahmeExportieren:(id)sender
 {
 
 	OSErr erfolg=0;
@@ -571,7 +571,7 @@ NSString*	RPExportformatKey;
 		return;
 	}
 	
-	ExportFormatString=[NSString stringWithString: exportformatString];
+	ExportFormatString=(NSMutableString*)[NSString stringWithString: exportformatString];
 	NSLog(@"Export: ExportFormatString: %@",[ExportFormatString description]);
 	
 	//[self ExportPrefsSchreiben];

@@ -47,7 +47,7 @@
       rPasswortListe*						PasswortListePanel;
    rTitelListe*                     TitelListePanel;
    rAVRecorder*                     AVRecorder;
-   
+   rMarkierung*               MarkierungFenster;
    
    IBOutlet NSWindow*              RecorderFenster;
    IBOutlet rAbspielanzeige*			Abspielanzeige;
@@ -373,6 +373,7 @@
 
 - (void)showTitelListeInProjekt:(NSString*)zielprojekt;
 
+- (void)MarkierungenEntfernenFuerLeser:(NSString*)leser;
 @end // Lesebox
 
 // Category AVRecorder

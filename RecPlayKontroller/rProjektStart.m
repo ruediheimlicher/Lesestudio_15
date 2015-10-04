@@ -44,7 +44,7 @@ extern const int StartmitDialog;//=2;
 	[LesestudioString setTextColor: RecPlayFarbe];
 	
 	[StartString setTextColor: RecPlayFarbe];
-	NSFont* Startfont=[NSFont fontWithName:@"Helvetica" size: 18];
+	//NSFont* Startfont=[NSFont fontWithName:@"Helvetica" size: 18];
 	[StartString setFont: RecPlayfont];
 	
 	NSFont* Titelfont;
@@ -251,7 +251,7 @@ extern const int StartmitDialog;//=2;
    {
       NSMutableDictionary* BeendenDic=[[NSMutableDictionary alloc]initWithCapacity:0];
       [BeendenDic setObject:[NSNumber numberWithInt:1] forKey:@"beenden"];
-      NSNotificationCenter* nc=[NSNotificationCenter defaultCenter];
+      //NSNotificationCenter* nc=[NSNotificationCenter defaultCenter];
       //8.11.06	[nc postNotificationName:@"externbeenden" object:self userInfo:BeendenDic];
    }
 }
@@ -265,14 +265,14 @@ extern const int StartmitDialog;//=2;
 	{
 		//NSLog(@"ProjektStartPanel setProjektArray:ProjektArray vor: %@",[ProjektArray description]);
       
-      NSEnumerator* ProjektEnum=[derProjektArray objectEnumerator];
+      //NSEnumerator* ProjektEnum=[derProjektArray objectEnumerator];
       id einProjektDic;
       int i=0;
       for (i=0;i<[derProjektArray count];i++)
          //while(einProjektDic=[ProjektEnum nextObject])
       {
          einProjektDic = [derProjektArray objectAtIndex:i];
-         NSString* tempProjektString=[einProjektDic objectForKey:@"projekt"];
+       //  NSString* tempProjektString=[einProjektDic objectForKey:@"projekt"];
          //NSLog(@"setProjektArray: tempProjektString: %@",tempProjektString);
          if ([einProjektDic objectForKey:@"projekt"])
             if ([[einProjektDic objectForKey:@"projekt"]length])
