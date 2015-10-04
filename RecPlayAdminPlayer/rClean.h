@@ -13,6 +13,8 @@
     IBOutlet id EntfernenVariante;
     IBOutlet id NamenView;
     IBOutlet id TextString;
+   IBOutlet id PfadFeld;
+
     IBOutlet id TitelPop;
     IBOutlet id TitelString;
     IBOutlet id alleTitelKlickCheck;
@@ -58,6 +60,7 @@
 //- (void)setAuswahlOption:(int)dieOption;
 - (void)setClean:(NSDictionary*)dieSettings;
 - (void)setTaskTab:(int)dasItem;
+- (void)setProjektPfad:(NSString*)projektPfad;
 - (long)numberOfRowsInTableView:(NSTableView *)aTableView;
 - (void)setData: (NSDictionary *)someData forRow: (int)rowIndex;
 - (id)tableView:(NSTableView *)aTableView objectValueForTableColumn:(NSTableColumn *)aTableColumn row:(long)rowIndex;

@@ -763,7 +763,8 @@
          }
          
          
-         tempAufnahmePfad=[self.LeserPfad stringByAppendingPathComponent:[AufnahmeTitel stringByDeletingPathExtension]];//Pfad im Ordner in der Lesebox
+         //tempAufnahmePfad=[self.LeserPfad stringByAppendingPathComponent:[AufnahmeTitel stringByDeletingPathExtension]];//Pfad im Ordner in der Lesebox
+         tempAufnahmePfad=[self.LeserPfad stringByAppendingPathComponent:[Utils pfadOhneExtension:AufnahmeTitel]];//Pfad im Ordner in der Lesebox
          
          
          //NSLog(@"saveRecord tempAufnahmePfad : %@", tempAufnahmePfad);

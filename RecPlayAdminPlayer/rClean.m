@@ -136,13 +136,19 @@ enum
 
 - (void)setTaskTab:(int)dasItem
 {
-//NSLog(@"Clean setTaskTab: Item: %d",dasItem);
-if (dasItem<2)
-{
-[TaskTabSeite selectTabViewItemAtIndex:dasItem];
+   //NSLog(@"Clean setTaskTab: Item: %d",dasItem);
+   if (dasItem<2)
+   {
+      [TaskTabSeite selectTabViewItemAtIndex:dasItem];
+   }
+   
+   //[TaskTabSeite selectTabViewItemWithIdentifier:[NSNumber numberWithInt:dasItem]];
 }
 
-//[TaskTabSeite selectTabViewItemWithIdentifier:[NSNumber numberWithInt:dasItem]];
+- (void)setProjektPfad:(NSString*)projektPfad
+{
+   //NSLog(@"Clean setTaskTab: Item: %d",dasItem);
+   [PfadFeld setStringValue:[projektPfad lastPathComponent]];
 }
 
 
@@ -151,6 +157,7 @@ if (dasItem<2)
 	NSString* lastFormat=[dieSettings objectForKey:@"exportformat"];
 	[ExportFormatPop selectItemWithTitle:lastFormat];
 }
+
 
 -(IBAction)NamenCheckAktion:(id)sender
 {

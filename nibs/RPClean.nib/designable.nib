@@ -17,6 +17,7 @@
                 <outlet property="ExportFormatVariante" destination="280" id="294"/>
                 <outlet property="ExportVariante" destination="224" id="293"/>
                 <outlet property="NamenView" destination="245" id="250"/>
+                <outlet property="PfadFeld" destination="p5B-zJ-dwN" id="lLm-BG-jYK"/>
                 <outlet property="TaskTabSeite" destination="161" id="317"/>
                 <outlet property="TitelString" destination="43" id="60"/>
                 <outlet property="TitelView" destination="240" id="251"/>
@@ -527,6 +528,24 @@ DQ
                         <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </box>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="TBG-9g-HuL">
+                        <rect key="frame" x="104" y="555" width="105" height="24"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Projekt:" id="bM0-13-na3">
+                            <font key="font" size="18" name=".HelveticaNeueDeskInterface-Regular"/>
+                            <color key="textColor" red="0.12027172735949214" green="0.072759272220355359" blue="0.50828729281767959" alpha="0.84999999999999998" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField verticalHuggingPriority="750" id="p5B-zJ-dwN">
+                        <rect key="frame" x="223" y="553" width="374" height="26"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" id="HyA-b7-b6M">
+                            <font key="font" size="18" name=".HelveticaNeueDeskInterface-Regular"/>
+                            <color key="textColor" red="0.039632718507619055" green="0.024043624237051413" blue="0.44326225828729282" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
                 </subviews>
             </view>
             <connections>

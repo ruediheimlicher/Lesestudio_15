@@ -4620,6 +4620,8 @@ if (!self.KommentarFenster)
                                                                       forKey:@"exportformat"];
    [self.CleanFenster setClean:SettingDic];
    
+   [self.CleanFenster setProjektPfad:self.ProjektPfad];
+   
    [self.CleanFenster setNamenArray:self.ProjektNamenArray];
    
    //    [AdminPlayer setCleanTask:0];
