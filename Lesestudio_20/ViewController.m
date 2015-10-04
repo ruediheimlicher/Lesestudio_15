@@ -777,6 +777,7 @@ NSString*	RPDevicedatenKey=	@"RPDevicedaten";
    NSLog(@"viewDidLoad end");
    [[self.view window] display];
    //NSLog(@"MenuItem: Modus: %@",[[appMenu itemWithTitle:@"Admin"]title]);
+
 }
 
 

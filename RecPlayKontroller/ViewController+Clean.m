@@ -162,7 +162,7 @@ enum
          //Array mit den Aufnahmen in der Lesebox für den Leser tempName
          
          [TitelMitAnzahlArray addObjectsFromArray:[self TitelMitAnzahlArrayVon:tempName]];//Titel mit Anzahl von tempName:  'titel', 'anzahl'
-         //
+         // In CleanTitelDicArray einfuegen, sofern noch nicht vorhanden
          if ([TitelMitAnzahlArray count])
          {
             //Titel zu tempName zufuegen
@@ -1406,6 +1406,7 @@ enum
                              NSEnumerator* DeleteEnum=[tempDeleteTitelArray objectEnumerator];
                              id eineDeleteAufnahme;
                              int i=0;
+                             // neuste Aufnahmen behalten
                              while(eineDeleteAufnahme=[DeleteEnum nextObject])
                              {
                                 if (i>=anzahlBehalten)//Anzahl zu behaltende Aufnahmen
@@ -1482,6 +1483,8 @@ enum
               NSArray* tempNamenArray=[self.CleanFenster NamenArray];//Namen der Leser
               [self.CleanFenster TitelListeLeeren];
               //NSLog(@"Clean tempNamenArray: %@",[tempNamenArray description]);
+              
+              NSMutableArray* CleanTitelDicArray=[[NSMutableArray alloc]initWithCapacity:0];
               NSEnumerator* NamenResetEnum=[tempNamenArray objectEnumerator];
               id einName;
               while (einName=[NamenResetEnum nextObject])
@@ -1491,7 +1494,7 @@ enum
                     //NSLog(@"Clean NamenResetEnum: einName objectForKey:@"name" : %@",[[einName objectForKey:@"name"] description]);
                     NSString* tempName=[einName objectForKey:@"name"];
                     //[self setCleanTitelVonLeser:[einName objectForKey:@"name"]];
-                    NSMutableArray* CleanTitelDicArray=[[NSMutableArray alloc]initWithCapacity:0];
+            //        NSMutableArray* CleanTitelDicArray=[[NSMutableArray alloc]initWithCapacity:0];
                     //						NSLog(@"\n\n-----------------------------Clean");//leerer Array für schon vorhandenen TitelDics in Clean
                     NSMutableArray* neueTitelArray=[[NSMutableArray alloc]initWithCapacity:0]; //Kontrollarray nur mit Titeln
                     NSMutableArray* TitelMitAnzahlArray=[[NSMutableArray alloc]initWithCapacity:0];
@@ -1624,15 +1627,25 @@ enum
                        
                        
                     }//if TitelArray count
+                    
+                    /*
                     if([CleanTitelDicArray count])
                     {
                        //NSLog(@"CleanTitelDicArray neu: %@",[CleanTitelDicArray description]);
                        [self.CleanFenster setTitelArray:CleanTitelDicArray];
                     }//if
-                    
+                    */
                  }//Auswahl=1
                  
-              }
+              } // while einName
+              
+              if([CleanTitelDicArray count])
+              {
+                 //NSLog(@"CleanTitelDicArray neu: %@",[CleanTitelDicArray description]);
+                 [self.CleanFenster setTitelArray:CleanTitelDicArray];
+              }//if
+              
+              
            }
            //else
            //{

@@ -10,4 +10,5 @@
 
 @interface NSString (StringExtensions)
 - (NSString*)pfadOhneExtension;
+- (NSString*)extensionVonPfad;
 @end

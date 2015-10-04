@@ -313,7 +313,8 @@ Setzt die Variablen in Utils.m nach den Vorgaben der PList bei beginn des Progra
 
                   NSMutableArray* tempLeserOrdnerArray = (NSMutableArray*)[Filemanager contentsOfDirectoryAtPath:tempProjektPfad error: &err];
                   [tempLeserOrdnerArray removeObject:@".DS_Store"];
-                  
+                  [tempLeserOrdnerArray removeObject:@"ConvertFile"]; // kann anscheinend be Fehlern im Recorder auftreten
+                  [Filemanager removeItemAtURL:[NSURL fileURLWithPath:[tempProjektPfad stringByAppendingPathComponent:@"ConvertFile"]] error: &err];
                   
                   //NSLog(@"tempLeserOrdnerArray: %@",tempLeserOrdnerArray);
                   long anzLeser = [tempLeserOrdnerArray count];
@@ -329,6 +330,9 @@ Setzt die Variablen in Utils.m nach den Vorgaben der PList bei beginn des Progra
                         {
                            NSMutableArray* tempAufnahmenArray = (NSMutableArray*)[Filemanager contentsOfDirectoryAtPath:tempLeserPfad error: &err];
                            [tempAufnahmenArray removeObject:@".DS_Store"];
+                           [tempAufnahmenArray removeObject:@"ConvertFile"]; // kann anscheinend bei Fehlern im Recorder auftreten
+                           [Filemanager removeItemAtURL:[NSURL fileURLWithPath:[tempLeserPfad stringByAppendingPathComponent:@"ConvertFile"]] error: &err];
+
                            long anzAufnahmen = [tempAufnahmenArray count];
                            // Anmerkungenordner da?
                            NSString* tempAnmerkungenPfad = [tempLeserPfad stringByAppendingPathComponent:@"Anmerkungen"];
@@ -349,7 +353,9 @@ Setzt die Variablen in Utils.m nach den Vorgaben der PList bei beginn des Progra
                            
                            
                            [tempAnmerkungArray removeObject:@".DS_Store"];
-                           
+                           [tempAnmerkungArray removeObject:@"ConvertFile.txt"]; // kann anscheinend be Fehlern im Recorder auftreten
+                           [Filemanager removeItemAtURL:[NSURL fileURLWithPath:[tempAnmerkungenPfad stringByAppendingPathComponent:@"ConvertFile.txt"]] error: &err];
+                         
                            // Liste der Namen der Anmerkungen
                            NSArray* anmerkungliste = (NSArray*)tempAnmerkungArray;
                            [tempAufnahmenArray removeObject:@"Anmerkungen"];
@@ -2676,7 +2682,12 @@ return versionOK;
 	if (magazinOK)//Ordner 'Magazin' ist da
 	{
       NSLog(@"Ordner 'Magazin' ist da");
+      
+      
+      
 		NSString* tempMagazinNamenPfad=[[tempNamenPfad lastPathComponent]stringByAppendingString:@"_mag"];
+      
+      
 		NSString* tempZielPfad=[tempMagazinPfad stringByAppendingPathComponent:tempMagazinNamenPfad];
       NSLog(@"tempZielPfad: %@",tempZielPfad);
       [Filemanager removeItemAtURL:[NSURL fileURLWithPath:tempZielPfad] error:&err];//Eventuell schon vorhandenen Ordner löschen

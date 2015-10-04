@@ -22,11 +22,25 @@ enum
 
 - (BOOL)Leseboxvorbereiten
 {
+   /*
+   NSString* teststring1 = @"FB 5 alpha.m4a";
+   NSString* result1 = [teststring1 extensionVonPfad];
+   NSLog(@"teststring1: %@ result1: %@",teststring1,result1);
+   NSString* teststring2 = @"FB .5 alpha.m4a";
+   NSString* result2 = [teststring2 extensionVonPfad];
+   NSLog(@"teststring2: %@ result2: %@",teststring2,result2);
+   NSString* teststring3 = @"FB. .5. alpha.m4a";
+   NSString* result3 = [teststring3 extensionVonPfad];
+   NSLog(@"teststring3: %@ result3: %@",teststring3,result3);
+*/
    
    NSString* teststring = @"ES 1 30. Juni 2010.m4a";
    
    NSString* resultat = [self AufnahmeTitelVon:teststring];
-   NSLog(@"teststring: %@ resultat: %@",teststring,resultat);
+   
+   //NSLog(@"teststring: %@ resultat: %@",teststring,resultat);
+   
+   
    
    self.istSystemVolume= ![Utils istAufExternemVolume];
    
