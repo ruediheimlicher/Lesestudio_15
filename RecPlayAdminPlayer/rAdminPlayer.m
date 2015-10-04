@@ -2344,7 +2344,7 @@ const short kRecPlayUmgebung=0;
 
 - (IBAction)backAVPlay:(id)sender
 {
-   NSLog(@"backAVPlay");
+   NSLog(@"//");
    [AVAbspielplayer toStartTempAufnahme];
    
    //[self.BackKnopf setEnabled:NO];
@@ -2353,7 +2353,7 @@ const short kRecPlayUmgebung=0;
 
 - (IBAction)rewindAVPlay:(id)sender
 {
-   NSLog(@"backAVPlay");
+   //NSLog(@"rewindAVPlay");
    [AVAbspielplayer rewindTempAufnahme];
   // [self.BackKnopf setEnabled:NO];
    [self.StopPlayKnopf setEnabled:YES];
@@ -2361,7 +2361,7 @@ const short kRecPlayUmgebung=0;
 
 - (IBAction)forewardAVPlay:(id)sender
 {
-   NSLog(@"backAVPlay");
+  // NSLog(@"forewardAVPlay");
    [AVAbspielplayer forewardTempAufnahme];
    //[self.BackKnopf setEnabled:NO];
    [self.StopPlayKnopf setEnabled:YES];

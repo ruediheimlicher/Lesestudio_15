@@ -318,7 +318,7 @@
 
 - (IBAction)backAVPlay:(id)sender
 {
-   NSLog(@"backAVPlay");
+   //NSLog(@"backAVPlay");
    [AVAbspielplayer toStartTempAufnahme];
    [self.SichernKnopf setEnabled:YES];
    [self.BackKnopf setEnabled:NO];
@@ -329,7 +329,7 @@
 
 - (IBAction)rewindAVPlay:(id)sender
 {
-   NSLog(@"backAVPlay");
+   //NSLog(@"rewindAVPlay");
    [AVAbspielplayer rewindTempAufnahme];
    //[self.BackKnopf setEnabled:NO];
    [self.StopPlayKnopf setEnabled:YES];
@@ -338,7 +338,7 @@
 
 - (IBAction)forewardAVPlay:(id)sender
 {
-   NSLog(@"backAVPlay");
+   //NSLog(@"forewardAVPlay");
    [AVAbspielplayer forewardTempAufnahme];
    //[self.BackKnopf setEnabled:NO];
    [self.StopPlayKnopf setEnabled:YES];

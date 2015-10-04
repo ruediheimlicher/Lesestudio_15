@@ -168,7 +168,7 @@ vomStart=NO;
 			[NotificationDic setObject:[[neuesProjektDic objectForKey:@"projekt"]copy] forKey:@"neuesprojekt"];
 			[neuesProjektDic setObject:[NSNumber numberWithInt:0]forKey:@"definitiv"];//zurŸcksetzen
 		}
-			
+      [NotificationDic setObject:[NSNumber numberWithLong:[sender tag]] forKey:@"sender"];
 	}//if ProjektIndex
 	
 	[EingabeFeld setStringValue:@""];
@@ -189,10 +189,10 @@ vomStart=NO;
 {
   double ProjektIndex=[ProjektTable selectedRow];
   
-  NSLog(@"reportEntfernen");
+  //NSLog(@"reportEntfernen");
   if ([ProjektTable selectedRow]>=0)
   {
-	  NSString* ProjektEntfernenString=[[ProjektArray objectAtIndex:ProjektIndex]objectForKey:@"projekt"];//Name des neuen Projekts
+	  NSString* ProjektEntfernenString=[[ProjektArray objectAtIndex:ProjektIndex]objectForKey:@"projekt"];//Name des zu entfernenden Projekts
 	  NSLog(@"reportEntfernen ProjektEntfernenString: %@",ProjektEntfernenString);
 	  NSAlert *Warnung = [[NSAlert alloc] init];
 	  NSString* s3=@"Was soll mit dem  Projektordner %@ geschehen?";
@@ -242,11 +242,12 @@ vomStart=NO;
 			  
 			  [NotificationDic setObject:ProjektEntfernenString forKey: @"projekt"];
 			  [NotificationDic setObject:EntfernenNumber forKey: @"wohin"];
+           [NotificationDic setObject:[NSNumber numberWithLong:[sender tag]] forKey:@"sender"];
 			  NSNotificationCenter* nc=[NSNotificationCenter defaultCenter];
 			  [nc postNotificationName:@"ProjektEntfernen" object:self userInfo:NotificationDic];
 			  
 		  }break;
-		  case NSAlertThirdButtonReturn+1://ex		
+		  case NSAlertThirdButtonReturn+1://cancel
 		  {
 			  NSLog(@"Cancel");
 		  }break;
@@ -262,7 +263,7 @@ vomStart=NO;
 - (IBAction)reportClose:(id)sender
 { 
 
-  NSLog(@"\n\nProjektliste reportClose: ProjektArray: %@",[ProjektArray description]);
+  NSLog(@"\n\nProjektliste reportClose: ProjektArray: %@",ProjektArray);
   NSMutableDictionary* NotificationDic=[[NSMutableDictionary alloc]initWithCapacity:0];
 
 	[NotificationDic setObject:ProjektArray forKey:@"projektarray"];//eventuell sind Aktivierungen geŠndert
@@ -287,7 +288,13 @@ vomStart=NO;
 		}
 			
 	}//if ProjektIndex
-
+   else
+   {
+      [NotificationDic setObject:aktuellesProjekt forKey: @"projekt"];
+    
+   }
+   [NotificationDic setObject:[NSNumber numberWithLong:[sender tag]] forKey:@"sender"];
+   
 //	[NotificationDic setObject:neueProjekteArray forKey:@"neueprojektearray"];
 
 	NSNotificationCenter* nc=[NSNotificationCenter defaultCenter];
@@ -324,7 +331,7 @@ vomStart=NO;
      [NotificationDic setObject:neuesProjektDic forKey:@"neuesprojektdic"];
      NSLog(@"***\n   ProjektListe reportNeuesProjekt");
      NSLog(@"neuesProjektDic: %@",[neuesProjektDic description]);
-     
+     [NotificationDic setObject:[NSNumber numberWithLong:[sender tag]] forKey:@"sender"];
      NSNotificationCenter* nc=[NSNotificationCenter defaultCenter];
      [nc postNotificationName:@"neuesProjekt" object:self userInfo:NotificationDic];
      //Bearbeitung in RecPlayController -> neuesProjektAktion
@@ -694,51 +701,56 @@ vomStart=derStatus;
          fixchanged=YES;
          
       }
+      
 	}
 }
 
 - (BOOL)tableView:(NSTableView *)tableView shouldSelectRow:(int)row
 {
-   //NSLog(@"shouldSelectRow");
+   NSLog(@"shouldSelectRow aktuellesProjekt: %@",aktuellesProjekt);
    //if(tableView ==[window firstResponder])
    NSString* tempProjektString=[[ProjektArray objectAtIndex:row]objectForKey:@"projekt"];
    BOOL istAktiviert=[[[ProjektArray objectAtIndex:row]objectForKey:@"ok"]boolValue];
    //NSLog(@"istAktiviert: %d",istAktiviert);
    BOOL istProjektZeile=[tempProjektString isEqualToString:aktuellesProjekt];
    [InListeTaste setKeyEquivalent:@""];
-   if ([tableView numberOfSelectedRows]&&(!istProjektZeile))
+   
+   
+//   if ([tableView numberOfSelectedRows])
    {
-      [EntfernenTaste setEnabled:YES];
-      //[SchliessenTaste setEnabled:YES];
-      if (istAktiviert)
+      if (!istProjektZeile)
       {
-         [AuswahlenTaste setEnabled:YES];
-          [AuswahlenTaste setKeyEquivalent:@"\r"];
-          [SchliessenTaste setKeyEquivalent:@""];
-      }
-      else
-      {//Projekt nicht aktiviertns
-         if (!vomStart)
+         [EntfernenTaste setEnabled:YES];
+         //[SchliessenTaste setEnabled:YES];
+         if (istAktiviert)
          {
-            [AuswahlenTaste setEnabled:NO];
+            [AuswahlenTaste setEnabled:YES];
+            [AuswahlenTaste setKeyEquivalent:@"\r"];
+            [SchliessenTaste setKeyEquivalent:@""];
          }
-         
-         [AuswahlenTaste setKeyEquivalent:@""];
-         [SchliessenTaste setKeyEquivalent:@"\r"];
-         
-      }
-   }
-   else
-			{//ist Projektzeile
-            //			5.5.08	[AuswahlenTaste setEnabled:NO];
-            [EntfernenTaste setEnabled:NO];
-            [AuswahlenTaste setEnabled:NO];
+         else
+         {//Projekt nicht aktiviertns
+            if (!vomStart)
+            {
+               [AuswahlenTaste setEnabled:NO];
+            }
+            
             [AuswahlenTaste setKeyEquivalent:@""];
             [SchliessenTaste setKeyEquivalent:@"\r"];
             
          }
-   
-   
+      }
+      else
+      {//ist Projektzeile
+         //			5.5.08	[AuswahlenTaste setEnabled:NO];
+         [EntfernenTaste setEnabled:NO];
+         [AuswahlenTaste setEnabled:NO];
+         [AuswahlenTaste setKeyEquivalent:@""];
+         [SchliessenTaste setKeyEquivalent:@"\r"];
+         
+      }
+      
+   }
    
    return YES;
 }

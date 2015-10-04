@@ -802,7 +802,7 @@ enum
    
    if ([self.ProjektArray count])
    {
-      [ProjektPanel  setProjektListeArray:self.ProjektArray  inProjekt:[self.ProjektPfad lastPathComponent]];
+      [ProjektPanel  setProjektListeArray:self.ProjektArray  inProjekt:[self.ProjektFeld stringValue]];
    }
    else
    {
@@ -834,7 +834,7 @@ enum
    
    if ([self.ProjektArray count])
 	  {
-        [ProjektPanel  setProjektListeArray:self.ProjektArray  inProjekt:[self.ProjektPfad lastPathComponent]];
+        [ProjektPanel  setProjektListeArray:self.ProjektArray  inProjekt:[self.ProjektFeld stringValue]];
      }
    else
 	  {
@@ -862,12 +862,18 @@ enum
 - (void)ProjektListeAktion:(NSNotification*)note
 {
    //Note von Projektliste über neue Projekte und/oder Änderungen am bestehenden Projektarray
-   NSLog(@"*ProjektListeAktion startProjektarray aus Panel: %@",[[[note userInfo] objectForKey:@"projektarray"]description]);
+   NSLog(@"*ProjektListeAktion startProjektarray bei Rueckkehr von Panel: %@",[[[note userInfo] objectForKey:@"projektarray"]description]);
    //ProjektArray
    NSMutableArray* tempProjektArray=[[[note userInfo] objectForKey:@"projektarray"]mutableCopy];
    //NSLog(@"\n****ProjektListeAktion projektarray: %@",[[[note userInfo] objectForKey:@"projektarray"]description]);
    //NSLog(@"****      ProjektListeAktion ArchivPfad: %@      tempProjektArray cont: %lu",self.ArchivPfad,(unsigned long)[tempProjektArray count]);
-   self.ProjektPfad=[self.ArchivPfad stringByAppendingPathComponent:[[[note userInfo] objectForKey:@"projekt"]copy]];
+   long sendertag = [[[note userInfo] objectForKey:@"sender"]longValue];
+   
+   //if (sendertag ==
+   if ([[note userInfo] objectForKey:@"projekt"]) //
+   {
+      self.ProjektPfad=[self.ArchivPfad stringByAppendingPathComponent:[[[note userInfo] objectForKey:@"projekt"]copy]];
+   }
   // NSLog(@"\n****   ProjektListeAktion Projektpfad: %@",self.ProjektPfad);
    NSString* tempProjekt =[[note userInfo] objectForKey:@"projekt"];
    NSArray* tempProjektNamenArray = [tempProjektArray valueForKey:@"projekt"];
@@ -876,7 +882,9 @@ enum
    {
       return;
    }
+       
    NSMutableDictionary* tempProjektDic = (NSMutableDictionary*)[tempProjektArray objectAtIndex:projektindex];
+   
    int titelfix = [[[tempProjektArray objectAtIndex:projektindex] objectForKey:@"fix"]intValue];
    
    BOOL TitelEditOK = !titelfix; // im aktuellen Projekt die Einstellungen anpassen (- >Schluss der routine)

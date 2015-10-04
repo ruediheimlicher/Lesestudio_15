@@ -1164,7 +1164,7 @@ return YES;
    //NSLog(@"ArchivZurListe");
    self.ArchivPlayerGeladen=NO;
    NSFileManager *Filemanager=[NSFileManager defaultManager];
-   NSLog(@"ArchivZurListe: ArchivKommentarPfad: %@",self.ArchivKommentarPfad);
+   //NSLog(@"ArchivZurListe: ArchivKommentarPfad: %@",self.ArchivKommentarPfad);
    if ([Filemanager fileExistsAtPath:[self.ArchivKommentarPfad stringByAppendingPathExtension:@"txt"]])
 			{
             //NSLog(@"vor saveUserMarkFuerAufnahmePfad: UserMarkCheckbox: %d",[UserMarkCheckbox state]);
@@ -3435,7 +3435,7 @@ QTMovie* qtMovie;
    [Utils stopTimeout];
    if (self.AdminZugangOK || [self checkAdminZugang])
    {
-      NSLog(@"switchAdminPlayer ok");
+      //NSLog(@"switchAdminPlayer ok");
    //   [[self.ModusMenu itemWithTag:kRecPlayTag]setEnabled:YES];
       [self beginAdminPlayer:nil];
       
