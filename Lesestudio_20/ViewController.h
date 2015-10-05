@@ -16,6 +16,7 @@
 #import "rLevelmeter.h"
 //#import "rEinstellungen.h"
 #import "rProjektListe.h"
+#import "rProjektExport.h"
 
 #import "rUtils.h"
 
@@ -47,9 +48,9 @@
       rPasswortListe*						PasswortListePanel;
    rTitelListe*                     TitelListePanel;
    rAVRecorder*                     AVRecorder;
-   rMarkierung*               MarkierungFenster;
-   
-   IBOutlet NSWindow*              RecorderFenster;
+   rMarkierung*                     MarkierungFenster;
+   rProjektExport*                  ProjektExportFenster;
+   IBOutlet NSWindow*               RecorderFenster;
    IBOutlet rAbspielanzeige*			Abspielanzeige;
    rAVPlayer*  AVAbspielplayer;
    NSString*	RPAufnahmenDirIDKey;;
@@ -325,7 +326,8 @@
 - (IBAction)startTestfeld:(id)sender;
 - (IBAction)MarkierungenWeg:(id)sender;
 - (IBAction)AlleMarkierungenWeg:(id)sender;
-   
+
+- (IBAction)reportProjektExportieren:(id)sender;
 
 @end
 

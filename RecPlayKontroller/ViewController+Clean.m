@@ -407,7 +407,6 @@ enum
 
 - (void)Export:(NSDictionary*)derExportDic
 {
-   
    NSLog(@"Export: derExportDic: %@",[derExportDic description]);
    NSFileManager *Filemanager=[NSFileManager defaultManager];
    
@@ -509,23 +508,7 @@ enum
                                     //[DeleteTitelArray addObject:eineAufnahme];
                                     
                                  }
-                                 /*
-                                  NSMutableDictionary* AufnahmeAttribute=[[[Filemanager fileAttributesAtPath:tempLeserAufnahmePfad traverseLink:YES]mutableCopy]autorelease];
-                                  if (AufnahmeAttribute )
-                                  {
-                                  
-                                  if([AufnahmeAttribute fileHFSCreatorCode]==[FileCreatorNumber intValue])
-                                  {
-                                  //NSLog(@"Aufnahme %@ ist markiert",eineAufnahme);
-                                  [ExportTitelPfadArray addObject:[tempNamenPfad stringByAppendingPathComponent:eineAufnahme]];
-                                  }
-                                  else
-                                  {
-                                  NSLog(@"Aufnahme %@ ist nicht markiert",eineAufnahme);
-                                  }
-                                  }//if (AufnahmeAttribute )
-                                  */
-                              }//if tempLeserAufnahmePfad
+                               }//if tempLeserAufnahmePfad
                            }//if in exportTitelArray
                         }//while AufnahmeEnum
                      }break;
