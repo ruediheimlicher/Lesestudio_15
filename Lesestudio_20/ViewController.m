@@ -4812,15 +4812,15 @@ if (!self.KommentarFenster)
       ProjektExportFenster=[[rProjektExport alloc]init];
    }
    //	MarkierungSelektor=@selector(sheetDidEnd: returnCode: contextInfo:);
-   [ProjektExportFenster setNamenString:projekt];
+   //[ProjektExportFenster setNamenString:projekt];
    
    NSModalSession ProjektSession=[NSApp beginModalSessionForWindow:[ProjektExportFenster window]];
-   [ProjektExportFenster setNamenString:projekt];
+   //[ProjektExportFenster setNamenString:projekt];
    //[MarkierungFenster setNamenString:@"Globi"];
    
    
    long modalAntwort = [NSApp runModalForWindow:[ProjektExportFenster window]];
-   //[MarkierungFenster setNamenString:leser];
+  [ProjektExportFenster setNamenString:projekt];
    //Rückgabe wird von UKopierOrdnerWahlAktion gesetzt: -> UProjektName
    //int modalAntwort = [NSApp runModalSession:ProjektSession];
    NSLog(@"MarkierungenEntfernen Antwort: %ld",modalAntwort);
@@ -5101,8 +5101,13 @@ if (!self.KommentarFenster)
 - (void)ProjektAnPfad:(NSString*)projektpfad exportierenMitOption:(NSDictionary*)exportoptiondic
 {
    NSError* err;
+   
+   NSMutableArray* exportiertearray=[[NSMutableArray alloc]initWithCapacity:0];
+   NSMutableArray* vorhandenearray=[[NSMutableArray alloc]initWithCapacity:0];
+   NSMutableArray* nichtexportiertearray=[[NSMutableArray alloc]initWithCapacity:0];
+
    NSMutableArray* fehlerarray=[[NSMutableArray alloc]initWithCapacity:0];
-//   RPExportdaten=[[[NSUserDefaults standardUserDefaults]dataForKey:@"RPExportdaten"]mutableCopy];
+   //   RPExportdaten=[[[NSUserDefaults standardUserDefaults]dataForKey:@"RPExportdaten"]mutableCopy];
    
    ExportOrdnerPfad=[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
    //NSLog(@"AufnahmenArrayExportieren\n\n");
@@ -5112,7 +5117,7 @@ if (!self.KommentarFenster)
    //ExportOrdnerPfad=[AdminLeseboxPfad stringByDeletingLastPathComponent];//Documents
    int exportoption = [[exportoptiondic objectForKey:@"exportvariante"]intValue];
    int exportanzahl = [[exportoptiondic objectForKey:@"exportanzahl"]intValue]; // Anzahl maximal zu exportierende Aufnahmen
-
+   
    //ExportOrdnerPfad bestimmen
    
    NSString* ExportOrdnerName = [projektpfad lastPathComponent];
@@ -5139,7 +5144,7 @@ if (!self.KommentarFenster)
    }
    else
    {
-     // [VolumesPanel setLeseboxPfad:@"--"];
+      // [VolumesPanel setLeseboxPfad:@"--"];
    }
    NSAlert *Warnung = [[NSAlert alloc] init];
    [Warnung addButtonWithTitle:@"OK"];
@@ -5189,9 +5194,10 @@ if (!self.KommentarFenster)
    [ExportPanel setNameFieldLabel:labelString];
    NSString* titleString=@"Projekt exportieren";
    [ExportPanel setTitle:titleString];
+   NSFileManager *Filemanager=[NSFileManager defaultManager];
    
    
-   long modalAntwort=[ExportPanel runModal] ;//ForDirectory:ExportOrdnerPfad file:ersteAufnahme];
+   long modalAntwort=[ExportPanel runModal] ;//
    
    
    //NSLog(@"ExportPanel: modalAntwort: %d",modalAntwort);
@@ -5200,7 +5206,7 @@ if (!self.KommentarFenster)
    {
       case NSFileHandlingPanelOKButton:
       {
-          //NSLog(@"ExportPanel: filename: %@ tempExportFilePfad: %@",[ExportPanel filename],tempExportFilePfad);
+         //NSLog(@"ExportPanel: filename: %@ tempExportFilePfad: %@",[ExportPanel filename],tempExportFilePfad);
          ExportOrdnerPfad=[[[ExportPanel URL]path]copy]; //[tempExportFilePfad stringByDeletingLastPathComponent];
          NSLog(@"ExportPanel: filename: %@ ExportOrdnerPfad: %@",[[ExportPanel URL]path],ExportOrdnerPfad);
          
@@ -5213,28 +5219,33 @@ if (!self.KommentarFenster)
       }break;
    }//switch
    
-   int exporterfolg = 0;
-   
+   int anzahlexportfehler=0;
+   int anzahlexporterfolge=0;
    //NSLog(@"AufnahmenArrayExportieren:Nach Dialog: Exportdaten: %d",[RPExportdaten length]);
    ExportOrdnerPfad =[ExportOrdnerPfad stringByAppendingPathComponent:ExportOrdnerName ];
-   
-   
-   int exportordnererfolg = [[NSFileManager defaultManager]createDirectoryAtPath:ExportOrdnerPfad withIntermediateDirectories:NO attributes:nil error:&err];
+   int exportordnererfolg = 0;
+   if ( [Filemanager fileExistsAtPath:ExportOrdnerPfad])
+   {
+      exportordnererfolg = 1;
+   }
+   else // Ordner erstellen
+   {
+      exportordnererfolg = [[NSFileManager defaultManager]createDirectoryAtPath:ExportOrdnerPfad withIntermediateDirectories:NO attributes:nil error:&err];
+   }
    if (exportordnererfolg == 0)
    {
       [fehlerarray addObject: [NSDictionary dictionaryWithObject:ExportOrdnerPfad forKey:@"exportordner"]];
+      anzahlexportfehler++;
    }
    
-   NSMutableArray* tempAufnahmenArray=[[NSMutableArray alloc]initWithCapacity:0];
-   NSFileManager *Filemanager=[NSFileManager defaultManager];
-
+   
    NSLog(@"Export*** ProjektPfad %@",self.ProjektPfad);
    BOOL istOrdner;
    if (([Filemanager fileExistsAtPath:self.ProjektPfad isDirectory:&istOrdner])&&istOrdner)
    {
       //NSLog(@"Export*** Ordner am Pfad %@ ist da",self.ProjektPfad);
       NSMutableArray* tempLeserArray=[[Filemanager contentsOfDirectoryAtPath:self.ProjektPfad error:NULL]mutableCopy];
-      int index=0;
+      
       if ([tempLeserArray count])
       {
          if ([[tempLeserArray objectAtIndex:0] hasPrefix:@".DS"]) //Unsichtbare Ordner entfernen
@@ -5254,15 +5265,23 @@ if (!self.KommentarFenster)
                
                // Ordner des Lesers im Exportordner
                NSString* LeserExportOrdnerPfad = [ExportOrdnerPfad stringByAppendingPathComponent:[tempLeserArray  objectAtIndex:leserindex]];
-               
+               int leserordnererfolg = 0;
                // Ordner fuer Leser inm Exportordner anlegen
-               int leserordnererfolg = [[NSFileManager defaultManager]createDirectoryAtPath:LeserExportOrdnerPfad withIntermediateDirectories:NO attributes:nil error:&err];
+               if ( [Filemanager fileExistsAtPath:LeserExportOrdnerPfad])
+               {
+                  leserordnererfolg = 1;
+               }
+               else // Ordner erstellen
+               {
+                  leserordnererfolg = [[NSFileManager defaultManager]createDirectoryAtPath:LeserExportOrdnerPfad withIntermediateDirectories:NO attributes:nil error:&err];
+               }
                if (leserordnererfolg == 0)
                {
                   [fehlerarray addObject: [NSDictionary dictionaryWithObject:LeserExportOrdnerPfad forKey:@"leserordner"]];
+                  anzahlexportfehler++;
                }
                
-               // Order des Lesers in der Lesebox
+               // Ordner des Lesers in der Lesebox
                NSString* tempLeserOrdnerQuellePfad = [self.ProjektPfad stringByAppendingPathComponent:[tempLeserArray  objectAtIndex:leserindex]];
                
                // Inhalt der Quelle
@@ -5280,37 +5299,74 @@ if (!self.KommentarFenster)
                      [tempAufnahmenArray removeObject:@"Anmerkungen"];
                   }
                   NSLog(@"Export*** tempAufnahmenArray: %@",[tempAufnahmenArray description]);
-               
+                  
                   for (int aufnahmenindex=0;aufnahmenindex < [tempAufnahmenArray count]; aufnahmenindex++)
                   {
+                     //Pfad zur Aufnahme in der Lesebox
+                     NSString* AufnahmeQuellePfad = [tempLeserOrdnerQuellePfad stringByAppendingPathComponent:[tempAufnahmenArray  objectAtIndex:aufnahmenindex]];
+                     
+                     //Pfad zum Ziel der Aufnahme
+                     NSString* AufnahmeExportPfad = [LeserExportOrdnerPfad stringByAppendingPathComponent:[tempAufnahmenArray  objectAtIndex:aufnahmenindex]];
+                     BOOL exportOK = NO;
                      switch (exportoption)
                      {
                         case 0: // nur markierte
                         {
-                           
+                           if ([Filemanager fileExistsAtPath:AufnahmeQuellePfad])
+                           {
+                              BOOL AdminMark=[self AufnahmeIstMarkiertAnPfad:AufnahmeQuellePfad];
+                              if (AdminMark)
+                              {
+                                 NSLog(@"Aufnahme %@ ist markiert",[projektpfad lastPathComponent]);
+                                 exportOK = YES;
+                              }
+                              else
+                              {
+                                 NSLog(@"Aufnahme %@ ist nicht markiert",[projektpfad lastPathComponent]);
+                              }
+                           }
                         }break;
                         case 1: // alle bis exportanzahl
                         {
-                           if (aufnahmenindex < exportanzahl)
+                           if ([Filemanager fileExistsAtPath:AufnahmeQuellePfad])
                            {
-                              //Pfad zur Aufnahme in der Lesebox
-                              NSString* AufnahmeQuellePfad = [tempLeserOrdnerQuellePfad stringByAppendingPathComponent:[tempAufnahmenArray  objectAtIndex:aufnahmenindex]];
-                              
-                              //Pfad zum Ziel der Aufnahme
-                              NSString* AufnahmeExportPfad = [LeserExportOrdnerPfad stringByAppendingPathComponent:[tempAufnahmenArray  objectAtIndex:aufnahmenindex]];
-                              
-                              int aufnahmeerfolg = [Filemanager copyItemAtPath:AufnahmeQuellePfad toPath:AufnahmeExportPfad error:&err];
-                              if (aufnahmeerfolg == 0)
+                              if (aufnahmenindex < exportanzahl)
                               {
-                                 
+                                 NSLog(@"Aufnahme %@ wird exportiert",[projektpfad lastPathComponent]);
+                                 exportOK = YES;
                               }
                            }
                         }break;
                            
                      }// switch exportoption
+                     
+                     int aufnahmeexporterfolg = 0;
+                     if (exportOK)
+                     {
+                        if ([Filemanager fileExistsAtPath:AufnahmeExportPfad])
+                        {
+                           aufnahmeexporterfolg=1;
+                           [vorhandenearray addObject:[tempAufnahmenArray  objectAtIndex:aufnahmenindex]];
+                        }
+                        else
+                        {
+                           aufnahmeexporterfolg = [Filemanager copyItemAtPath:AufnahmeQuellePfad toPath:AufnahmeExportPfad error:&err];
+                           if (aufnahmeexporterfolg == 0)
+                           {
+                              [fehlerarray addObject: [NSDictionary dictionaryWithObject:AufnahmeExportPfad forKey:@"aufnahmeexportordner"]];
+                              [nichtexportiertearray addObject:[tempAufnahmenArray  objectAtIndex:aufnahmenindex]];
+                           }
+                           else
+                           {
+                              [exportiertearray addObject:[tempAufnahmenArray  objectAtIndex:aufnahmenindex]];
+                           }
+                        }
+                     }
+                     
+                     
                   }// for aufnahmenindex
-               
-               
+                  
+                  
                }// if count
                
             }// for leserindex
@@ -5322,73 +5378,25 @@ if (!self.KommentarFenster)
       
    }// if ProjektPfad
    
-   //NSLog(@"Clean:  Variante: %d  behalten: %d  anzahl: %d",var, behalten, anzahl);
-   NSMutableArray* exportNamenArray=[exportoptiondic objectForKey:@"exportnamen"];
+   NSLog(@"ProjektExport	fehlerarray: %@",fehlerarray);
+  
+     //NSLog(@"AufnahmenArrayExportieren:2");
+    NSLog(@"ProjektExportieren\r exportiertearray: %@\r nichtexportiertearray: %@\r vorhandenearray: %@",exportiertearray,nichtexportiertearray,vorhandenearray);
+    NSString* infoOKString = [NSString stringWithFormat:@"Die exportierten Aufnahmen liegen im Ordner \r%@\r am Pfad\r%@",ExportOrdnerName,ExportOrdnerPfad];
+    NSString* infoFehlerString = [NSString stringWithFormat:@"Folgende Aufnahmen konnten nicht exportiert werden. \r%@\r%@",[nichtexportiertearray componentsJoinedByString:@"\r" ],infoOKString];
+   NSString* infostring =[NSString stringWithFormat:@"%@\r%@",infoOKString,infoFehlerString];
    
-   NSLog(@"Export	exportNamenArray: %@",[exportNamenArray description]);
-
-
+    NSAlert *ExportAlert = [[NSAlert alloc] init];
+    [ExportAlert setMessageText:@"Export beendet"];
+    
+     [ExportAlert setInformativeText:infoOKString];
+     [ExportAlert setAlertStyle:NSInformationalAlertStyle];
+    
+    [ExportAlert addButtonWithTitle:@"OK"];
+    
+    [ExportAlert runModal];
+    
    
-   NSEnumerator* ExportEnum=[tempAufnahmenArray objectEnumerator];
-   id einAufnahmePfad;
-   int index=0;
-   
-   
-   
-/*
-   while (einAufnahmePfad=[ExportEnum nextObject])
-   {
-      //NSLog(@"AufnahmenArrayExportieren: einAufnahmePfad: %@",einAufnahmePfad);
-      // if (index==0)//Bei erster Aufnahme nach Speicherort fragen
-      {
-         
-         //NSLog(@"AufnahmenarrayExport userDialogOK: %d",userDialogOK);
-         long erfolg =  [self Aufnahme:einAufnahmePfad exportierenMitPfad:ExportOrdnerPfad];
-         if (erfolg)
-         {
-            exporterfolg++;
-         }
-         else
-         {
-            [fehlendeArray addObject:[einAufnahmePfad lastPathComponent]];
-         }
-         
-         NSLog(@"ExportPanel: AufnahmePfad: %@ exporterfolg: %d",einAufnahmePfad,exporterfolg);
-         
-      }
-      index++;
-   }//ExportEnum
-   //NSLog(@"AufnahmenArrayExportieren:2");
-   NSLog(@"AufnahmenArrayExportieren anzAufnahmen: %d exporterfolg: %d",anzAufnahmen,exporterfolg);
-   NSString* infoOKString = [NSString stringWithFormat:@"Die exportierten Aufnahmen liegen im Ordner %@ am Pfad\r%@",ExportPanelPfad,ExportOrdnerPfad];
-   NSString* infoFehlerString = [NSString stringWithFormat:@"Folgende Aufnahmen konnten exportiert werden. \r%@\r%@",[fehlendeArray componentsJoinedByString:@"\r" ],infoOKString];
-   
-   
-   NSAlert *ExportAlert = [[NSAlert alloc] init];
-   [ExportAlert setMessageText:@"Export beendet"];
-   
-   if (anzAufnahmen == exporterfolg)
-   {
-      [ExportAlert setInformativeText:infoOKString];
-   }
-   else
-   {
-      [ExportAlert setInformativeText:infoFehlerString];
-   }
-   [ExportAlert setAlertStyle:NSInformationalAlertStyle];
-   
-   [ExportAlert addButtonWithTitle:@"OK"];
-   
-   [ExportAlert runModal];
-   
-   if (anzAufnahmen == exporterfolg)
-   {
-      NSLog(@"AufnahmenArrayExportieren Alles exportiert");
-   }
-   else{
-      NSLog(@"AufnahmenArrayExportieren Fehlende Aufnahmen: \r%@",[fehlendeArray componentsJoinedByString:@"\r" ]);
-   }
-   */
 }
 
 

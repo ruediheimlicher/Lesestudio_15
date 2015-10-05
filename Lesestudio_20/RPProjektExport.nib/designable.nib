@@ -8,7 +8,9 @@
         <customObject id="-2" userLabel="File's Owner" customClass="rProjektExport">
             <connections>
                 <outlet property="ExportVariante" destination="48" id="PIH-GI-iG9"/>
+                <outlet property="NamenString" destination="1EL-3c-dmr" id="XuH-Mw-6Pp"/>
                 <outlet property="TextString" destination="44" id="55"/>
+                <outlet property="anzPop" destination="wXb-7O-rrZ" id="aNz-m3-NRC"/>
                 <outlet property="window" destination="10" id="57"/>
             </connections>
         </customObject>
@@ -74,7 +76,7 @@
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
-                                <buttonCell type="radio" title="Alle Aufnahmen" imagePosition="left" alignment="left" tag="1" inset="2" id="47">
+                                <buttonCell type="radio" title="Alle Aufnahmen, maximal" imagePosition="left" alignment="left" tag="1" inset="2" id="47">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
@@ -106,6 +108,35 @@ DQ
                             <action selector="reportExportVariante:" target="-2" id="ceg-m0-1Cu"/>
                         </connections>
                     </button>
+                    <popUpButton verticalHuggingPriority="750" id="wXb-7O-rrZ">
+                        <rect key="frame" x="202" y="103" width="58" height="22"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <popUpButtonCell key="cell" type="push" title="2" bezelStyle="rounded" alignment="center" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="2" imageScaling="proportionallyDown" inset="2" selectedItem="e2w-dn-cJc" id="Glf-al-Tba">
+                            <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="smallSystem"/>
+                            <menu key="menu" id="iUH-nV-RSE">
+                                <items>
+                                    <menuItem title="1" tag="1" id="tbi-6g-wZW"/>
+                                    <menuItem title="2" state="on" tag="2" id="e2w-dn-cJc">
+                                        <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                    </menuItem>
+                                    <menuItem title="3" tag="3" id="vBH-TK-rz8"/>
+                                    <menuItem title="alle" tag="99" id="Q0g-y4-Ees">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                    </menuItem>
+                                </items>
+                            </menu>
+                        </popUpButtonCell>
+                    </popUpButton>
+                    <textField verticalHuggingPriority="750" id="1EL-3c-dmr">
+                        <rect key="frame" x="240" y="13" width="96" height="22"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="oSX-lZ-DaM">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
                 </subviews>
             </view>
             <connections>

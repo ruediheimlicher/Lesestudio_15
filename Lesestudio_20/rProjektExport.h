@@ -8,6 +8,7 @@
     IBOutlet id NamenString;
 	IBOutlet NSTextField* TitelString;
 	IBOutlet id TextString;
+   IBOutlet NSPopUpButton* anzPop;
 }
 - (void)setNamenString:(NSString*)derName;
 - (IBAction)reportExportVariante:(id)sender;

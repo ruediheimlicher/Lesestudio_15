@@ -9,6 +9,7 @@
 
 - (void)awakeFromNib
 {
+   NSLog(@"ProjektExport awake");
 	NSColor * TitelFarbe=[NSColor blueColor];
 	NSFont* TitelFont;
 	TitelFont=[NSFont fontWithName:@"Helvetica" size: 24];
@@ -30,10 +31,10 @@
 {
 	[NSApp stopModalWithCode:1];
 	long var=[[ExportVariante selectedCell]tag];
-   int anzahl = 2;
+   long anzahl = [[anzPop selectedItem]tag];
 	NSNumber* VariantenNummer=[NSNumber numberWithLong:var];
 	NSMutableDictionary* VariantenDic=[NSMutableDictionary dictionaryWithObject:VariantenNummer forKey:@"exportvariante"];
-   [VariantenDic setObject:[NSNumber numberWithInt:anzahl] forKey:@"exportanzahl"];
+   [VariantenDic setObject:[NSNumber numberWithLong:anzahl] forKey:@"exportanzahl"];
 	NSNotificationCenter* nc=[NSNotificationCenter defaultCenter];
 	[nc postNotificationName:@"ProjektExportOption" object:self userInfo:VariantenDic];
    

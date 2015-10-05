@@ -237,7 +237,7 @@ enum
                const char* rawchar = [rawprojekt cStringUsingEncoding:NSUTF8StringEncoding];
                NSData* rawdata =[rawprojekt dataUsingEncoding:NSMacOSRomanStringEncoding] ;
                NSString* tempProjektName = [[NSString alloc] initWithData:rawdata encoding:NSMacOSRomanStringEncoding ];
-               NSLog(@"\r\rrawprojekt: *%@*",rawprojekt);
+              // NSLog(@"\r\rrawprojekt: *%@*",rawprojekt);
                //NSString* uint8Projektname = [rawprojekt UTF8String];
                
             //tempProjektName in PListPorjektnamenArray suchen.
@@ -317,7 +317,7 @@ enum
                }
                else
                {
-                  NSLog(@"rawprojekt: %@ da",rawprojekt);
+                  //NSLog(@"rawprojekt: %@ da",rawprojekt);
                }
             }
             
