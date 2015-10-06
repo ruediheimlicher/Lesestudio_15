@@ -64,6 +64,7 @@
 - (NSArray*) checkNetzwerkVolumes;
 - (NSString*)checkHomeLesebox;
 - (BOOL)setVersion;
+- (NSString*)helpString:(NSString*)name;
 - (BOOL)istSystemVolumeAnPfad:(NSString*)derLeseboxPfad;
 - (BOOL)istAufExternemVolume;
 - (BOOL)LeseboxValidAnPfad:(NSString*)derLeseboxPfad aufSystemVolume:(BOOL)istSystemVolume;

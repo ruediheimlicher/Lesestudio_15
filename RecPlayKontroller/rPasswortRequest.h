@@ -18,4 +18,5 @@
 - (IBAction)reportClose:(id)sender;
 - (IBAction)reportNeuesPasswort:(id)sender;
 - (void)setName:(NSString*)derName mitPasswort:(NSData*)dasPasswort;
+- (IBAction)reportHelp:(id)sender;
 @end

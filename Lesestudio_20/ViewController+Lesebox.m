@@ -33,7 +33,8 @@ enum
    NSString* result3 = [teststring3 extensionVonPfad];
    NSLog(@"teststring3: %@ result3: %@",teststring3,result3);
 */
-   
+   NSLog(@"helpString: %@",[Utils helpString:@"infoRecorder"]);
+
    NSString* teststring = @"ES 1 30. Juni 2010.m4a";
    
    NSString* resultat = [self AufnahmeTitelVon:teststring];
@@ -2101,35 +2102,35 @@ enum
 
 - (IBAction)beginAdminPlayer:(id)sender
 {
-    [self ArchivZurListe:nil];
+   [self ArchivZurListe:nil];
    [self resetRecPlay];
    [Utils stopTimeout];
    [self.RecPlayTab selectTabViewItemAtIndex:0];
    //   [self.window setIsVisible:NO];
    
    
-  
    
-    if(!self.AdminPlayer)
-    {
-    self.AdminPlayer=[[rAdminPlayer alloc]init];
-     }
-       
+   
+   if(!self.AdminPlayer)
+   {
+      self.AdminPlayer=[[rAdminPlayer alloc]init];
+   }
+   
    [self.AdminPlayer showWindow:self];
-       
-       
+   
+   
    // [self setLeseb self.LeseboxPfad];
    
    
-//   [self.AblaufMenu setDelegate:self.AdminPlayer];
-  // [self.ModusMenu setDelegate:self.AdminPlayer];
-//   [self.RecorderMenu setDelegate:self.AdminPlayer];
-
-//   [[self.ModusMenu itemWithTag:kRecPlayTag] setTarget:self.AdminPlayer];//Recorder
-//   [[self.ModusMenu itemWithTag:kAdminTag] setTarget:self.AdminPlayer];//Admin
-
-    [Utils stopTimeout];
-    //[AdminPlayer showWindow:self];
+   //   [self.AblaufMenu setDelegate:self.AdminPlayer];
+   // [self.ModusMenu setDelegate:self.AdminPlayer];
+   //   [self.RecorderMenu setDelegate:self.AdminPlayer];
+   
+   //   [[self.ModusMenu itemWithTag:kRecPlayTag] setTarget:self.AdminPlayer];//Recorder
+   //   [[self.ModusMenu itemWithTag:kAdminTag] setTarget:self.AdminPlayer];//Admin
+   
+   [Utils stopTimeout];
+   //[AdminPlayer showWindow:self];
    
 	  //NSLog(@"beginAdminPlayer LeseboxPfad: %@ Projekt: %@",LeseboxPfad,[ProjektPfad lastPathComponent]);
    
@@ -2144,7 +2145,7 @@ enum
    if ([tempAktuellePListDic objectForKey:@"projektarray"])//Es hat schon einen ProjektArray
    {
       //NSLog(@"beginAdminPlayer: Projektarray aus PList lastObject: %@",[[[tempAktuellePListDic objectForKey:@"projektarray"]lastObject]description]);
- //    [self.ProjektArray setArray:[[tempAktuellePListDic objectForKey:@"projektarray"]copy]];
+      //    [self.ProjektArray setArray:[[tempAktuellePListDic objectForKey:@"projektarray"]copy]];
       //NSLog(@"beginAdminPlayer: Projektarray neu");
       
    }
@@ -2159,7 +2160,7 @@ enum
    }
    
    NSLog(@"beginAdminPlayer: Projektarray LAST object: %@",[[self.ProjektArray lastObject]description]);
-
+   
    //NSLog(@"in beginAdminPlayer vor setAdminProjektArray: AdminPlayer:      ProjektArray: \n%@",[self.ProjektArray description]);
    
    
@@ -2168,42 +2169,42 @@ enum
    
    //NSLog(@"beginAdminPlayer nach setAdminPlayer");
    self.Umgebung=3;
-  // NSLog(@"in beginAdminPlayer vor setProjektPop: AdminPlayer:      ProjektArray: \n%@",[self.ProjektArray description]);
+   // NSLog(@"in beginAdminPlayer vor setProjektPop: AdminPlayer:      ProjektArray: \n%@",[self.ProjektArray description]);
    
    [self.AdminPlayer setProjektPopMenu:self.ProjektArray];
-
-    [self.AdminPlayer showWindow:self];
+   
+   [self.AdminPlayer showWindow:self];
    /*
-     NSModalSession AdminSession=[NSApp beginModalSessionForWindow:[self.AdminPlayer window]];
-   long modalAntwort = [NSApp runModalForWindow:[self.AdminPlayer window]];
-   //int modalAntwort = [NSApp runModalSession:ProjektSession];
-   NSLog(@"AdminSession Antwort: %d",modalAntwort);
-   
-   [NSApp endModalSession:AdminSession];
-*/
-   /*
-   // erster Aufruf
-   NSStoryboardSegue* admindatasegue = [[NSStoryboardSegue alloc] initWithIdentifier:@"adminplayersegue" source:self destination:self.AdminPlayer];
-   [self prepareForSegue:admindatasegue sender:sender];
-   [self performSegueWithIdentifier:@"adminplayersegue" sender:self];
-   
-   
-   //zweiter Aufruf
-   
-   NSStoryboardSegue* adminanzeigesegue = [[NSStoryboardSegue alloc] initWithIdentifier:@"adminanzeigesegue" source:self destination:self.AdminPlayer];
-   [self prepareForSegue:adminanzeigesegue sender:sender];
-   [self performSegueWithIdentifier:@"adminanzeigesegue" sender:self];
-*/
-   
-
-   
-   
-   
-    // }
-    //else
-    {
+    NSModalSession AdminSession=[NSApp beginModalSessionForWindow:[self.AdminPlayer window]];
+    long modalAntwort = [NSApp runModalForWindow:[self.AdminPlayer window]];
+    //int modalAntwort = [NSApp runModalSession:ProjektSession];
+    NSLog(@"AdminSession Antwort: %d",modalAntwort);
     
-    }
+    [NSApp endModalSession:AdminSession];
+    */
+   /*
+    // erster Aufruf
+    NSStoryboardSegue* admindatasegue = [[NSStoryboardSegue alloc] initWithIdentifier:@"adminplayersegue" source:self destination:self.AdminPlayer];
+    [self prepareForSegue:admindatasegue sender:sender];
+    [self performSegueWithIdentifier:@"adminplayersegue" sender:self];
+    
+    
+    //zweiter Aufruf
+    
+    NSStoryboardSegue* adminanzeigesegue = [[NSStoryboardSegue alloc] initWithIdentifier:@"adminanzeigesegue" source:self destination:self.AdminPlayer];
+    [self prepareForSegue:adminanzeigesegue sender:sender];
+    [self performSegueWithIdentifier:@"adminanzeigesegue" sender:self];
+    */
+   
+   
+   
+   
+   
+   // }
+   //else
+   {
+      
+   }
    
    
 }
@@ -2916,7 +2917,11 @@ enum
       return;
    }
 
-  
+   NSMutableDictionary* NotificationDic=[[NSMutableDictionary alloc]initWithCapacity:0];
+   [NotificationDic setObject:@"EinzelNamen" forKey:@"quelle"];
+   NSNotificationCenter* nc=[NSNotificationCenter defaultCenter];
+   [nc postNotificationName:@"fensterschliessen" object:self userInfo:NotificationDic];
+
    [Utils showEinzelNamen:NULL];
    
 }
@@ -2926,6 +2931,11 @@ enum
    {
       return;
    }
+   NSMutableDictionary* NotificationDic=[[NSMutableDictionary alloc]initWithCapacity:0];
+   [NotificationDic setObject:@"NamenListe" forKey:@"quelle"];
+   NSNotificationCenter* nc=[NSNotificationCenter defaultCenter];
+   [nc postNotificationName:@"fensterschliessen" object:self userInfo:NotificationDic];
+
 
  //  if (self.Umgebung==1)
    {
@@ -4238,6 +4248,12 @@ enum
       return;
    }
    
+   NSMutableDictionary* NotificationDic=[[NSMutableDictionary alloc]initWithCapacity:0];
+   [NotificationDic setObject:@"TitelListe" forKey:@"quelle"];
+   NSNotificationCenter* nc=[NSNotificationCenter defaultCenter];
+   [nc postNotificationName:@"fensterschliessen" object:self userInfo:NotificationDic];
+
+   
    //NSLog(@"\n\n\n										showTitelListe\n");
    if (!TitelListePanel)
    {
@@ -4295,6 +4311,11 @@ enum
    {
       return;
    }
+
+   NSMutableDictionary* NotificationDic=[[NSMutableDictionary alloc]initWithCapacity:0];
+   [NotificationDic setObject:@"TitelListe" forKey:@"quelle"];
+   NSNotificationCenter* nc=[NSNotificationCenter defaultCenter];
+   [nc postNotificationName:@"fensterschliessen" object:self userInfo:NotificationDic];
 
    //NSLog(@"\n\n\n										showTitelListe\n");
    if (!TitelListePanel)
@@ -4414,6 +4435,8 @@ enum
    }
    
 }
+
+
 
 - (void)AdminEntfernenNotificationAktion:(NSNotification*)note
 {

@@ -45,5 +45,5 @@
 - (IBAction)reportEinsetzenVariante:(id)sender;
 - (void)setNamenListeArray:(NSArray*)derArray vonProjekt:(NSString*)dasProjekt;
 -(void)neuerNameInArray:(NSString*)derName;
-
+- (IBAction)reportHelp:(id)sender;
 @end

@@ -12,4 +12,5 @@
 - (void)setNamenString:(NSString*)derName;
 - (IBAction)reportMarkierungVariante:(id)sender;
 - (IBAction)reportAbbrechen:(id)sender;
+- (IBAction)reportHelp:(id)sender;
 @end

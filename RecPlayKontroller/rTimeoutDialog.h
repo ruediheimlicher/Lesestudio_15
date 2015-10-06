@@ -19,4 +19,5 @@
 - (IBAction)reportAbmelden:(id)sender;
 - (IBAction)reportUnterbrechen:(id)sender;
 - (void)stopTimeoutDialogTimer:(id)sender;
+- (IBAction)reportHelp:(id)sender;
 @end

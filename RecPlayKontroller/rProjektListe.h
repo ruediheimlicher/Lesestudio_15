@@ -37,6 +37,6 @@
 - (void)setMitUserPasswort:(int)derStatus;
 - (void)setTitelFix:(int)derStatus;
 - (void)setVomStart:(BOOL)derStatus;
-
+- (IBAction)reportHelp:(id)sender;
 - (void)resetPanel;
 @end

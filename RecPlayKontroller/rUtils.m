@@ -959,6 +959,23 @@ Gibt die Volumes im Ordner 'Network' zurück
 return versionOK;
 }
 
+
+- (NSString*)helpString:(NSString*)name
+{
+   if (![[name pathExtension]length])
+   {
+      name = [name stringByAppendingPathExtension:@"txt"];
+   }
+   NSString* helpPfad =[[[[NSBundle mainBundle] bundlePath]stringByAppendingPathComponent:@"Contents/Resources"]stringByAppendingPathComponent:name];
+   //NSLog(@"Utils helpPfad: %@",helpPfad);
+   if ([[NSFileManager defaultManager]fileExistsAtPath:helpPfad] )
+   {
+      return  [NSString stringWithContentsOfURL:[NSURL fileURLWithPath:helpPfad] encoding:NSMacOSRomanStringEncoding error:nil];
+      //NSLog(@"helpString: %@",helpString);
+   }
+   return [NSString string];
+}
+
 - (BOOL)LeseboxValidAnPfad:(NSString*)derLeseboxPfad aufSystemVolume:(BOOL)istSystemVolume
 {
    //NSLog(@"LeseboxValidAnPfad: derLeseboxPfad: %@",derLeseboxPfad);
@@ -2374,15 +2391,10 @@ return versionOK;
 
 - (IBAction)showNamenListe:(id)sender
 {
-
+   
    //NSLog(@"\n\nshowProjektListe start");
    
-   NSMutableDictionary* NotificationDic=[[NSMutableDictionary alloc]initWithCapacity:0];
-   [NotificationDic setObject:@"ProjektListe" forKey:@"quelle"];
-   NSNotificationCenter* nc=[NSNotificationCenter defaultCenter];
-   [nc postNotificationName:@"fensterschliessen" object:self userInfo:NotificationDic];
-
-   if (!UNamenListePanel)
+    if (!UNamenListePanel)
 	  {
         UNamenListePanel=[[rNamenListe alloc]init];
      }

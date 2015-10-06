@@ -57,4 +57,5 @@
 - (void) setLeseboxOK:(BOOL)status;
 - (NSString*)LeseboxPfad;
 - (BOOL)istSystemVolume;
+- (IBAction)reportHelp:(id)sender;
 @end

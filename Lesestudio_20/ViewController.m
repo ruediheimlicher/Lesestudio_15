@@ -108,13 +108,23 @@ NSString*	RPDevicedatenKey=	@"RPDevicedaten";
    
    //
    
+
    
    NSBundle* LesestudioBundle = [NSBundle mainBundle];
    NSString* ResourcePfad = [[LesestudioBundle bundlePath]stringByAppendingPathComponent:@"Contents/Resources"];
    NSArray* mainarray = [[NSFileManager defaultManager]contentsOfDirectoryAtPath:ResourcePfad error:nil];
-//   NSLog(@"mainarray: %@",mainarray);
-
+   //NSLog(@"mainarray: %@",mainarray);
    
+   /*
+   NSString* helpPfad =[[[[NSBundle mainBundle] bundlePath]stringByAppendingPathComponent:@"Contents/Resources"]stringByAppendingPathComponent:@"infoRecorder.txt"];
+   NSLog(@"helpPfad: %@",helpPfad);
+   if ([[NSFileManager defaultManager]fileExistsAtPath:helpPfad] )
+   {
+      NSString* helpString = [NSString stringWithContentsOfURL:[NSURL fileURLWithPath:helpPfad] encoding:NSMacOSRomanStringEncoding error:nil];
+      NSLog(@"helpString: %@",helpString);
+   }
+*/
+ 
    
 //   [self initWithNibName:self.nibName bundle:nil];
    startcode=0;
@@ -785,6 +795,8 @@ NSString*	RPDevicedatenKey=	@"RPDevicedaten";
    {
       [item setEnabled:YES];
    }
+   
+
    NSLog(@"viewDidLoad end");
    [[self.view window] display];
    //NSLog(@"MenuItem: Modus: %@",[[appMenu itemWithTitle:@"Admin"]title]);
@@ -4565,6 +4577,12 @@ QTMovie* qtMovie;
    {
       return;
    }
+   
+   NSMutableDictionary* NotificationDic=[[NSMutableDictionary alloc]initWithCapacity:0];
+   [NotificationDic setObject:@"Kommentar" forKey:@"quelle"];
+   NSNotificationCenter* nc=[NSNotificationCenter defaultCenter];
+   [nc postNotificationName:@"fensterschliessen" object:self userInfo:NotificationDic];
+
 if (!self.KommentarFenster)
 {
    self.KommentarFenster = [[rKommentar alloc]init];
@@ -4583,6 +4601,11 @@ if (!self.KommentarFenster)
    {
       return;
    }
+
+   NSMutableDictionary* NotificationDic=[[NSMutableDictionary alloc]initWithCapacity:0];
+   [NotificationDic setObject:@"Clean" forKey:@"quelle"];
+   NSNotificationCenter* nc=[NSNotificationCenter defaultCenter];
+   [nc postNotificationName:@"fensterschliessen" object:self userInfo:NotificationDic];
 
    RPExportdaten=[NSMutableData dataWithCapacity:0];
    ExportFormatString=[NSMutableString stringWithCapacity:0];
@@ -4680,6 +4703,10 @@ if (!self.KommentarFenster)
       {
          return;
       }
+      NSMutableDictionary* NotificationDic=[[NSMutableDictionary alloc]initWithCapacity:0];
+      [NotificationDic setObject:@"MarkierungenWeg" forKey:@"quelle"];
+      NSNotificationCenter* nc=[NSNotificationCenter defaultCenter];
+      [nc postNotificationName:@"fensterschliessen" object:self userInfo:NotificationDic];
 
       [self MarkierungenEntfernenFuerLeser:[self.ArchivnamenPop titleOfSelectedItem]];
    }

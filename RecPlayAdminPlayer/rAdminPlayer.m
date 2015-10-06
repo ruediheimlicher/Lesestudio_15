@@ -4267,13 +4267,16 @@ NSNumber* UmgebungNumber=[[note userInfo]objectForKey:@"Umgebung"];
    
 }
 
+
 - (void)FensterschliessenAktion:(NSNotification*)note
 {
-   NSLog(@"FensterschliessenAktion note: %@",[[note userInfo]description]);
-    [self FensterschliessenOK];
-   [self resetAdminPlayer];
-   [[self  window]orderOut:nil];
-
+   NSLog(@"AdminPlayer FensterschliessenAktion note: %@",[[note userInfo]description]);
+   if (![[[note userInfo]objectForKey:@"quelle"]isEqualToString:@"AdminPlayer"])
+   {
+      [self FensterschliessenOK];
+      [self resetAdminPlayer];
+      [[self  window]orderOut:nil];
+   }
 }
 
 - (BOOL) FensterschliessenOK
@@ -4592,6 +4595,70 @@ if (entfernenOK==0)//allesOK
    NSLog(@"AdminPlayer windowWillClose: %@",notification);
 }
 
-
+- (IBAction)reportHelp:(id)sender
+{
+   NSString* name =[@"info"stringByAppendingString:[sender alternateTitle]];
+   
+   if (![[name pathExtension]length])
+   {
+      name = [name stringByAppendingPathExtension:@"txt"];
+   }
+   //NSLog(@"ident: %@",[sender alternateTitle]);
+   NSString* helpPfad =[[[[NSBundle mainBundle] bundlePath]stringByAppendingPathComponent:@"Contents/Resources"]stringByAppendingPathComponent:name];
+   //NSLog(@"Utils helpPfad: %@",helpPfad);
+   if ([[NSFileManager defaultManager]fileExistsAtPath:helpPfad] )
+   {
+      NSString* helpString = [NSString stringWithContentsOfURL:[NSURL fileURLWithPath:helpPfad] encoding:NSUTF8StringEncoding error:nil];
+      //NSLog(@"helpString: %@",helpString);
+      if ([helpString length])
+      {
+         NSArray* helpArray;
+         if ([helpString rangeOfString:@"\n"].location < NSNotFound)
+         {
+            helpArray= [helpString componentsSeparatedByString:@"\n"];
+         }
+         
+         else if ([helpString rangeOfString:@"\r"].location < NSNotFound)
+         {
+            helpArray= [helpString componentsSeparatedByString:@"\r"];
+         }
+         else
+         {
+            return;
+         }
+         // NSLog(@"helpArray: %@",helpArray);
+         NSAlert *Warnung = [[NSAlert alloc] init];
+         [Warnung setMessageText:[helpArray objectAtIndex:0]];
+         NSRect cellFeld = NSMakeRect(0, 0, 400, 100);
+         
+         NSScrollView *scrollView = [[NSScrollView alloc] initWithFrame:
+                                     cellFeld];
+         [scrollView setHasVerticalScroller:YES];
+         [scrollView setHasHorizontalScroller:NO];
+         
+         
+         NSTextView* helpView = [[NSTextView alloc] initWithFrame:cellFeld];
+         NSRange inforange =NSMakeRange(1, [helpArray count]-1);
+         //NSLog(@"inforange loc: %ld len: %ld",inforange.location, inforange.length);
+         NSString* infoString = [[helpArray subarrayWithRange:NSMakeRange(1, [helpArray count]-1)]componentsJoinedByString:@"\r"];
+         //NSLog(@"infoString: %@",infoString); // korrectes encoding!!!
+         
+         [helpView insertText:[[helpArray subarrayWithRange:NSMakeRange(1, [helpArray count]-1)]componentsJoinedByString:@"\r"]];
+         [helpView setEditable:NO];
+         [scrollView setDocumentView:helpView];
+         
+         Warnung.accessoryView = scrollView;
+         //Warnung.accessoryView = helpView;
+         Warnung.alertStyle = NSInformationalAlertStyle;
+         
+         [Warnung addButtonWithTitle:@"OK"];
+         
+         [Warnung runModal];
+         
+         
+      }
+      
+   }
+}
 
 @end

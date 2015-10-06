@@ -23,4 +23,5 @@
 - (IBAction)reportNeuerTitel:(id)sender;
 - (void)setProjekt:(NSString*)zielprojekt;
 - (void)setTitelArray:(NSArray*)derArray inProjekt:(NSString*)dasProjekt;
+- (IBAction)reportHelp:(id)sender;
 @end

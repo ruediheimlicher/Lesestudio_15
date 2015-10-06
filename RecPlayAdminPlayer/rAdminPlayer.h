@@ -340,6 +340,7 @@
 - (long)AufnahmeNummerVon:(NSString*) dieAufnahme;
 - (NSString*)InitialenVon:(NSString*)derName;
 - (void)Markierungenreset;
+- (IBAction)reportHelp:(id)sender;
 @end
 
 @interface rAdminPlayer(rAufnahmenTableController)

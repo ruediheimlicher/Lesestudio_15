@@ -22,4 +22,5 @@
 
 - (void)setPasswortArray:(NSArray*)derArray;
 - (NSArray*)PasswortArray;
+- (IBAction)reportHelp:(id)sender;
 @end

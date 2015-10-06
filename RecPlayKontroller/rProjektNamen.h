@@ -19,4 +19,5 @@
 - (NSString*)KopierOrdnerName;
 
 - (void)setOrdnerNamenArray:(NSArray*)dieNamen;
+- (IBAction)reportHelp:(id)sender;
 @end

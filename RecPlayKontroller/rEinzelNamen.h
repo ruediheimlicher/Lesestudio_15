@@ -29,5 +29,5 @@
 - (IBAction)addNamenZeile:(id)sender;
 - (NSArray*)NamenArray;
 - (void)setProjekt:(NSString*)zielprojekt;
-
+- (IBAction)reportHelp:(id)sender;
 @end

@@ -14,6 +14,7 @@
 @property (nonatomic, strong) IBOutlet NSTextField*				AnzeigeFeld; 
 
 - (IBAction)reportClose:(id)sender;
+- (IBAction)reportHelp:(id)sender;
 - (IBAction)reportCancel:(id)sender;
 - (void)setMitPasswort:(BOOL)mitPW;
 
@@ -21,4 +22,5 @@
 - (void)setNote:(BOOL)mitNote;
 - (void)setTimeoutDelay:(NSTimeInterval)derDelay;
 - (void)setzeAnzeigeFeld:(NSString *)anzeige;
+- (IBAction)reportHelp:(id)sender;
 @end

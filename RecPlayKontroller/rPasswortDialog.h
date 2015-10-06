@@ -28,4 +28,5 @@
 
 - (void)setName:(NSString*)derName mitPasswort:(NSData*)dasPasswort;
 - (NSDictionary*)neuerPasswortDic;
+- (IBAction)reportHelp:(id)sender;
 @end

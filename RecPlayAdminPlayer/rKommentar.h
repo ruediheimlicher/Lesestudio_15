@@ -101,4 +101,5 @@
 // aus Kommentarkontroller
 - (NSString*)lastKommentarVonLeser:(NSString*)derLeser anProjektPfad:(NSString*)derProjektPfad;
 - (void)setKommentarMitProjektArray:(NSArray*)derProjektArray mitLeser:(NSString*)aktuellerLeser anPfad:(NSString*)aktuellerProjektPfad;
+- (IBAction)reportHelp:(id)sender;
 @end

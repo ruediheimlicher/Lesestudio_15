@@ -116,6 +116,17 @@ Gw
                             <action selector="reportAuswahlen:" target="-2" id="121"/>
                         </connections>
                     </button>
+                    <button verticalHuggingPriority="750" id="Ta0-B1-Eyo">
+                        <rect key="frame" x="14" y="5" width="39" height="32"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="push" title="?" alternateTitle="Volumes" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="wvl-bB-nvB">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="reportHelp:" target="-1" id="n4K-hi-bzL"/>
+                        </connections>
+                    </button>
                 </subviews>
             </view>
             <connections>

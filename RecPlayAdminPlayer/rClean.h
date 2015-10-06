@@ -94,6 +94,6 @@
 - (IBAction)reportExportFormatOption:(id)sender;
 - (IBAction)reportExportFormat:(id)sender;
 - (IBAction)reportExportOptionenTaste:(id)sender;
-
+- (IBAction)reportHelp:(id)sender;
 
 @end
