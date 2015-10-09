@@ -26,6 +26,7 @@
 #import "rTitelListe.h"
 #import "rEinzelNamen.h"
 #import "rNamenListe.h"
+#import "NSString+StringExtensions.h"
 
 @interface rUtils : NSObject 
 {

@@ -111,7 +111,7 @@ NSLog(@"reportAuswahlOption: row: %ld",(long)[sender selectedRow]);
 }
 
 
-- (IBAction)reportDelete:(id)sender
+- (IBAction)reportDelete:(id)sender // von AdminPlayer
 {
 NSString* tempName=[LesernamenPop titleOfSelectedItem];
 NSLog(@"tempName: %@",tempName);

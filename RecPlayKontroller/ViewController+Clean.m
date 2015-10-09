@@ -1205,7 +1205,7 @@ enum
 
 
 
-- (void)ClearNotificationAktion:(NSNotification*)note
+- (void)ClearNotificationAktion:(NSNotification*)note // von Clean
 {
    //Aufgerufen nach √Ñnderungen in den Pops des Cleanfensters
    //NSString* clear=@"clear";

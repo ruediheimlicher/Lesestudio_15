@@ -2504,7 +2504,7 @@ return versionOK;
 				if ([Filemanager fileExistsAtPath:tempProjektPfad isDirectory:&istOrdner]&&istOrdner)
 				{
 					NSArray* tempNamenArray=[Filemanager contentsOfDirectoryAtPath:tempProjektPfad error:NULL];
-					if ([tempNamenArray containsObject:tempEntfernenName])//Projektordner enthält einen Ordner mite dem Namen
+					if ([tempNamenArray containsObject:tempEntfernenName])//Projektordner enthält einen Ordner mit dem Namen
 					{
 						NSString* tempEntfernenOrdnerPfad=[tempProjektPfad stringByAppendingPathComponent:tempEntfernenName];
 						[EntfernenPfadArray addObject:tempEntfernenOrdnerPfad];
@@ -2530,7 +2530,7 @@ return versionOK;
 				case 0://in den Papierkorb
 				{
 					NSLog(@"UNamenEntfernenAktion in den Papierkorb");
-				fehler=[self inPapierkorbMitPfad:einPfad];
+				fehler=[self OrdnerInPapierkorbMitPfad:einPfad];
 				}break;
 				case 1://ins Magazin
 				{
@@ -2538,7 +2538,7 @@ return versionOK;
 				}break;
 				case 2://ex und hopp
 				{
-					fehler=[self exMitPfad:einPfad];
+					fehler=[self OrdnerexMitPfad:einPfad];
 				}break;
 			}//switch
 			if ([[einPfad lastPathComponent] isEqualToString:tempEntfernenName])
@@ -2548,7 +2548,8 @@ return versionOK;
 		}//while
 
 		
-			NSLog(@"UNamenEntfernen: tempNamenFehler: %d",tempNamenFehler);
+      NSLog(@"UNamenEntfernen: tempNamenFehler: %d",tempNamenFehler);
+			NSLog(@"UNamenEntfernen: EntfernenPfadArray: %@",EntfernenPfadArray);
 			if (tempNamenFehler==0)
 			{
 				NSMutableDictionary* NotificationDic=[[NSMutableDictionary alloc]initWithCapacity:0];
@@ -2598,12 +2599,13 @@ return versionOK;
    
    NSMutableArray* PfadKomponenten=(NSMutableArray*)[derFilepfad pathComponents] ;
    int index=0;
-   while (index<[PfadKomponenten count] && ![[PfadKomponenten objectAtIndex:index]isEqualToString:@"Documents"])
+   while (index<[PfadKomponenten count] && ![[PfadKomponenten objectAtIndex:index]isEqualToString:@"Documents"]) // Documents suchen: HomeDir existiert
 	  {
         NSString* tempString=[PfadKomponenten objectAtIndex:index];
         HomeDir=[HomeDir stringByAppendingPathComponent:tempString];
         index++;
      }
+   
    if ([HomeDir isEqualToString:NSHomeDirectory()])
 	  {
         NSString* trashDir = [NSHomeDirectory() stringByAppendingPathComponent:@".Trash"];
@@ -2621,7 +2623,7 @@ return versionOK;
                                               files:files tag:&tag];
         return tag;//0 ist OK
      }
-   else
+   else // kein HomeDir > ex
 	  {
         
         NSString* sourceDir=derFilepfad;
@@ -2657,32 +2659,58 @@ return versionOK;
       }
 		return fehler;
 }
-		
+
+
+- (int)OrdnerInPapierkorbMitPfad:(NSString*)derNamenPfad
+{
+   BOOL istDirectory;
+   int fehler=0;
+   NSString* tempNamenPfad=[derNamenPfad copy];//Pfad akt. Aufn.
+   NSFileManager* Filemanager=[NSFileManager defaultManager];
+   NSLog(@"inPapierkorbmitPfad: %@",derNamenPfad);
+   if ([Filemanager fileExistsAtPath:tempNamenPfad isDirectory:&istDirectory]&&istDirectory)
+   {
+      //[self moveFileToUserTrash:tempAufnahmePfad];
+      fehler=[self fileInPapierkorb:tempNamenPfad];//0 ist OK
+      //NSLog(@"inPapierkorb result von Aufnahme: %d",result);
+      // Anmerkungen loeschen
+      NSString* tempAnmerkungName =[[[tempNamenPfad lastPathComponent] stringByDeletingPathExtension]stringByAppendingPathExtension:@"txt"];
+      NSString* tempAnmerkungPfad = [[[tempNamenPfad stringByDeletingLastPathComponent]stringByAppendingPathComponent:@"Anmerkungen"]stringByAppendingPathComponent:tempAnmerkungName];
+      if ([Filemanager fileExistsAtPath:tempAnmerkungPfad isDirectory:&istDirectory]&&!istDirectory)
+      {
+         //[self moveFileToUserTrash:tempAufnahmePfad];
+         fehler=[self fileInPapierkorb:tempAnmerkungPfad];//0 ist OK
+      }
+   }
+   return fehler;
+}
+
+
 - (int)insMagazinMitPfad:(NSString*)derNamenPfad
 {
-	NSLog(@"insMagazinMitPfad: %@",derNamenPfad);
-	NSString* tempNamenPfad=[derNamenPfad copy];//Pfad akt. Aufn.
-	long fehler=0;
-	BOOL istDirectory;
-	NSFileManager* Filemanager=[NSFileManager defaultManager];
-	NSString* tempMagazinPfad=[[UArchivPfad stringByDeletingLastPathComponent]stringByAppendingPathComponent:@"Magazin"]; 
-	NSLog(@"tempMagazinPfad: %@",tempMagazinPfad);
-	BOOL magazinOK=YES;
+   NSLog(@"insMagazinMitPfad: %@",derNamenPfad);
+   NSString* tempNamenPfad=[derNamenPfad copy];//Pfad akt. Aufn.
+   long fehler=0;
+   BOOL istDirectory;
+   NSFileManager* Filemanager=[NSFileManager defaultManager];
+   NSString* tempMagazinPfad=[[UArchivPfad stringByDeletingLastPathComponent]stringByAppendingPathComponent:@"Magazin"];
+   NSLog(@"tempMagazinPfad: %@",tempMagazinPfad);
+   BOOL magazinOK=YES;
    BOOL createOK = YES;
    NSError* err;
-	if (![Filemanager fileExistsAtPath:tempMagazinPfad])
-	{
-		createOK=[Filemanager createDirectoryAtPath:tempMagazinPfad  withIntermediateDirectories:NO attributes:NULL error:&err];
+   if (![Filemanager fileExistsAtPath:tempMagazinPfad])
+   {
+      createOK=[Filemanager createDirectoryAtPath:tempMagazinPfad  withIntermediateDirectories:NO attributes:NULL error:&err];
       NSLog(@"magazinOK createdir: %d",createOK);
-
-		if (!createOK)
-		{
-			NSString* s1=@"Ordner 'Magazin' im Ordner 'Lesebox' nicht eingerichtet";
-			NSString* s2=@"Ordner von %@ nicht verschoben";
-			NSString* MagazinString=[NSString stringWithFormat:@"%@%@%@%@",s1,@"\r",s2,[tempNamenPfad lastPathComponent]];
-			NSLog(@"MagazinString: %@",MagazinString);
-			NSString* TitelString=@"Magazin einrichten";
-			
+      
+      if (!createOK)
+      {
+         NSString* s1=@"Ordner 'Magazin' im Ordner 'Lesebox' nicht eingerichtet";
+         NSString* s2=@"Ordner von %@ nicht verschoben";
+         NSString* MagazinString=[NSString stringWithFormat:@"%@%@%@%@",s1,@"\r",s2,[tempNamenPfad lastPathComponent]];
+         NSLog(@"MagazinString: %@",MagazinString);
+         NSString* TitelString=@"Magazin einrichten";
+         
          NSAlert *Warnung = [[NSAlert alloc] init];
          [Warnung addButtonWithTitle:@"OK"];
          [Warnung setMessageText:TitelString];
@@ -2690,20 +2718,20 @@ return versionOK;
          [Warnung setAlertStyle:NSWarningAlertStyle];
          [Warnung runModal];
          return 1;
-		}
-	}
+      }
+   }
    
-	if (magazinOK)//Ordner 'Magazin' ist da
-	{
-      NSLog(@"Ordner 'Magazin' ist da");
+   if (magazinOK)//Ordner 'Magazin' ist da
+   {
+      NSLog(@"Ordner 'Magazin' ist da tempNamenPfad: %@ ",tempNamenPfad);
       
+      NSString* extension = [tempNamenPfad extensionVonPfad];
       
+      NSString* tempMagazinNamenPfad=[[[tempNamenPfad pfadOhneExtension]stringByAppendingString:@"_mag"]stringByAppendingPathExtension:extension];
       
-		NSString* tempMagazinNamenPfad=[[tempNamenPfad lastPathComponent]stringByAppendingString:@"_mag"];
-      
-      
-		NSString* tempZielPfad=[tempMagazinPfad stringByAppendingPathComponent:tempMagazinNamenPfad];
+      NSString* tempZielPfad=[tempMagazinPfad stringByAppendingPathComponent:tempMagazinNamenPfad];
       NSLog(@"tempZielPfad: %@",tempZielPfad);
+      
       [Filemanager removeItemAtURL:[NSURL fileURLWithPath:tempZielPfad] error:&err];//Eventuell schon vorhandenen Ordner löschen
       // Ordner verscjhieben
       BOOL magazinOK=[Filemanager moveItemAtURL:[NSURL fileURLWithPath:tempNamenPfad]  toURL:[NSURL fileURLWithPath:tempZielPfad] error:nil];
@@ -2717,13 +2745,14 @@ return versionOK;
          //[self moveFileToUserTrash:tempAufnahmePfad];
          fehler=[Filemanager moveItemAtURL:[NSURL fileURLWithPath:tempAnmerkungPfad]  toURL:[NSURL fileURLWithPath:tempZielPfad] error:nil];//0 ist OK
       }
-
+      
       
    }
-	
-	return fehler;
-	
+   
+   return fehler;
+   
 }
+
 
 - (int)exMitPfad:(NSString*)derNamenPfad
 {
@@ -2753,8 +2782,29 @@ return versionOK;
 		}
 		return fehler;
 }
-				
-		
+
+- (int)OrdnerexMitPfad:(NSString*)derNamenPfad
+{
+   NSString* tempNamenPfad=[derNamenPfad copy];//Pfad akt. Aufn.
+   BOOL istDirectory;
+   int fehler=0;
+   NSFileManager* Filemanager=[NSFileManager defaultManager];
+   NSLog(@"exMitPfad: %@",tempNamenPfad);
+   BOOL ExOK=NO;
+   if ([Filemanager fileExistsAtPath:tempNamenPfad isDirectory:&istDirectory]&&istDirectory)
+   {
+      ExOK=[Filemanager removeItemAtURL:[NSURL fileURLWithPath:tempNamenPfad]error:nil];//0 ist OK
+      NSLog(@"Ordnerex: result von ex: %d",fehler);
+      
+   }
+   if (!ExOK)
+   {
+      fehler=1;
+   }
+   return fehler;
+}
+
+
 - (void)UNamenEinsetzenAktion:(NSNotification*)note
 {
 	//NSLog(@"\n\n*UNamenEinsetzenAktion	UProjektArray: %@\n",[UProjektArray description]);

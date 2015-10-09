@@ -338,12 +338,12 @@ NSString*	RPDevicedatenKey=	@"RPDevicedaten";
           selector:@selector(NameIstEntferntAktion:)
               name:@"NameIstEntfernt"
             object:nil];
-/*
+
    [nc addObserver:self
           selector:@selector(NameIstEingesetztAktion:)
               name:@"NameIstEingesetzt"
             object:nil];
-*/
+
    [nc addObserver:self
           selector:@selector(AdminEntfernenNotificationAktion:)
               name:@"adminentfernen"
@@ -5761,6 +5761,7 @@ if (!self.KommentarFenster)
             NSLog(@"*ProjektEntfernenAktion: nach inPapierkorbMitPfad ");
             //[self updateProjektArray];
             NSLog(@"*ProjektEntfernenAktion: nach updateProjektArray");
+         
          }break;
             
          case 1: //Magazin
@@ -5769,10 +5770,6 @@ if (!self.KommentarFenster)
             NSString* MagazinPfad=[self.LeseboxPfad stringByAppendingPathComponent:@"Magazin"];
             //NSLog(@"*ProjektEntfernenAktion: Magazin: MagazinPfad: %@",MagazinPfad);
             BOOL istOrdner=NO;
-            
-            
-            
-            
             
             
             if (!([Filemanager fileExistsAtPath:MagazinPfad isDirectory:&istOrdner]&&istOrdner))

@@ -17,9 +17,11 @@
 #import "rMarkierung.h"
 #import "rNamenListe.h"
 #import "rAVPlayer.h"
-#import "rClean.h"
+#import "NSString+StringExtensions.h"
 
 #import "rAbspielanzeige.h"
+
+
 //#import "rUtils.h"
 //#import <fcntl.h>
 //#import <pthread.h>
@@ -218,7 +220,7 @@
 - (void)inPapierkorbMitPfad:(NSString*)derAufnahmePfad;
 
 - (void)insMagazin:(NSString*)dieAufnahme;
-- (void)insMagazinMitPfad:(NSString*)derAufnahmePfad;
+- (int)insMagazinMitPfad:(NSString*)derAufnahmePfad;
 - (void)AufnahmeMarkieren:(id)sender;
 - (BOOL)AufnahmeIstMarkiertAnPfad:(NSString*)derAufnahmePfad;
 - (BOOL)AufnahmeIstVomUserMarkiertAnPfad:(NSString*)derAufnahmePfad;
@@ -244,7 +246,6 @@
 - (void)neuNummerierenVon:(NSString*) derLeser;
 - (void)clearKommentarfelder;
 - (OSErr)ExportMovieVonPfad:(NSString*) derAufnahmePfad;
-
 //- (IBAction)OKSheet:(id)sender;
 
 - (void)Leseboxordnen;
@@ -340,6 +341,8 @@
 - (long)AufnahmeNummerVon:(NSString*) dieAufnahme;
 - (NSString*)InitialenVon:(NSString*)derName;
 - (void)Markierungenreset;
+
+
 - (IBAction)reportHelp:(id)sender;
 @end
 
@@ -361,7 +364,6 @@
 - (void)CleanViewNotificationAktion:(NSNotification*)note;
 - (void)ClearNotificationAktion:(NSNotification*)note;
 - (void)Clean:(NSDictionary*)derCleanDic;
-//- (void)insMagazinMitPfad:(NSString*)derAufnahmePfad;
 
 - (void)setCleanTitelVonLeser:(NSString*)derLeser;
 - (void)setAlleTitel;

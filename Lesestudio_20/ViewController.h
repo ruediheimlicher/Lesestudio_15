@@ -372,7 +372,7 @@
 - (void)startAdminTimer;
 - (void)AdminEntfernenNotificationAktion:(NSNotification*)note;
 - (void)NameIstEntferntAktion:(NSNotification*)note;
-
+- (void)NameIstEingesetztAktion:(NSNotification*)note;
 - (void)showTitelListeInProjekt:(NSString*)zielprojekt;
 
 - (void)MarkierungenEntfernenFuerLeser:(NSString*)leser;

@@ -65,7 +65,9 @@ enum
    {
       //NSLog(@"User nach gewuenschter Lesebox fragen");
       //User nach gewuenschter Lesebox fragen
+      
       self.LeseboxPfad=(NSMutableString*)[self chooseLeseboxPfad];
+      
       self.LeseboxURL =[NSURL fileURLWithPath:self.LeseboxPfad];
       //NSLog(@"User nach gewuenschter Lesebox fragen LeseboxPfad: %@",LeseboxPfad);
       //Rücgabe: LeseboxPfad ungeprüft

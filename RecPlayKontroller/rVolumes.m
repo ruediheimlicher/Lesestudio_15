@@ -101,7 +101,8 @@
 - (void) setLeseboxPfad:(NSString*)leseboxpfad
 {
    [SuchenKnopf setKeyEquivalent:@"\r"];
-   	[PfadFeld setStringValue:leseboxpfad];
+   [PfadFeld setStringValue:leseboxpfad];
+   [[self window]makeFirstResponder:self];
 }
 
 - (void) setLeseboxOK:(BOOL)status
@@ -253,7 +254,7 @@
 	[UserTable setEnabled:YES];
 	
 
-//	int erfolg=[[self window]makeFirstResponder:UserTable];
+	int erfolg=[[self window]makeFirstResponder:self];
 
 	//[AuswahlenKnopf setEnabled:YES];
 	[AuswahlenKnopf setKeyEquivalent:@"\r"];

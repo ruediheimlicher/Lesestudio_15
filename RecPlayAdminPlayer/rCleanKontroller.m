@@ -622,7 +622,7 @@ enum
 				  }//while
 }
 
-- (void)ClearNotificationAktion:(NSNotification*)note
+- (void)ClearNotificationAktion:(NSNotification*)note // Unbenutzt > ViewController+Clean
 {
 	//Aufgerufen nach Änderungen in den Pops des Cleanfensters
 	//NSString* clear=@"clear";
