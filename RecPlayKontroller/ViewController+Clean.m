@@ -1448,6 +1448,7 @@ enum
                       [Utils insMagazinMitPfad:einMagazinAufnahmePfad];
                     }//while clearEnum
                  }break;
+                    
                  case 2://ex und hopp
                  {
                     NSLog(@"Clean ex");

@@ -299,6 +299,11 @@ const short kRecPlayUmgebung=0;
       AVAbspielplayer.PlayerFenster = [self  window];
    }
    
+   if (!self.Utils)
+   {
+      self.Utils = [[rUtils alloc ]init];
+   }
+   
    RPExportdaten=[NSMutableData dataWithCapacity:0];
    ExportFormatString=[NSMutableString stringWithCapacity:0];
    [ExportFormatString setString:@"AIFF"];
@@ -2891,7 +2896,7 @@ const short kRecPlayUmgebung=0;
 
 #pragma mark AufnahmeLoeschen
 
-- (IBAction) AufnahmeLoeschen:(id)sender
+- (IBAction) AufnahmeLoeschen:(id)sender // von AdminPlayer reportDelete
 {
    //NSLog(@"Projekt: %@",[AdminProjektPfad lastPathComponent]);
    long projektindex = [[AdminProjektArray valueForKey:@"projekt"]indexOfObject:[AdminProjektPfad lastPathComponent]];
@@ -2931,27 +2936,25 @@ const short kRecPlayUmgebung=0;
    */
 	
     modalAntwort = [NSApp runModalForWindow:[EntfernenFenster window]];
+   NSString* tempEntfernenPfad = [[AdminProjektPfad stringByAppendingPathComponent:[LesernamenPop titleOfSelectedItem]] stringByAppendingPathComponent:AdminAktuelleAufnahme];
+
    switch (modalAntwort)
    {
-      case 0:
-      {
-         NSLog(@"AufnahmeLoeschen cancel antwort: %ld AdminAktuelleAufnahme: %@",modalAntwort,AdminAktuelleAufnahme);
-         
-      }break;
-      case 10://in den Papierkorb
+        case 10://in den Papierkorb
       {
          NSLog(@"AufnahmeLoeschen in den Papierkorb antwort: %ld AdminAktuelleAufnahme: %@",modalAntwort,AdminAktuelleAufnahme);
          
-         [self inPapierkorb:AdminAktuelleAufnahme];
+         [self.Utils  inPapierkorbMitPfad:tempEntfernenPfad]; // von AdminPlayer
       }break;
       case 11://ins Magazin
       {
          NSLog(@"AufnahmeLoeschen ins Magazin antwort: %ld AdminAktuelleAufnahme: %@",modalAntwort,AdminAktuelleAufnahme);
-         [self insMagazin:AdminAktuelleAufnahme];
+         [self.Utils insMagazinMitPfad:tempEntfernenPfad];
       }break;
       case 12://ex und hopp
       {
-         [self ex:AdminAktuelleAufnahme];
+         //[self ex:AdminAktuelleAufnahme];
+         [self.Utils  exMitPfad:tempEntfernenPfad];
       }break;
    }
    
@@ -3027,17 +3030,21 @@ const short kRecPlayUmgebung=0;
    [AdminMarkCheckbox setState:tempmark];
 }
 
-- (void)EntfernenNotificationAktion:(NSNotification*)note
+/*
+- (void)EntfernenNotificationAktion:(NSNotification*)note // unbenutzt, in Utils
 {
 	int var=[[[note userInfo]objectForKey:@"EntfernenVariante"]intValue];
 	NSLog(@"AdminPlayer EntfernenNotificationAktion  Variante: %d AdminAktuelleAufnahme: %@",var,AdminAktuelleAufnahme);
+   NSString* tempEntfernenPfad = [AdminProjektPfad stringByAppendingPathComponent:AdminAktuelleAufnahme];
+   
 	switch (var)
 	  {
 		case 0://in den Papierkorb
 		  {
 			  //NSLog(@"EntfernenNotificationAktion AdminAktuelleAufnahme: %@",AdminAktuelleAufnahme);
 			  
-			  [self inPapierkorb:AdminAktuelleAufnahme];
+			  //[self inPapierkorb:AdminAktuelleAufnahme];
+           [self.Utils inPapierkorbMitPfad: tempEntfernenPfad];
 		  }break;
 		case 1://ins Magazin
 		  {
@@ -3045,7 +3052,7 @@ const short kRecPlayUmgebung=0;
 		  }break;
 		case 2://ex und hopp
 		  {
-			  [self ex:AdminAktuelleAufnahme];
+			  [self exMitPfad:AdminAktuelleAufnahme];
 		  }break;
 	  }//switch
 	[self resetAdminPlayer];
@@ -3053,7 +3060,7 @@ const short kRecPlayUmgebung=0;
 	[self setAdminPlayer:AdminLeseboxPfad inProjekt:[AdminProjektPfad lastPathComponent]];
 
 }
-
+*/
 /*
 - (void) moveFileToUserTrash:(NSString *)filePath 
 {
@@ -3083,8 +3090,10 @@ const short kRecPlayUmgebung=0;
 }
  */
 
+/*
 - (int) fileInPapierkorb:(NSString*) derFilepfad
 {
+   // von AdminPlayer
 	long tag;
 	BOOL succeeded;
 	NSString* HomeDir=@"";// = [NSHomeDirectory() stringByAppendingPathComponent:@".Trash"];
@@ -3093,7 +3102,7 @@ const short kRecPlayUmgebung=0;
 
 	NSMutableArray* PfadKomponenten=(NSMutableArray*)[derFilepfad pathComponents] ;
 	int index=0;
-	while (index<[PfadKomponenten count] && ![[PfadKomponenten objectAtIndex:index]isEqualToString:@"Documents"])
+	while (index<[PfadKomponenten count] && ![[PfadKomponenten objectAtIndex:index]isEqualToString:@"Documents"])// checken, ob ein Homedir vorhanden ist: Trash auch da
 	  {
 		NSString* tempString=[PfadKomponenten objectAtIndex:index];
 		HomeDir=[HomeDir stringByAppendingPathComponent:tempString];
@@ -3104,7 +3113,10 @@ const short kRecPlayUmgebung=0;
         NSString* trashDir = [NSHomeDirectory() stringByAppendingPathComponent:@".Trash"];
         //trashDir=[trashDir stringByAppendingPathComponent:@".Trash"];
         
-        NSString* sourceDir=[derFilepfad stringByDeletingLastPathComponent];
+        NSString* sourceDir=[derFilepfad stringByDeletingLastPathComponent]; // Pfad des LeserOrdners
+        NSString* sourceAnmerkungenDir=[sourceDir  stringByAppendingPathComponent:@"Anmerkungen"]; // Pfad des AnmerkungenOrdners
+        
+        
         NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
         
         NSArray * vols=[workspace mountedLocalVolumePaths];
@@ -3116,31 +3128,42 @@ const short kRecPlayUmgebung=0;
                                         destination:@""
                                               files:files
                                                 tag:&tag];
+        // Anmerkung weg
+        
+        succeeded = [workspace performFileOperation:NSWorkspaceRecycleOperation
+                                             source:sourceAnmerkungenDir
+                                        destination:@""
+                                              files:files
+                                                tag:&tag];
+        
+        
         return tag;//0 ist OK
      }
-	else
+	else // kein >trash > ex
 	  {	
 
 		NSString* sourceDir=derFilepfad;
 		int removeIt=[Filemanager removeItemAtURL:[NSURL fileURLWithPath:sourceDir] error:nil];
+        
+        
 		//NSLog(@"removePath: removeIt: %d",removeIt);
 		return 0;
 
 	  }
 }
-
-
-- (void)inPapierkorb:(NSString*)dieAufnahme
+*/
+/*
+- (void)inPapierkorb:(NSString*)dieAufnahme // unbenutzt
 {
    BOOL istDirectory;
    NSFileManager* Filemanager=[NSFileManager defaultManager];
-   NSLog(@"Papierkorb: %@",dieAufnahme);
+   NSLog(@"Papierkorb: %@",dieAufnahme); // Nur Aufnahmename mit Extension
    NSString* tempLeserPfad=[AdminProjektPfad stringByAppendingPathComponent:self.AdminAktuellerLeser];//Leserordner im Archiv
-   if ([self.AdminAktuellerLeser length]&&[Filemanager fileExistsAtPath:tempLeserPfad isDirectory:&istDirectory]&&istDirectory)
+   if ([self.AdminAktuellerLeser length]&&[Filemanager fileExistsAtPath:tempLeserPfad isDirectory:&istDirectory]&&istDirectory)// alles da
    {
-      NSString* tempAufnahmePfad=[tempLeserPfad stringByAppendingPathComponent:dieAufnahme];//Pfad akt. Aufn.
+      NSString* tempAufnahmePfad=[tempLeserPfad stringByAppendingPathComponent:dieAufnahme];//Pfad der zu verschiebenden  Aufnahme
       NSLog(@"Papierkorb tempAufnahmePfad: %@",tempAufnahmePfad);
-      if ([AdminAktuelleAufnahme length]&&[Filemanager fileExistsAtPath:tempAufnahmePfad isDirectory:&istDirectory]&&!istDirectory)
+      if ([AdminAktuelleAufnahme length]&&[Filemanager fileExistsAtPath:tempAufnahmePfad isDirectory:&istDirectory]&&!istDirectory) // kein Ordner
       {
          //[self moveFileToUserTrash:tempAufnahmePfad];
          int result=[self fileInPapierkorb:tempAufnahmePfad];//0 ist OK
@@ -3175,12 +3198,12 @@ const short kRecPlayUmgebung=0;
    }
 }
 
-- (void)inPapierkorbMitPfad:(NSString*)derAufnahmePfad
+- (void)inPapierkorbMitPfad:(NSString*)derAufnahmePfad // unbenutzt
 {
 	BOOL istDirectory;
 	NSString* tempAufnahmePfad=[derAufnahmePfad copy];//Pfad akt. Aufn.
 	NSFileManager* Filemanager=[NSFileManager defaultManager];
-	//NSLog(@"inPapierkorbmitPfad: %@",derAufnahmePfad);
+	NSLog(@"AdminPlayer inPapierkorbmitPfad: %@",derAufnahmePfad);
 	NSString* tempLeserOrdnerPfad=[tempAufnahmePfad stringByDeletingLastPathComponent];//Leserordner im Archiv
 	if ([Filemanager fileExistsAtPath:tempLeserOrdnerPfad isDirectory:&istDirectory]&&istDirectory)
 		{
@@ -3205,8 +3228,9 @@ const short kRecPlayUmgebung=0;
 			
 		}
 }
-
-- (void)insMagazin:(NSString*)dieAufnahme
+*/
+/*
+- (void)insMagazin:(NSString*)dieAufnahme // unbenutzt
 {
    NSLog(@"Magazin");
    BOOL istDirectory;
@@ -3238,46 +3262,50 @@ const short kRecPlayUmgebung=0;
      }
    
    NSString* tempLeserPfad=[AdminProjektPfad stringByAppendingPathComponent:self.AdminAktuellerLeser];//Leserordner im Archiv
+   
    if ([self.AdminAktuellerLeser length]&&[Filemanager fileExistsAtPath:tempLeserPfad isDirectory:&istDirectory]&&istDirectory)
    {
-      NSString* tempZielPfad=[tempMagazinPfad stringByAppendingPathComponent:[dieAufnahme stringByAppendingString:@" alt"]];
+      // todo6
+      NSString* tempZielPfad=[tempMagazinPfad stringByAppendingPathComponent:dieAufnahme ]; // Zielpfad fuer Aufnahme
       NSString* tempAufnahmePfad=[tempLeserPfad stringByAppendingPathComponent:dieAufnahme];//Pfad akt. Aufn.
+      
+      // Aufnahme verschieben
       if ([AdminAktuelleAufnahme length]&&[Filemanager fileExistsAtPath:tempAufnahmePfad])
       {
          if ([Filemanager fileExistsAtPath:tempZielPfad])//File ist schon vorhanden: ex
          {
             BOOL del=[Filemanager removeItemAtURL:[NSURL fileURLWithPath:tempZielPfad ] error:nil];
          }
-         
          BOOL result=[Filemanager moveItemAtURL:[NSURL fileURLWithPath:tempAufnahmePfad]  toURL:[NSURL fileURLWithPath:tempZielPfad] error:nil];
          NSLog(@"result von Aufnahme insMagazin: %d",result);
       }
-      NSString* tempMagazinKommentarPfad=[tempLeserPfad stringByAppendingPathComponent:@"Anmerkungen"];
+      NSString* tempAnmerkungenOrdnerPfad=[tempLeserPfad stringByAppendingPathComponent:@"Anmerkungen"]; // Pfad zum Ordner Anmerkungen
       
       //
-      NSLog(@"insMagazin tempMagazinKommentarPfad: %@",tempMagazinKommentarPfad);
-      if ([Filemanager fileExistsAtPath:tempMagazinKommentarPfad isDirectory:&istDirectory]&&istDirectory)
+      NSLog(@"insMagazin tempAnmerkungenOrdnerPfad: %@",tempAnmerkungenOrdnerPfad);
+      if ([Filemanager fileExistsAtPath:tempAnmerkungenOrdnerPfad isDirectory:&istDirectory]&&istDirectory) // Ordner Anmerkungen da
       {
-         tempMagazinKommentarPfad=[tempMagazinKommentarPfad stringByAppendingPathComponent:[dieAufnahme stringByDeletingPathExtension]];
-         NSLog(@"insMagazin tempKommentarPfad 2: %@",tempMagazinKommentarPfad);
-         if ([Filemanager fileExistsAtPath:tempMagazinKommentarPfad])
+         // Pfad zu Anmerkung in der Lesebox
+         NSString* tempAnmerkungPfad = [[tempAnmerkungenOrdnerPfad stringByAppendingPathComponent:[dieAufnahme pfadOhneExtension]]stringByAppendingPathExtension:@"txt"];
+         if ([Filemanager fileExistsAtPath: tempAnmerkungPfad] )// anmerkung da
          {
-            //[self moveFileToUserTrash:tempKommentarPfad];
-            int result=[self fileInPapierkorb:tempMagazinKommentarPfad];
-            NSLog(@"insMagazin ohne extension result von Kommentar: %d",result);
-         }
-         else
-         {
-            tempMagazinKommentarPfad=[tempMagazinKommentarPfad stringByAppendingPathExtension:@"txt"];
-            if ([Filemanager fileExistsAtPath:tempMagazinKommentarPfad])
+            // Zielpfad fuer Anmerkung
+            NSString* tempMagazinAnmerkungPfad=[[tempMagazinPfad stringByAppendingPathComponent:[dieAufnahme pfadOhneExtension]]stringByAppendingPathExtension:@"txt"];
+            NSLog(@"insMagazin tempMagazinAnmerkungPfad: %@",tempMagazinAnmerkungPfad);
+            if ([Filemanager fileExistsAtPath:tempMagazinAnmerkungPfad]) // schon vorhanden, entfernen
             {
                //[self moveFileToUserTrash:tempKommentarPfad];
-               int result=[self fileInPapierkorb:tempMagazinKommentarPfad];
-               NSLog(@"insMagazin mit extension result von Kommentar: %d",result);
-               
+               int result=[Filemanager removeItemAtPath:tempMagazinAnmerkungPfad error:nil];
+               NSLog(@"insMagazin result von ex: %d",result);
             }
             
-         }
+            BOOL result=[Filemanager moveItemAtURL:[NSURL fileURLWithPath:tempAnmerkungPfad]  toURL:[NSURL fileURLWithPath:tempMagazinAnmerkungPfad] error:nil];
+            
+            NSLog(@"insMagazin mit extension result von Kommentar: %d",result);
+            
+            
+         } // anmerkung da
+         
          
       }
       
@@ -3285,77 +3313,82 @@ const short kRecPlayUmgebung=0;
    }
    
 }
-
-
-- (void)insMagazinMitPfad:(NSString*)derAufnahmePfad
+*/
+/*
+- (int)insMagazinMitPfad:(NSString*)derAufnahmePfad // unbenutzt, in Utils
 {
-	NSLog(@"insMagazinMitPfad: %@",derAufnahmePfad);
-	NSString* tempAufnahmePfad=[derAufnahmePfad copy];//Pfad akt. Aufn.
-
-	BOOL istDirectory;
-	NSFileManager* Filemanager=[NSFileManager defaultManager];
-	NSString* tempMagazinPfad=[[AdminArchivPfad stringByDeletingLastPathComponent]stringByAppendingPathComponent:@"Magazin"]; 
-	NSLog(@"tempMagazinPfad: %@",tempMagazinPfad);
-	if (![Filemanager fileExistsAtPath:tempMagazinPfad])
+   NSLog(@"insMagazinMitPfad: %@",derAufnahmePfad);
+   NSString* tempAufnahmePfad=[derAufnahmePfad copy];//Pfad akt. Aufn.
+   
+   BOOL istDirectory;
+   NSFileManager* Filemanager=[NSFileManager defaultManager];
+   NSString* tempMagazinPfad=[[AdminArchivPfad stringByDeletingLastPathComponent]stringByAppendingPathComponent:@"Magazin"];
+   NSLog(@"tempMagazinPfad: %@",tempMagazinPfad);
+   if (![Filemanager fileExistsAtPath:tempMagazinPfad])
 	  {
-		BOOL magazinOK=[Filemanager createDirectoryAtPath:tempMagazinPfad  withIntermediateDirectories:NO attributes:NULL error:NULL];
-		if (!magazinOK)
-		  {
-			NSString* s1=@"Der Ordner 'Magazin' im Ordner 'Lesebox' konnte nicht eingerichtet werden";
-			NSString* s2=@"Die Aufnahme nicht verschoben.";
-			NSString* MagazinString=[NSString stringWithFormat:@"%@%@%@",s1,@"\r",s2];
-			int magazinAntwort=NSRunAlertPanel(@"Magazin einrichten", MagazinString,@"OK", NULL,NULL);
-			
-			return;
-		  }
-	  }
-	
-	NSString* tempLeserPfad=[tempAufnahmePfad stringByDeletingLastPathComponent];//Leserordner im Archiv
-		if ([Filemanager fileExistsAtPath:tempLeserPfad isDirectory:&istDirectory]&&istDirectory)
-		  {
-			NSString* tempZielPfad=[tempMagazinPfad stringByAppendingPathComponent:[[tempAufnahmePfad lastPathComponent] stringByAppendingString:@" alt"]];
-				if ([Filemanager fileExistsAtPath:tempAufnahmePfad])
-				  {
-					if ([Filemanager fileExistsAtPath:tempZielPfad])//File ist schon vorhanden: ex
-					  {
-						  BOOL del=[Filemanager removeItemAtURL:[NSURL fileURLWithPath:tempZielPfad ]error:nil];
-					  }
-					//BOOL result=[Filemanager movePath:tempAufnahmePfad toPath:tempZielPfad handler:nil];
-                 BOOL result=[Filemanager moveItemAtURL:[NSURL fileURLWithPath:tempAufnahmePfad]  toURL:[NSURL fileURLWithPath:tempZielPfad] error:nil];
-
-					NSLog(@"result von Aufnahme insMagazin: %d",result);
-				  }
-				NSString* tempMagazinKommentarPfad=[tempLeserPfad stringByAppendingPathComponent:@"Anmerkungen"];
-				NSArray* Inhalt=[Filemanager contentsOfDirectoryAtPath:tempMagazinKommentarPfad error:NULL];
-				//NSLog(@"tempKommentarPfad: %@",[Inhalt description]);
-				
-				if ([Filemanager fileExistsAtPath:tempMagazinKommentarPfad isDirectory:&istDirectory]&&istDirectory)
-				  {
-					NSString* tempZielPfad=[tempMagazinPfad stringByAppendingPathComponent:[[tempAufnahmePfad lastPathComponent] stringByAppendingString:@" Komm alt"]];
-					tempMagazinKommentarPfad=[tempMagazinKommentarPfad stringByAppendingPathComponent:[tempAufnahmePfad lastPathComponent]];
-					BOOL da=[Inhalt containsObject:tempMagazinKommentarPfad];
-					NSLog(@"Inhalt da: %d",da);
-					if ([Filemanager fileExistsAtPath:tempMagazinKommentarPfad])
-					  {
-						if ([Filemanager fileExistsAtPath:tempZielPfad])//File ist schon vorhanden: ex
-						  {
-							  BOOL del=[Filemanager removeItemAtURL:[NSURL fileURLWithPath:tempZielPfad ] error:nil];
-						  }
-						da=[Filemanager fileExistsAtPath:tempMagazinKommentarPfad];
-						//BOOL result=[Filemanager movePath:tempMagazinKommentarPfad toPath:tempZielPfad handler:NULL];
-                    BOOL result=[Filemanager moveItemAtURL:[NSURL fileURLWithPath:tempMagazinKommentarPfad]  toURL:[NSURL fileURLWithPath:tempZielPfad] error:nil];
-
-                    NSLog(@"result von Kommentar insMagazin: %d",result);
-					  }
-					
-				  }
-				
-		  }
-		
+        BOOL magazinOK=[Filemanager createDirectoryAtPath:tempMagazinPfad  withIntermediateDirectories:NO attributes:NULL error:NULL];
+        if (!magazinOK)
+        {
+           NSString* s1=@"Der Ordner 'Magazin' im Ordner 'Lesebox' konnte nicht eingerichtet werden";
+           NSString* s2=@"Die Aufnahme nicht verschoben.";
+           NSString* MagazinString=[NSString stringWithFormat:@"%@%@%@",s1,@"\r",s2];
+           int magazinAntwort=NSRunAlertPanel(@"Magazin einrichten", MagazinString,@"OK", NULL,NULL);
+           
+           return 0;
+        }
+     }
+   
+   BOOL result=0;
+   NSString* tempLeserPfad=[tempAufnahmePfad stringByDeletingLastPathComponent];//Leserordner im Archiv
+   if ([Filemanager fileExistsAtPath:tempLeserPfad isDirectory:&istDirectory]&&istDirectory) // Leserordner ist da
+   {
+      NSString* tempExtension = [tempAufnahmePfad extensionVonPfad]; // Extension der Aufnahme
+      
+      // Name der Aufnahme mit extension
+      NSString* tempAufnahmeName = [tempAufnahmePfad lastPathComponent];
+      
+      
+      NSString* tempZielPfad=[tempMagazinPfad stringByAppendingPathComponent:tempAufnahmeName]; // Name an Magazinpfad anhaengen
+      
+      if ([Filemanager fileExistsAtPath:tempAufnahmePfad]) // Zu verschiebendes File ist da
+      {
+         
+         if ([Filemanager fileExistsAtPath:tempZielPfad])//File ist schon vorhanden: ex
+         {
+            BOOL del=[Filemanager removeItemAtURL:[NSURL fileURLWithPath:tempZielPfad ]error:nil];
+         }
+         //BOOL result=[Filemanager movePath:tempAufnahmePfad toPath:tempZielPfad handler:nil];
+         result=[Filemanager moveItemAtURL:[NSURL fileURLWithPath:tempAufnahmePfad]  toURL:[NSURL fileURLWithPath:tempZielPfad] error:nil];
+         
+         NSLog(@"result von Aufnahme insMagazin: %d",result);
+      }
+      NSString* tempMagazinKommentarPfad=[tempLeserPfad stringByAppendingPathComponent:@"Anmerkungen"];
+      NSArray* Inhalt=[Filemanager contentsOfDirectoryAtPath:tempMagazinKommentarPfad error:NULL];
+      //NSLog(@"tempKommentarPfad: %@",[Inhalt description]);
+      
+      //Pfad zum Ordner Anmerkungen
+      
+      // Name der Aufnahme ohne extension
+      tempAufnahmeName = [tempAufnahmeName pfadOhneExtension];
+     // Pfad zur Anmerkung in der Lesebox
+      NSString* tempAnmerkungPfad = [[[tempLeserPfad stringByAppendingPathComponent:@"Anmerkungen"]stringByAppendingPathComponent:tempAufnahmeName]stringByAppendingPathExtension:@"txt"];
+      
+         // Zielpfad fuer die Anmerkung
+         tempZielPfad=[tempMagazinPfad stringByAppendingPathComponent:[tempAufnahmeName stringByAppendingPathExtension:@"txt"]];
+            if ([Filemanager fileExistsAtPath:tempZielPfad])//File ist schon vorhanden: ex
+            {
+               BOOL del=[Filemanager removeItemAtURL:[NSURL fileURLWithPath:tempZielPfad ] error:nil];
+            }
+             result=[Filemanager moveItemAtURL:[NSURL fileURLWithPath:tempAnmerkungPfad]  toURL:[NSURL fileURLWithPath:tempZielPfad] error:nil];
+            
+            NSLog(@"result von Kommentar insMagazin: %d",result);
+         }
+   
+   return result;
 }
 
 
-- (void)ex:(NSString*)dieAufnahme
+- (void)ex:(NSString*)dieAufnahme // unbenutzt, in Utils
 {
 	BOOL istDirectory;
 	NSFileManager* Filemanager=[NSFileManager defaultManager];
@@ -3373,7 +3406,7 @@ const short kRecPlayUmgebung=0;
 			NSString* tempKommentarPfad=[tempLeserPfad stringByAppendingPathComponent:@"Anmerkungen"];
 			if ([Filemanager fileExistsAtPath:tempKommentarPfad isDirectory:&istDirectory]&&istDirectory)
 			  {
-				tempKommentarPfad=[tempKommentarPfad stringByAppendingPathComponent:AdminAktuelleAufnahme];
+              tempKommentarPfad=[[tempKommentarPfad stringByAppendingPathComponent:[AdminAktuelleAufnahme pfadOhneExtension]]stringByAppendingPathExtension:@"txt"];
 				if ([Filemanager fileExistsAtPath:tempKommentarPfad])
 				  {
 					//[self moveFileToUserTrash:tempKommentarPfad];
@@ -3387,7 +3420,7 @@ const short kRecPlayUmgebung=0;
 		
 }
 
-- (void)exMitPfad:(NSString*)derAufnahmePfad
+- (void)exMitPfad:(NSString*)derAufnahmePfad // unbenutzt, in Utils
 {
 	NSString* tempAufnahmePfad=[derAufnahmePfad copy];//Pfad akt. Aufn.
 	BOOL istDirectory;
@@ -3418,7 +3451,7 @@ const short kRecPlayUmgebung=0;
 		  }
 		
 }
-
+*/
 
 
 - (IBAction)reportAktualisieren:(id)sender

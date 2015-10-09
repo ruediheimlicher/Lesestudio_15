@@ -22,7 +22,7 @@
 #import "rAbspielanzeige.h"
 
 
-//#import "rUtils.h"
+#import "rUtils.h"
 //#import <fcntl.h>
 //#import <pthread.h>
 //#import "rThreadData.h"
@@ -177,6 +177,8 @@
 @property (strong) NSString*                       AdminAktuellerLeser;
 
 //@property (assign) IBOutlet NSButton*              MarkCheckbox;
+
+@property (strong)   rUtils*                         Utils;
 
 
 - (void)setLeseboxPfad:(NSString*)derPfad inProjekt: (NSString*)dasProjekt;

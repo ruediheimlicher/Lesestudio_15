@@ -2640,7 +2640,7 @@ return versionOK;
 {
 	BOOL istDirectory;
 	int fehler=0;
-	NSString* tempNamenPfad=[derNamenPfad copy];//Pfad akt. Aufn.
+	NSString* tempNamenPfad=[derNamenPfad copy];//Pfad der zu verschiebenden Aufnahme
 		NSFileManager* Filemanager=[NSFileManager defaultManager];
 		NSLog(@"inPapierkorbmitPfad: %@",derNamenPfad);
 		if ([Filemanager fileExistsAtPath:tempNamenPfad isDirectory:&istDirectory]&&!istDirectory)
@@ -2693,7 +2693,14 @@ return versionOK;
    long fehler=0;
    BOOL istDirectory;
    NSFileManager* Filemanager=[NSFileManager defaultManager];
-   NSString* tempMagazinPfad=[[UArchivPfad stringByDeletingLastPathComponent]stringByAppendingPathComponent:@"Magazin"];
+   
+   // AufnahmeNAme, Leser, Projektname, Archiv weg
+   NSString* tempLeseboxPfad = [[[[derNamenPfad stringByDeletingLastPathComponent]stringByDeletingLastPathComponent]stringByDeletingLastPathComponent]stringByDeletingLastPathComponent];
+   
+   
+   NSString* tempMagazinPfad=[tempLeseboxPfad stringByAppendingPathComponent:@"Magazin"];
+   
+   
    NSLog(@"tempMagazinPfad: %@",tempMagazinPfad);
    BOOL magazinOK=YES;
    BOOL createOK = YES;
@@ -2729,7 +2736,7 @@ return versionOK;
       
       NSString* tempMagazinNamenPfad=[[[tempNamenPfad pfadOhneExtension]stringByAppendingString:@"_mag"]stringByAppendingPathExtension:extension];
       
-      NSString* tempZielPfad=[tempMagazinPfad stringByAppendingPathComponent:tempMagazinNamenPfad];
+      NSString* tempZielPfad=[tempMagazinPfad stringByAppendingPathComponent:[tempMagazinNamenPfad lastPathComponent]];
       NSLog(@"tempZielPfad: %@",tempZielPfad);
       
       [Filemanager removeItemAtURL:[NSURL fileURLWithPath:tempZielPfad] error:&err];//Eventuell schon vorhandenen Ordner löschen
@@ -2738,6 +2745,9 @@ return versionOK;
       NSLog(@"magazinOK: %d",magazinOK);
       
       // Anmerkungen verschieben
+      
+      // Zielpfad aendern: .txt anstatt .m4a
+      tempZielPfad = [[tempZielPfad pfadOhneExtension]stringByAppendingPathExtension:@"txt"];
       NSString* tempAnmerkungName =[[[tempNamenPfad lastPathComponent] stringByDeletingPathExtension]stringByAppendingPathExtension:@"txt"];
       NSString* tempAnmerkungPfad = [[[tempNamenPfad stringByDeletingLastPathComponent]stringByAppendingPathComponent:@"Anmerkungen"]stringByAppendingPathComponent:tempAnmerkungName];
       if ([Filemanager fileExistsAtPath:tempAnmerkungPfad isDirectory:&istDirectory]&&!istDirectory)
