@@ -1244,7 +1244,7 @@ enum
       return;
    }
    
-   // //NSLog(@"Clean  Variante: %d  behalten: %d  anzahl: %d",var, behalten, anzahl);
+   //NSLog(@"Clean  Variante: %d  behalten: %d  anzahl: %d",var, behalten, anzahl);
    //NSLog(@"ClearNotificationAktion*** derCleanDic: %@",[derCleanDic description]);
    NSMutableArray* clearNamenArray=[derCleanDic objectForKey:@"clearnamen"];
    if (clearNamenArray)

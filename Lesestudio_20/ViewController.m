@@ -171,7 +171,7 @@ NSString*	RPDevicedatenKey=	@"RPDevicedaten";
    //NSLog(@"NSAlertDefaultReturn: %d",NSAlertDefaultReturn);
    
    //NSLog(@"[NSDate date]: %@",[[NSDate date]description]); // 2015-09-12 17:15:21 +0000
- //  //NSLog(@"[NSCalendarDate date]: %@",[[NSCalendarDate date]description]); // 2015-09-12 19:16:41 +0200
+ //NSLog(@"[NSCalendarDate date]: %@",[[NSCalendarDate date]description]); // 2015-09-12 19:16:41 +0200
    
    
    // http://stackoverflow.com/questions/1268509/convert-utc-nsdate-to-local-timezone-objective-c
@@ -472,7 +472,7 @@ NSString*	RPDevicedatenKey=	@"RPDevicedaten";
    [[self.AblaufMenu itemWithTag:kAlleMarkierungenLoschenTag] setTarget:self];//
    [[self.AblaufMenu itemWithTag:kTitelListeBearbeitenTag] setTarget:self];//
    
-   // //NSLog(@"Menu: %@ tag: %d",[[AblaufMenu itemWithTag:kProjektWahlenTag]description],kProjektWahlenTag);
+   //NSLog(@"Menu: %@ tag: %d",[[AblaufMenu itemWithTag:kProjektWahlenTag]description],kProjektWahlenTag);
    //[[AblaufMenu itemWithTag:kProjektWahlenTag] setTarget:self];//
    
    [[self.RecorderMenu itemWithTag:kRecorderProjektWahlenTag] setTarget:self];//
@@ -866,7 +866,7 @@ NSString*	RPDevicedatenKey=	@"RPDevicedaten";
       
       [self.Testfenster setzeAnzeigeFeld:@"Seccond"];
       
-      // //NSLog(@"prepareForSegue erfolg: %d",erfolg);
+      //NSLog(@"prepareForSegue erfolg: %d",erfolg);
    }
    
    
@@ -950,7 +950,7 @@ return YES;
    
    NSString* tempProjektWahl=[[note userInfo] objectForKey:@"projektwahl"];
    //tempProjektWahl = [tempProjektWahl stringByAppendingPathComponent:tempProjektWahl];
-   // //NSLog(@"ProjektStartAktion tempProjektWahl: %@",tempProjektWahl);
+   //NSLog(@"ProjektStartAktion tempProjektWahl: %@",tempProjektWahl);
    
    self.ProjektPfad=[self.ArchivPfad stringByAppendingPathComponent:tempProjektWahl];
    if ([[note userInfo] objectForKey:@"projektpfad"])
@@ -2418,7 +2418,7 @@ QTMovie* qtMovie;
       [LeseboxDialog  setDirectoryURL:[NSURL URLWithString:NSHomeDirectory()]];
    }
    
-//   //NSLog(@"setNetworkLeseboxPfad NSOKButton: %d NSModalResponseOK: %d" ,NSOKButton,NSModalResponseOK);
+//NSLog(@"setNetworkLeseboxPfad NSOKButton: %d NSModalResponseOK: %d" ,NSOKButton,NSModalResponseOK);
    if (LeseboxHit==NSModalResponseOK)
 	  {
         tempLeseboxPfad=[[LeseboxDialog URL]path]; //"home"
@@ -2427,12 +2427,12 @@ QTMovie* qtMovie;
         NSString* lb=@"Lesebox";
         tempLeseboxPfad=[tempLeseboxPfad stringByAppendingPathComponent:lb];
         self.LeseboxPfad=(NSMutableString*)tempLeseboxPfad;
-      //  //NSLog(@"setNetworkLeseboxPfad:   LeseboxPfad: %@",self.LeseboxPfad);
+      //NSLog(@"setNetworkLeseboxPfad:   LeseboxPfad: %@",self.LeseboxPfad);
         
         
         if ([Filemanager fileExistsAtPath:tempLeseboxPfad ])
         {
-        //   //NSLog(@"AdminLeseboxPfad da: %@",tempLeseboxPfad);
+        //NSLog(@"AdminLeseboxPfad da: %@",tempLeseboxPfad);
            erfolg=YES;
         }
         else
@@ -4022,7 +4022,7 @@ QTMovie* qtMovie;
 
 - (IBAction)startArchivPlayer:(id)sender
 {
-   // //NSLog(@"startArchivPlayer:");
+   //NSLog(@"startArchivPlayer:");
    //NSLog(@"startArchivPlayer:			ArchivPlayPfad: %@",self.ArchivPlayPfad);
    
   // NSString* tempAchivPlayPfad = [self.ArchivPlayPfad stringByAppendingPathExtension:@"m4a"];
@@ -4171,7 +4171,7 @@ QTMovie* qtMovie;
    
    if ([Quelle isEqualToString:@"ArchivView"])
 	  {
-       // //NSLog(@"ZeilenNotifikationAktion:   Quelle: %@",Quelle);
+       //NSLog(@"ZeilenNotifikationAktion:   Quelle: %@",Quelle);
 
         double lastZeilenNummer = [[QuellenDic objectForKey:@"lastarchivzeilennummer"]doubleValue];
         
@@ -4197,7 +4197,7 @@ QTMovie* qtMovie;
            [self.ArchivPlayTaste setEnabled:YES];
            [self setArchivPfadFuerAufnahme:[self.ArchivDaten AufnahmePfadFuerZeile:zeilenNr]];
            
-           // //NSLog(@"ZeilenNotifikationAktion AchivPlayPfad: %@",self.ArchivPlayPfad);
+           //NSLog(@"ZeilenNotifikationAktion AchivPlayPfad: %@",self.ArchivPlayPfad);
            
            NSString* tempAchivPlayPfad = [self.ArchivPlayPfad stringByAppendingPathExtension:@"m4a"];
            

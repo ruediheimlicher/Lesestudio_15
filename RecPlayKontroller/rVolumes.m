@@ -1026,7 +1026,7 @@
          {
             return;
          }
-         // //NSLog(@"helpArray: %@",helpArray);
+         //NSLog(@"helpArray: %@",helpArray);
          NSAlert *Warnung = [[NSAlert alloc] init];
          [Warnung setMessageText:[helpArray objectAtIndex:0]];
          NSRect cellFeld = NSMakeRect(0, 0, 400, 100);
@@ -1098,7 +1098,7 @@ case 0:
 			row:(long)rowIndex
 {
 id einObjekt;
-// //NSLog(@"tableView tag: %d",[aTableView tag]);
+//NSLog(@"tableView tag: %d",[aTableView tag]);
 switch ([aTableView tag])
 {
 case 0:

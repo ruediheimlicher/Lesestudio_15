@@ -2021,7 +2021,7 @@ return versionOK;
 	{
 	UProjektNamenPanel=[[rProjektNamen alloc]init];
 	}
- // //NSLog(@"Utils                      showProjekNamenListe nach init:UProjektArray: %@",[UProjektArray description]);
+ //NSLog(@"Utils                      showProjekNamenListe nach init:UProjektArray: %@",[UProjektArray description]);
   
   //[ProjektPanel showWindow:self];
   NSModalSession ProjektSession=[NSApp beginModalSessionForWindow:[UProjektNamenPanel window]];
@@ -3634,7 +3634,7 @@ NSUInteger dayOfYearForDate(NSDate *dasDatum)
         tag = [[[datumteil componentsSeparatedByString:sep]objectAtIndex:0]intValue];
    }
 //   NSArray* datumarray =[datumteil componentsSeparatedByString:sep];
-//   //NSLog(@"datumarray: %@",datumarray);
+//NSLog(@"datumarray: %@",datumarray);
   
    
    return tag;

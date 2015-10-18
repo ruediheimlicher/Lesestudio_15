@@ -300,10 +300,10 @@ NSString* tempName=[LesernamenPop titleOfSelectedItem];
       if ([AufnahmenDicArray count]>selektierteAufnahmenTableZeile)//neu selektierte Zeile
       {
          NSDictionary* tempAufnahmenDic=[AufnahmenDicArray objectAtIndex:selektierteAufnahmenTableZeile];
-         // //NSLog(@"AdminZeilenNotifikationAktion NamenTable neuer AufnahmenDic: %@",[tempAufnahmenDic description]);
+         //NSLog(@"AdminZeilenNotifikationAktion NamenTable neuer AufnahmenDic: %@",[tempAufnahmenDic description]);
          NSString* tempAufnahme=[tempAufnahmenDic objectForKey:@"aufnahme"];
          BOOL OK;
-         // //NSLog(@"AdminAktuellerLeser: %@ tempAufnahme: %@",self.AdminAktuellerLeser,tempAufnahme);
+         //NSLog(@"AdminAktuellerLeser: %@ tempAufnahme: %@",self.AdminAktuellerLeser,tempAufnahme);
          OK=[self setPfadFuerLeser: derLeser FuerAufnahme:tempAufnahme];//Movie geladen, wenn OK
          OK=[self setKommentarFuerLeser: derLeser FuerAufnahme:tempAufnahme];
          if([[tempAufnahmenDic objectForKey:@"adminmark"]intValue])

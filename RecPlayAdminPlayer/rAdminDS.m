@@ -299,7 +299,7 @@ return index;
     objectValueForTableColumn:(NSTableColumn *)aTableColumn 
     row:(long)rowIndex
 {
-  // //NSLog(@"objectValueForTableColumn");
+  //NSLog(@"objectValueForTableColumn");
     NSDictionary *aRow;
         
     NS_DURING
@@ -395,7 +395,7 @@ return index;
             BOOL tempState=NO;
             if ([[MarkArray objectAtIndex:row]count])
             {
-               // //NSLog(@"MarkArray count: %d",[[MarkArray objectAtIndex:row] count]);
+               //NSLog(@"MarkArray count: %d",[[MarkArray objectAtIndex:row] count]);
                if(index<[[MarkArray objectAtIndex:row]count])
                {
                   tempState=[[[MarkArray objectAtIndex:row]objectAtIndex:index]boolValue];

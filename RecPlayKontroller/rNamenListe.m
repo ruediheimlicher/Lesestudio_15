@@ -452,7 +452,7 @@
 
 						if(![NamenArray containsObject:tempDic])
 						{
-						// //NSLog(@"einName einsetzen!: %@",einName);
+						//NSLog(@"einName einsetzen!: %@",einName);
 						[NamenArray addObject:tempDic];
 						}
 						
@@ -568,7 +568,7 @@ case 2://alle Projekte
 		
 	}
 	}//while
-	// //NSLog(@"NamenArray: %@",[NamenArray description]);
+	//NSLog(@"NamenArray: %@",[NamenArray description]);
   //NSLog(@"ProjektNameIndex: %@",[ProjektNameIndex description]);
   //[[self window]makeFirstResponder:NamenFeld];
   [NamenTable reloadData];
@@ -608,7 +608,7 @@ case 2://alle Projekte
          {
             return;
          }
-        // //NSLog(@"helpArray: %@",helpArray);
+        //NSLog(@"helpArray: %@",helpArray);
          NSAlert *Warnung = [[NSAlert alloc] init];
          [Warnung setMessageText:[helpArray objectAtIndex:0]];
          NSRect cellFeld = NSMakeRect(0, 0, 400, 100);

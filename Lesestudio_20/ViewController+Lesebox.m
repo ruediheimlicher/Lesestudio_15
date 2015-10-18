@@ -240,7 +240,7 @@ enum
                const char* rawchar = [rawprojekt cStringUsingEncoding:NSUTF8StringEncoding];
                NSData* rawdata =[rawprojekt dataUsingEncoding:NSMacOSRomanStringEncoding] ;
                NSString* tempProjektName = [[NSString alloc] initWithData:rawdata encoding:NSMacOSRomanStringEncoding ];
-              // //NSLog(@"\r\rrawprojekt: *%@*",rawprojekt);
+              //NSLog(@"\r\rrawprojekt: *%@*",rawprojekt);
                //NSString* uint8Projektname = [rawprojekt UTF8String];
                
             //tempProjektName in PListPorjektnamenArray suchen.
@@ -267,7 +267,7 @@ enum
                   {
                      charprojektda=YES;
                      projektvorhanden++;
-                    // //NSLog(@"rawplistchar: *%s* rawchar: *%s* charprojektda: %hhd",rawplistchar,rawchar,charprojektda);
+                    //NSLog(@"rawplistchar: *%s* rawchar: *%s* charprojektda: %hhd",rawplistchar,rawchar,charprojektda);
                   }
                   else
                   {
@@ -300,7 +300,7 @@ enum
                     projektda=NO;
                   }
                   //NSLog(@"tempProjektName: *%@* projektvorhanden: %d",tempProjektName,projektvorhanden);
-                 // //NSLog(@"rawdata: %@\trawplistdata: %@ tempProjektName: *%@* tempPListProjektName: *%@* result: %d",rawdata,rawplistdata,tempProjektName,tempPlistProjektName,projektda);
+                 //NSLog(@"rawdata: %@\trawplistdata: %@ tempProjektName: *%@* tempPListProjektName: *%@* result: %d",rawdata,rawplistdata,tempProjektName,tempPlistProjektName,projektda);
 
                }
                
@@ -679,10 +679,10 @@ enum
    // [VolumesPanel setUserArray:tempUserArray];
    
    
-   // //NSLog(@" eingesetzt");
+   //NSLog(@" eingesetzt");
    //	if ([tempNetworkArray count])
    //	[VolumesPanel setNetworkArray:tempNetworkArray];
-   //    //NSLog(@"tempNetworkArray eingesetzt");
+   //NSLog(@"tempNetworkArray eingesetzt");
    
    long modalAntwort = [NSApp runModalForWindow:[VolumesPanel window]];
    //NSLog(@"VolumesPanel: Antwort: %d",modalAntwort);
@@ -697,8 +697,8 @@ enum
    //Die PList wird im Ordner 'Data' in der Lesebox abgelegt.
    
    
-   // //NSLog(@"LeseboxPfad: %@ LeseboxURL: %@",self.LeseboxPfad,self.LeseboxURL);
-   // //NSLog(@"chooseLeseboxPfadVon: Antwort: %d  LeseboxPfad: %@",modalAntwort,tempLeseboxPfad);
+   //NSLog(@"LeseboxPfad: %@ LeseboxURL: %@",self.LeseboxPfad,self.LeseboxURL);
+   //NSLog(@"chooseLeseboxPfadVon: Antwort: %d  LeseboxPfad: %@",modalAntwort,tempLeseboxPfad);
    
    [NSApp endModalSession:VolumeSession];
    
@@ -759,8 +759,8 @@ enum
    //Die PList wird im Ordner 'Data' in der Lesebox abgelegt.
    
    self.LeseboxURL =[NSURL URLWithString:self.LeseboxPfad];
-   // //NSLog(@"LeseboxPfad: %@ LeseboxURL: %@",self.LeseboxPfad,self.LeseboxURL);
-   // //NSLog(@"chooseLeseboxPfadVon: Antwort: %d  LeseboxPfad: %@",modalAntwort,tempLeseboxPfad);
+   //NSLog(@"LeseboxPfad: %@ LeseboxURL: %@",self.LeseboxPfad,self.LeseboxURL);
+   //NSLog(@"chooseLeseboxPfadVon: Antwort: %d  LeseboxPfad: %@",modalAntwort,tempLeseboxPfad);
    
    [NSApp endModalSession:VolumeSession];
    
@@ -799,7 +799,7 @@ enum
    
    //NSLog(@"showProjektListe");
    //[ProjektPanel showWindow:self];
-  // //NSLog(@"showProjektListe nach init:ProjektArray: %@  ",[self.ProjektArray description]);
+  //NSLog(@"showProjektListe nach init:ProjektArray: %@  ",[self.ProjektArray description]);
    //NSLog(@"ViewController showProjektListe nach init:ProjektArray: %@  \nProjektPfad: %@",[self.ProjektArray description],self.ProjektPfad);
    
    NSMutableArray* tempProjektArray = ( NSMutableArray*)[Utils ProjektArrayAusPListAnPfad:self.LeseboxPfad];
@@ -900,7 +900,7 @@ enum
    {
       self.ProjektPfad=[self.ArchivPfad stringByAppendingPathComponent:[[[note userInfo] objectForKey:@"projekt"]copy]];
    }
-   // //NSLog(@"\n****   ProjektListeAktion Projektpfad: %@",self.ProjektPfad);
+   //NSLog(@"\n****   ProjektListeAktion Projektpfad: %@",self.ProjektPfad);
    NSString* tempProjekt =[[note userInfo] objectForKey:@"projekt"];
    NSArray* tempProjektNamenArray = [tempProjektArray valueForKey:@"projekt"];
    long projektindex = [[tempProjektArray valueForKey:@"projekt"]indexOfObject:tempProjekt];
@@ -1752,7 +1752,7 @@ enum
    NSFileManager *Filemanager=[NSFileManager defaultManager];
    
    //Inhalt von Archiv prüfen
-   // //NSLog(@"ProjektPfad 7:retainCount %d",[ProjektPfad retainCount]);
+   //NSLog(@"ProjektPfad 7:retainCount %d",[ProjektPfad retainCount]);
    
    NSArray* tempProjektNamenArray=[Filemanager contentsOfDirectoryAtPath:derProjektPfad error:&err];
    //NSLog(@"ProjektPfad 8:retainCount %d",[ProjektPfad retainCount]);
@@ -1923,7 +1923,7 @@ enum
    
    NSString* tempProjektWahl=[[note userInfo] objectForKey:@"projektwahl"];
    //tempProjektWahl = [tempProjektWahl stringByAppendingPathComponent:tempProjektWahl];
-   // //NSLog(@"ProjektStartAktion tempProjektWahl: %@",tempProjektWahl);
+   //NSLog(@"ProjektStartAktion tempProjektWahl: %@",tempProjektWahl);
    
    self.ProjektPfad=[self.ArchivPfad stringByAppendingPathComponent:tempProjektWahl];
    if ([[note userInfo] objectForKey:@"projektpfad"])
@@ -2172,7 +2172,7 @@ enum
    
    //NSLog(@"beginAdminPlayer nach setAdminPlayer");
    self.Umgebung=3;
-   // //NSLog(@"in beginAdminPlayer vor setProjektPop: AdminPlayer:      ProjektArray: \n%@",[self.ProjektArray description]);
+   //NSLog(@"in beginAdminPlayer vor setProjektPop: AdminPlayer:      ProjektArray: \n%@",[self.ProjektArray description]);
    
    [self.AdminPlayer setProjektPopMenu:self.ProjektArray];
    
@@ -2239,7 +2239,7 @@ enum
 {
    
    //NSLog(@"AdminTimerFunktion counter: %d info: %@",AdminTimerCounter,[[timer userInfo]description]);
-  // //NSLog(@"AdminTimerFunktion counter: %d ",AdminTimerCounter);
+  //NSLog(@"AdminTimerFunktion counter: %d ",AdminTimerCounter);
    if (AdminTimerCounter)
    {
       AdminTimerCounter--;
@@ -2440,7 +2440,7 @@ enum
       int heuteJahr=[Utils localJahrvonDatumString: heuteDatumString];
       
      // NSUInteger heuteTag=[heute dayOfYear];
-     // //NSLog(@"checkSessionDatumFor: %@  heuteJahr: %d heuteMonat: %d heuteTag: %d",dasProjekt,heuteJahr,heuteMonat,heuteTag);
+     //NSLog(@"checkSessionDatumFor: %@  heuteJahr: %d heuteMonat: %d heuteTag: %d",dasProjekt,heuteJahr,heuteMonat,heuteTag);
       if ([tempProjektDic objectForKey:@"sessiondatum"])
       {
          NSString* SessionDatum=[tempProjektDic objectForKey:@"sessiondatum"];
@@ -2458,7 +2458,7 @@ enum
          int SessionJahr=[Utils localJahrvonDatumString: [tempProjektDic objectForKey:@"sessiondatum"]];
          int SessionMonat=[Utils localMonatvonDatumString: [tempProjektDic objectForKey:@"sessiondatum"]];
         
-        // //NSLog(@"checkSessionDatumFor: %@  SessionDatum: %@ SessionMonat: %d SessionTag: %d",dasProjekt,SessionDatum,SessionMonat,SessionTag);
+        //NSLog(@"checkSessionDatumFor: %@  SessionDatum: %@ SessionMonat: %d SessionTag: %d",dasProjekt,SessionDatum,SessionMonat,SessionTag);
          
          //		//NSLog(@"SessionInterval: %f		heuteInterval: %f",SessionInterval,heuteInterval);
          //NSLog(@"lastJahr: %d		heuteJahr: %d",SessionJahr,heuteJahr);
@@ -2556,7 +2556,7 @@ enum
                tempProjektDic=(NSMutableDictionary*)[self.ProjektArray objectAtIndex:ProjektIndex];
                 [tempProjektDic setObject:heuteDatumString forKey:@"sessiondatum"];
                
-              // //NSLog(@"neueSession: neues ProjektSessionDatum: %@",heuteDatumString);
+              //NSLog(@"neueSession: neues ProjektSessionDatum: %@",heuteDatumString);
                
                NSArray* tempSessionLeserArray=[tempProjektDic objectForKey:@"sessionleserarray"];
                //NSLog(@"alter SessionLeserArray: %@",[tempSessionLeserArray description]);

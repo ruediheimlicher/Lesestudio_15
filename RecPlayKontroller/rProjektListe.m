@@ -591,7 +591,7 @@ vomStart=NO;
     index++;
     }//while
     */
-   // //NSLog(@"derArray: %@",[ProjektArray description]);
+   //NSLog(@"derArray: %@",[ProjektArray description]);
    //NSLog(@"ProjektNameIndex: %@",[ProjektNameIndex description]);
    long pos = [ProjektArray indexOfObject:dasProjekt];
    if (pos < NSNotFound)
@@ -675,7 +675,7 @@ vomStart=derStatus;
          {
             return;
          }
-         // //NSLog(@"helpArray: %@",helpArray);
+         //NSLog(@"helpArray: %@",helpArray);
          NSAlert *Warnung = [[NSAlert alloc] init];
          [Warnung setMessageText:[helpArray objectAtIndex:0]];
          NSRect cellFeld = NSMakeRect(0, 0, 400, 100);

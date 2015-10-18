@@ -1259,7 +1259,7 @@ typedef NS_ENUM(NSInteger, A)
 {
    //NSLog(@"\n\n*********\n		Beginn createKommentarStringArrayWithProjektPfadArray\n\n");
    //NSLog(@"\nderProjektPfadArray: %@",[derProjektPfadArray description]);
-  // //NSLog(@"AuswahlOption: %d  OptionAString: %@  OptionBString: %@",AuswahlOption,OptionAString,OptionBString);
+  //NSLog(@"AuswahlOption: %d  OptionAString: %@  OptionBString: %@",AuswahlOption,OptionAString,OptionBString);
    //NSLog(@"   [self OptionA]: %@  [self PopBOption]: %@  AnzahlDics: %lu",[PopAMenu  titleOfSelectedItem],[PopBMenu  titleOfSelectedItem],(unsigned long)[derProjektPfadArray count]);
 
    //NSLog(@"AuswahlOption: %d  OptionAString: %@  OptionBString: %@",AuswahlOption,OptionAString,OptionBString);
@@ -1651,8 +1651,8 @@ typedef NS_ENUM(NSInteger, A)
 
 - (void)setKommentarMitProjektArray:(NSArray*)derProjektArray mitLeser:(NSString*)aktuellerLeser anPfad:(NSString*)aktuellerProjektPfad// aus Kommentarkontroller
 {
-   // //NSLog(@"\n\n			--------setAdminProjektArray: derProjektArray: %@",derProjektArray);
-  // //NSLog(@"setAdminProjektArray: aktuellerProjektPfad: %@",aktuellerProjektPfad);
+   //NSLog(@"\n\n			--------setAdminProjektArray: derProjektArray: %@",derProjektArray);
+  //NSLog(@"setAdminProjektArray: aktuellerProjektPfad: %@",aktuellerProjektPfad);
    AdminProjektPfad = aktuellerProjektPfad; // /Users/ruediheimlicher/Documents/Lesebox/Archiv/ggg
    AdminArchivPfad = [aktuellerProjektPfad stringByDeletingLastPathComponent];
    AdminAktuellerLeser = aktuellerLeser;
@@ -2837,7 +2837,7 @@ typedef NS_ENUM(NSInteger, A)
                      NSError* err;
                      NSString* tempKommentarPfad  = [tempAdminProjektPfad stringByAppendingPathComponent:[tempNamenArray objectAtIndex:namenindex]];
                      NSString* tempKommentarfuerNamePfad = [tempKommentarPfad stringByAppendingPathComponent:@"Anmerkungen"];
-                     // //NSLog(@"tempKommentarfuerNamePfad: %@",tempKommentarfuerNamePfad);
+                     //NSLog(@"tempKommentarfuerNamePfad: %@",tempKommentarfuerNamePfad);
                      NSArray* AnmerkungenArray = [[NSFileManager defaultManager]contentsOfDirectoryAtPath:tempKommentarfuerNamePfad error: &err];
                      
                      //NSLog(@"AnmerkungenArray: %@",[AnmerkungenArray description]);
@@ -2866,7 +2866,7 @@ typedef NS_ENUM(NSInteger, A)
                               
                               //NSLog(@"Datum: %@ temptag: %d tempMonat: %d tempjahr: %d",DatumString,temptag, tempmonat, tempjahr);
                               long datumcode = tempstunde + temptag*100 + 10000*tempmonat + 1000000*tempjahr;
-                             // //NSLog(@"Datum: %@ temptag: %d tempstunde: %d tempMonat: %d tempjahr: %d  datumcode: %ld",DatumString,tempstunde,temptag, tempmonat, tempjahr,datumcode);
+                             //NSLog(@"Datum: %@ temptag: %d tempstunde: %d tempMonat: %d tempjahr: %d  datumcode: %ld",DatumString,tempstunde,temptag, tempmonat, tempjahr,datumcode);
                               //NSLog(@"Datum: %@ datumcode: %ld tempAnmerkung: %@",DatumString,datumcode, tempAnmerkung);
                            }
                            
@@ -4145,7 +4145,7 @@ typedef NS_ENUM(NSInteger, A)
          {
             return;
          }
-         // //NSLog(@"helpArray: %@",helpArray);
+         //NSLog(@"helpArray: %@",helpArray);
          NSAlert *Warnung = [[NSAlert alloc] init];
          [Warnung setMessageText:[helpArray objectAtIndex:0]];
          NSRect cellFeld = NSMakeRect(0, 0, 400, 100);

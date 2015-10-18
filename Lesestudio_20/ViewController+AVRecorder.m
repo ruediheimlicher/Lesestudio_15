@@ -12,7 +12,7 @@
 
 - (void)AufnahmeTimerFunktion:(NSTimer*)derTimer
 {
-  // //NSLog(@"AufnahmeTimerFunktion");
+  //NSLog(@"AufnahmeTimerFunktion");
    if (aufnahmetimerstatus)
    {
       AufnahmeZeit++;
@@ -507,7 +507,7 @@
       NSNumber* durNumber=[[note userInfo]objectForKey:@"dur"];
       dur=[durNumber doubleValue];
    }
-//   //NSLog(@"dur: %2.2f pos: %2.2f",dur,pos);
+//NSLog(@"dur: %2.2f pos: %2.2f",dur,pos);
    if (dur - pos < 0.1)
    {
       //NSLog(@"Ende erreicht");
@@ -572,7 +572,7 @@
 //   [mainMenu setDelegate:self];
    NSMenu *appMenu = [[mainMenu itemWithTitle:@"Modus"] submenu];
   //[appMenu setAutoenablesItems:NO];
-//   //NSLog(@"saveRecord MenuItem: Modus: %@",[[appMenu itemWithTitle:@"Admin"]title]);
+//NSLog(@"saveRecord MenuItem: Modus: %@",[[appMenu itemWithTitle:@"Admin"]title]);
 //   [appMenu setDelegate:self];
    
    for (NSMenuItem *item in [appMenu itemArray])
@@ -752,7 +752,7 @@
             }
             else if (antwort==NSAlertSecondButtonReturn)
             {
-              // //NSLog(@"ProjektStartAktion: NSAlertSecondButtonReturn");
+              //NSLog(@"ProjektStartAktion: NSAlertSecondButtonReturn");
             }
 
          }

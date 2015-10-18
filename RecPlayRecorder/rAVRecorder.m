@@ -446,7 +446,7 @@
       NSURL* tempAufnahmeURL = [NSURL  fileURLWithPath:tempPfad];
      // now = [[NSDate alloc] init];
      // long t3 = (int)now.timeIntervalSince1970 - startzeit;
-     // //NSLog(@"setRecording t3: %ld",t3);
+     //NSLog(@"setRecording t3: %ld",t3);
 
       [[self movieFileOutput] startRecordingToOutputFileURL:tempAufnahmeURL  recordingDelegate:self];
    
@@ -531,7 +531,7 @@
    {
    CMTime cmtduration = [[self movieFileOutput] recordedDuration];
    duration =CMTimeGetSeconds(cmtduration);
-     // //NSLog(@"duration: %f",duration);
+     //NSLog(@"duration: %f",duration);
    }
    NSNotificationCenter * nc=[NSNotificationCenter defaultCenter];
    [nc postNotificationName:@"levelmeter" object:self userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
@@ -929,12 +929,12 @@ NSError *error = nil;
       //     [savePanel setCanSelectHiddenExtension:YES];
       
       //      long antwort = [savePanel runModal];
-      //     //NSLog(@"antwort: %ld URL: %@",antwort,[savePanel URL]);
+      //NSLog(@"antwort: %ld URL: %@",antwort,[savePanel URL]);
       
       // tempOrdner fuer getrimmte tempAufnahme
       
       NSString* tempTrimmPfad =[tempDirPfad   stringByAppendingPathExtension:@"m4a"];
-      //  //NSLog(@"tempTrimmPfad: %@",tempTrimmPfad);
+      //NSLog(@"tempTrimmPfad: %@",tempTrimmPfad);
       NSURL* tempTrimmURL = [NSURL  fileURLWithPath:tempTrimmPfad];
       
       int cuterfolg = [self  cutFileAtURL:outputFileURL toURL:tempTrimmURL];

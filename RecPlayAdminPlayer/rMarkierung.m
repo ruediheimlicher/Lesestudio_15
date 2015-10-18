@@ -74,7 +74,7 @@
          {
             return;
          }
-         // //NSLog(@"helpArray: %@",helpArray);
+         //NSLog(@"helpArray: %@",helpArray);
          NSAlert *Warnung = [[NSAlert alloc] init];
          [Warnung setMessageText:[helpArray objectAtIndex:0]];
          NSRect cellFeld = NSMakeRect(0, 0, 400, 100);
