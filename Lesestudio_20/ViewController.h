@@ -239,15 +239,6 @@
 @property  NSString*                   hiddenAufnahmePfad;
 
 
-@property  (weak)  IBOutlet NSButton*					StartRecordQTKitKnopf;
-@property  (weak)  IBOutlet NSButton*					StopRecordQTKitKnopf;
-@property  (weak)  IBOutlet NSButton*					StartPlayQTKitKnopf;
-@property  (weak)  IBOutlet NSButton*					StopPlayQTKitKnopf;
-@property  (weak)  IBOutlet NSButton*					StartStopQTKitKnopf;
-@property  (weak)  IBOutlet NSButton*					BackQTKitKnopf;
-@property  float								QTKitGesamtAufnahmezeit;
-@property  float								QTKitDauer;
-@property  float								QTKitPause;
 
 
 
@@ -384,7 +375,7 @@
 - (IBAction)startAVRecord:(id)sender;
 - (IBAction)stopAVRecord:(id)sender;
 - (IBAction)startAVStop:(id)sender;
-- (BOOL)isRecording;
+- (BOOL)istRecording;
 //- (void)updateAudioLevels:(float)level;
 - (void)RecordingAktion:(NSNotification*)note;
 - (void)LevelmeterAktion:(NSNotification*)note;

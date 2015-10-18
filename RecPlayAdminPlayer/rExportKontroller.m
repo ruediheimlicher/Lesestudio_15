@@ -126,7 +126,7 @@ NSString*	RPExportformatKey;
 	//Aufgerufen nach Wahl von Optionen 
 	//NSString* alle=@"alle";
 
-	NSLog(@"ExportFormatDialogAktion note: %@",[note object]);
+	//NSLog(@"ExportFormatDialogAktion note: %@",[note object]);
 	NSDictionary* OptionDic=[note userInfo];
 	
 	//Pop AnzahlNamen
@@ -151,14 +151,14 @@ NSString*	RPExportformatKey;
 			[theAlert runModal]; // Ignore return value.
 		}
 		if (!tempMovie)
-			NSLog(@"Kein Movie da");
+			//NSLog(@"Kein Movie da");
 		// retrieve the QuickTime-style movie (type "Movie" from QuickTime/Movies.h) 
 		
 		Movie tempExportMovie =[tempMovie quickTimeMovie];
 		
 		if (!tempMovie)
 		{
-			NSLog(@"Kein Movie da");
+			//NSLog(@"Kein Movie da");
 			NSString* FehlerString=[NSString stringWithString:NSLocalizedString(@"No movie present.",@"Es ist kein Movie da.")];
 			NSAlert *Warnung = [[NSAlert alloc] init];
 			[Warnung addButtonWithTitle:@"OK"];
@@ -242,7 +242,7 @@ NSString*	RPExportformatKey;
 		
 		if (!c)
 		{
-			NSLog(@"getExportEinstellungenVonAufnahme: Keine NextComponent");
+			//NSLog(@"getExportEinstellungenVonAufnahme: Keine NextComponent");
 		}
 		//err = OpenAComponent(c, &theExporter);
 		derExporter = OpenComponent(c);
@@ -251,7 +251,7 @@ NSString*	RPExportformatKey;
 		//NSAssert(err,@"OpenAComponent misslungen: ");
 		if (err||derExporter==0)
 		{
-			NSLog(@"OpenAComponent misslungen: %d",err);
+			//NSLog(@"OpenAComponent misslungen: %d",err);
 			
 			if (derExporter)
 			{
@@ -280,7 +280,7 @@ NSString*	RPExportformatKey;
 		//NSAssert(err,@"MovieExportDoUserDialog misslungen");					  
 		if (err)
 		{	
-			NSLog(@"MovieExportDoUserDialog misslungen: %d  ignore: %d",err,ignore);
+			//NSLog(@"MovieExportDoUserDialog misslungen: %d  ignore: %d",err,ignore);
 			if (derExporter)
 			{
 				CloseComponent(derExporter);
@@ -306,7 +306,7 @@ NSString*	RPExportformatKey;
 		//QTAtomContainer *ExportSettings;	
 		if (err)
 		{	
-			NSLog(@"QTNewAtomContainer misslungen: %d",err);
+			//NSLog(@"QTNewAtomContainer misslungen: %d",err);
 		}			
 		
 		err = MovieExportGetSettingsAsAtomContainer(derExporter,
@@ -314,7 +314,7 @@ NSString*	RPExportformatKey;
 		//NSAssert(err,@"MovieExportGetSettingsAsAtomContainer misslungen");	
 		if (err)
 		{	
-			NSLog(@"MovieExportGetSettingsAsAtomContainer misslungen: %d",err);
+			//NSLog(@"MovieExportGetSettingsAsAtomContainer misslungen: %d",err);
 			if (derExporter)
 			{
 				CloseComponent(derExporter);
@@ -366,7 +366,7 @@ NSString*	RPExportformatKey;
 {
 	//NSFileManager *Filemanager=[NSFileManager defaultManager];
 	OSErr err=0;
-	NSLog(@"getExportEinstellungen");
+	//NSLog(@"getExportEinstellungen");
 
 	return err;
 }
@@ -379,7 +379,7 @@ NSString*	RPExportformatKey;
 	NSFileManager *Filemanager=[NSFileManager defaultManager];
 	
    NSString* ExportAufnahmeName=[AdminPlayPfad lastPathComponent];
-   NSLog(@"AdminPlayPfad : %@ ExportAufnahmeName: %@",AdminPlayPfad,ExportAufnahmeName);
+   //NSLog(@"AdminPlayPfad : %@ ExportAufnahmeName: %@",AdminPlayPfad,ExportAufnahmeName);
    
    if ([Filemanager fileExistsAtPath:AdminPlayPfad])
       {
@@ -403,7 +403,7 @@ NSString*	RPExportformatKey;
          if (AdminExportHit==NSModalResponseOK)
          {
             tempExportPfad=[[AdminExportDialog URL] path]; //"home"
-            NSLog(@"tempExportPfad: %@",tempExportPfad);
+            //NSLog(@"tempExportPfad: %@",tempExportPfad);
             
             if ([Filemanager fileExistsAtPath:tempExportPfad])
             {
@@ -484,7 +484,7 @@ NSString*	RPExportformatKey;
 			[ExportPanel setCanCreateDirectories:YES];
 			[ExportPanel setCanSelectHiddenExtension:YES];
          NSString* ExportPanelPfad = [NSHomeDirectory()stringByAppendingPathComponent:@"Desktop"];
-         NSLog(@"ExportPanelPfad: %@",ExportPanelPfad);
+         //NSLog(@"ExportPanelPfad: %@",ExportPanelPfad);
          [ExportPanel setDirectoryURL:[NSURL fileURLWithPath:ExportPanelPfad]];
          [ExportPanel setNameFieldStringValue:ersteAufnahme];
 			NSString* labelString=@"Erste Aufnahme, die im Ordner gesichert wird:";
@@ -510,7 +510,7 @@ NSString*	RPExportformatKey;
 				}break;
 				case NSFileHandlingPanelCancelButton:
 				{
-					NSLog(@"ExportPanel: keine Eingabe ExportOrdnerPfad: %@",ExportOrdnerPfad);
+					//NSLog(@"ExportPanel: keine Eingabe ExportOrdnerPfad: %@",ExportOrdnerPfad);
 					return;
 				}break;
 			}//switch
@@ -519,17 +519,17 @@ NSString*	RPExportformatKey;
 
 			if ([RPExportdaten length]==0)//Noch keine Daten aus Defaults
 			{
-				NSLog(@"keine RPExportdaten");
+				//NSLog(@"keine RPExportdaten");
 				err=[self getExportEinstellungenvonAufnahme:einAufnahmePfad];
 				if (err)
 				{
-					NSLog(@"getExportEinstellungenvonAufnahme: err: %d",err);
+					//NSLog(@"getExportEinstellungenvonAufnahme: err: %d",err);
 					return ;
 				}
 			}
 			else
 			{
-				NSLog(@"RPExportdaten DA");
+				//NSLog(@"RPExportdaten DA");
 				
 			}
 			//[self setThreadKontroller];
@@ -558,7 +558,7 @@ NSString*	RPExportformatKey;
 - (void)Export:(NSDictionary*)derExportDic
 {
    
-	NSLog(@"Export: derExportDic: %@",[derExportDic description]);
+	//NSLog(@"Export: derExportDic: %@",[derExportDic description]);
 	NSFileManager *Filemanager=[NSFileManager defaultManager];
 
 	int exportvariante=[[derExportDic objectForKey:@"exportvariante"]intValue];
@@ -572,7 +572,7 @@ NSString*	RPExportformatKey;
 	}
 	
 	ExportFormatString=(NSMutableString*)[NSString stringWithString: exportformatString];
-	NSLog(@"Export: ExportFormatString: %@",[ExportFormatString description]);
+	//NSLog(@"Export: ExportFormatString: %@",[ExportFormatString description]);
 	
 	//[self ExportPrefsSchreiben];
 	
@@ -580,14 +580,14 @@ NSString*	RPExportformatKey;
 																		 //NSLog(@"Clean:  Variante: %d  behalten: %d  anzahl: %d",var, behalten, anzahl);
 	NSMutableArray* exportNamenArray=[derExportDic objectForKey:@"exportnamen"];
 	
-	NSLog(@"Export	exportNamenArray: %@",[exportNamenArray description]);
+	//NSLog(@"Export	exportNamenArray: %@",[exportNamenArray description]);
 	
 	if (exportNamenArray)
 	{
 		//NSLog(@"ClearNotificationAktion*** exportNamenArray: %@",[exportNamenArray description]);
 		
 		NSMutableArray* exportTitelArray=[derExportDic objectForKey:@"exporttitel"];
-		NSLog(@"Export	exportTitelArray: %@",[exportTitelArray description]);
+		//NSLog(@"Export	exportTitelArray: %@",[exportTitelArray description]);
 
 		if (exportTitelArray)
 		{
@@ -645,13 +645,13 @@ NSString*	RPExportformatKey;
 											BOOL AdminMark=[self AufnahmeIstMarkiertAnPfad:tempLeserAufnahmePfad];
 											if (AdminMark)
 											{
-												NSLog(@"Aufnahme %@ ist markiert",eineAufnahme);
+												//NSLog(@"Aufnahme %@ ist markiert",eineAufnahme);
 												[ExportTitelPfadArray addObject:[tempNamenPfad stringByAppendingPathComponent:eineAufnahme]];
 
 											}
 											else
 											{
-												NSLog(@"Aufnahme %@ ist nicht markiert",eineAufnahme);
+												//NSLog(@"Aufnahme %@ ist nicht markiert",eineAufnahme);
 												//[DeleteTitelArray addObject:eineAufnahme];
 												
 											}
@@ -667,7 +667,7 @@ NSString*	RPExportformatKey;
 												}
 												else
 												{
-													NSLog(@"Aufnahme %@ ist nicht markiert",eineAufnahme);
+													//NSLog(@"Aufnahme %@ ist nicht markiert",eineAufnahme);
 												}
 											}//if (AufnahmeAttribute )
 											*/
@@ -754,7 +754,7 @@ NSString*	RPExportformatKey;
 				{
 					case 0://letztes Format
 					{
-						NSLog(@"Export mit bisherigem Format");
+						//NSLog(@"Export mit bisherigem Format");
 						
 						[self AufnahmenArrayExportieren: ExportTitelPfadArray mitUserDialog:NO];
 						
@@ -776,7 +776,7 @@ NSString*	RPExportformatKey;
 								OSErr err=[self getExportEinstellungenvonAufnahme:einAufnahmePfad];
 								if (err)
 								{
-									NSLog(@"getExportEinstellungenvonAufnahme misslungen. err: %d",err);
+									//NSLog(@"getExportEinstellungenvonAufnahme misslungen. err: %d",err);
 									return ;
 								}
                          */
@@ -802,7 +802,7 @@ NSString*	RPExportformatKey;
 				//[Warnung setIcon:RPImage];
 				[Warnung runModal];
 
-				NSLog(@"Nichts zu exportieren");
+				//NSLog(@"Nichts zu exportieren");
 			}
 		}//if (exportTitelArray)
 	}//if (exportNamenArray)

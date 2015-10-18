@@ -57,7 +57,7 @@
 
 - (void)prepareArchivAufnahmeAnURL:(NSURL*)url
 {
-   NSLog(@"prepareArchivAufnahmeAnURL: %@",url.path);
+   //NSLog(@"prepareArchivAufnahmeAnURL: %@",url.path);
    if ([AVAbspielplayer isPlaying])
    {
       [AVAbspielplayer stop];
@@ -71,7 +71,7 @@
    [AVAbspielplayer prepareToPlay];
    double dur = AVAbspielplayer.duration;
    haltzeit=0;
-   NSLog(@"prepareArchivAufnahmeAnURL err: %@ dur: %f",err, dur);
+   //NSLog(@"prepareArchivAufnahmeAnURL err: %@ dur: %f",err, dur);
    
 }
 
@@ -102,7 +102,7 @@
    
    if (haltzeit)
    {
-      NSLog(@"playAufnahme nach halt: %2.2f",haltzeit);
+      //NSLog(@"playAufnahme nach halt: %2.2f",haltzeit);
       AVAbspielplayer.currentTime = haltzeit;
       [AVAbspielplayer play];
    }
@@ -148,7 +148,7 @@
    
    if (haltzeit)
    {
-      NSLog(@"playAufnahme nach halt: %2.2f",haltzeit);
+      //NSLog(@"playAufnahme nach halt: %2.2f",haltzeit);
       AVAbspielplayer.currentTime = haltzeit;
       [AVAbspielplayer play];
    }
@@ -187,7 +187,7 @@
  
    if (haltzeit)
    {
-      NSLog(@"playAufnahme nach halt: %2.2f",haltzeit);
+      //NSLog(@"playAufnahme nach halt: %2.2f",haltzeit);
       AVAbspielplayer.currentTime = haltzeit;
       [AVAbspielplayer play];
    }
@@ -205,7 +205,7 @@
       AVAbspielplayer = [[AVAudioPlayer alloc] initWithContentsOfURL: [NSURL fileURLWithPath:  self.hiddenAufnahmePfad]
                                                                error: &err];
       //NSLog(@"playAufnahme err: %@",err);
-      NSLog(@"playAufnahme: %@", AVAbspielplayer.url.path);
+      //NSLog(@"playAufnahme: %@", AVAbspielplayer.url.path);
       [AVAbspielplayer prepareToPlay];
      // double dur = AVAbspielplayer.duration;
       
@@ -229,7 +229,7 @@
    }
   // else
    {
-  //    NSLog(@"playAufnahme url nil");
+  //    //NSLog(@"playAufnahme url nil");
    }
 }
 
@@ -367,10 +367,10 @@
 
 - (void)rewindTempAufnahme
 {
-   NSLog(@"AVAbspielplayer rewindTempAufnahme");
+   //NSLog(@"AVAbspielplayer rewindTempAufnahme");
    NSTimeInterval playbackDelay = 3.0;              // must be ≥ 0
    NSTimeInterval pos =AVAbspielplayer.currentTime;
-   NSLog(@"AVAbspielplayer pos: %f",pos);
+   //NSLog(@"AVAbspielplayer pos: %f",pos);
    if (pos > playbackDelay)
    {
    AVAbspielplayer.currentTime = pos - playbackDelay;
@@ -389,11 +389,11 @@
 
 - (void)forewardTempAufnahme
 {
-   NSLog(@"AVAbspielplayer forewardTempAufnahme");
+   //NSLog(@"AVAbspielplayer forewardTempAufnahme");
    NSTimeInterval playbackDelay = 3.0;              // must be ≥ 0
    NSTimeInterval pos =AVAbspielplayer.currentTime;
     NSTimeInterval end =AVAbspielplayer.duration;
-   NSLog(@"AVAbspielplayer pos: %f",pos);
+   //NSLog(@"AVAbspielplayer pos: %f",pos);
    if (pos < end - playbackDelay)
    {
       AVAbspielplayer.currentTime = pos + playbackDelay;

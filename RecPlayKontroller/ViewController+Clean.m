@@ -22,35 +22,35 @@ enum
    //NSString* alle=@"alle";
    NSString* selektiertenamenzeile=@"selektiertenamenzeile";
    
-   NSLog(@"+Clean CleanNotifikationAktion note: %@",[note object]);
+   //NSLog(@"+Clean CleanNotifikationAktion note: %@",[note object]);
    NSDictionary* OptionDic=[note userInfo];
    
    //Pop AnzahlNamen
    NSNumber* AnzahlNamenNummer=[OptionDic objectForKey:@"AnzahlNamen"];
    if (AnzahlNamenNummer)
 	  {
-        NSLog(@"CleanNotifikationAktion: AnzahlNamen: %d",[AnzahlNamenNummer intValue]);
+        //NSLog(@"CleanNotifikationAktion: AnzahlNamen: %d",[AnzahlNamenNummer intValue]);
      }
    
    //Pop AnzahlTitel
    NSNumber* AnzahlTitelNummer=[OptionDic objectForKey:@"AnzahlTitel"];
    if (AnzahlTitelNummer)
 	  {
-        NSLog(@"CleanNotifikationAktion: AnzahlTitel: %d",[AnzahlTitelNummer intValue]);
+        //NSLog(@"CleanNotifikationAktion: AnzahlTitel: %d",[AnzahlTitelNummer intValue]);
      }
    
    //Radio NamenBehaltenOption
    NSNumber* NamenBehaltenNummer=[OptionDic objectForKey:@"NamenBehalten"];
    if (NamenBehaltenNummer)
 	  {
-        NSLog(@"CleanNotifikationAktion: NamenBehalten: %d",[NamenBehaltenNummer intValue]);
+        //NSLog(@"CleanNotifikationAktion: NamenBehalten: %d",[NamenBehaltenNummer intValue]);
      }
    
    //Radio TitelBehaltenOption
    NSNumber* TitelBehaltenNummer=[OptionDic objectForKey:@"TitelBehalten"];
    if (TitelBehaltenNummer)
 	  {
-        NSLog(@"CleanNotifikationAktion: TitelBehalten: %d",[TitelBehaltenNummer intValue]);
+        //NSLog(@"CleanNotifikationAktion: TitelBehalten: %d",[TitelBehaltenNummer intValue]);
      }
    
    NSNumber* nurTitelZuNamenOptionNummer=[OptionDic objectForKey:@"nurTitelZuNamenOption"];
@@ -77,7 +77,7 @@ enum
    NSNumber* alleTitelEinsetzenNummer=[OptionDic objectForKey:@"setalletitel"];
    if (alleTitelEinsetzenNummer)
    {
-      NSLog(@"CleanNotifikationAktion: alleTitelEinsetzenNummer: %d",[alleTitelEinsetzenNummer intValue]);
+      //NSLog(@"CleanNotifikationAktion: alleTitelEinsetzenNummer: %d",[alleTitelEinsetzenNummer intValue]);
       if ([alleTitelEinsetzenNummer intValue])
       {
          [self setAlleTitel];
@@ -141,7 +141,7 @@ enum
    NSMutableArray* TitelDicSammelArray=[[NSMutableArray alloc]initWithCapacity:0];
 
    NSMutableArray* CleanTitelDicArray=[[NSMutableArray alloc]initWithCapacity:0];
-   //						  NSLog(@"\n\n-----------------------------Clean");//leerer Array für schon vorhandenen TitelDics in Clean
+   //						  //NSLog(@"\n\n-----------------------------Clean");//leerer Array für schon vorhandenen TitelDics in Clean
    [CleanTitelDicArray addObjectsFromArray:[self.CleanFenster TitelArray]]; // eventuell vorhandene Titel
 
 
@@ -200,7 +200,7 @@ enum
             
          }
          
-           NSLog(@"CleanTitelDicArray: %@",CleanTitelDicArray);
+           //NSLog(@"CleanTitelDicArray: %@",CleanTitelDicArray);
          continue;
 
          {
@@ -364,7 +364,7 @@ enum
    NSString* export=@"export";
    NSString* selektiertenamenzeile=@"selektiertenamenzeile";
    
-   NSLog(@"ViewController ExportNotificationAktion note: %@",[note object]);
+   //NSLog(@"ViewController ExportNotificationAktion note: %@",[note object]);
    NSDictionary* OptionDic=[note userInfo];
    
    //Namen
@@ -398,7 +398,7 @@ enum
       //NSLog(@"ViewController ExportNotificationAktion*** exportFormat: %@",[exportFormat description]);
    }
    
-   NSLog(@"ExportNotificationAktion OptionDic: %@",[OptionDic description]);
+   //NSLog(@"ExportNotificationAktion OptionDic: %@",[OptionDic description]);
    
    [self Export:OptionDic];
    
@@ -407,7 +407,7 @@ enum
 
 - (void)Export:(NSDictionary*)derExportDic
 {
-   NSLog(@"Export: derExportDic: %@",[derExportDic description]);
+   //NSLog(@"Export: derExportDic: %@",[derExportDic description]);
    NSFileManager *Filemanager=[NSFileManager defaultManager];
    
    int exportvariante=[[derExportDic objectForKey:@"exportvariante"]intValue];
@@ -421,21 +421,21 @@ enum
    }
    
    ExportFormatString=(NSMutableString*)[NSString stringWithString: exportformatString];
-   NSLog(@"Export: ExportFormatString: %@",[ExportFormatString description]);
+   //NSLog(@"Export: ExportFormatString: %@",[ExportFormatString description]);
    
    //[self ExportPrefsSchreiben];
    
    //NSLog(@"Clean:  Variante: %d  behalten: %d  anzahl: %d",var, behalten, anzahl);
    NSMutableArray* exportNamenArray=[derExportDic objectForKey:@"exportnamen"];
    
-   NSLog(@"Export	exportNamenArray: %@",[exportNamenArray description]);
+   //NSLog(@"Export	exportNamenArray: %@",[exportNamenArray description]);
    
    if (exportNamenArray)
    {
       //NSLog(@"ClearNotificationAktion*** exportNamenArray: %@",[exportNamenArray description]);
       
       NSMutableArray* exportTitelArray=[derExportDic objectForKey:@"exporttitel"];
-      NSLog(@"Export	exportTitelArray: %@",[exportTitelArray description]);
+      //NSLog(@"Export	exportTitelArray: %@",[exportTitelArray description]);
       
       if (exportTitelArray)
       {
@@ -450,7 +450,7 @@ enum
          {
             
             NSString* tempNamenPfad=[self.ProjektPfad stringByAppendingPathComponent:einName];
-            NSLog(@"Export*** tempNamenPfad %@",tempNamenPfad);
+            //NSLog(@"Export*** tempNamenPfad %@",tempNamenPfad);
             
             BOOL istOrdner;
             if (([Filemanager fileExistsAtPath:tempNamenPfad isDirectory:&istOrdner])&&istOrdner)
@@ -488,7 +488,7 @@ enum
                            NSString* testtitel =[self AufnahmeTitelVon:eineAufnahme];
                            if ([testtitel length] < 4)
                                {
-                                  NSLog(@"kurzer titel: %@",testtitel);
+                                  //NSLog(@"kurzer titel: %@",testtitel);
                                }
                            if ([exportTitelArray containsObject:[self AufnahmeTitelVon:eineAufnahme]])
                            {
@@ -498,13 +498,13 @@ enum
                                  BOOL AdminMark=[self AufnahmeIstMarkiertAnPfad:tempLeserAufnahmePfad];
                                  if (AdminMark)
                                  {
-                                    NSLog(@"Aufnahme %@ ist markiert",eineAufnahme);
+                                    //NSLog(@"Aufnahme %@ ist markiert",eineAufnahme);
                                     [ExportTitelPfadArray addObject:[tempNamenPfad stringByAppendingPathComponent:eineAufnahme]];
                                     
                                  }
                                  else
                                  {
-                                    NSLog(@"Aufnahme %@ ist nicht markiert",eineAufnahme);
+                                    //NSLog(@"Aufnahme %@ ist nicht markiert",eineAufnahme);
                                     //[DeleteTitelArray addObject:eineAufnahme];
                                     
                                  }
@@ -581,7 +581,7 @@ enum
             
          }//while NamenEnum
          
-         NSLog(@"Export Ergebnis*** ExportTitelPfadArray: %@",[ExportTitelPfadArray description]);
+         //NSLog(@"Export Ergebnis*** ExportTitelPfadArray: %@",[ExportTitelPfadArray description]);
          if ([ExportTitelPfadArray count])
          {
             
@@ -591,7 +591,7 @@ enum
             {
                case 0://letztes Format
                {
-                  NSLog(@"Export mit bisherigem Format");
+                  //NSLog(@"Export mit bisherigem Format");
                   
                   [self AufnahmenArrayExportieren: ExportTitelPfadArray mitUserDialog:NO];
                   
@@ -613,7 +613,7 @@ enum
                          OSErr err=[self getExportEinstellungenvonAufnahme:einAufnahmePfad];
                          if (err)
                          {
-                         NSLog(@"getExportEinstellungenvonAufnahme misslungen. err: %d",err);
+                         //NSLog(@"getExportEinstellungenvonAufnahme misslungen. err: %d",err);
                          return ;
                          }
                          */
@@ -639,7 +639,7 @@ enum
             //[Warnung setIcon:RPImage];
             [Warnung runModal];
             
-            NSLog(@"Nichts zu exportieren");
+            //NSLog(@"Nichts zu exportieren");
          }
       }//if (exportTitelArray)
    }//if (exportNamenArray)
@@ -669,11 +669,11 @@ enum
    NSString* ExportOrdnerName = @"Lesestudioexport";
    
    NSString *bundlePfad = [[NSBundle mainBundle] bundlePath];
-   NSLog(@"AufnahmenArrayExportieren	bundlePfad: %@",bundlePfad);
+   //NSLog(@"AufnahmenArrayExportieren	bundlePfad: %@",bundlePfad);
    NSArray* homeArray = [[NSFileManager defaultManager]contentsOfDirectoryAtPath:[bundlePfad stringByDeletingLastPathComponent] error:nil];
    
    long leseboxindex = [homeArray indexOfObject:@"Lesebox"];
-   NSLog(@"AufnahmenArrayExportieren	homeArray: %@ leseboxindex: %ld",homeArray,leseboxindex);
+   //NSLog(@"AufnahmenArrayExportieren	homeArray: %@ leseboxindex: %ld",homeArray,leseboxindex);
    if (leseboxindex < NSNotFound)
    {
       NSString* tempLeseboxPfad =[[bundlePfad stringByDeletingLastPathComponent]stringByAppendingPathComponent:@"Lesebox" ];
@@ -733,7 +733,7 @@ enum
    //NSString* ExportPanelPfad = [NSHomeDirectory()stringByAppendingPathComponent:@"Desktop"];
    NSString* ExportPanelPfad = [self.LeseboxPfad stringByDeletingLastPathComponent];
    
-   NSLog(@"ExportPanelPfad: %@",ExportPanelPfad);
+   //NSLog(@"ExportPanelPfad: %@",ExportPanelPfad);
    [ExportPanel setDirectoryURL:[NSURL fileURLWithPath:ExportPanelPfad]];
    [ExportPanel setNameFieldStringValue:ersteAufnahme];
    NSString* labelString=@"Erste Aufnahme, die im Ordner gesichert wird:";
@@ -755,13 +755,13 @@ enum
          NSString* 	tempExportFilePfad=[[[ExportPanel URL]path]copy];
          //NSLog(@"ExportPanel: filename: %@ tempExportFilePfad: %@",[ExportPanel filename],tempExportFilePfad);
          ExportOrdnerPfad=[tempExportFilePfad stringByDeletingLastPathComponent];
-         NSLog(@"ExportPanel: filename: %@ ExportOrdnerPfad: %@",[[ExportPanel URL]path],ExportOrdnerPfad);
+         //NSLog(@"ExportPanel: filename: %@ ExportOrdnerPfad: %@",[[ExportPanel URL]path],ExportOrdnerPfad);
          
          
       }break;
       case NSFileHandlingPanelCancelButton:
       {
-         NSLog(@"ExportPanel: keine Eingabe ExportOrdnerPfad: %@",ExportOrdnerPfad);
+         //NSLog(@"ExportPanel: keine Eingabe ExportOrdnerPfad: %@",ExportOrdnerPfad);
          return;
       }break;
    }//switch
@@ -797,13 +797,13 @@ enum
             [fehlendeArray addObject:[einAufnahmePfad lastPathComponent]];
          }
          
-         NSLog(@"ExportPanel: AufnahmePfad: %@ exporterfolg: %d",einAufnahmePfad,exporterfolg);
+         //NSLog(@"ExportPanel: AufnahmePfad: %@ exporterfolg: %d",einAufnahmePfad,exporterfolg);
          
       }
       index++;
    }//ExportEnum
    //NSLog(@"AufnahmenArrayExportieren:2");
-   NSLog(@"AufnahmenArrayExportieren anzAufnahmen: %d exporterfolg: %d",anzAufnahmen,exporterfolg);
+   //NSLog(@"AufnahmenArrayExportieren anzAufnahmen: %d exporterfolg: %d",anzAufnahmen,exporterfolg);
    NSString* infoOKString = [NSString stringWithFormat:@"Die exportierten Aufnahmen liegen im Ordner %@ am Pfad\r%@",ExportPanelPfad,ExportOrdnerPfad];
    NSString* infoFehlerString = [NSString stringWithFormat:@"Folgende Aufnahmen konnten exportiert werden. \r%@\r%@",[fehlendeArray componentsJoinedByString:@"\r" ],infoOKString];
    
@@ -827,10 +827,10 @@ enum
   
    if (anzAufnahmen == exporterfolg)
    {
-      NSLog(@"AufnahmenArrayExportieren Alles exportiert");
+      //NSLog(@"AufnahmenArrayExportieren Alles exportiert");
    }
    else{
-      NSLog(@"AufnahmenArrayExportieren Fehlende Aufnahmen: \r%@",[fehlendeArray componentsJoinedByString:@"\r" ]);
+      //NSLog(@"AufnahmenArrayExportieren Fehlende Aufnahmen: \r%@",[fehlendeArray componentsJoinedByString:@"\r" ]);
    }
    
 }//AufnahmenArrayExportieren
@@ -1182,7 +1182,7 @@ enum
               }//if
               else
               {
-                 NSLog(@"CleanTitelDicArray null: %@",[CleanTitelDicArray description]);
+                 //NSLog(@"CleanTitelDicArray null: %@",[CleanTitelDicArray description]);
                  [self.CleanFenster deselectNamenListe];
               }
               //[CleanFenster deselectNamenListe];
@@ -1244,19 +1244,19 @@ enum
       return;
    }
    
-   // NSLog(@"Clean  Variante: %d  behalten: %d  anzahl: %d",var, behalten, anzahl);
-   NSLog(@"ClearNotificationAktion*** derCleanDic: %@",[derCleanDic description]);
+   // //NSLog(@"Clean  Variante: %d  behalten: %d  anzahl: %d",var, behalten, anzahl);
+   //NSLog(@"ClearNotificationAktion*** derCleanDic: %@",[derCleanDic description]);
    NSMutableArray* clearNamenArray=[derCleanDic objectForKey:@"clearnamen"];
    if (clearNamenArray)
 	  {
         // Namen, von denen Aufnahmen entfernt werden sollen
-        NSLog(@"ClearNotificationAktion*** clearNamenArray: %@",[clearNamenArray description]);
+        //NSLog(@"ClearNotificationAktion*** clearNamenArray: %@",[clearNamenArray description]);
         
         NSMutableArray* clearTitelArray=[derCleanDic objectForKey:@"cleartitel"];//angeklickte Titel
         if (clearTitelArray)
         {
            // Titel, die entfernt werden sollen
-           NSLog(@"Clean*** clearTitelArray: %@",[clearTitelArray description]);
+           //NSLog(@"Clean*** clearTitelArray: %@",[clearTitelArray description]);
            
            NSMutableArray* DeleteTitelPfadArray=[[NSMutableArray alloc]initWithCapacity:0];//Array für zu loeschende Aufnahmen
            
@@ -1269,12 +1269,12 @@ enum
            {
               
               NSString* tempNamenPfad=[self.ProjektPfad stringByAppendingPathComponent:einName];
-              NSLog(@"Clean*** tempNamenPfad %@",tempNamenPfad);
+              //NSLog(@"Clean*** tempNamenPfad %@",tempNamenPfad);
               
               BOOL istOrdner;
               if (([Filemanager fileExistsAtPath:tempNamenPfad isDirectory:&istOrdner]) && istOrdner)
               {
-                 NSLog(@"Clean*** Ordner fuer Namen  am Pfad %@ ist da",tempNamenPfad);
+                 //NSLog(@"Clean*** Ordner fuer Namen  am Pfad %@ ist da",tempNamenPfad);
                  NSMutableArray* tempAufnahmenArray=[[Filemanager contentsOfDirectoryAtPath:tempNamenPfad error:NULL]mutableCopy];
                  
                  if ([tempAufnahmenArray count])
@@ -1287,7 +1287,7 @@ enum
                     {
                        [tempAufnahmenArray removeObject:@"Anmerkungen"];
                     }
-                    NSLog(@"Clean*** tempAufnahmenArray raw: %@",[tempAufnahmenArray description]);
+                    //NSLog(@"Clean*** tempAufnahmenArray raw: %@",[tempAufnahmenArray description]);
                     //tempAufnahmenArray=(NSMutableArray*)[self sortNachNummer:tempAufnahmenArray];
                     
                     
@@ -1313,11 +1313,11 @@ enum
                                    BOOL AdminMark=[self AufnahmeIstMarkiertAnPfad:tempLeserAufnahmePfad];
                                    if (AdminMark)
                                    {
-                                      NSLog(@"Aufnahme %@ ist markiert",eineAufnahme);
+                                      //NSLog(@"Aufnahme %@ ist markiert",eineAufnahme);
                                    }
                                    else
                                    {
-                                      NSLog(@"Aufnahme %@ ist nicht markiert",eineAufnahme);
+                                      //NSLog(@"Aufnahme %@ ist nicht markiert",eineAufnahme);
                                       //[DeleteTitelArray addObject:eineAufnahme];
                                       [DeleteTitelPfadArray addObject:[tempNamenPfad stringByAppendingPathComponent:eineAufnahme]];
                                       
@@ -1367,11 +1367,11 @@ enum
                                    if ([einLeserTitel isEqualToString:tempTitel])
                                    {
                                       NSString* tempLeserAufnahmePfad=[tempNamenPfad stringByAppendingPathComponent:eineAufnahme];
-                                      NSLog(@"tempLeserAufnahmePfad: %@",tempLeserAufnahmePfad);
+                                      //NSLog(@"tempLeserAufnahmePfad: %@",tempLeserAufnahmePfad);
                                       
                                       if ([Filemanager fileExistsAtPath:tempLeserAufnahmePfad])
                                       {
-                                         NSLog(@"tempLeserAufnahmePfad: File da");
+                                         //NSLog(@"tempLeserAufnahmePfad: File da");
                                          [tempDeleteTitelArray addObject:eineAufnahme ];
                                          
                                       }//if tempLeserAufnahmePfad
@@ -1379,11 +1379,11 @@ enum
                                 }//if in clearTitelArray
                              }//while AufnahmenEnum
                              
-                             NSLog(@"einLeserTitel: %@ * tempDeleteTitelArray: %@",einLeserTitel,[tempDeleteTitelArray description]);
+                             //NSLog(@"einLeserTitel: %@ * tempDeleteTitelArray: %@",einLeserTitel,[tempDeleteTitelArray description]);
                              if ([tempDeleteTitelArray count])
                              {
                                 tempDeleteTitelArray=[[self sortNachNummer:tempDeleteTitelArray]mutableCopy];
-                                NSLog(@"			*** *** tempDeleteTitelArray nach sort: %@",[tempDeleteTitelArray description]);
+                                //NSLog(@"			*** *** tempDeleteTitelArray nach sort: %@",[tempDeleteTitelArray description]);
                              }
                              
                              NSEnumerator* DeleteEnum=[tempDeleteTitelArray objectEnumerator];
@@ -1426,7 +1426,7 @@ enum
               {
                  case 0://in den Papierkorb
                  {
-                    NSLog(@"Clean in Papierkorb");
+                    //NSLog(@"Clean in Papierkorb");
                     NSEnumerator* clearEnum=[DeleteTitelPfadArray objectEnumerator];
                     id einClearAufnahmePfad;
                     while (einClearAufnahmePfad=[clearEnum nextObject])
@@ -1440,7 +1440,7 @@ enum
                     
                  case 1://ins Magazin
                  {
-                    NSLog(@"Clean ins Magazin");
+                    //NSLog(@"Clean ins Magazin");
                     NSEnumerator* magEnum=[DeleteTitelPfadArray objectEnumerator];
                     id einMagazinAufnahmePfad;
                     while (einMagazinAufnahmePfad=[magEnum nextObject])
@@ -1451,7 +1451,7 @@ enum
                     
                  case 2://ex und hopp
                  {
-                    NSLog(@"Clean ex");
+                    //NSLog(@"Clean ex");
                     NSEnumerator* exEnum=[DeleteTitelPfadArray objectEnumerator];
                     id einExAufnahmePfad;
                     while (einExAufnahmePfad=[exEnum nextObject])
@@ -1479,7 +1479,7 @@ enum
                     NSString* tempName=[einName objectForKey:@"name"];
                     //[self setCleanTitelVonLeser:[einName objectForKey:@"name"]];
             //        NSMutableArray* CleanTitelDicArray=[[NSMutableArray alloc]initWithCapacity:0];
-                    //						NSLog(@"\n\n-----------------------------Clean");//leerer Array für schon vorhandenen TitelDics in Clean
+                    //						//NSLog(@"\n\n-----------------------------Clean");//leerer Array für schon vorhandenen TitelDics in Clean
                     NSMutableArray* neueTitelArray=[[NSMutableArray alloc]initWithCapacity:0]; //Kontrollarray nur mit Titeln
                     NSMutableArray* TitelMitAnzahlArray=[[NSMutableArray alloc]initWithCapacity:0];
                     //Array mit den Aufnahmen in der Lesebox für den Leser tempName
@@ -1633,7 +1633,7 @@ enum
            }
            //else
            //{
-           //	NSLog(@"Nichts zu l√∂schen");
+           //	//NSLog(@"Nichts zu l√∂schen");
            //}
         }//if (clearTitelArray)
      }//if (clearNamenArray)
@@ -1972,7 +1972,7 @@ enum
    
    if ([Filemanager fileExistsAtPath:AnmerkungenPfad])
    {
-      NSLog(@"File exists an Pfad: %@",derAufnahmePfad);
+      //NSLog(@"File exists an Pfad: %@",derAufnahmePfad);
       NSString* tempKommentarString=[NSString stringWithContentsOfFile:AnmerkungenPfad encoding:NSMacOSRomanStringEncoding error:NULL];
       NSMutableArray* tempKommentarArrary=(NSMutableArray *)[tempKommentarString componentsSeparatedByString:@"\r"];
       //NSLog(@"tempKommentarArrary vor: %@",[tempKommentarArrary description]);
@@ -1989,7 +1989,7 @@ enum
    }//file exists
    else
    {
-      NSLog(@"Kein File an Pfad: %@",derAufnahmePfad);
+      //NSLog(@"Kein File an Pfad: %@",derAufnahmePfad);
       
    }
    

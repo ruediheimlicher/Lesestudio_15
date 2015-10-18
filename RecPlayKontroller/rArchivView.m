@@ -5,9 +5,9 @@
 {
 	int nr=[theEvent keyCode];
 	NSString* Taste=[theEvent characters];
-	NSLog(@"Archivliste keyDown: %@   %@",[theEvent characters],Taste);	
+	//NSLog(@"Archivliste keyDown: %@   %@",[theEvent characters],Taste);	
 	//if([[Taste description]isEqualToString:@"\r"])
-	//	NSLog(@"                    Enter");
+	//	//NSLog(@"                    Enter");
 	NSNumber* KeyNummer;
 	KeyNummer=[NSNumber numberWithInt:nr];
 	//NSLog(@"keyDown: %@",[theEvent characters]);

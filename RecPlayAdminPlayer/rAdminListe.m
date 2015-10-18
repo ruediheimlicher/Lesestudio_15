@@ -30,7 +30,7 @@
 	NSString* Taste=[theEvent characters];
 	//NSLog(@"Adminliste keyDown: %@  Taste %@",[theEvent characters],Taste);
 	//if([[Taste description]isEqualToString:@"\r"])
-	//	NSLog(@"                    Enter");
+	//	//NSLog(@"                    Enter");
 	NSNumber* KeyNummer;
 	KeyNummer=[NSNumber numberWithInt:nr];
 	//NSLog(@"keyDown: %@",[theEvent characters]);

@@ -129,7 +129,7 @@
    [NamenArray removeAllObjects];
    NSMutableArray* FehlerNamenArray = [[NSMutableArray alloc]initWithCapacity:0];
    NSMutableString* tempNamenViewString =(NSMutableString*)[NamenListeView string];
-   NSLog(@"Einzelnamen reportClose aktuellesProjekt: %@	tempNamenViewString: %@",aktuellesProjekt,[tempNamenViewString description]);
+   //NSLog(@"Einzelnamen reportClose aktuellesProjekt: %@	tempNamenViewString: %@",aktuellesProjekt,[tempNamenViewString description]);
    int anzCR=[tempNamenViewString replaceOccurrencesOfString:@"\n"
                                                   withString:@"\r"
                                                      options:NSCaseInsensitiveSearch
@@ -152,7 +152,7 @@
    
    NSArray* tempNamenViewArray=[tempNamenViewString componentsSeparatedByString:@"\r"];
    //	NSArray* tempNamenViewArray=[NSArray arrayWithObjects:@"Hans Meier",@"Fritz Huber",nil];
-   NSLog(@"tempNamenViewArray: %@  %d",[tempNamenViewArray description],[tempNamenViewArray count]);
+   //NSLog(@"tempNamenViewArray: %@  %d",[tempNamenViewArray description],[tempNamenViewArray count]);
    NSEnumerator* NamenEnum=[tempNamenViewArray  objectEnumerator];
    
    //NSLog(@"NamenViewArrayEnum: %@",[[NamenEnum allObjects]description]);
@@ -202,7 +202,7 @@
          NSArray* tempArray=[tempZeilenstring componentsSeparatedByString:@" "];
          if ([tempArray count] < 2)
          {
-            NSLog(@"tempZeilenstring nur 1 Wort");
+            //NSLog(@"tempZeilenstring nur 1 Wort");
             NSAlert *Warnung = [[NSAlert alloc] init];
             [Warnung addButtonWithTitle:@"Nachnamen eingeben"];
             [Warnung setMessageText:@"Namen eingeben"];
@@ -306,7 +306,7 @@
       int selektierteZeile=[NamenTable selectedRow];
       if ([[[NamenArray objectAtIndex:selektierteZeile]objectForKey:@"neuername"]boolValue])
       {
-         NSLog(@"neuer Name, noch nicht eingesetzt, nur aus Namenarray loeschen");
+         //NSLog(@"neuer Name, noch nicht eingesetzt, nur aus Namenarray loeschen");
          //neuer Name, noch nicht eingesetzt, nur aus Namenarray lšschen
          [NamenArray removeObjectAtIndex:selektierteZeile];
          [NamenTable reloadData];
@@ -314,7 +314,7 @@
       }
       
       NSMutableDictionary* NotificationDic=[[NSMutableDictionary alloc]initWithCapacity:0];
-      NSLog(@"reportEntfernen NamenArray: %@\n",[NamenArray description]);
+      //NSLog(@"reportEntfernen NamenArray: %@\n",[NamenArray description]);
       NSString* NamenEntfernenString=[[NamenArray objectAtIndex:NamenIndex]objectForKey:@"namen"];//Name entf
       //NSLog(@"NamenEntfernenString: %@",NamenEntfernenString);
       
@@ -403,7 +403,7 @@
          {
             return;
          }
-         // NSLog(@"helpArray: %@",helpArray);
+         // //NSLog(@"helpArray: %@",helpArray);
          NSAlert *Warnung = [[NSAlert alloc] init];
          [Warnung setMessageText:[helpArray objectAtIndex:0]];
          NSRect cellFeld = NSMakeRect(0, 0, 400, 100);
@@ -440,7 +440,7 @@
 
 - (void)FensterschliessenAktion:(NSNotification*)note
 {
-   NSLog(@"Clean FensterschliessenAktion note: %@",[[note userInfo]description]);
+   //NSLog(@"Clean FensterschliessenAktion note: %@",[[note userInfo]description]);
    if (![[[note userInfo]objectForKey:@"quelle"]isEqualToString:@"EinzelNamen"])
    {
       [self reportCancel:nil];
@@ -453,17 +453,17 @@
 
 - (void)EingabeChangeNotificationAktion:(NSNotification*)note
 {
-   NSLog(@"ProjektListe NSTextDidChangeNotification");
+   //NSLog(@"ProjektListe NSTextDidChangeNotification");
    if ([note object]==NamenFeld)
 	  {
-        NSLog(@"ProjektListe: NamenFeld");
+        //NSLog(@"ProjektListe: NamenFeld");
      }
    
 }
 
 - (void)textDidBeginEditing:(NSNotification *)aNotification
 {
-   NSLog(@"controlTextDidBeginEditing: %d",[[aNotification  object]tag]);
+   //NSLog(@"controlTextDidBeginEditing: %d",[[aNotification  object]tag]);
    [SchliessenTaste setEnabled:YES];
    
 }

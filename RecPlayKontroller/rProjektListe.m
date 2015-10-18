@@ -40,7 +40,7 @@
 {
   int nr=[theEvent keyCode];
   NSString* Taste=[theEvent characters];
-  NSLog(@"Projektliste endlich keyDown: %@   %@",[theEvent characters],Taste);	
+  //NSLog(@"Projektliste endlich keyDown: %@   %@",[theEvent characters],Taste);	
   [super keyDown:theEvent];
 }
 
@@ -94,16 +94,16 @@ BOOL istAktiviert=[[[ProjektArray objectAtIndex:z]objectForKey:@"ok"]boolValue];
 [EntfernenTaste setEnabled:!(istProjektZeile)];
 [[ProjektArray objectAtIndex:z]setObject:[NSNumber numberWithBool:!istAktiviert] forKey:@"ok"];
 [ProjektTable reloadData];
-NSLog(@"okAktion: Zeile %f    istAktiviert: %d",z,istAktiviert);
+//NSLog(@"okAktion: Zeile %f    istAktiviert: %d",z,istAktiviert);
 
 }
 
 
 - (void)EnterKeyNotifikationAktion:(NSNotification*)note
 {
-	NSLog(@"Projektliste    EnterKeyNotifikationAktion: note: %@",[note object]);
+	//NSLog(@"Projektliste    EnterKeyNotifikationAktion: note: %@",[note object]);
 	NSString* Quelle=[[note object]description];
-	NSLog(@"EnterKeyNotifikationAktion: Quelle: %@",Quelle);
+	//NSLog(@"EnterKeyNotifikationAktion: Quelle: %@",Quelle);
 	BOOL erfolg;
 	[self reportNeuesProjekt:NULL];
 	
@@ -136,7 +136,7 @@ NSLog(@"okAktion: Zeile %f    istAktiviert: %d",z,istAktiviert);
 if ([ProjektArray count])
 {
 //	NSString* ProjektString=[NSString string];
-	NSLog(@"ProjektListe reportCancel");
+	//NSLog(@"ProjektListe reportCancel");
 //	NSString* ProjektString=@"";
 	[EingabeFeld setStringValue:@""];
 	[InListeTaste setEnabled:NO];
@@ -157,7 +157,7 @@ vomStart=NO;
 
 - (IBAction)reportAuswahlen:(id)sender
 {
-	NSLog(@"reportAuswahlen");
+	//NSLog(@"reportAuswahlen");
 	long ProjektIndex=[ProjektTable selectedRow];
 	NSMutableDictionary* NotificationDic=[[NSMutableDictionary alloc]initWithCapacity:0];
 	if ([ProjektTable selectedRow]>=0)
@@ -199,7 +199,7 @@ vomStart=NO;
   if ([ProjektTable selectedRow]>=0)
   {
 	  NSString* ProjektEntfernenString=[[ProjektArray objectAtIndex:ProjektIndex]objectForKey:@"projekt"];//Name des zu entfernenden Projekts
-	  NSLog(@"reportEntfernen ProjektEntfernenString: %@",ProjektEntfernenString);
+	  //NSLog(@"reportEntfernen ProjektEntfernenString: %@",ProjektEntfernenString);
 	  NSAlert *Warnung = [[NSAlert alloc] init];
 	  NSString* s3=@"Was soll mit dem  Projektordner %@ geschehen?";
 	  [Warnung addButtonWithTitle:@"> Papierkorb"];
@@ -222,12 +222,12 @@ vomStart=NO;
 	  {
 		  case NSAlertFirstButtonReturn://In Papierkorb
 		  { 
-			  NSLog(@"ProjektListe Papierkorb");
+			  //NSLog(@"ProjektListe Papierkorb");
 		  }
 			  
 		  case NSAlertSecondButtonReturn://Magazin
 		  {
-			  NSLog(@"ProjektListe Magazin");
+			  //NSLog(@"ProjektListe Magazin");
 		  }
 		  case NSAlertThirdButtonReturn://ex		
 		  {
@@ -255,7 +255,7 @@ vomStart=NO;
 		  }break;
 		  case NSAlertThirdButtonReturn+1://cancel
 		  {
-			  NSLog(@"Cancel");
+			  //NSLog(@"Cancel");
 		  }break;
 	  }//switch
 	  
@@ -309,7 +309,7 @@ vomStart=NO;
 	[EingabeFeld setStringValue:@""];
 	[InListeTaste setEnabled:NO];
 	//[NSApp abortModal];
-	NSLog(@"reportClose ende");
+	//NSLog(@"reportClose ende");
 	vomStart=NO;
 	[NSApp stopModalWithCode:0];
 	[[self window] orderOut:NULL];
@@ -321,7 +321,7 @@ vomStart=NO;
 {
   if ([[EingabeFeld stringValue]length])
   {
-     NSLog(@"Eingabe da: %@",[EingabeFeld stringValue]);
+     //NSLog(@"Eingabe da: %@",[EingabeFeld stringValue]);
      NSMutableDictionary* NotificationDic=[[NSMutableDictionary alloc]initWithCapacity:0];
      
      NSMutableIndexSet* neuerProjektNameIndex=[NSMutableIndexSet indexSet];
@@ -335,8 +335,8 @@ vomStart=NO;
      [ProjektTable reloadData];
      //[NotificationDic setObject:ProjektArray forKey:@"projektarray"];
      [NotificationDic setObject:neuesProjektDic forKey:@"neuesprojektdic"];
-     NSLog(@"***\n   ProjektListe reportNeuesProjekt");
-     NSLog(@"neuesProjektDic: %@",[neuesProjektDic description]);
+     //NSLog(@"***\n   ProjektListe reportNeuesProjekt");
+     //NSLog(@"neuesProjektDic: %@",[neuesProjektDic description]);
      [NotificationDic setObject:[NSNumber numberWithLong:[sender tag]] forKey:@"sender"];
      NSNotificationCenter* nc=[NSNotificationCenter defaultCenter];
      [nc postNotificationName:@"neuesProjekt" object:self userInfo:NotificationDic];
@@ -362,7 +362,7 @@ vomStart=NO;
   }
   else
   {
-     NSLog(@"Eingabe leer");
+     //NSLog(@"Eingabe leer");
   }
 		
 }
@@ -452,7 +452,7 @@ vomStart=NO;
 		[ProjektTable setNeedsDisplay:YES];
 	}
 	else
-		NSLog(@"kein Responder");
+		//NSLog(@"kein Responder");
 	
 	//[EingabeFeld setEditable:YES];
 	[ProjektTable scrollRowToVisible:[ProjektArray count]-1];
@@ -591,7 +591,7 @@ vomStart=NO;
     index++;
     }//while
     */
-   // NSLog(@"derArray: %@",[ProjektArray description]);
+   // //NSLog(@"derArray: %@",[ProjektArray description]);
    //NSLog(@"ProjektNameIndex: %@",[ProjektNameIndex description]);
    long pos = [ProjektArray indexOfObject:dasProjekt];
    if (pos < NSNotFound)
@@ -629,7 +629,7 @@ vomStart=NO;
 
 - (void)setVomStart:(BOOL)derStatus
 {
-NSLog(@"setVomStart: %d",derStatus);
+//NSLog(@"setVomStart: %d",derStatus);
 vomStart=derStatus;
     fixchanged=NO;
 [SchliessenTaste setEnabled:!vomStart];
@@ -637,7 +637,7 @@ vomStart=derStatus;
 
 - (void)FensterschliessenAktion:(NSNotification*)note
 {
-   NSLog(@"Clean FensterschliessenAktion note: %@",[[note userInfo]description]);
+   //NSLog(@"Clean FensterschliessenAktion note: %@",[[note userInfo]description]);
    if (![[[note userInfo]objectForKey:@"quelle"]isEqualToString:@"ProjektListe"])
    {
       [self reportCancel:nil];
@@ -675,7 +675,7 @@ vomStart=derStatus;
          {
             return;
          }
-         // NSLog(@"helpArray: %@",helpArray);
+         // //NSLog(@"helpArray: %@",helpArray);
          NSAlert *Warnung = [[NSAlert alloc] init];
          [Warnung setMessageText:[helpArray objectAtIndex:0]];
          NSRect cellFeld = NSMakeRect(0, 0, 400, 100);
@@ -771,7 +771,7 @@ vomStart=derStatus;
 	{
 		einProjektDic=[ProjektArray objectAtIndex:rowIndex];
 		[einProjektDic setObject:anObject forKey:[aTableColumn identifier]];
-      NSLog(@"setObjectValue: einProjektDic: %@",[einProjektDic description]);
+      //NSLog(@"setObjectValue: einProjektDic: %@",[einProjektDic description]);
 		//NSLog(@"setObjectValue: identifier: %@",[aTableColumn identifier]);
       if ([[aTableColumn identifier] isEqualToString:@"fix"])
       {
@@ -785,7 +785,7 @@ vomStart=derStatus;
 
 - (BOOL)tableView:(NSTableView *)tableView shouldSelectRow:(int)row
 {
-   NSLog(@"shouldSelectRow aktuellesProjekt: %@",aktuellesProjekt);
+   //NSLog(@"shouldSelectRow aktuellesProjekt: %@",aktuellesProjekt);
    //if(tableView ==[window firstResponder])
    NSString* tempProjektString=[[ProjektArray objectAtIndex:row]objectForKey:@"projekt"];
    BOOL istAktiviert=[[[ProjektArray objectAtIndex:row]objectForKey:@"ok"]boolValue];

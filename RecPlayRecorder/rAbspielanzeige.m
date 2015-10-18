@@ -34,7 +34,7 @@
 		Level=Max;
 	else
 		Level=derLevel;
- //  NSLog(@"Level ein: %f Level aus: %f",derLevel,Level);
+ //  //NSLog(@"Level ein: %f Level aus: %f",derLevel,Level);
 }
 - (void)drawLevelmeter
 {

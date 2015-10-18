@@ -179,11 +179,11 @@ NSMutableDictionary* tempTitelDic=[[NSMutableDictionary alloc]initWithCapacity:0
       NSModalResponse antwort = [Warnung runModal];
       if (antwort==NSAlertFirstButtonReturn)
       {
-         NSLog(@"Titelliste reportCancel: NSAlertFirstButtonReturn");
+         //NSLog(@"Titelliste reportCancel: NSAlertFirstButtonReturn");
       }
       else if (antwort==NSAlertSecondButtonReturn)
       {
-         NSLog(@"Titelliste reportCancel: NSAlertSecondButtonReturn");
+         //NSLog(@"Titelliste reportCancel: NSAlertSecondButtonReturn");
          
          [TitelTable selectRowIndexes:[NSIndexSet indexSetWithIndex:0]byExtendingSelection:NO];
          [[TitelTable tableColumnWithIdentifier:@"titel"]setEditable:NO];
@@ -253,7 +253,7 @@ NSNotificationCenter* nc=[NSNotificationCenter defaultCenter];
          {
             return;
          }
-         // NSLog(@"helpArray: %@",helpArray);
+         // //NSLog(@"helpArray: %@",helpArray);
          NSAlert *Warnung = [[NSAlert alloc] init];
          [Warnung setMessageText:[helpArray objectAtIndex:0]];
          NSRect cellFeld = NSMakeRect(0, 0, 400, 100);
@@ -301,7 +301,7 @@ NSNotificationCenter* nc=[NSNotificationCenter defaultCenter];
 
 - (void)FensterschliessenAktion:(NSNotification*)note
 {
-   NSLog(@"TitelListe FensterschliessenAktion note: %@",[[note userInfo]description]);
+   //NSLog(@"TitelListe FensterschliessenAktion note: %@",[[note userInfo]description]);
    if (![[[note userInfo]objectForKey:@"quelle"]isEqualToString:@"TitelListe"])
    {
       [self reportCancel:nil];

@@ -5,27 +5,28 @@
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="8191"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="rMarkierung">
+        <customObject id="-2" userLabel="File's Owner" customClass="rProjektExport">
             <connections>
-                <outlet property="MarkierungVariante" destination="48" id="51"/>
+                <outlet property="ExportVariante" destination="48" id="PIH-GI-iG9"/>
+                <outlet property="NamenString" destination="1EL-3c-dmr" id="XuH-Mw-6Pp"/>
                 <outlet property="TextString" destination="44" id="55"/>
-                <outlet property="TitelString" destination="43" id="56"/>
+                <outlet property="anzPop" destination="wXb-7O-rrZ" id="aNz-m3-NRC"/>
                 <outlet property="window" destination="10" id="57"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <window title="Markierungen" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="10" userLabel="Panel1" customClass="NSPanel">
+        <window title="Projekt Export" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="10" userLabel="Panel1" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES" documentModal="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES"/>
-            <rect key="contentRect" x="200" y="436" width="426" height="249"/>
+            <rect key="contentRect" x="200" y="436" width="426" height="288"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1024" height="746"/>
             <view key="contentView" id="7">
-                <rect key="frame" x="0.0" y="0.0" width="426" height="249"/>
+                <rect key="frame" x="0.0" y="0.0" width="426" height="288"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button verticalHuggingPriority="750" id="2">
-                        <rect key="frame" x="101" y="30" width="108" height="34"/>
+                        <rect key="frame" x="100" y="46" width="108" height="34"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                         <buttonCell key="cell" type="push" title="Abbrechen" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="62">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -36,48 +37,34 @@
                             <outlet property="nextKeyView" destination="12" id="42"/>
                         </connections>
                     </button>
-                    <button verticalHuggingPriority="750" id="12">
-                        <rect key="frame" x="228" y="31" width="187" height="32"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                        <buttonCell key="cell" type="push" title="Markierungen entfernen" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="63">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system"/>
-                            <string key="keyEquivalent" base64-UTF8="YES">
-DQ
-</string>
-                        </buttonCell>
-                        <connections>
-                            <action selector="reportMarkierungVariante:" target="-2" id="53"/>
-                        </connections>
-                    </button>
                     <imageView id="29">
-                        <rect key="frame" x="24" y="169" width="64" height="64"/>
+                        <rect key="frame" x="24" y="208" width="64" height="64"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" image="MicroIcon" id="64"/>
                     </imageView>
                     <textField verticalHuggingPriority="750" id="43">
-                        <rect key="frame" x="104" y="169" width="290" height="65"/>
+                        <rect key="frame" x="104" y="208" width="290" height="65"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" alignment="left" title="Markierungen entfernen" id="65">
+                        <textFieldCell key="cell" alignment="left" title="Projekt exportieren" id="65">
                             <font key="font" metaFont="systemBold"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" id="44">
-                        <rect key="frame" x="21" y="127" width="391" height="21"/>
+                        <rect key="frame" x="21" y="166" width="336" height="21"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" selectable="YES" alignment="left" title="Welche Markierungen sollen gelöscht werden?" id="66">
+                        <textFieldCell key="cell" selectable="YES" alignment="left" title="Was soll vom Projekt exportiert werden?" id="66">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
                     <matrix verticalHuggingPriority="750" allowsEmptySelection="NO" autosizesCells="NO" id="48">
-                        <rect key="frame" x="22" y="78" width="299" height="40"/>
+                        <rect key="frame" x="22" y="103" width="299" height="54"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        <size key="cellSize" width="299" height="19"/>
+                        <size key="cellSize" width="299" height="26"/>
                         <size key="intercellSpacing" width="4" height="2"/>
                         <buttonCell key="prototype" type="radio" title="Radio" imagePosition="left" alignment="left" inset="2" id="67">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -85,23 +72,78 @@ DQ
                         </buttonCell>
                         <cells>
                             <column>
-                                <buttonCell type="radio" title="Markierungen zum ausgewählten Namen" imagePosition="left" alignment="left" state="on" inset="2" id="49">
+                                <buttonCell type="radio" title="Alle markierten Aufnahmen" imagePosition="left" alignment="left" state="on" inset="2" id="49">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
-                                <buttonCell type="radio" title="Alle Markierungen" imagePosition="left" alignment="left" tag="1" inset="2" id="47">
+                                <buttonCell type="radio" title="Alle Aufnahmen, maximal" imagePosition="left" alignment="left" tag="1" inset="2" id="47">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                             </column>
                         </cells>
                     </matrix>
+                    <button verticalHuggingPriority="750" id="hVl-h3-Hh2">
+                        <rect key="frame" x="362" y="159" width="36" height="32"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="push" title="?" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="udC-1V-0dx">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="reportHelp:" target="-2" id="7zo-vc-yGC"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" id="12">
+                        <rect key="frame" x="225" y="46" width="187" height="32"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                        <buttonCell key="cell" type="push" title="Projekt exportieren" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="63">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                        </buttonCell>
+                        <connections>
+                            <action selector="reportExportVariante:" target="-2" id="ceg-m0-1Cu"/>
+                        </connections>
+                    </button>
+                    <popUpButton verticalHuggingPriority="750" id="wXb-7O-rrZ">
+                        <rect key="frame" x="202" y="103" width="58" height="22"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <popUpButtonCell key="cell" type="push" title="2" bezelStyle="rounded" alignment="center" controlSize="small" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="2" imageScaling="proportionallyDown" inset="2" selectedItem="e2w-dn-cJc" id="Glf-al-Tba">
+                            <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="smallSystem"/>
+                            <menu key="menu" id="iUH-nV-RSE">
+                                <items>
+                                    <menuItem title="1" tag="1" id="tbi-6g-wZW"/>
+                                    <menuItem title="2" state="on" tag="2" id="e2w-dn-cJc">
+                                        <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                    </menuItem>
+                                    <menuItem title="3" tag="3" id="vBH-TK-rz8"/>
+                                    <menuItem title="alle" tag="99" id="Q0g-y4-Ees">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                    </menuItem>
+                                </items>
+                            </menu>
+                        </popUpButtonCell>
+                    </popUpButton>
+                    <textField verticalHuggingPriority="750" id="1EL-3c-dmr">
+                        <rect key="frame" x="240" y="13" width="96" height="22"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="oSX-lZ-DaM">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
                 </subviews>
             </view>
             <connections>
                 <outlet property="delegate" destination="-2" id="23"/>
                 <outlet property="initialFirstResponder" destination="12" id="39"/>
             </connections>
+            <point key="canvasLocation" x="388" y="357"/>
         </window>
     </objects>
     <resources>

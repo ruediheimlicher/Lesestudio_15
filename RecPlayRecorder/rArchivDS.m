@@ -158,7 +158,7 @@
 
 - (BOOL)tableView:(NSTableView *)aTableView shouldEditTableColumn:(NSTableColumn *)aTableColumn row:(long)rowIndex
 {
-   NSLog(@"Archiv Delegate tableView  shouldEditTableColumn: %ld",rowIndex);
+   //NSLog(@"Archiv Delegate tableView  shouldEditTableColumn: %ld",rowIndex);
 
     return YES;
 }

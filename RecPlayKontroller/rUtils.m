@@ -200,7 +200,7 @@ Setzt die Variablen in Utils.m nach den Vorgaben der PList bei beginn des Progra
 
       NSURL* unterordnerurl;
       NSDirectoryEnumerator* orderenum = [Filemanager enumeratorAtURL:orderurl includingPropertiesForKeys:nil options:0x07 errorHandler:^(NSURL *url, NSError *error) {
-         NSLog(@"error: %@",error);
+         //NSLog(@"error: %@",error);
          // Return YES if the enumeration should continue after the error.
          return YES;
       }];
@@ -229,7 +229,7 @@ Setzt die Variablen in Utils.m nach den Vorgaben der PList bei beginn des Progra
 
 - (NSArray*)LeseboxCompleteAnPfad:(NSString*)leseboxpfad
 {
-   NSLog(@"LeseboxCompleteAnPfad");
+   //NSLog(@"LeseboxCompleteAnPfad");
    BOOL istDir=0;
    NSError* err;
    NSMutableArray* LeseboxFehlerArray = [[NSMutableArray alloc]initWithCapacity:0];
@@ -244,7 +244,7 @@ Setzt die Variablen in Utils.m nach den Vorgaben der PList bei beginn des Progra
       if ([Filemanager fileExistsAtPath:tempArchivPfad isDirectory: &istDir] && istDir) // Archiv da
       {
          NSMutableArray* testArray = [self OrderNamenAnPfad:tempArchivPfad];
-         NSLog(@"testArray: %@",testArray);
+         //NSLog(@"testArray: %@",testArray);
 
          
          // ProjektOrder im Archiv
@@ -286,7 +286,7 @@ Setzt die Variablen in Utils.m nach den Vorgaben der PList bei beginn des Progra
             NSEnumerator* fileenum = [Filemanager enumeratorAtPath:tempArchivPfad];
             while(tempfilename = [fileenum nextObject])
             {
-               NSLog(@"filename: %@",tempfilename);
+               //NSLog(@"filename: %@",tempfilename);
                [filenameArray addObject:tempfilename];
             }
            
@@ -398,7 +398,7 @@ Setzt die Variablen in Utils.m nach den Vorgaben der PList bei beginn des Progra
                                if ([anmerkungliste indexOfObject:tempAnmerkung] == NSNotFound) // Anmerkung fuer Aufnahme nicht da
                                {
                                   NSString* neueAnmerkungPfad = [tempAnmerkungenPfad stringByAppendingPathComponent:tempAnmerkung];
-                                  NSLog(@"neueAnmerkungPfad: %@",neueAnmerkungPfad);
+                                  //NSLog(@"neueAnmerkungPfad: %@",neueAnmerkungPfad);
                                   int erfolg= [self createKommentarFuerAufnahmePfad:neueAnmerkungPfad];
                                   
                                   [LeseboxFehlerArray addObject:[NSString stringWithFormat:@"Projekt: %@\t Leser: %@\t neue Anmerkungen: %@ checkAnmerkung erfolg: %d",tempProjekt,tempLeser, tempAnmerkung,erfolg]];
@@ -540,7 +540,7 @@ Die Dics enthalten den Pfad und eine Anzeige für die Lesebox
 			if ([[NetzVolumePfad lastPathComponent] isEqualToString:@"Schueler"]) // Server
 			{
 				BOOL UserLeseboxOK =0;
-				NSLog(@"Server: NetzVolumePfad: %@",NetzVolumePfad);
+				//NSLog(@"Server: NetzVolumePfad: %@",NetzVolumePfad);
 				NSMutableArray* KlassenordnerArray=(NSMutableArray*)[Filemanager contentsOfDirectoryAtPath:NetzVolumePfad error:NULL];
 				[KlassenordnerArray removeObject:@".DS_Store"];
 				[KlassenordnerArray removeObject:@"Lerndaten"];
@@ -549,7 +549,7 @@ Die Dics enthalten den Pfad und eine Anzeige für die Lesebox
 				[KlassenordnerArray removeObject:@".TemporaryItems"];
 
 
-				NSLog(@"KlassenordnerArray: %@",[KlassenordnerArray description]);
+				//NSLog(@"KlassenordnerArray: %@",[KlassenordnerArray description]);
 				
 				int KlassenordnerIndex=0;
 				for (KlassenordnerIndex=0;KlassenordnerIndex<[KlassenordnerArray count];KlassenordnerIndex++)
@@ -558,7 +558,7 @@ Die Dics enthalten den Pfad und eine Anzeige für die Lesebox
 					
 					NSMutableDictionary* tempUserDic=[[NSMutableDictionary alloc]initWithCapacity:0];//Dic fuer Volume
 					NSString* tempVolumeName=[KlassenordnerArray objectAtIndex:KlassenordnerIndex];
-					NSLog(@"tempVolumeName: %@",tempVolumeName);
+					//NSLog(@"tempVolumeName: %@",tempVolumeName);
 					
 					
 					NSString* tempNetzVolumePfad=[NetzVolumePfad stringByAppendingPathComponent:[KlassenordnerArray objectAtIndex:KlassenordnerIndex]];
@@ -740,7 +740,7 @@ NSAppleEventDescriptor *netDiskNames = [volumeInfoScpt executeAndReturnError:&di
         } else 
 		  {
 				//NSLog(@"ERROR: %@",[errorDict objectForKey:@"NSAppleScriptErrorMessage"]);
-				NSLog(@"Error: %@ netDiskNames: %@",[dict description],[netDiskNames description]);
+				//NSLog(@"Error: %@ netDiskNames: %@",[dict description],[netDiskNames description]);
 			}
 		
 	//
@@ -759,9 +759,9 @@ NSAppleEventDescriptor *netDiskNames = [volumeInfoScpt executeAndReturnError:&di
     NSAppleEventDescriptor *eventDescriptor = [appleScriptObject executeAndReturnError: &errorDict];
     [appleScriptObject release];
     if (([eventDescriptor descriptorType]) && (errorDict==nil)) {
-        NSLog(@"%@", [eventDescriptor stringValue]);
+        //NSLog(@"%@", [eventDescriptor stringValue]);
     } else {
-        NSLog(@"%@",[errorDict objectForKey:@"NSAppleScriptErrorMessage"]);
+        //NSLog(@"%@",[errorDict objectForKey:@"NSAppleScriptErrorMessage"]);
     }	
 	*/		
 				
@@ -850,7 +850,7 @@ Gibt die Volumes im Ordner 'Network' zurück
 {
    BOOL istaufextvol = YES;
    NSString *bundlePfad = [[NSBundle mainBundle] bundlePath];
-   NSLog(@"istAufExternemVolume	bundlePfad: %@",bundlePfad);
+   //NSLog(@"istAufExternemVolume	bundlePfad: %@",bundlePfad);
 
    if ([bundlePfad rangeOfString:@"/Volumes"].location == NSNotFound) // /Volumes ist im Pfad bei externem Vol, Stick oa
    {
@@ -909,7 +909,7 @@ Gibt die Volumes im Ordner 'Network' zurück
 
 	int HeuteJahr=[self localJahrvonDatumString:heuteDatumString];
    //NSLog(@"Heute: %d %d %d",HeuteTag,HeuteMonat,HeuteJahr);
-	NSLog(@"HeuteJahr: %d ",HeuteJahr);
+	//NSLog(@"HeuteJahr: %d ",HeuteJahr);
 	//[Heute setCalendarFormat:@"%d.%m.%Y"];
 	//NSLog(@"Heute: %@",[Heute description]);
 	NSString* RPVersionString=[NSString stringWithFormat:@"%d.%d",HeuteJahr%2000,HeuteMonat];
@@ -991,14 +991,14 @@ return versionOK;
 	}//exists at LeseboxPfad
   else
   {
-	  NSLog(@"Keine Lesebox da LeseboxValidAnPfad: %@",derLeseboxPfad);
+	  //NSLog(@"Keine Lesebox da LeseboxValidAnPfad: %@",derLeseboxPfad);
 	  //PList löschen
 	  BOOL DeleteOK=[self deletePListAnPfad:derLeseboxPfad aufSystemVolume:istSystemVolume];
-	  NSLog(@"Keine Lesebox da: %@  DeleteOK: %d",derLeseboxPfad,DeleteOK);
+	  //NSLog(@"Keine Lesebox da: %@  DeleteOK: %d",derLeseboxPfad,DeleteOK);
 
 	  NSString* LString1=@"Die Lesebox kann anlegt werden";
 	  NSString* LString2=@"\r\rEine Klassenliste kann importiert werden.\r Sie muss im Format 'doc' oder 'txt' vorliegen. \rDie Namen dürfen nur aus einem Vornamen und einem Nachnamen bestehen, getrennt durch Leerzeichen oder einen Tabulator. \rDoppelnamen müssen mit einem Unterstrich '_' verbunden werden. \rDie Namen können auch einzeln eingegeben werden.";
-	  NSLog(@"LString1: %@ LString2: %@",LString1,LString2);
+	  //NSLog(@"LString1: %@ LString2: %@",LString1,LString2);
 	  NSString* LeseboxString=[LString1 stringByAppendingString:LString2];
 	  
      NSAlert *Warnung = [[NSAlert alloc] init];
@@ -1011,7 +1011,7 @@ return versionOK;
      [Warnung setAlertStyle:NSWarningAlertStyle];
      long Antwort=[Warnung runModal];
      
-     NSLog(@"Neue  Lesebox: Antwort: %ld",Antwort);
+     //NSLog(@"Neue  Lesebox: Antwort: %ld",Antwort);
 	       
      switch (Antwort)
 	  {
@@ -1279,18 +1279,18 @@ return versionOK;
 				{
 					case NSAlertFirstButtonReturn://
 					{ 
-						NSLog(@"NamenArrayAusString NSAlertFirstButtonReturn");
+						//NSLog(@"NamenArrayAusString NSAlertFirstButtonReturn");
 						
 					}break;
 						
 					case NSAlertSecondButtonReturn://
 					{
-						NSLog(@"NSAlertSecondButtonReturn");
+						//NSLog(@"NSAlertSecondButtonReturn");
 						
 					}break;
 					case NSAlertThirdButtonReturn://		
 					{
-						NSLog(@"NSAlertThirdButtonReturn");
+						//NSLog(@"NSAlertThirdButtonReturn");
 						
 					}break;
 						
@@ -1372,7 +1372,7 @@ return versionOK;
 			if (![KlassenArray indexOfObjectIdenticalTo:@""]==NSNotFound)
 			{
 				int leer=[KlassenArray indexOfObjectIdenticalTo:@""];
-				NSLog(@"leer: %d",leer);
+				//NSLog(@"leer: %d",leer);
 			}
 			for(n=0;n<[KlassenArray count];n++)
 			{
@@ -1381,7 +1381,7 @@ return versionOK;
 			NSCharacterSet* tab=[NSCharacterSet characterSetWithCharactersInString:@"\t"];
 			NSCharacterSet* leer=[NSCharacterSet characterSetWithCharactersInString:@" "];
 			NSCharacterSet* GROSS=[NSCharacterSet uppercaseLetterCharacterSet];
-			NSLog(@"KlassenArray count %d",[KlassenArray count]);
+			//NSLog(@"KlassenArray count %d",[KlassenArray count]);
 			for(n=0;n<[KlassenArray count];n++)
 			{
 				NSString* tempOrdnername;
@@ -1474,7 +1474,7 @@ return versionOK;
    erfolg=[KlassenlisteText readRTFDFromFile:NamenPfad];
    NSString* Klassenliste=[NSString stringWithString:[KlassenlisteText string]];
    
-   NSLog(@"TextViewString: %@",KlassenlisteText );
+   //NSLog(@"TextViewString: %@",KlassenlisteText );
    
    
    //NSString* Klassenliste=[NSString stringWithContentsOfFile:NamenPfad];
@@ -1505,7 +1505,7 @@ return versionOK;
        }
        */
       
-      NSLog(@"KlassenArray: %@",[KlassenArray description]);
+      //NSLog(@"KlassenArray: %@",[KlassenArray description]);
       unsigned int Trennstelle=0;
       if([KlassenArray count])
       {
@@ -1514,7 +1514,7 @@ return versionOK;
          if (!([KlassenArray indexOfObjectIdenticalTo:@""]==NSNotFound))
          {
             long leer=[KlassenArray indexOfObjectIdenticalTo:@""];
-            NSLog(@"leer: %d",leer);
+            //NSLog(@"leer: %d",leer);
          }
          
          for(n=0;n<[KlassenArray count];n++)
@@ -1524,7 +1524,7 @@ return versionOK;
          NSCharacterSet* tab=[NSCharacterSet characterSetWithCharactersInString:@"\t"];
          NSCharacterSet* leer=[NSCharacterSet characterSetWithCharactersInString:@" "];
          NSCharacterSet* GROSS=[NSCharacterSet uppercaseLetterCharacterSet];
-         NSLog(@"KlassenArray count %d",[KlassenArray count]);
+         //NSLog(@"KlassenArray count %d",[KlassenArray count]);
          
          // Tabulatoren durch leerschlag ersetzen
          for(n=0;n<[KlassenArray count];n++)
@@ -1532,20 +1532,20 @@ return versionOK;
             
             
             NSString* tempName=[KlassenArray objectAtIndex:n];
-            NSLog(@"tempName vor: %@",tempName);
+            //NSLog(@"tempName vor: %@",tempName);
             
             /*
              // http://www.codeproject.com/Questions/492512/IplusneedplusaplusRegularplusexpressionplusforplus
              // Regex (/^[a-zA-Z0-9]+ ?([a-zA-Z0-9]+$){1}/)
              // ohne Ziffern (/^[a-zA-Z]+ ?([a-zA-Z]+$){1}/)
-             NSLog(@"tempName vor: %@",tempName);
+             //NSLog(@"tempName vor: %@",tempName);
              
              NSString* regexPatternString = @"(/^[a-zA-Z]+ ?([a-zA-Z]+$){1}/)";
              tempName = [self stringTrimmedForLeadingAndTrailingWhiteSpacesFromString:@"  Hans Meier "];
              
              BOOL regexOK = [self validateString:tempName withPattern:regexPatternString];
-             NSLog(@"regexOK: %d",regexOK);
-             NSLog(@"tempName nach: %@",tempName);
+             //NSLog(@"regexOK: %d",regexOK);
+             //NSLog(@"tempName nach: %@",tempName);
              */
             
             
@@ -1555,12 +1555,12 @@ return versionOK;
             //    tempName = [self stringByTrimmingTrailingCharactersInString:tempName InSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
             
             
-            NSLog(@" tempName sauber: *%@*",tempName);
+            //NSLog(@" tempName sauber: *%@*",tempName);
             
             
             NSString* trennzeichenString;
             NSRange Tabulator =[tempName rangeOfCharacterFromSet:tab];
-            NSLog(@"KlassenArray pos: %d  tempName: %@   Tabulator: %d length: %d",n,tempName,Tabulator.location,[tempName length] );
+            //NSLog(@"KlassenArray pos: %d  tempName: %@   Tabulator: %d length: %d",n,tempName,Tabulator.location,[tempName length] );
             
             NSRange Leerschlag;
             if (Tabulator.location<=[tempName length])
@@ -1588,7 +1588,7 @@ return versionOK;
                tempName = [tempName stringByReplacingOccurrencesOfString:@"  " withString:@" "];
             }
             NSArray* elementeArray = [tempName componentsSeparatedByString:trennzeichenString];
-            NSLog(@"elementeArray: %@",elementeArray);
+            //NSLog(@"elementeArray: %@",elementeArray);
             
             //Vornamen erkennen: erstes Wort
             NSRange tempNamenRange=NSMakeRange(0,Trennstelle);
@@ -1596,10 +1596,10 @@ return versionOK;
             // Vornamen einsetzen
             NSString* tempOrdnername=[NSString stringWithString:[tempName substringWithRange:tempNamenRange]];
             
-            NSLog(@" tempOrdnername: *%@*",tempOrdnername);
+            //NSLog(@" tempOrdnername: *%@*",tempOrdnername);
             // leading und trailing Leerschlaege weg
             tempOrdnername = [self stringByTrimmingLeadingAndTrailingWhiteSpacesInString:tempOrdnername];
-            NSLog(@" tempOrdnername sauber: *%@*",tempOrdnername);
+            //NSLog(@" tempOrdnername sauber: *%@*",tempOrdnername);
             
             
             //NSLog(@"			KlassenArray tempOrdnername: %@   Trennstelle: %d",tempOrdnername,Trennstelle);
@@ -1618,13 +1618,13 @@ return versionOK;
                NSString* tempNachnamestring=[tempName substringWithRange:tempNamenRange];
                
                
-               NSLog(@"tempNachnamestring: *%@*",tempNachnamestring);
+               //NSLog(@"tempNachnamestring: *%@*",tempNachnamestring);
                
                // leading und trailing Leerschlaege weg
                
                tempNachnamestring = [self stringByTrimmingLeadingAndTrailingWhiteSpacesInString:tempNachnamestring];
                
-               NSLog(@"tempNachnamestring sauber: *%@*",tempNachnamestring);
+               //NSLog(@"tempNachnamestring sauber: *%@*",tempNachnamestring);
                
                
                
@@ -1636,17 +1636,17 @@ return versionOK;
             
             // definitiver Name des Ordners
             
-            NSLog(@"KlassenArray def: tempOrdnername: *%@*",[tempOrdnername description]);
+            //NSLog(@"KlassenArray def: tempOrdnername: *%@*",[tempOrdnername description]);
             
             int anzTeile = [[tempOrdnername componentsSeparatedByString:@" "]count];
             
             if (anzTeile == 2)
             {
-               NSLog(@"tempOrdnername %@ hat 2 Teile.",tempOrdnername);
+               //NSLog(@"tempOrdnername %@ hat 2 Teile.",tempOrdnername);
             }
             else
             {
-               NSLog(@"tempOrdnername %@ hat %d Teile anstatt 2.",tempOrdnername,anzTeile);
+               //NSLog(@"tempOrdnername %@ hat %d Teile anstatt 2.",tempOrdnername,anzTeile);
                [FehlerNamenArray addObject:tempName];
                continue;
                
@@ -1658,7 +1658,7 @@ return versionOK;
             BOOL charOK = [self checkString:tempOrdnername  mitSet:okSet];
             if (charOK)
             {
-               NSLog(@"tempName %@ ist OK",tempOrdnername);
+               //NSLog(@"tempName %@ ist OK",tempOrdnername);
                
                // [KlassenArray replaceObjectAtIndex:n withObject:tempOrdnername];
                [KlassenNamenArray addObject:tempOrdnername];
@@ -1666,7 +1666,7 @@ return versionOK;
             }
             else
             {
-               NSLog(@"tempName %@ enthaelt falsche Zeichen",tempOrdnername);
+               //NSLog(@"tempName %@ enthaelt falsche Zeichen",tempOrdnername);
                [FehlerNamenArray addObject:tempName];
                //[KlassenArray removeObjectAtIndex:n ];
             }
@@ -1675,11 +1675,11 @@ return versionOK;
             // Namen durch korrekte Form ersetzen
          }//for n
       }
-      NSLog(@"KlassenNamenArray def: %@",[KlassenNamenArray description]);
+      //NSLog(@"KlassenNamenArray def: %@",[KlassenNamenArray description]);
    }//Klassenliste length
    if ([FehlerNamenArray count])
    {
-      NSLog(@"FehlerNamenArray: %@",FehlerNamenArray);
+      //NSLog(@"FehlerNamenArray: %@",FehlerNamenArray);
       NSRange r =NSMakeRange(0, [FehlerNamenArray count]);
       [FehlerNamenArray removeObject:@""];
       
@@ -1710,7 +1710,7 @@ return versionOK;
    
    if ([rawstring rangeOfCharacterFromSet:checkSet].location != NSNotFound)
    {
-      NSLog(@"This string contains illegal characters");
+      //NSLog(@"This string contains illegal characters");
       return NO;
    }
    return YES;
@@ -1724,7 +1724,7 @@ return versionOK;
    
    if ([rawstring rangeOfCharacterFromSet:set].location != NSNotFound)
    {
-      NSLog(@"This string contains illegal characters");
+      //NSLog(@"This string contains illegal characters");
       return NO;
    }
    return YES;
@@ -1733,7 +1733,7 @@ return versionOK;
 
 - (void)UEinzelNamenAktion:(NSNotification*)note
 {
-   NSLog(@"UEinzelNamenAktion note: %@", [[note userInfo]description]);
+   //NSLog(@"UEinzelNamenAktion note: %@", [[note userInfo]description]);
    NSMutableArray* sauberNamenStringArray = [[NSMutableArray alloc]initWithCapacity:0];
    NSMutableArray* FehlerNamenArray = [[NSMutableArray alloc]initWithCapacity:0];
    
@@ -1772,8 +1772,8 @@ return versionOK;
    NSNumber* EinsetzenVarianteNumber=[NSNumber numberWithInt:0];
    NSMutableDictionary* NotificationDic=[[NSMutableDictionary alloc]initWithCapacity:0];
    
-   NSLog(@"UEinzelNamenAktion sauberNamenStringArray: %@", [sauberNamenStringArray description]);
-   NSLog(@"UEinzelNamenAktion FehlerNamenArray: %@", [ FehlerNamenArray description]);
+   //NSLog(@"UEinzelNamenAktion sauberNamenStringArray: %@", [sauberNamenStringArray description]);
+   //NSLog(@"UEinzelNamenAktion FehlerNamenArray: %@", [ FehlerNamenArray description]);
    [NotificationDic setObject:EinsetzenVarianteNumber forKey: @"einsetzenVariante"];
    [NotificationDic setObject:sauberNamenStringArray forKey:@"neueNamenArray"]; //Namen aus der NamenListe
    //NSLog(@"*reportNamenUbernehmen	neueNamenArray: %@",[neueNamenArray description]);
@@ -1917,7 +1917,7 @@ return versionOK;
       
       if (![tempPListDic objectForKey:@"adminpw"])
       {
-         NSLog(@"tempPListDic start leeres pw: %@",[tempPListDic description]);
+         //NSLog(@"tempPListDic start leeres pw: %@",[tempPListDic description]);
          NSAlert *Warnung = [[NSAlert alloc] init];
          [Warnung addButtonWithTitle:@"OK"];
          [Warnung setMessageText:@"PList lesen: Kein PList-Eintrag fuer 'adminpw'"];
@@ -1959,7 +1959,7 @@ return versionOK;
    }
    else
    {
-      NSLog(@"PListDicVon... neue PList");
+      //NSLog(@"PListDicVon... neue PList");
       const short kUtilsRecPlayUmgebung=0;
       const int UtilsStartmitDialog=2;
       
@@ -2021,7 +2021,7 @@ return versionOK;
 	{
 	UProjektNamenPanel=[[rProjektNamen alloc]init];
 	}
- // NSLog(@"Utils                      showProjekNamenListe nach init:UProjektArray: %@",[UProjektArray description]);
+ // //NSLog(@"Utils                      showProjekNamenListe nach init:UProjektArray: %@",[UProjektArray description]);
   
   //[ProjektPanel showWindow:self];
   NSModalSession ProjektSession=[NSApp beginModalSessionForWindow:[UProjektNamenPanel window]];
@@ -2044,7 +2044,7 @@ return versionOK;
 
 - (BOOL)ProjektOrdnerEinrichtenAnPfad:(NSString *)derProjektPfad
 {
-	NSLog(@"ProjektordnerEinrichten: %@",derProjektPfad);
+	//NSLog(@"ProjektordnerEinrichten: %@",derProjektPfad);
 	NSFileManager *Filemanager=[NSFileManager defaultManager];
 	
 	NSString* BeendenString=@"Beenden";
@@ -2074,7 +2074,7 @@ return versionOK;
          {
             case NSAlertSecondButtonReturn:
             {
-               NSLog(@"manuell");
+               //NSLog(@"manuell");
                //Beenden
                NSMutableDictionary* BeendenDic=[[NSMutableDictionary alloc]initWithCapacity:0];
                [BeendenDic setObject:[NSNumber numberWithInt:1] forKey:@"beenden"];
@@ -2083,7 +2083,7 @@ return versionOK;
             }break;
             case NSAlertFirstButtonReturn://skip
             {
-               NSLog(@"skip");
+               //NSLog(@"skip");
                OrdnereinrichtenOK=NO;
             }//switch
          }
@@ -2149,7 +2149,7 @@ return versionOK;
 			{
 				case NSAlertFirstButtonReturn://Namen aus einem vorhandenen Projektordner kopieren
 				{ 
-					NSLog(@"Kopieren");
+					//NSLog(@"Kopieren");
 					NSMutableArray* tempArray=[[NSMutableArray alloc]initWithCapacity:0];
 					
 					tempArray=[[self ProjektNamenArrayVon:[derProjektPfad stringByDeletingLastPathComponent]]mutableCopy];
@@ -2223,7 +2223,7 @@ return versionOK;
 					
 				case NSAlertSecondButtonReturn://Namen aus Nammenliste lesen
 				{
-					NSLog(@"NamenListe");
+					//NSLog(@"NamenListe");
 					tempProjektNamenListe=[[self UOrdnernamenArrayVonKlassenliste]mutableCopy];
 					//tempProjektNamenListe=[[self OrdnernamenArrayVonKlassenliste]mutableCopy];
 					//NSLog(@"OrdnernamenArrayVonKlassenliste: %@",[tempProjektNamenListe description]);
@@ -2341,18 +2341,18 @@ return versionOK;
 			{
 				case NSAlertFirstButtonReturn://
 				{ 
-					NSLog(@"Projektordereinrichten NSAlertFirstButtonReturn");
+					//NSLog(@"Projektordereinrichten NSAlertFirstButtonReturn");
 					
 				}break;
 					
 				case NSAlertSecondButtonReturn://
 				{
-					NSLog(@"NSAlertSecondButtonReturn");
+					//NSLog(@"NSAlertSecondButtonReturn");
 					
 				}break;
 				case NSAlertThirdButtonReturn://		
 				{
-					NSLog(@"NSAlertThirdButtonReturn");
+					//NSLog(@"NSAlertThirdButtonReturn");
 					
 				}break;
 					
@@ -2365,7 +2365,7 @@ return versionOK;
 			
 		}
 	}//OrdnereinrichtenOK
-	NSLog(@"ProjektordnerEinrichten end");
+	//NSLog(@"ProjektordnerEinrichten end");
 	return OrdnereinrichtenOK;
 }
 
@@ -2438,9 +2438,9 @@ return versionOK;
 
 - (IBAction)showEinzelNamen:(id)sender
 {
-   NSLog(@"showEinzelNamen");
+   //NSLog(@"showEinzelNamen");
    NSArray* a=[self EinzelNamenArray];
-   NSLog(@"EinzelNamenArray>: %@",[a description]);
+   //NSLog(@"EinzelNamenArray>: %@",[a description]);
    
 }
 - (NSArray*)EinzelNamenArray
@@ -2462,11 +2462,11 @@ return versionOK;
 	  
 	int modalAntwort = [NSApp runModalForWindow:[UEinzelNamenPanel window]];
 	//int modalAntwort = [NSApp runModalSession:ProjektSession];
-	NSLog(@"showProjektliste EinzelnamenArrayAntwort: %d",modalAntwort);
+	//NSLog(@"showProjektliste EinzelnamenArrayAntwort: %d",modalAntwort);
 	[NSApp endModalSession:NamenSession];
 	//[[ProjektPanel window] orderOut:NULL]; 
 	NSArray* tempNamenArray=[NSArray array];
-   NSLog(@"showProjektliste EinzelnamenArray Antwort: %d",modalAntwort);
+   //NSLog(@"showProjektliste EinzelnamenArray Antwort: %d",modalAntwort);
 	if (modalAntwort==1)
 	{
       tempNamenArray=[UEinzelNamenPanel NamenArray];
@@ -2476,7 +2476,7 @@ return versionOK;
 
 - (void)UNamenEntfernenAktion:(NSNotification*)note
 {
-	NSLog(@"\n\n\n*UNamenEntfernenAktion start: %@",[[note userInfo]description]);
+	//NSLog(@"\n\n\n*UNamenEntfernenAktion start: %@",[[note userInfo]description]);
 	NSFileManager *Filemanager=[NSFileManager defaultManager];
 	int ausAllenProjekten=0;
 	if ([[note userInfo]objectForKey:@"ausallenprojekten"])
@@ -2515,7 +2515,7 @@ return versionOK;
 		else
 		{
 			NSString* EntfernenOrdnerPfad=[UProjektPfad stringByAppendingPathComponent:tempEntfernenName];
-			NSLog(@"UNamenEntfernenAktion:			EntfernenOrdnerPfad: %@  var: %d",EntfernenOrdnerPfad,var);
+			//NSLog(@"UNamenEntfernenAktion:			EntfernenOrdnerPfad: %@  var: %d",EntfernenOrdnerPfad,var);
 			[EntfernenPfadArray addObject:EntfernenOrdnerPfad];
 		}//!ausAllenProjekten
 		
@@ -2529,7 +2529,7 @@ return versionOK;
 			{
 				case 0://in den Papierkorb
 				{
-					NSLog(@"UNamenEntfernenAktion in den Papierkorb");
+					//NSLog(@"UNamenEntfernenAktion in den Papierkorb");
 				fehler=[self OrdnerInPapierkorbMitPfad:einPfad];
 				}break;
 				case 1://ins Magazin
@@ -2548,8 +2548,8 @@ return versionOK;
 		}//while
 
 		
-      NSLog(@"UNamenEntfernen: tempNamenFehler: %d",tempNamenFehler);
-			NSLog(@"UNamenEntfernen: EntfernenPfadArray: %@",EntfernenPfadArray);
+      //NSLog(@"UNamenEntfernen: tempNamenFehler: %d",tempNamenFehler);
+			//NSLog(@"UNamenEntfernen: EntfernenPfadArray: %@",EntfernenPfadArray);
 			if (tempNamenFehler==0)
 			{
 				NSMutableDictionary* NotificationDic=[[NSMutableDictionary alloc]initWithCapacity:0];
@@ -2581,7 +2581,7 @@ return versionOK;
 				
             if (![mgr moveItemAtURL:[NSURL fileURLWithPath:filePath]  toURL:[NSURL fileURLWithPath:[(__bridge NSString*)trashPath stringByAppendingPathComponent:[filePath lastPathComponent]]] error:nil])	
             {
-            NSLog(@"Move operation did not succeed!");
+            //NSLog(@"Move operation did not succeed!");
             }
         
         }
@@ -2595,7 +2595,7 @@ return versionOK;
    BOOL succeeded;
    NSString* HomeDir=@"";// = [NSHomeDirectory() stringByAppendingPathComponent:@".Trash"];
    NSFileManager* Filemanager=[NSFileManager defaultManager];
-   NSLog(@"fileInPapierkorb:NSHomeDirectory %@",NSHomeDirectory());
+   //NSLog(@"fileInPapierkorb:NSHomeDirectory %@",NSHomeDirectory());
    
    NSMutableArray* PfadKomponenten=(NSMutableArray*)[derFilepfad pathComponents] ;
    int index=0;
@@ -2642,7 +2642,7 @@ return versionOK;
 	int fehler=0;
 	NSString* tempNamenPfad=[derNamenPfad copy];//Pfad der zu verschiebenden Aufnahme
 		NSFileManager* Filemanager=[NSFileManager defaultManager];
-		NSLog(@"inPapierkorbmitPfad: %@",derNamenPfad);
+		//NSLog(@"inPapierkorbmitPfad: %@",derNamenPfad);
 		if ([Filemanager fileExistsAtPath:tempNamenPfad isDirectory:&istDirectory]&&!istDirectory)
 		{
 			//[self moveFileToUserTrash:tempAufnahmePfad];	
@@ -2667,7 +2667,7 @@ return versionOK;
    int fehler=0;
    NSString* tempNamenPfad=[derNamenPfad copy];//Pfad akt. Aufn.
    NSFileManager* Filemanager=[NSFileManager defaultManager];
-   NSLog(@"inPapierkorbmitPfad: %@",derNamenPfad);
+   //NSLog(@"inPapierkorbmitPfad: %@",derNamenPfad);
    if ([Filemanager fileExistsAtPath:tempNamenPfad isDirectory:&istDirectory]&&istDirectory)
    {
       //[self moveFileToUserTrash:tempAufnahmePfad];
@@ -2688,7 +2688,7 @@ return versionOK;
 
 - (int)insMagazinMitPfad:(NSString*)derNamenPfad
 {
-   NSLog(@"insMagazinMitPfad: %@",derNamenPfad);
+   //NSLog(@"insMagazinMitPfad: %@",derNamenPfad);
    NSString* tempNamenPfad=[derNamenPfad copy];//Pfad akt. Aufn.
    long fehler=0;
    BOOL istDirectory;
@@ -2701,21 +2701,21 @@ return versionOK;
    NSString* tempMagazinPfad=[tempLeseboxPfad stringByAppendingPathComponent:@"Magazin"];
    
    
-   NSLog(@"tempMagazinPfad: %@",tempMagazinPfad);
+   //NSLog(@"tempMagazinPfad: %@",tempMagazinPfad);
    BOOL magazinOK=YES;
    BOOL createOK = YES;
    NSError* err;
    if (![Filemanager fileExistsAtPath:tempMagazinPfad])
    {
       createOK=[Filemanager createDirectoryAtPath:tempMagazinPfad  withIntermediateDirectories:NO attributes:NULL error:&err];
-      NSLog(@"magazinOK createdir: %d",createOK);
+      //NSLog(@"magazinOK createdir: %d",createOK);
       
       if (!createOK)
       {
          NSString* s1=@"Ordner 'Magazin' im Ordner 'Lesebox' nicht eingerichtet";
          NSString* s2=@"Ordner von %@ nicht verschoben";
          NSString* MagazinString=[NSString stringWithFormat:@"%@%@%@%@",s1,@"\r",s2,[tempNamenPfad lastPathComponent]];
-         NSLog(@"MagazinString: %@",MagazinString);
+         //NSLog(@"MagazinString: %@",MagazinString);
          NSString* TitelString=@"Magazin einrichten";
          
          NSAlert *Warnung = [[NSAlert alloc] init];
@@ -2730,19 +2730,19 @@ return versionOK;
    
    if (magazinOK)//Ordner 'Magazin' ist da
    {
-      NSLog(@"Ordner 'Magazin' ist da tempNamenPfad: %@ ",tempNamenPfad);
+      //NSLog(@"Ordner 'Magazin' ist da tempNamenPfad: %@ ",tempNamenPfad);
       
       NSString* extension = [tempNamenPfad extensionVonPfad];
       
       NSString* tempMagazinNamenPfad=[[[tempNamenPfad pfadOhneExtension]stringByAppendingString:@"_mag"]stringByAppendingPathExtension:extension];
       
       NSString* tempZielPfad=[tempMagazinPfad stringByAppendingPathComponent:[tempMagazinNamenPfad lastPathComponent]];
-      NSLog(@"tempZielPfad: %@",tempZielPfad);
+      //NSLog(@"tempZielPfad: %@",tempZielPfad);
       
       [Filemanager removeItemAtURL:[NSURL fileURLWithPath:tempZielPfad] error:&err];//Eventuell schon vorhandenen Ordner löschen
       // Ordner verscjhieben
       BOOL magazinOK=[Filemanager moveItemAtURL:[NSURL fileURLWithPath:tempNamenPfad]  toURL:[NSURL fileURLWithPath:tempZielPfad] error:nil];
-      NSLog(@"magazinOK: %d",magazinOK);
+      //NSLog(@"magazinOK: %d",magazinOK);
       
       // Anmerkungen verschieben
       
@@ -2770,12 +2770,12 @@ return versionOK;
 	BOOL istDirectory;
 	int fehler=0;
 	NSFileManager* Filemanager=[NSFileManager defaultManager];
-	NSLog(@"exMitPfad: %@",tempNamenPfad);
+	//NSLog(@"exMitPfad: %@",tempNamenPfad);
 	BOOL ExOK=NO;
 		if ([Filemanager fileExistsAtPath:tempNamenPfad isDirectory:&istDirectory]&&!istDirectory)
 		  {
 				ExOK=[Filemanager removeItemAtURL:[NSURL fileURLWithPath:tempNamenPfad]error:nil];//0 ist OK
-				NSLog(@"ex: result von ex: %d",fehler);
+				//NSLog(@"ex: result von ex: %d",fehler);
            
            // Anmerkungen entfernen
            NSString* tempAnmerkungName =[[[tempNamenPfad lastPathComponent] stringByDeletingPathExtension]stringByAppendingPathExtension:@"txt"];
@@ -2799,12 +2799,12 @@ return versionOK;
    BOOL istDirectory;
    int fehler=0;
    NSFileManager* Filemanager=[NSFileManager defaultManager];
-   NSLog(@"exMitPfad: %@",tempNamenPfad);
+   //NSLog(@"exMitPfad: %@",tempNamenPfad);
    BOOL ExOK=NO;
    if ([Filemanager fileExistsAtPath:tempNamenPfad isDirectory:&istDirectory]&&istDirectory)
    {
       ExOK=[Filemanager removeItemAtURL:[NSURL fileURLWithPath:tempNamenPfad]error:nil];//0 ist OK
-      NSLog(@"Ordnerex: result von ex: %d",fehler);
+      //NSLog(@"Ordnerex: result von ex: %d",fehler);
       
    }
    if (!ExOK)
@@ -2835,7 +2835,7 @@ return versionOK;
 	if ([[note userInfo] objectForKey:@"neueNamenArray"])//Array mit neuen Namen(>=1)
 	{
 		[tempNeueNamenArray setArray:[[[note userInfo] objectForKey:@"neueNamenArray"]mutableCopy]];
-		NSLog(@"*\n                      ****	UNamenEinsetzenAktion  neueNamenArray: %@",[tempNeueNamenArray description]);
+		//NSLog(@"*\n                      ****	UNamenEinsetzenAktion  neueNamenArray: %@",[tempNeueNamenArray description]);
 		int einsetzenVariante=-1;
 		int erfolg=0;
 		
@@ -2965,7 +2965,7 @@ return versionOK;
       }
       
    }//while
-   NSLog(@"*UNamenEinsetzenAktion  fehlendeOrdnerArray:%@",[fehlendeOrdnerArray description]);
+   //NSLog(@"*UNamenEinsetzenAktion  fehlendeOrdnerArray:%@",[fehlendeOrdnerArray description]);
    //NSLog(@"*UNamenEinsetzenAktion  eingesetzteNamenArray:%@",[eingesetzteNamenArray description]);
 	
 	if ([fehlendeOrdnerArray count])
@@ -3008,7 +3008,7 @@ return versionOK;
 
 - (void)UNamenAusListeAktion:(NSNotification*)note
 {
-	NSLog(@"UNamenAusListeAktion: Notification: %@",[note description]);
+	//NSLog(@"UNamenAusListeAktion: Notification: %@",[note description]);
 	NSDictionary* tempNamenDic=[self UOrdnernamenDicVonKlassenliste];
 	NSArray* tempNamenArray=[tempNamenDic objectForKey:@"KlassenArray"];
 	
@@ -3049,7 +3049,7 @@ return versionOK;
 - (NSDictionary*)changePasswort:(NSDictionary*)derNamenDic
 {
 	BOOL confirmOK=NO;
-	NSLog(@"changePasswort start");
+	//NSLog(@"changePasswort start");
 	NSString* tempName=[derNamenDic objectForKey:@"name"];
 	NSData* PWData=[derNamenDic objectForKey:@"pw"];
 	
@@ -3080,7 +3080,7 @@ return versionOK;
 
 - (void)showTimeoutDialog:(id)sender
 {
-NSLog(@"showTimeoutDialog");
+//NSLog(@"showTimeoutDialog");
 	//if (!UTimeoutDialogPanel)
 	  {
 		UTimeoutDialogPanel=[[rTimeoutDialog alloc]init];
@@ -3218,7 +3218,7 @@ if (UTimeoutDialogPanel)
    //[tempLeser retain];
    if ([tempLeser length]==0)
    {
-      NSLog(@"saveKommentarFuerLeser: Kein Leser");
+      //NSLog(@"saveKommentarFuerLeser: Kein Leser");
       return NO;
    }
    
@@ -3232,7 +3232,7 @@ if (UTimeoutDialogPanel)
       erfolg=[Filemanager createDirectoryAtPath:tempKommentarOrdnerPfad  withIntermediateDirectories:NO attributes:NULL error:NULL];
       if (!erfolg)
       {
-         NSLog(@"Kommentarordner einrichten misslungen");
+         //NSLog(@"Kommentarordner einrichten misslungen");
          return erfolg;
       }
       
@@ -3246,7 +3246,7 @@ if (UTimeoutDialogPanel)
    NSString* tempKommentarPfad=[tempKommentarOrdnerPfad stringByAppendingPathComponent:tempAufnahme];
    NSString* tempKommentarString;
    NSString* tempKopfString;
-   //	NSLog(@"in createKommentarFuerLeser: tempKommentarOrdnerPfad %@",tempKommentarOrdnerPfad);
+   //	//NSLog(@"in createKommentarFuerLeser: tempKommentarOrdnerPfad %@",tempKommentarOrdnerPfad);
    
    
    //Kopfstring aufbauen
@@ -3260,7 +3260,7 @@ if (UTimeoutDialogPanel)
    {
       tempKopfString=[tempKopfString stringByAppendingString:@"Kein Titel"];
    }
-   //	NSLog(@"in createKommentarFuerLeser tempKopfString mit titel: %@",tempKopfString);
+   //	//NSLog(@"in createKommentarFuerLeser tempKopfString mit titel: %@",tempKopfString);
    
    tempKopfString=[tempKopfString stringByAppendingString:@"\r"];
    
@@ -3270,10 +3270,10 @@ if (UTimeoutDialogPanel)
    //Heutiges Datum einsetzen
    //	NSCalendarDate* tempDatum=[[NSCalendarDate calendarDate]dateWithCalendarFormat:@"%d.%m.%Y %H:%M:%S" timeZone:nil];
    
-   //	NSLog(@"tempDatum: %@",[tempDatum description]);
+   //	//NSLog(@"tempDatum: %@",[tempDatum description]);
    tempKopfString=[tempKopfString stringByAppendingString:heuteDatumString];
    
-   //	NSLog(@"in createKommentarFuerLeser tempKopfString mit Datum: %@",tempKopfString);
+   //	//NSLog(@"in createKommentarFuerLeser tempKopfString mit Datum: %@",tempKopfString);
    
    tempKopfString=[tempKopfString stringByAppendingString:@"\r"];
    
@@ -3285,7 +3285,7 @@ if (UTimeoutDialogPanel)
    NSString* NotenString=@"-";
    tempKopfString=[tempKopfString stringByAppendingString:NotenString];
    tempKopfString=[tempKopfString stringByAppendingString:@"\r"];
-   //	NSLog(@"saveKommentar	tempKopfString mit Notenstring: %@",tempKopfString);
+   //	//NSLog(@"saveKommentar	tempKopfString mit Notenstring: %@",tempKopfString);
    
    NSString* UserMarkString=@"0";
    tempKopfString=[tempKopfString stringByAppendingString:UserMarkString];
@@ -3296,12 +3296,12 @@ if (UTimeoutDialogPanel)
    tempKopfString=[tempKopfString stringByAppendingString:@"\r"];
    
    
-   //	NSLog(@"createKommentar	tempKopfString mit UserMarkString: %@",tempKopfString);
+   //	//NSLog(@"createKommentar	tempKopfString mit UserMarkString: %@",tempKopfString);
    
    
    // Dummy-Anmerkung einfügen
    NSString* tempKommentarViewString=  tempKommentarString=[tempKopfString stringByAppendingString:@"--"];
-   //	NSLog(@"createKommentar	tempKommentarViewString : %@",tempKommentarViewString);
+   //	//NSLog(@"createKommentar	tempKommentarViewString : %@",tempKommentarViewString);
    
    NSData* tempData=[tempKommentarViewString dataUsingEncoding:NSMacOSRomanStringEncoding allowLossyConversion:NO];
    NSMutableDictionary* AufnahmeAttribute=[[NSMutableDictionary alloc]initWithCapacity:0];
@@ -3313,7 +3313,7 @@ if (UTimeoutDialogPanel)
    erfolg=[Filemanager createFileAtPath:tempKommentarPfad contents:tempData attributes:AufnahmeAttribute]; 
    
    
-   //	NSLog(@"createKommentar: erfolg: %d",erfolg);
+   //	//NSLog(@"createKommentar: erfolg: %d",erfolg);
    
    return erfolg;
    
@@ -3333,7 +3333,7 @@ if (UTimeoutDialogPanel)
 				
 	NSString* tempKommentarString;
 	NSString* tempKopfString;
-//	NSLog(@"in createKommentarFuerLeser: tempKommentarOrdnerPfad %@",tempKommentarOrdnerPfad);
+//	//NSLog(@"in createKommentarFuerLeser: tempKommentarOrdnerPfad %@",tempKommentarOrdnerPfad);
 	
    NSString* tempLeser = [[[[derAufnahmePfad stringByDeletingPathExtension]stringByDeletingLastPathComponent]stringByDeletingLastPathComponent]lastPathComponent];
    
@@ -3353,10 +3353,10 @@ if (UTimeoutDialogPanel)
 	//Heutiges Datum einsetzen		  
 //	NSCalendarDate* tempDatum=[[NSCalendarDate calendarDate]dateWithCalendarFormat:@"%d.%m.%Y %H:%M:%S" timeZone:nil];
 	
-//	NSLog(@"tempDatum: %@",[tempDatum description]);
+//	//NSLog(@"tempDatum: %@",[tempDatum description]);
 	tempKopfString=[tempKopfString stringByAppendingString:heuteDatumString];
 	
-//	NSLog(@"in createKommentarFuerLeser tempKopfString mit Datum: %@",tempKopfString);
+//	//NSLog(@"in createKommentarFuerLeser tempKopfString mit Datum: %@",tempKopfString);
 	
 	tempKopfString=[tempKopfString stringByAppendingString:@"\r"];
 	
@@ -3368,7 +3368,7 @@ if (UTimeoutDialogPanel)
 	NSString* NotenString=@"-";
 	tempKopfString=[tempKopfString stringByAppendingString:NotenString];
 	tempKopfString=[tempKopfString stringByAppendingString:@"\r"];
-//	NSLog(@"saveKommentar	tempKopfString mit Notenstring: %@",tempKopfString);
+//	//NSLog(@"saveKommentar	tempKopfString mit Notenstring: %@",tempKopfString);
 	
 	NSString* UserMarkString=@"0";
 	tempKopfString=[tempKopfString stringByAppendingString:UserMarkString];
@@ -3379,12 +3379,12 @@ if (UTimeoutDialogPanel)
 	tempKopfString=[tempKopfString stringByAppendingString:@"\r"];
 
 
-//	NSLog(@"createKommentar	tempKopfString mit UserMarkString: %@",tempKopfString);
+//	//NSLog(@"createKommentar	tempKopfString mit UserMarkString: %@",tempKopfString);
 	
 	
 	// Dummy-Anmerkung einfügen
 	NSString* tempKommentarViewString=  tempKommentarString=[tempKopfString stringByAppendingString:@"--"];
-//	NSLog(@"createKommentar	tempKommentarViewString : %@",tempKommentarViewString);
+//	//NSLog(@"createKommentar	tempKommentarViewString : %@",tempKommentarViewString);
 			 
 	NSData* tempData=[tempKommentarViewString dataUsingEncoding:NSMacOSRomanStringEncoding allowLossyConversion:NO];
 	NSMutableDictionary* AufnahmeAttribute=[[NSMutableDictionary alloc]initWithCapacity:0];
@@ -3396,7 +3396,7 @@ if (UTimeoutDialogPanel)
 	erfolg=[Filemanager createFileAtPath:derAufnahmePfad contents:tempData attributes:AufnahmeAttribute];
 	
 	
-//	NSLog(@"createKommentar: erfolg: %d",erfolg);
+//	//NSLog(@"createKommentar: erfolg: %d",erfolg);
 		  
 		  return erfolg;
 		  
@@ -3426,7 +3426,7 @@ if (UTimeoutDialogPanel)
 	}
 	if (!tempMovie)
 	{
-		NSLog(@"Kein Movie da");
+		//NSLog(@"Kein Movie da");
 	// retrieve the QuickTime-style movie (type "Movie" from QuickTime/Movies.h) 
 	}
 	Movie tempAufnahmeMovie =[tempMovie quickTimeMovie];
@@ -3479,7 +3479,7 @@ if (UTimeoutDialogPanel)
 		[theAlert runModal]; // Ignore return value.
 	}
 	if (!tempMovie)
-		NSLog(@"Kein Movie da");
+		//NSLog(@"Kein Movie da");
 	// retrieve the QuickTime-style movie (type "Movie" from QuickTime/Movies.h) 
 	
 	Movie tempAufnahmeMovie =[tempMovie quickTimeMovie];
@@ -3564,7 +3564,7 @@ OSErr rUtils_AddUserDataTextToMovie (Movie theMovie, char *theText, OSType theTy
 
 	NSString* PListPfad;
 	NSString* DataPfad=[derPfad stringByAppendingPathComponent:@"Data"];
-//	NSLog(@"PList aus Data: tempUserPfad: %@",DataPfad);
+//	//NSLog(@"PList aus Data: tempUserPfad: %@",DataPfad);
 //	PListPfad=[DataPfad stringByAppendingPathComponent:PListName];//Pfad der PList auf dem Vol der LB
 	//NSLog(@"PListPfad in Lesebox: %@",PListPfad);
 
@@ -3634,7 +3634,7 @@ NSUInteger dayOfYearForDate(NSDate *dasDatum)
         tag = [[[datumteil componentsSeparatedByString:sep]objectAtIndex:0]intValue];
    }
 //   NSArray* datumarray =[datumteil componentsSeparatedByString:sep];
-//   NSLog(@"datumarray: %@",datumarray);
+//   //NSLog(@"datumarray: %@",datumarray);
   
    
    return tag;

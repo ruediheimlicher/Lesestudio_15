@@ -65,7 +65,7 @@
 		[NotificationDic setObject:[NSNumber numberWithInt:2] forKey:@"abmelden"];
 		NSNotificationCenter* nc=[NSNotificationCenter defaultCenter];
 		[nc postNotificationName:@"timeout" object:self userInfo:NotificationDic];
-		NSLog(@"TimeoutDialogTimer invalidate: NotificationDic: %@",[NotificationDic description]);
+		//NSLog(@"TimeoutDialogTimer invalidate: NotificationDic: %@",[NotificationDic description]);
 		[NSApp stopModalWithCode:2];
 		[[self window]orderOut:NULL];
 		//NSLog(@"nach OrderOut");

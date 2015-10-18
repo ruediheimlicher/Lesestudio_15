@@ -236,7 +236,7 @@ enum
 			[eineZeile setObject:y forKey:auswahl];
 			[NamenIndexSet addIndex:[NamenArray indexOfObject:eineZeile]];
 		  }//while
-		NSLog(@"NamenHeaderCheckAktion Notification zeile: %d",[NamenArray indexOfObject:eineZeile]);
+		//NSLog(@"NamenHeaderCheckAktion Notification zeile: %d",[NamenArray indexOfObject:eineZeile]);
 		[NamenView reloadData];
 		NSNumber* setAlleTitelNumber =[NSNumber numberWithInt:1];
 		NSDictionary* CleanOptionDic=[NSDictionary dictionaryWithObject:setAlleTitelNumber forKey:@"setalletitel"];
@@ -275,7 +275,7 @@ enum
 	
 	//BOOL Check=[[[sender tableColumnWithIdentifier:auswahl]headerCell]state];
 	BOOL Check=[sender state];
-	NSLog(@"TitelHeaderCheckAktion Check state: %d",Check);
+	//NSLog(@"TitelHeaderCheckAktion Check state: %d",Check);
 	NSEnumerator* TitelEnumerator=[TitelArray objectEnumerator];
 	id eineZeile;
 	if (Check)
@@ -374,7 +374,7 @@ enum
 
 - (IBAction)reportClearAnzahl:(id)sender
 {
-	NSLog(@"reportAnzahlNamenOption: %d",(int)[[sender selectedItem] tag]);
+	//NSLog(@"reportAnzahlNamenOption: %d",(int)[[sender selectedItem] tag]);
 	ClearAnzahlOption=(int)[[sender selectedCell]tag];
 	NSNumber* AnzahlOptionNumber =[NSNumber numberWithInt:ClearAnzahlOption];
 	NSDictionary* CleanOptionDic=[NSDictionary dictionaryWithObject:AnzahlOptionNumber forKey:@"AnzahlNamen"];
@@ -387,7 +387,7 @@ enum
 
 - (IBAction)reportAnzahlTitel:(id)sender
 {
-	NSLog(@"reportAnzahlTitelOption: %d",(int)[[sender selectedItem] tag]);
+	//NSLog(@"reportAnzahlTitelOption: %d",(int)[[sender selectedItem] tag]);
 	ExportAnzahlOption=(int)[[sender selectedCell]tag];
 	NSNumber* AnzahlOptionNumber =[NSNumber numberWithInt:ExportAnzahlOption];
 	NSDictionary* CleanOptionDic=[NSDictionary dictionaryWithObject:AnzahlOptionNumber forKey:@"AnzahlTitel"];
@@ -469,7 +469,7 @@ enum
 
 - (IBAction)reportClearBehaltenOption:(id)sender
 {
-	NSLog(@"reportClearBehaltenOption");
+	//NSLog(@"reportClearBehaltenOption");
 	ClearBehaltenOption=(int)[[sender selectedCell]tag];
 	NSNumber* ClearBehaltenNumber =[NSNumber numberWithInt:ClearBehaltenOption];
 	NSDictionary* CleanOptionDic=[NSDictionary dictionaryWithObject:ClearBehaltenNumber forKey:@"clearbehalten"];
@@ -482,13 +482,13 @@ enum
 
 - (IBAction)reportNamen:(id)sender
 {
-	NSLog(@"reportNamenOption");
+	//NSLog(@"reportNamenOption");
 	
 }
 
 - (IBAction)reportTitel:(id)sender
 {
-	NSLog(@"reportTitelOption");
+	//NSLog(@"reportTitelOption");
 }
 
 - (IBAction)reportNurTitelZuNamenOption:(id)sender
@@ -652,7 +652,7 @@ enum
     NS_HANDLER
         if ([[localException name] isEqual: @"NSRangeException"])
 		  {
-            NSLog(@"Setting data out of bounds.");
+            //NSLog(@"Setting data out of bounds.");
             return nil;
 		  }
         else [localException raise];
@@ -691,14 +691,14 @@ enum
 	NSString* leser=@"leser";
 	NSString* anzleser=@"anzleser";
 	NSParameterAssert([derTitelArray count]);
-	NSLog(@"Clean setTitelArray AnzNamen: %ld  %@",[derTitelArray count],[derTitelArray description]);
+	//NSLog(@"Clean setTitelArray AnzNamen: %ld  %@",[derTitelArray count],[derTitelArray description]);
 	
 	NSEnumerator* TitelEnumerator=[derTitelArray objectEnumerator];
 	id eineZeile;
 	int index=0;
 	while (eineZeile=[TitelEnumerator nextObject])
 	  {
-		NSLog(@"setTitelArray eineZeile: %@",[eineZeile description]);
+		//NSLog(@"setTitelArray eineZeile: %@",[eineZeile description]);
 		NSMutableDictionary* tempZeilenDic=[NSMutableDictionary dictionaryWithObject:[eineZeile objectForKey:titel]
 																			  forKey:titel];
 		[tempZeilenDic setObject:[eineZeile objectForKey:anzahl] forKey:anzahl];
@@ -828,7 +828,7 @@ return tempTitelArray;
 
 - (void)alleNamenSchwarz
 {
-	NSLog(@"alleNamenSchwarz");
+	//NSLog(@"alleNamenSchwarz");
 	[NamenIndexSet removeAllIndexes];
 	[NamenView setNeedsDisplay:YES];
 }
@@ -841,18 +841,18 @@ return tempTitelArray;
 	//NSAlertSecondButtonReturn    = 1001,
 	//NSAlertThirdButtonReturn        = 1002
 	
-	NSLog(@"returnCode:%d", returnCode);
+	//NSLog(@"returnCode:%d", returnCode);
 	switch (returnCode)
 	{
 		case NSAlertFirstButtonReturn: //Lšschen
 		{
 			AnzahlOK=YES;
-			NSLog(@"alles weg");
+			//NSLog(@"alles weg");
 		}break;
 		case NSAlertSecondButtonReturn: //Abbrechen
 		{
 			AnzahlOK=NO;
-			NSLog(@"nochmals ueberlegen");
+			//NSLog(@"nochmals ueberlegen");
 			NSMutableDictionary* CleanOptionDic=[NSMutableDictionary dictionaryWithObject:[NSNumber numberWithInt:-1] forKey:@"clearnamen"];
 			NSNotificationCenter * nc;
 			nc=[NSNotificationCenter defaultCenter];
@@ -868,7 +868,7 @@ return tempTitelArray;
 
 - (IBAction)reportClear:(id)sender
 {
-	NSLog(@"reportClear");
+	//NSLog(@"reportClear");
 	NSArray* tempNamenArrray=[self klickNamenArray];
 	NSArray* tempTitelArray=[self klickTitelArray];
 	if ([tempNamenArrray count])
@@ -906,7 +906,7 @@ return tempTitelArray;
 				//				   didEndSelector:@selector(alertDidEnd:returnCode:contextInfo:) 
 				//					  contextInfo:nil];
 				NSModalResponse Antwort=[NullWarnung runModal];
-				NSLog(@"Antwort: %ld",Antwort);
+				//NSLog(@"Antwort: %ld",Antwort);
 				if (Antwort==NSAlertSecondButtonReturn)
 				{
 					return;
@@ -936,7 +936,7 @@ return tempTitelArray;
 	}//if klicknamenarray
 	else
 	{
-		NSLog(@"reportClear: nichts angeklickt");
+		//NSLog(@"reportClear: nichts angeklickt");
 		NSString* FehlerString=@"Mindestens ein Name muss angeklickt sein.";
 		NSAlert *Warnung = [[NSAlert alloc] init];
 		[Warnung addButtonWithTitle:@"OK"];
@@ -953,7 +953,7 @@ return tempTitelArray;
 
 - (IBAction)reportExport:(id)sender
 {
-	NSLog(@"reportExport");
+	//NSLog(@"reportExport");
 	
 	NSArray* tempNamenArrray=[self klickNamenArray];
 	NSArray* tempTitelArray=[self klickTitelArray];
@@ -1012,7 +1012,7 @@ return tempTitelArray;
 	}//if klicknamenarray
 	else
 	{
-		NSLog(@"reportClear: nichts angeklickt");
+		//NSLog(@"reportClear: nichts angeklickt");
 		NSString* FehlerString=[NSString stringWithFormat:@"Mindestens ein Name muss angeklickt sein."];
 		NSAlert *Warnung = [[NSAlert alloc] init];
 		[Warnung addButtonWithTitle:@"OK"];
@@ -1036,7 +1036,7 @@ return tempTitelArray;
 
 - (IBAction)reportExportAnzahl:(id)sender
 {
-   NSLog(@"reportExportAnzahl");
+   //NSLog(@"reportExportAnzahl");
 
 }
 
@@ -1056,7 +1056,7 @@ return tempTitelArray;
 
 - (IBAction)reportExportFormatOption:(id)sender
 {
-	NSLog(@"reportExportFormatOption: %d",(int)[[sender selectedCell]tag]);
+	//NSLog(@"reportExportFormatOption: %d",(int)[[sender selectedCell]tag]);
 	ExportFormatOption=(int)[[sender selectedCell]tag];
 
 	[ExportFormatPop setEnabled:ExportFormatOption];
@@ -1064,7 +1064,7 @@ return tempTitelArray;
 }
 - (IBAction)reportExportFormat:(id)sender
 {
-NSLog(@"reportExportFormat: Format: %@",[sender titleOfSelectedItem]);
+//NSLog(@"reportExportFormat: Format: %@",[sender titleOfSelectedItem]);
 
 }
 
@@ -1091,7 +1091,7 @@ NSLog(@"reportExportFormat: Format: %@",[sender titleOfSelectedItem]);
 		NSNumber* n=[NSNumber numberWithBool:NO];
 		
 		BOOL Check=[[ tableColumn headerCell]state];
-		NSLog(@"Check state: %d",Check);
+		//NSLog(@"Check state: %d",Check);
 		NSEnumerator* NamenEnumerator=[NamenArray objectEnumerator];
 		id eineZeile;
 		if (Check)
@@ -1126,7 +1126,7 @@ NSLog(@"reportExportFormat: Format: %@",[sender titleOfSelectedItem]);
 
 - (BOOL)tableView:(NSTableView *)aTableView shouldSelectRow:(int)row
 {
-	NSLog(@"Clean Delegate aTableView  shouldSelectRow: %d",row);
+	//NSLog(@"Clean Delegate aTableView  shouldSelectRow: %d",row);
 	//NSString* name=@"name";
 	//NSString* titel=@"titel";
 	
@@ -1253,17 +1253,17 @@ NSLog(@"reportExportFormat: Format: %@",[sender titleOfSelectedItem]);
 		
 - (void)tableView:(NSTableView *)tableView didClickTableColumn:(NSTableColumn *)tableColumn
 {
-	NSLog(@"didClickTableColumn");
+	//NSLog(@"didClickTableColumn");
 	if ([[tableColumn identifier]isEqualToString:@"name"])
 	{
-		NSLog(@"didClickTableColumn: row: %d",[tableView clickedRow]);
+		//NSLog(@"didClickTableColumn: row: %d",[tableView clickedRow]);
 	}
 	[tableView reloadData];
 }
 
 - (void)FensterschliessenAktion:(NSNotification*)note
 {
-   NSLog(@"Clean FensterschliessenAktion note: %@",[[note userInfo]description]);
+   //NSLog(@"Clean FensterschliessenAktion note: %@",[[note userInfo]description]);
    if (![[[note userInfo]objectForKey:@"quelle"]isEqualToString:@"Clean"])
    {
       [self cancelSheet:nil];
@@ -1301,7 +1301,7 @@ NSLog(@"reportExportFormat: Format: %@",[sender titleOfSelectedItem]);
          {
             return;
          }
-         // NSLog(@"helpArray: %@",helpArray);
+         // //NSLog(@"helpArray: %@",helpArray);
          NSAlert *Warnung = [[NSAlert alloc] init];
          [Warnung setMessageText:[helpArray objectAtIndex:0]];
          NSRect cellFeld = NSMakeRect(0, 0, 400, 100);

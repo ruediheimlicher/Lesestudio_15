@@ -117,7 +117,7 @@
 {
 	if ([[EingabeFeld stringValue]length])
 	  {
-        NSLog(@"reportNeuesProjekt: %@",[EingabeFeld stringValue]);
+        //NSLog(@"reportNeuesProjekt: %@",[EingabeFeld stringValue]);
 		NSMutableDictionary* neuesProjektDic=[NSMutableDictionary dictionaryWithObject:[[EingabeFeld stringValue] dataUsingEncoding:NSUTF8StringEncoding]forKey:@"projekt"];
 		[neuesProjektDic setObject: [NSNumber numberWithInt:1] forKey:@"OK"];
 		[ProjektArray addObject: neuesProjektDic];
@@ -140,10 +140,10 @@
 
 - (void)EingabeChangeNotificationAktion:(NSNotification*)note
 {
-	NSLog(@"ProjektListe NSTextDidChangeNotification");
+	//NSLog(@"ProjektListe NSTextDidChangeNotification");
 	if ([note object]==EingabeFeld)
 	  {
-		NSLog(@"ProjektListe: Eingabefeld");
+		//NSLog(@"ProjektListe: Eingabefeld");
 	  }
 	
 }

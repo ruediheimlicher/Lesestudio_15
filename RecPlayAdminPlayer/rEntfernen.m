@@ -35,7 +35,7 @@
 
 - (IBAction)cancelSheet:(id)sender
 {
-	NSLog(@"cancelSheet: stopModalWithCode 0");
+	//NSLog(@"cancelSheet: stopModalWithCode 0");
 
     [NSApp stopModalWithCode:0];
    [NSApp abortModal];

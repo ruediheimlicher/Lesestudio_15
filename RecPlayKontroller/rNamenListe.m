@@ -49,7 +49,7 @@
 {
   int nr=[theEvent keyCode];
   NSString* Taste=[theEvent characters];
-  NSLog(@"NamenListe endlich keyDown: %@   %@",[theEvent characters],Taste);
+  //NSLog(@"NamenListe endlich keyDown: %@   %@",[theEvent characters],Taste);
   [super keyDown:theEvent];
 }
 */
@@ -91,9 +91,9 @@
 
 - (void)EnterKeyNotifikationAktion:(NSNotification*)note
 {
-	NSLog(@"NamenListe    EnterKeyNotifikationAktion: note: %@",[note object]);
+	//NSLog(@"NamenListe    EnterKeyNotifikationAktion: note: %@",[note object]);
 	NSString* Quelle=[[note object]description];
-	NSLog(@"EnterKeyNotifikationAktion: Quelle: %@",Quelle);
+	//NSLog(@"EnterKeyNotifikationAktion: Quelle: %@",Quelle);
 	[self reportEinsetzenVariante:NULL];
 	
 }
@@ -160,7 +160,7 @@
 
 - (void)NameIstEntferntNotificationAktion:(NSNotification*)note
 {
-	NSLog(@"NameIstEntferntNotificationAktion: %@",[[note userInfo]description]);
+	//NSLog(@"NameIstEntferntNotificationAktion: %@",[[note userInfo]description]);
 	//NSLog(@"NamenArray: %@",[NamenArray description]);
 	int EntfernenOK=[[[note userInfo]objectForKey:@"entfernenOK"]intValue];	
 	if (EntfernenOK==0)
@@ -182,7 +182,7 @@
 
 - (void)NameIstEingesetztAktion:(NSNotification*)note
 {
-   NSLog(@"NameIstEingesetztNotificationAktion: %@",[note description]);
+   //NSLog(@"NameIstEingesetztNotificationAktion: %@",[note description]);
    if ([[note userInfo]objectForKey:@"einsetzenOK"])
    {
       int EinsetzenOK=[[[note userInfo]objectForKey:@"einsetzenOK"]intValue];
@@ -243,16 +243,16 @@
 		}
 		index --;
 	}//while
-	NSLog(@"stringSauber: resultString: *%@*",tempString);
+	//NSLog(@"stringSauber: resultString: *%@*",tempString);
 	NSCharacterSet* kleinbuchstabenSet=[NSCharacterSet lowercaseLetterCharacterSet];
-	NSLog(@"kleinbuchstabenSet: %@ char: %c",[kleinbuchstabenSet description],[tempString characterAtIndex:0]);
+	//NSLog(@"kleinbuchstabenSet: %@ char: %c",[kleinbuchstabenSet description],[tempString characterAtIndex:0]);
 	if ([kleinbuchstabenSet characterIsMember:[tempString characterAtIndex:0]])
 	{
-		NSLog(@"Kleiner Anfangsbuchstabe: %c",[tempString characterAtIndex:0]);
+		//NSLog(@"Kleiner Anfangsbuchstabe: %c",[tempString characterAtIndex:0]);
 		NSString* kleinString=[tempString substringToIndex:1];
 		[tempString replaceCharactersInRange:NSMakeRange(0,1) withString:[kleinString uppercaseString]];
 	}
-	NSLog(@"stringSauber upperCase: resultString: *%@*",tempString);
+	//NSLog(@"stringSauber upperCase: resultString: *%@*",tempString);
 
 	return tempString;
 }
@@ -362,7 +362,7 @@
 
 - (void)NameIstEingesetztNotificationAktion:(NSNotification*)note
 {
-	NSLog(@"NameIstEingesetztNotificationAktion: %@",[[note userInfo] description]);
+	//NSLog(@"NameIstEingesetztNotificationAktion: %@",[[note userInfo] description]);
 
 	if ([[note userInfo]objectForKey:@"einsetzenOK"])
    {
@@ -374,7 +374,7 @@
          {
             
             NSString* EinsetzenName=[[note userInfo]objectForKey:@"neuerName"];
-            NSLog(@"nur ein neuer Name: %@",EinsetzenName);
+            //NSLog(@"nur ein neuer Name: %@",EinsetzenName);
             NSMutableDictionary*tempDic=[NSMutableDictionary dictionaryWithObject:EinsetzenName forKey:@"namen"];
             [tempDic setObject:[NSNumber numberWithBool:YES] forKey:@"neuername"];
             
@@ -388,7 +388,7 @@
          if([[note userInfo]objectForKey:@"neueNamenArray"])
          {
             NSArray* tempNamenArray = [[note userInfo]objectForKey:@"neueNamenArray"];
-            NSLog(@"tempNamenArray: %@",[tempNamenArray description]);
+            //NSLog(@"tempNamenArray: %@",[tempNamenArray description]);
             for (int  index=0;index < [tempNamenArray count];index++)
             {
                NSMutableDictionary*tempDic=[NSMutableDictionary dictionaryWithObject:[tempNamenArray objectAtIndex:index] forKey:@"namen"];
@@ -429,14 +429,14 @@
 
 - (void)NamenAusKlassenlisteNotificationAktion:(NSNotification*)note
 {
-	NSLog(@"NamenAusKlassenlisteNotificationAktion: %@",[note description]);
+	//NSLog(@"NamenAusKlassenlisteNotificationAktion: %@",[note description]);
 	if([[note userInfo]objectForKey:@"NamenDicAusKlassenliste"])
 	{
 		NSDictionary* tempNamenAusKlassenlisteDic=[[note userInfo]objectForKey:@"NamenDicAusKlassenliste"];
 		if ([tempNamenAusKlassenlisteDic objectForKey:@"KlassenArray"])
 		{
 			[neueNamenArray setArray:[tempNamenAusKlassenlisteDic objectForKey:@"KlassenArray"]];
-			NSLog(@"NamenAusKlassenlisteNotificationAktion  neueNamenArray: \n%@",[neueNamenArray description]);
+			//NSLog(@"NamenAusKlassenlisteNotificationAktion  neueNamenArray: \n%@",[neueNamenArray description]);
 			if ([neueNamenArray count])
 			{
 				[UbernehmenTaste setEnabled:YES];
@@ -452,7 +452,7 @@
 
 						if(![NamenArray containsObject:tempDic])
 						{
-						// NSLog(@"einName einsetzen!: %@",einName);
+						// //NSLog(@"einName einsetzen!: %@",einName);
 						[NamenArray addObject:tempDic];
 						}
 						
@@ -487,7 +487,7 @@
 
 - (IBAction)reportEinsetzenVariante:(id)sender
 {
-NSLog(@"reportEinsetzenVariante: tag:%d",[[sender selectedCell]tag]);
+//NSLog(@"reportEinsetzenVariante: tag:%d",[[sender selectedCell]tag]);
 switch ([[sender selectedCell]tag])
 {
 case 0://nur dieses Projekt
@@ -508,42 +508,43 @@ case 2://alle Projekte
 
 -(void)neuerNameInArray:(NSString*)derName
 {
-	{
-	NSMutableIndexSet* neuerNamenIndex=[NSMutableIndexSet indexSet];
-	
-	NSMutableDictionary* neuerNameDic=[NSMutableDictionary dictionaryWithObject:[NameFeld stringValue] forKey:@"namen"];
-	[NamenArray insertObject: neuerNameDic atIndex:[NamenArray count]];
-	[neuerNamenIndex addIndex:[NamenArray count]-1];
-	//NSLog(@"neuerProjektNameIndex: %@",[neuerProjektNameIndex description]);
-	
-	[NameFeld setStringValue:@""];
-	[VornameFeld setStringValue:@""];
-	[UbernehmenTaste setEnabled:NO];
-	[UbernehmenTaste setKeyEquivalent:@""];
-	[SchliessenTaste setKeyEquivalent:@""];
-	[EntfernenTaste setEnabled:YES];
-	[BearbeitenTaste setEnabled:YES];
-	
-	//[BearbeitenTaste setKeyEquivalent:@"\r"];
-	NSSortDescriptor* namenSort=[[NSSortDescriptor alloc]initWithKey:@"namen" ascending:YES];
-	[NamenArray sortUsingDescriptors:[NSArray arrayWithObjects:namenSort, nil]];
-	[NamenTable reloadData];
-	//[NamenFeld setEditable:NO];
-	if ([NameFeld resignFirstResponder])
+   
+   NSMutableIndexSet* neuerNamenIndex=[NSMutableIndexSet indexSet];
+   
+   NSMutableDictionary* neuerNameDic=[NSMutableDictionary dictionaryWithObject:[NameFeld stringValue] forKey:@"namen"];
+   [NamenArray insertObject: neuerNameDic atIndex:[NamenArray count]];
+   [neuerNamenIndex addIndex:[NamenArray count]-1];
+   //NSLog(@"neuerProjektNameIndex: %@",[neuerProjektNameIndex description]);
+   
+   [NameFeld setStringValue:@""];
+   [VornameFeld setStringValue:@""];
+   [UbernehmenTaste setEnabled:NO];
+   [UbernehmenTaste setKeyEquivalent:@""];
+   [SchliessenTaste setKeyEquivalent:@""];
+   [EntfernenTaste setEnabled:YES];
+   [BearbeitenTaste setEnabled:YES];
+   
+   //[BearbeitenTaste setKeyEquivalent:@"\r"];
+   NSSortDescriptor* namenSort=[[NSSortDescriptor alloc]initWithKey:@"namen" ascending:YES];
+   [NamenArray sortUsingDescriptors:[NSArray arrayWithObjects:namenSort, nil]];
+   [NamenTable reloadData];
+   //[NamenFeld setEditable:NO];
+   if ([NameFeld resignFirstResponder])
 	  {
-	  
-	  //NSLog(@"Responder ok");
-	  
-	  [[self window]makeFirstResponder:NamenTable];
-	  //[NamenTable selectRowIndexes:neuerNamenIndex byExtendingSelection:NO];
-	  [NamenTable setNeedsDisplay:YES];
-	  }
-	else
-	  NSLog(@"kein Responder");
-	//[NamenFeld setEditable:YES];
-	
-	}
-		
+        
+        //NSLog(@"Responder ok");
+        
+        [[self window]makeFirstResponder:NamenTable];
+        //[NamenTable selectRowIndexes:neuerNamenIndex byExtendingSelection:NO];
+        [NamenTable setNeedsDisplay:YES];
+     }
+   else
+   {
+      //NSLog(@"kein Responder");
+      //[NamenFeld setEditable:YES];
+      
+   }
+   
 }
 
 - (void)setNamenListeArray:(NSArray*)derArray vonProjekt:(NSString*)dasProjekt
@@ -567,7 +568,7 @@ case 2://alle Projekte
 		
 	}
 	}//while
-	// NSLog(@"NamenArray: %@",[NamenArray description]);
+	// //NSLog(@"NamenArray: %@",[NamenArray description]);
   //NSLog(@"ProjektNameIndex: %@",[ProjektNameIndex description]);
   //[[self window]makeFirstResponder:NamenFeld];
   [NamenTable reloadData];
@@ -607,7 +608,7 @@ case 2://alle Projekte
          {
             return;
          }
-        // NSLog(@"helpArray: %@",helpArray);
+        // //NSLog(@"helpArray: %@",helpArray);
          NSAlert *Warnung = [[NSAlert alloc] init];
          [Warnung setMessageText:[helpArray objectAtIndex:0]];
          NSRect cellFeld = NSMakeRect(0, 0, 400, 100);
@@ -647,7 +648,7 @@ case 2://alle Projekte
 
 - (void)FensterschliessenAktion:(NSNotification*)note
 {
-   NSLog(@"Clean FensterschliessenAktion note: %@",[[note userInfo]description]);
+   //NSLog(@"Clean FensterschliessenAktion note: %@",[[note userInfo]description]);
    if (![[[note userInfo]objectForKey:@"quelle"]isEqualToString:@"NamenListe"])
    {
       [self reportCancel:nil];
@@ -800,13 +801,13 @@ case 2://alle Projekte
    
    if ([[tabViewItem identifier]intValue]==1)//zurŸck zu 'Neu'
    {
-      NSLog(@"NamenListe shouldSelectTabViewItem zu 1");
+      //NSLog(@"NamenListe shouldSelectTabViewItem zu 1");
 
       
    }
    else if ([[tabViewItem identifier]intValue]==2)// zu 'Entfernen'
    {
-       NSLog(@"NamenListe shouldSelectTabViewItem zu 2");
+       //NSLog(@"NamenListe shouldSelectTabViewItem zu 2");
       [self reportNamenUbernehmen:nil];
    }
    return YES;

@@ -81,10 +81,10 @@ if ([[neuesPW1Feld stringValue]length]==0)
 		NSData* neuesPWData =[NSData dataWithBytes:neuespw length:strlen(neuespw)];
 		[neuerPasswortDic setObject:neuesPWData forKey:@"pw"];
 		[neuerPasswortDic setObject:[NameFeld stringValue] forKey:@"name"];
-		NSLog(@"PasswortDialogreportChange	neuerPasswortDic: %@",[neuerPasswortDic description]);
+		//NSLog(@"PasswortDialogreportChange	neuerPasswortDic: %@",[neuerPasswortDic description]);
 		NSMutableDictionary* NotificationDic=[NSMutableDictionary dictionaryWithObject:neuesPWData forKey:@"pw"];
 		[NotificationDic setObject:[NameFeld stringValue] forKey:@"name"];
-		NSLog(@"PasswortDialog reportChange	NotificationDic: %@",[NotificationDic description]);
+		//NSLog(@"PasswortDialog reportChange	NotificationDic: %@",[NotificationDic description]);
 		NSNotificationCenter* nc=[NSNotificationCenter defaultCenter];
 		[nc postNotificationName:@"neuesUserPW" object:self userInfo:NotificationDic];
 		PasswortFehler=0;
@@ -118,7 +118,7 @@ if ([[neuesPW1Feld stringValue]length]==0)
 		{
 			case NSAlertFirstButtonReturn://Wiederholen
 			{ 
-				NSLog(@"Wiederholen");
+				//NSLog(@"Wiederholen");
 				if  (PasswortFehler>2)//zu viele Fehlversuche
 				{
 					break;
@@ -128,7 +128,7 @@ if ([[neuesPW1Feld stringValue]length]==0)
 					PasswortFehler++;
 					if ([neuesPW2Feld acceptsFirstResponder])
 					{
-						NSLog(@"acceptsFirstResponder");
+						//NSLog(@"acceptsFirstResponder");
 						//[altesPWFeld performClick:nil];
 						//BOOL result=[[self window]makeFirstResponder:altesPWFeld];
 						//NSLog(@"antwort: result: %d",result);
@@ -143,7 +143,7 @@ if ([[neuesPW1Feld stringValue]length]==0)
 				
 			case NSAlertSecondButtonReturn://Abbrechen
 			{
-				NSLog(@"Abbrechen");
+				//NSLog(@"Abbrechen");
 				
 			}break;
 				
@@ -155,7 +155,7 @@ if ([[neuesPW1Feld stringValue]length]==0)
 	
 - (NSDictionary*)neuerPasswortDic
 {
-NSLog(@"return neuerPasswortDic: %@",[neuerPasswortDic description]);
+//NSLog(@"return neuerPasswortDic: %@",[neuerPasswortDic description]);
 return [neuerPasswortDic copy];
 }
 	
@@ -237,7 +237,7 @@ return [neuerPasswortDic copy];
 			//NSLog(@"PasswortDialog: altesPWAktion: Altes PW falsch");
 			
 			BOOL result=[[self window]makeFirstResponder:altesPWFeld];
-			NSLog(@"result: %d",result);
+			//NSLog(@"result: %d",result);
 			NSAlert *Warnung = [[NSAlert alloc] init];
 			[Warnung addButtonWithTitle:@"Wiederholen"];
 			[Warnung addButtonWithTitle:@"Abbrechen"];
@@ -256,7 +256,7 @@ return [neuerPasswortDic copy];
 			{
 				case NSAlertFirstButtonReturn://Wiederholen
 				{ 
-					NSLog(@"Wiederholen");
+					//NSLog(@"Wiederholen");
 					if  (PasswortFehler>2)//zu viele Fehlversuche
 					{
 						break;
@@ -267,7 +267,7 @@ return [neuerPasswortDic copy];
 						[altesPWFeld performClick:nil];
 						if ([altesPWFeld acceptsFirstResponder])
 						{
-							NSLog(@"acceptsFirstResponder");
+							//NSLog(@"acceptsFirstResponder");
 							//[altesPWFeld performClick:nil];
 							//BOOL result=[[self window]makeFirstResponder:altesPWFeld];
 							//NSLog(@"antwort: result: %d",result);
@@ -282,7 +282,7 @@ return [neuerPasswortDic copy];
 					
 				case NSAlertSecondButtonReturn://Abbrechen
 				{
-					NSLog(@"Abbrechen");
+					//NSLog(@"Abbrechen");
 					
 				}break;
 					
@@ -324,7 +324,7 @@ return YES;
 /*
  - (BOOL)becomeFirstResponder
  {
-  NSLog(@"rPasswortEingabeFeld becomeFirstResponder");
+  //NSLog(@"rPasswortEingabeFeld becomeFirstResponder");
 return YES;
 	NSNotificationCenter * nc;
 	nc=[NSNotificationCenter defaultCenter];

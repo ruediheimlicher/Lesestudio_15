@@ -42,7 +42,7 @@
 
 - (IBAction)reportBearbeiten:(id)sender
 {
-NSLog(@"reportBearbeiten: state: %ld",(long)[sender state]);
+//NSLog(@"reportBearbeiten: state: %ld",(long)[sender state]);
 if ([sender state])
 {
 [BearbeitenTaste setTitle:@"Passwort sichern"];
@@ -89,7 +89,7 @@ else
 		[PasswortArray addObject:tempDictionary];
 	}//while
 	
-	NSLog(@"PasswortArray nach change:PasswortArray: %@ ",[PasswortArray description]);
+	//NSLog(@"PasswortArray nach change:PasswortArray: %@ ",[PasswortArray description]);
 	
 	[[PasswortTable tableColumnWithIdentifier:@"passwort"]setEditable:NO];
 	[PasswortTable selectRowIndexes:[NSIndexSet indexSetWithIndex:0]byExtendingSelection:NO];

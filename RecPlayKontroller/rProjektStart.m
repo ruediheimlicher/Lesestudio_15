@@ -30,7 +30,7 @@ extern const int StartmitDialog;//=2;
 
 - (void) awakeFromNib
 {
-   //	NSLog(@"ProjektStart awake start");
+   //	//NSLog(@"ProjektStart awake start");
    
 	ProjektDic=[[NSMutableDictionary alloc] initWithCapacity:0];
 	ProjektArray=[[NSMutableArray alloc] initWithCapacity:0];
@@ -178,7 +178,7 @@ extern const int StartmitDialog;//=2;
       [NotificationDic setObject:[NSNumber numberWithInt:3] forKey:@"aktion"];
       NSNotificationCenter* nc=[NSNotificationCenter defaultCenter];
       [NotificationDic setObject:ProjektString forKey:@"projekt"];
-      NSLog(@"Projektstart reportAdmin: NotificationDic: \n%@",[NotificationDic description]);
+      //NSLog(@"Projektstart reportAdmin: NotificationDic: \n%@",[NotificationDic description]);
       [nc postNotificationName:@"adminstart" object:self userInfo:NotificationDic];
       
       [NSApp stopModalWithCode:1];
@@ -194,7 +194,7 @@ extern const int StartmitDialog;//=2;
 
 - (IBAction)reportNeuesProjekt:(id)sender
 {
- 	NSLog(@"ProjektStart reportNeuesProjekt  start");
+ 	//NSLog(@"ProjektStart reportNeuesProjekt  start");
 	[AufnehmenTaste setEnabled:YES];
    if (ProjektArray&&[ProjektArray count])
    {
@@ -210,7 +210,7 @@ extern const int StartmitDialog;//=2;
    if (ProjektArray&&[ProjektArray count])
    {
       NSString* tempProjektString=[[ProjektArray objectAtIndex:index]objectForKey:@"projekt"];
-      NSLog(@"ProjektStart reportNeuesProjekt  tempProjektString: %@",tempProjektString);
+      //NSLog(@"ProjektStart reportNeuesProjekt  tempProjektString: %@",tempProjektString);
       if (tempProjektString)
       {
          [NotificationDic setObject:tempProjektString forKey:@"projektwahl"];
@@ -223,7 +223,7 @@ extern const int StartmitDialog;//=2;
 	[NotificationDic setObject:[NSNumber numberWithInt:0] forKey:@"fix"];
 	[NotificationDic setObject:[NSNumber numberWithInt:1] forKey:@"umgebung"];
    
-   NSLog(@"ProjektStart reportNeuesProjekt NotificationDic: %@",[NotificationDic description]);
+   //NSLog(@"ProjektStart reportNeuesProjekt NotificationDic: %@",[NotificationDic description]);
    
 	NSNotificationCenter* nc=[NSNotificationCenter defaultCenter];
 	[NSApp stopModalWithCode:0];
@@ -331,14 +331,14 @@ extern const int StartmitDialog;//=2;
    //NSLog(@"ProjektListe NSTextDidChangeNotification");
    if ([note object]==EingabeFeld)
 	{
-      NSLog(@"ProjektListe: Eingabefeld");
+      //NSLog(@"ProjektListe: Eingabefeld");
 	}
    
 }
 
 - (void)controlTextDidBeginEditing:(NSNotification *)aNotification
 {
-   NSLog(@"controlTextDidBeginEditing: %@",[[aNotification  userInfo]objectForKey:@"NSFieldEditor"]);
+   //NSLog(@"controlTextDidBeginEditing: %@",[[aNotification  userInfo]objectForKey:@"NSFieldEditor"]);
    [[self window]makeFirstResponder:InListeTaste];
    [InListeTaste setKeyEquivalent:@"\r"];
    [InListeTaste setEnabled:YES];

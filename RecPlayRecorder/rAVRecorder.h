@@ -98,4 +98,5 @@
 - (void)setPlaying:(BOOL)play;
 - (void)setURL:(NSURL*)playerURL;
 - (void)setRecording:(BOOL)record mitLeserPfad:(NSString*)leserpfad;
+- (BOOL)istRecording;
 @end

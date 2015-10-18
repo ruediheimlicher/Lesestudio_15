@@ -16,12 +16,12 @@
 return;
 	int nr=[theEvent keyCode];
 	NSString* Taste=[theEvent characters];
-	NSLog(@"rPasswortEingabeFeld keyDown: %@   %@",[theEvent characters],Taste);	
+	//NSLog(@"rPasswortEingabeFeld keyDown: %@   %@",[theEvent characters],Taste);	
 	//if([[Taste description]isEqualToString:@"\r"])
-	//	NSLog(@"                    Enter");
+	//	//NSLog(@"                    Enter");
 	NSNumber* KeyNummer;
 	KeyNummer=[NSNumber numberWithInt:nr];
-	NSLog(@"keyDown: %@",[theEvent characters]);
+	//NSLog(@"keyDown: %@",[theEvent characters]);
 	//NSLog(@"ArchivListe keyDown nr: %d  char: %@",nr,[theEvent characters]);
 	NSNotificationCenter * nc;
 	nc=[NSNotificationCenter defaultCenter];
@@ -62,7 +62,7 @@ return;
 /* 
  - (BOOL)becomeFirstResponder
  {
-  NSLog(@"rPasswortEingabeFeld becomeFirstResponder");
+  //NSLog(@"rPasswortEingabeFeld becomeFirstResponder");
 
 	NSNotificationCenter * nc;
 	nc=[NSNotificationCenter defaultCenter];

@@ -30,7 +30,7 @@
    //NSRange firstPunkt = [self rangeOfString:@"."]; // erster Punkt im String
 
    NSRange lastPunkt = [self rangeOfString:@"." options:NSBackwardsSearch];
-  // NSLog(@"firstPunkt: %ld lastPunkt: %ld",firstPunkt.location, lastPunkt.location);
+  // //NSLog(@"firstPunkt: %ld lastPunkt: %ld",firstPunkt.location, lastPunkt.location);
    
    if(lastPunkt.location != NSNotFound) // Punkt vorhanden
    {

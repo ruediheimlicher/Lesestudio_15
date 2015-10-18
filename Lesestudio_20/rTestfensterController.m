@@ -18,14 +18,14 @@
     [super viewDidLoad];
     // Do view setup here.
     [self.StartFeld setStringValue:@"soso"];
-   NSLog(@"Testfenster viewDidLoad");
+   //NSLog(@"Testfenster viewDidLoad");
 }
 
 
 -(IBAction)reportSchliessenTaste:(id)sender
 {
    
-   NSLog(@"Testfenster reportSchliessenTaste Text: %@",[AnzeigeFeld stringValue]);
+   //NSLog(@"Testfenster reportSchliessenTaste Text: %@",[AnzeigeFeld stringValue]);
 
    [self dismissController:NULL];
 }
@@ -37,7 +37,7 @@
 
 - (void)setzeAnzeigeFeld:(NSString *)anzeige
 {
-   NSLog(@"Testfenster setzeAnzeigeFeld anzeige: %@ startfeld: %@",anzeige, [self.StartFeld stringValue]);
+   //NSLog(@"Testfenster setzeAnzeigeFeld anzeige: %@ startfeld: %@",anzeige, [self.StartFeld stringValue]);
    AnzeigeFeld.stringValue = anzeige;
   //[self.AnzeigeFeld setStringValue:@"soso"];
 }

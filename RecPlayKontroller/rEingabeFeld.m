@@ -15,9 +15,9 @@
 {
 	int nr=[theEvent keyCode];
 	NSString* Taste=[theEvent characters];
-	NSLog(@"Projektliste keyDown: %@   %@",[theEvent characters],Taste);	
+	//NSLog(@"Projektliste keyDown: %@   %@",[theEvent characters],Taste);	
 	//if([[Taste description]isEqualToString:@"\r"])
-	//	NSLog(@"                    Enter");
+	//	//NSLog(@"                    Enter");
 	NSNumber* KeyNummer;
 	KeyNummer=[NSNumber numberWithInt:nr];
 	//NSLog(@"keyDown: %@",[theEvent characters]);
@@ -43,7 +43,7 @@
 */
 - (BOOL)control:(NSControl *)control textShouldBeginEditing:(NSText *)fieldEditor
 {
-NSLog(@"control textShouldBeginEditing");
+//NSLog(@"control textShouldBeginEditing");
 return YES;
 }
  -(BOOL)textShouldBeginEditing:(NSText *)textObject
@@ -55,7 +55,7 @@ return YES;
  /*
  - (BOOL)becomeFirstResponder
  {
-  NSLog(@"becomeFirstResponder");
+  //NSLog(@"becomeFirstResponder");
 
  return YES;
  }

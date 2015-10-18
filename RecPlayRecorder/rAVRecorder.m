@@ -62,7 +62,7 @@
       
       // Attach preview to session
       CALayer *previewViewLayer = [[self previewView] layer];
-      [previewViewLayer setBackgroundColor:CGColorGetConstantColor(kCGColorBlack)];
+     // [previewViewLayer setBackgroundColor:CGColorGetConstantColor(kCGColorBlack)];
       AVCaptureVideoPreviewLayer *newPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:[self session]];
       [newPreviewLayer setFrame:[previewViewLayer bounds]];
       [newPreviewLayer setAutoresizingMask:kCALayerWidthSizable | kCALayerHeightSizable];
@@ -83,7 +83,7 @@
                                                                  queue:[NSOperationQueue mainQueue]
                                                             usingBlock:^(NSNotification *note) {
                                                                dispatch_async(dispatch_get_main_queue(), ^(void) {
-                                                                  NSLog(@"AVCaptureSessionRuntimeErrorNotification");
+                                                                  //NSLog(@"AVCaptureSessionRuntimeErrorNotification");
                                                                  // [[[self view] window] presentError:[[note userInfo] objectForKey:AVCaptureSessionErrorKey]];
                                                                });
                                                             }];
@@ -92,13 +92,13 @@
                                                                     queue:[NSOperationQueue mainQueue]
                                                                usingBlock:^(NSNotification *note)
                                     {
-                                       NSLog(@"did start running");
+                                       //NSLog(@"did start running");
                                     }];
       id didStopRunningObserver = [notificationCenter addObserverForName:AVCaptureSessionDidStopRunningNotification
                                                                   object:session
                                                                    queue:[NSOperationQueue mainQueue]
                                                               usingBlock:^(NSNotification *note) {
-                                                                 NSLog(@"did stop running");
+                                                                 //NSLog(@"did stop running");
                                                               }];
       id deviceWasConnectedObserver = [notificationCenter addObserverForName:AVCaptureDeviceWasConnectedNotification
                                                                       object:nil
@@ -133,7 +133,7 @@
       }
       else
       {
-         NSLog(@"videoDevice no");
+         //NSLog(@"videoDevice no");
          [self setSelectedVideoDevice:[AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeMuxed]];
       }
       //NSLog(@"transportControlsSupported: %d",[[self selectedAudioDevice] transportControlsSupported]);
@@ -151,7 +151,7 @@
    AVCaptureDevice *audioDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeAudio];
    if (audioDevice)
    {
-      NSLog(@"audiodevice da");
+      //NSLog(@"audiodevice da");
       erfolg = TRUE;
       [self setSelectedAudioDevice:[AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeAudio]];
    }
@@ -161,7 +161,7 @@
 
 - (void)didPresentErrorWithRecovery:(BOOL)didRecover contextInfo:(void  *)contextInfo
 {
-   NSLog(@"didPresentErrorWithRecovery");// Do nothing
+   //NSLog(@"didPresentErrorWithRecovery");// Do nothing
 }
 
 #pragma mark - Device selection
@@ -192,7 +192,8 @@
    
    [[self session] beginConfiguration];
    
-   if ([self videoDeviceInput]) {
+   if ([self videoDeviceInput])
+   {
       // Remove the old device input from the session
       [session removeInput:[self videoDeviceInput]];
       [self setVideoDeviceInput:nil];
@@ -204,22 +205,29 @@
       
       // Create a device input for the device and add it to the session
       AVCaptureDeviceInput *newVideoDeviceInput = [AVCaptureDeviceInput deviceInputWithDevice:selectedVideoDevice error:&error];
-      if (newVideoDeviceInput == nil) {
+      if (newVideoDeviceInput == nil)
+      {
          dispatch_async(dispatch_get_main_queue(), ^(void) {
-            NSLog(@"newVideoDeviceInput nil");
+            //NSLog(@"newVideoDeviceInput nil");
          });
-      } else {
+      }
+      else
+      {
          if (![selectedVideoDevice supportsAVCaptureSessionPreset:[session sessionPreset]])
+         {
             [[self session] setSessionPreset:AVCaptureSessionPresetMedium];
+         }
          
          [[self session] addInput:newVideoDeviceInput];
          [self setVideoDeviceInput:newVideoDeviceInput];
       }
    }
-   [[self session] setSessionPreset:AVCaptureSessionPresetHigh];
+   [[self session] setSessionPreset:AVCaptureSessionPresetMedium];
    // If this video device also provides audio, don't use another audio device
    if ([self selectedVideoDeviceProvidesAudio])
+   {
       [self setSelectedAudioDevice:nil];
+   }
    
    [[self session] commitConfiguration];
 }
@@ -246,7 +254,8 @@
       
       // Create a device input for the device and add it to the session
       AVCaptureDeviceInput *newAudioDeviceInput = [AVCaptureDeviceInput deviceInputWithDevice:selectedAudioDevice error:&error];
-      if (newAudioDeviceInput == nil) {
+      if (newAudioDeviceInput == nil)
+      {
          dispatch_async(dispatch_get_main_queue(), ^(void) {
             [NSApp presentError:error];
          });
@@ -254,7 +263,9 @@
       else
       {
          if (![selectedAudioDevice supportsAVCaptureSessionPreset:[session sessionPreset]])
-            [[self session] setSessionPreset:AVCaptureSessionPresetHigh];
+         {
+            [[self session] setSessionPreset:AVCaptureSessionPresetMedium];
+         }
          
          [[self session] addInput:newAudioDeviceInput];
          [self setAudioDeviceInput:newAudioDeviceInput];
@@ -290,10 +301,13 @@
 {
    NSError *error = nil;
    AVCaptureDevice *videoDevice = [self selectedVideoDevice];
-   if ([videoDevice lockForConfiguration:&error]) {
+   if ([videoDevice lockForConfiguration:&error])
+   {
       [videoDevice setActiveFormat:deviceFormat];
       [videoDevice unlockForConfiguration];
-   } else {
+   }
+   else
+   {
       dispatch_async(dispatch_get_main_queue(), ^(void) {
          [NSApp presentError:error];
       });
@@ -314,10 +328,13 @@
 {
    NSError *error = nil;
    AVCaptureDevice *audioDevice = [self selectedAudioDevice];
-   if ([audioDevice lockForConfiguration:&error]) {
+   if ([audioDevice lockForConfiguration:&error])
+   {
       [audioDevice setActiveFormat:deviceFormat];
       [audioDevice unlockForConfiguration];
-   } else {
+   }
+   else
+   {
       dispatch_async(dispatch_get_main_queue(), ^(void) {
          [NSApp presentError:error];
       });
@@ -349,10 +366,13 @@
    NSError *error = nil;
    if ([[[[self selectedVideoDevice] activeFormat] videoSupportedFrameRateRanges] containsObject:frameRateRange])
    {
-      if ([[self selectedVideoDevice] lockForConfiguration:&error]) {
+      if ([[self selectedVideoDevice] lockForConfiguration:&error])
+      {
          [[self selectedVideoDevice] setActiveVideoMinFrameDuration:[frameRateRange minFrameDuration]];
          [[self selectedVideoDevice] unlockForConfiguration];
-      } else {
+      }
+      else
+      {
          dispatch_async(dispatch_get_main_queue(), ^(void) {
             [NSApp presentError:error];
          });
@@ -389,7 +409,7 @@
    return [NSSet setWithObject:@"movieFileOutput.recording"];
 }
 
-- (BOOL)isRecording
+- (BOOL)istRecording
 {
    return [[self movieFileOutput] isRecording];
 }
@@ -403,9 +423,9 @@
    LeserPfad = leserpfad;
    if (record)
    {
-      if ([self isRecording])
+      if ([self istRecording])
       {
-         NSLog(@"isRecording");
+         //NSLog(@"istRecording");
          return;
          
       }
@@ -426,7 +446,7 @@
       NSURL* tempAufnahmeURL = [NSURL  fileURLWithPath:tempPfad];
      // now = [[NSDate alloc] init];
      // long t3 = (int)now.timeIntervalSince1970 - startzeit;
-     // NSLog(@"setRecording t3: %ld",t3);
+     // //NSLog(@"setRecording t3: %ld",t3);
 
       [[self movieFileOutput] startRecordingToOutputFileURL:tempAufnahmeURL  recordingDelegate:self];
    
@@ -442,7 +462,7 @@
 
 - (void)AufnahmeTimerFunktion:(NSTimer*)derTimer
 {
-   NSLog(@"AufnahmeTimerFunktion");
+   //NSLog(@"AufnahmeTimerFunktion");
 }
 
 
@@ -511,7 +531,7 @@
    {
    CMTime cmtduration = [[self movieFileOutput] recordedDuration];
    duration =CMTimeGetSeconds(cmtduration);
-     // NSLog(@"duration: %f",duration);
+     // //NSLog(@"duration: %f",duration);
    }
    NSNotificationCenter * nc=[NSNotificationCenter defaultCenter];
    [nc postNotificationName:@"levelmeter" object:self userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
@@ -630,11 +650,11 @@
             switch ([exporter status])
             {
                case AVAssetExportSessionStatusCompleted:
-                  NSLog(@"Export sucess");break;
+                  //NSLog(@"Export sucess");break;
                case AVAssetExportSessionStatusFailed:
-                  NSLog(@"Export failed: %@", [[exporter error] localizedDescription]);break;
+                  //NSLog(@"Export failed: %@", [[exporter error] localizedDescription]);break;
                case AVAssetExportSessionStatusCancelled:
-                  NSLog(@"Export canceled");break;
+                  //NSLog(@"Export canceled");break;
                default:
                   break;
             }
@@ -678,7 +698,7 @@
        // double duration = CMTimeGetSeconds(asset.duration);
 
         CMTime cmtduration = asset.duration;
-        NSLog(@"duration: %lld",cmtduration.value);
+        //NSLog(@"duration: %lld",cmtduration.value);
         double duration =cmtduration.value;
         CMTime startTime = CMTimeMake(0, 1);
         CMTime trimstartTime = CMTimeMake(20, 1);
@@ -709,15 +729,15 @@
         exporter.audioMix = trimMix;
         
         [exporter exportAsynchronouslyWithCompletionHandler:^{
-         NSLog(@"Export Session Status: %ld", (long)[exporter status]);
+         //NSLog(@"Export Session Status: %ld", (long)[exporter status]);
            switch ([exporter status])
            {
               case AVAssetExportSessionStatusCompleted:
-                 NSLog(@"Export sucess");break;
+                 //NSLog(@"Export sucess");break;
               case AVAssetExportSessionStatusFailed:
-                 NSLog(@"Export failed: %@", [[exporter error] localizedDescription]);break;
+                 //NSLog(@"Export failed: %@", [[exporter error] localizedDescription]);break;
               case AVAssetExportSessionStatusCancelled:
-                 NSLog(@"Export canceled");break;
+                 //NSLog(@"Export canceled");break;
               default:
                  break;
            }
@@ -759,7 +779,7 @@
 
 - (void)setPlaying:(BOOL)play
 {
-   NSLog(@"AVVRecorder startAVPlay");
+   //NSLog(@"AVVRecorder startAVPlay");
    AVCaptureDevice *device = [self selectedAudioDevice];
    [self setTransportMode:AVCaptureDeviceTransportControlsPlayingMode speed:play ? 1.f : 0.f forDevice:device];
 }
@@ -842,7 +862,7 @@ NSError *error = nil;
 
 - (void)captureOutput:(AVCaptureFileOutput *)captureOutput didPauseRecordingToOutputFileAtURL:(NSURL *)fileURL fromConnections:(NSArray *)connections
 {
-   NSLog(@"Did pause recording to %@", [fileURL description]);
+   //NSLog(@"Did pause recording to %@", [fileURL description]);
    
    
 }
@@ -852,7 +872,7 @@ NSError *error = nil;
    NSNotificationCenter * nc=[NSNotificationCenter defaultCenter];
    [nc postNotificationName:@"recording" object:self userInfo:[NSDictionary dictionaryWithObject:[NSNumber numberWithInt:2] forKey:@"record"]];
 
-   NSLog(@"Did resume recording to %@", [fileURL description]);
+   //NSLog(@"Did resume recording to %@", [fileURL description]);
 }
 
 - (void)captureOutput:(AVCaptureFileOutput *)captureOutput willFinishRecordingToOutputFileAtURL:(NSURL *)fileURL fromConnections:(NSArray *)connections dueToError:(NSError *)error
@@ -893,7 +913,7 @@ NSError *error = nil;
       //[Warnung setIcon:RPImage];
       [Warnung runModal];
       
-      NSLog(@"Fehler beim Aufnehmen. Die Aufnahme wird entfernt.");
+      //NSLog(@"Fehler beim Aufnehmen. Die Aufnahme wird entfernt.");
       [[NSFileManager defaultManager] removeItemAtURL:outputFileURL error:nil];
       
    }
@@ -909,12 +929,12 @@ NSError *error = nil;
       //     [savePanel setCanSelectHiddenExtension:YES];
       
       //      long antwort = [savePanel runModal];
-      //     NSLog(@"antwort: %ld URL: %@",antwort,[savePanel URL]);
+      //     //NSLog(@"antwort: %ld URL: %@",antwort,[savePanel URL]);
       
       // tempOrdner fuer getrimmte tempAufnahme
       
       NSString* tempTrimmPfad =[tempDirPfad   stringByAppendingPathExtension:@"m4a"];
-      //  NSLog(@"tempTrimmPfad: %@",tempTrimmPfad);
+      //  //NSLog(@"tempTrimmPfad: %@",tempTrimmPfad);
       NSURL* tempTrimmURL = [NSURL  fileURLWithPath:tempTrimmPfad];
       
       int cuterfolg = [self  cutFileAtURL:outputFileURL toURL:tempTrimmURL];
@@ -932,7 +952,7 @@ NSError *error = nil;
        NSError *error = nil;
        if ([[NSFileManager defaultManager] moveItemAtURL:tempTrimmURL toURL:[NSURL  fileURLWithPath:LeserPfad] error:&error]) // move OK
        {
-       NSLog(@"move 1");
+       //NSLog(@"move 1");
        // Platz machen
        [[NSFileManager defaultManager] removeItemAtURL:tempTrimmURL error:nil];
        // Movie abspielen
@@ -950,7 +970,7 @@ NSError *error = nil;
        //[Warnung setIcon:RPImage];
        int antwort=[Warnung runModal];
        
-       NSLog(@"Fehler beim Sichern der Aufnahmen");
+       //NSLog(@"Fehler beim Sichern der Aufnahmen");
        [[NSFileManager defaultManager] removeItemAtURL:tempTrimmURL error:nil];
        }
        return;
@@ -959,17 +979,17 @@ NSError *error = nil;
        savePanel.allowedFileTypes = [NSArray arrayWithObjects:@"m4a",@"mov",nil];
        [savePanel beginSheetModalForWindow:[self RecorderFenster] completionHandler:^(NSInteger result)
        {
-       NSLog(@"result: %ld",(long)result);
+       //NSLog(@"result: %ld",(long)result);
        NSError *error = nil;
        if (result == NSOKButton)
        {
        
-       NSLog(@"savePanel URL: %@",[savePanel URL]);
+       //NSLog(@"savePanel URL: %@",[savePanel URL]);
        
        [[NSFileManager defaultManager] removeItemAtURL:[savePanel URL] error:nil]; // attempt to remove file at the desired save location before moving the recorded file to that location
        if ([[NSFileManager defaultManager] moveItemAtURL:tempTrimmURL toURL:[savePanel URL] error:&error])
        {
-       NSLog(@"savePanel move 1");
+       //NSLog(@"savePanel move 1");
        // Platz machen
        [[NSFileManager defaultManager] removeItemAtURL:tempTrimmURL error:nil];
        // Movie abspielen
@@ -978,7 +998,7 @@ NSError *error = nil;
        else
        
        {
-       NSLog(@"savePanel move 0");
+       //NSLog(@"savePanel move 0");
        [savePanel orderOut:self];
        //[self presentError:error modalForWindow:[self RecorderFenster] delegate:self didPresentSelector:@selector(didPresentErrorWithRecovery:contextInfo:) contextInfo:NULL];
        }
