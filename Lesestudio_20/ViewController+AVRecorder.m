@@ -449,7 +449,7 @@
    {
       NSNumber* LevelNumber=[[note userInfo]objectForKey:@"level"];
       float Level=[LevelNumber floatValue];
-      //NSLog(@"Level: %2.2f",Level);
+      NSLog(@"Level: %2.2f",Level);
       // [self.Levelmeter setLevel:4*Level];
       [self updateAudioLevels:Level];
       

@@ -36,7 +36,7 @@
 
 
 
-@interface ViewController : NSViewController <NSTabViewDelegate, NSWindowDelegate, NSMenuDelegate, NSMenuDelegate>
+@interface ViewController : NSViewController <NSTabViewDelegate, NSWindowDelegate, NSMenuDelegate>
 
 {
    // Panels

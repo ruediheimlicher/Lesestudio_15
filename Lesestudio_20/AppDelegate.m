@@ -26,10 +26,12 @@
 - (void)applicationWillTerminate:(NSNotification *)aNotification
 {
    // Insert code here to tear down your application
+   NSLog(@")applicationWillTerminate");
 }
 
 - (BOOL) applicationShouldTerminateAfterLastWindowClosed: (NSApplication *) theApplication
 {
+   NSLog(@"applicationShouldTerminateAfterLastWindowClosed");
    NSMutableDictionary* BeendenDic=[[NSMutableDictionary alloc]initWithCapacity:0];
    [BeendenDic setObject:[NSNumber numberWithInt:1] forKey:@"beenden"];
    NSNotificationCenter* beendennc=[NSNotificationCenter defaultCenter];
@@ -37,5 +39,12 @@
    
    return NO;
 }
+
+- (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender
+{
+   NSLog(@"applicationShouldTerminate");
+   return NSTerminateNow;
+}
+
 
 @end

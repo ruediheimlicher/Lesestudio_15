@@ -5863,7 +5863,7 @@ if (!self.KommentarFenster)
 
 - (void)windowWillClose:(NSNotification *)notification
 {
-   //NSLog(@"windowWillClose: %@",notification);
+   NSLog(@"RecPlayFenster windowWillClose: %@",notification);
 }
 
 
