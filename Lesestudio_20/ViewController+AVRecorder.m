@@ -135,7 +135,7 @@
    self.Leser=[self.ArchivnamenPop titleOfSelectedItem];
    long n=[self.ArchivnamenPop indexOfSelectedItem];
    //NSLog(@"Selected Item: %ld",n);
-   //NSLog(@"startRecord:Selected Item: %ld		Leser: %@",n,self.Leser);
+   NSLog(@"startRecord:Selected Item: %ld		Leser: %@",n,self.Leser);
    
    
    NSFileManager *Filemanager=[NSFileManager defaultManager];
@@ -351,7 +351,7 @@
 
 - (void)RecordingAktion:(NSNotification*)note
 {
-   //NSLog(@"RecordingAktion note: %@",[note description]);
+   NSLog(@"RecordingAktion note: %@",[note description]);
    if ([[note userInfo ]objectForKey:@"record"])
    {
       switch([[[note userInfo ] objectForKey:@"record"]intValue])
@@ -449,7 +449,7 @@
    {
       NSNumber* LevelNumber=[[note userInfo]objectForKey:@"level"];
       float Level=[LevelNumber floatValue];
-      NSLog(@"Level: %2.2f",Level);
+      //NSLog(@"Level: %2.2f",Level);
       // [self.Levelmeter setLevel:4*Level];
       [self updateAudioLevels:Level];
       
@@ -507,7 +507,7 @@
       NSNumber* durNumber=[[note userInfo]objectForKey:@"dur"];
       dur=[durNumber doubleValue];
    }
-//NSLog(@"dur: %2.2f pos: %2.2f",dur,pos);
+NSLog(@"dur: %2.2f pos: %2.2f",dur,pos);
    if (dur - pos < 0.1)
    {
       //NSLog(@"Ende erreicht");

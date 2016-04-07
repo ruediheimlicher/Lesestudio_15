@@ -99,7 +99,7 @@ enum
       
       self.PListDic=[[Utils PListDicVon:self.LeseboxPfad aufSystemVolume:self.istSystemVolume]mutableCopy];
       
-      NSLog(@"Leseboxvorbereiten LeseboxOK=1 PListDic: %@",[self.PListDic description]);
+      //NSLog(@"Leseboxvorbereiten LeseboxOK=1 PListDic: %@",[self.PListDic description]);
       
       // Anfang busy
       

@@ -447,8 +447,8 @@
      // now = [[NSDate alloc] init];
      // long t3 = (int)now.timeIntervalSince1970 - startzeit;
      //NSLog(@"setRecording t3: %ld",t3);
-
-      [[self movieFileOutput] startRecordingToOutputFileURL:tempAufnahmeURL  recordingDelegate:self];
+      [self clean];
+      [[self movieFileOutput] startRecordingToOutputFileURL:tempAufnahmeURL recordingDelegate:self];
    
    }
    else
@@ -850,7 +850,7 @@ NSError *error = nil;
 {
    NSDate *now = [[NSDate alloc] init];
    long t3 = now.timeIntervalSince1970/1000000 - startzeit;
-   //NSLog(@"setRecording t3: %ld",t3);
+   NSLog(@"setRecording t3: %ld",t3);
 
    //NSLog(@"Did start recording to %@", [fileURL description]);
   
@@ -888,7 +888,7 @@ NSError *error = nil;
    aufnahmezeit = [[NSNumber numberWithFloat:zeit]intValue];
    // aufnahmezeit = lrintf(zeit);
    
-   //NSLog(@"didFinishRecordingToOutputFileAtURL: %@ an Leserpfad : %@ zeit: %f aufnahmezeit: %d",outputFileURL,LeserPfad,zeit,aufnahmezeit);
+   NSLog(@"didFinishRecordingToOutputFileAtURL: %@ an Leserpfad : %@ zeit: %f aufnahmezeit: %d",outputFileURL,LeserPfad,zeit,aufnahmezeit);
    
    NSNotificationCenter * nc=[NSNotificationCenter defaultCenter];
    NSMutableDictionary* saveDic = [[NSMutableDictionary alloc]initWithCapacity:0];

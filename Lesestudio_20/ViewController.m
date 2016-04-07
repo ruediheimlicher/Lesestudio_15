@@ -2985,7 +2985,7 @@ QTMovie* qtMovie;
    {
       self.Leser=[NSString stringWithString:[sender titleOfSelectedItem]];
       
-      //NSLog(@"setLeser: neuer Leser: %@",self.Leser);
+      NSLog(@"setLeser: neuer Leser: %@",self.Leser);
       
       self.LeserPfad=[self.ProjektPfad stringByAppendingPathComponent:self.Leser];
       //NSLog(@"setLeser: neuer LeserPfad: %@",self.LeserPfad);
@@ -3184,7 +3184,7 @@ QTMovie* qtMovie;
                
             }//for anzahl
          }//while tausch
-         //NSLog(@"TitelArray nach Sortieren: %@",[TitelArray description]);
+         NSLog(@"TitelArray nach Sortieren: %@",[TitelArray description]);
          NSMutableArray* AufnahmenPopArray=[[NSMutableArray alloc] initWithCapacity:self.aktuellAnzAufnahmen];
          [self.ArchivDaten resetArchivDaten];
          for (i=(int)[TitelArray count]-1;i>=0;i--)//Reihenfolge umkehren für TitelPop

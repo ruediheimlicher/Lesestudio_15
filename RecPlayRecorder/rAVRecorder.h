@@ -29,7 +29,7 @@
    AVCaptureDeviceInput             *videoDeviceInput;
    AVCaptureDeviceInput             *audioDeviceInput;
    AVCaptureMovieFileOutput            *movieFileOutput;
-    AVCaptureAudioFileOutput            *audioFileOutput;
+   AVCaptureAudioFileOutput            *audioFileOutput;
    
    AVCaptureAudioPreviewOutput         *audioPreviewOutput;
    
