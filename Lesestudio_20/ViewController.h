@@ -91,6 +91,9 @@
    long                    UserExportParID;
 
    int nurTitelZuNamenOption;
+   
+   NSView                           *previewView;
+
 }
 
 // Menues
@@ -113,6 +116,8 @@
 @property (weak) IBOutlet NSButton* StartKnopf;
 @property (weak) IBOutlet NSButton* XKnopf;
 
+
+@property (assign) IBOutlet NSView *previewView;
 
 @property (retain) IBOutlet rAbspielanzeige*	ArchivAbspielanzeige;
 @property (weak) IBOutlet NSLevelIndicator   *LevelMeter;
@@ -275,8 +280,8 @@
 @property  (assign) IBOutlet NSTextView*          ArchivKommentarView;
 @property BOOL                                  ArchivZeilenhit;
 @property int                                   RPDevicedatenlaenge;
-@property int									Wert1, Wert2, Wert3;
-@property int									aktuellAnzAufnahmen;
+@property int                                   Wert1, Wert2, Wert3;
+@property int                                   aktuellAnzAufnahmen;
 
 #pragma mark storyboard
 @property  (nonatomic, strong) rTestfensterController*						   Testfenster;

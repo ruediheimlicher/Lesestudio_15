@@ -87,7 +87,7 @@ NSString*	RPDevicedatenKey=	@"RPDevicedaten";
 
 - (id)initWithNibName:(NSString *)nibname bundle:(NSBundle *)bundlename
 {
-   //NSLog(@"init nibname: %@ ",self.nibName);
+   NSLog(@"init nibname: %@ ",self.nibName);
    self = [ super initWithNibName: nil bundle:nil];
    return self;
 }
@@ -319,12 +319,12 @@ NSString*	RPDevicedatenKey=	@"RPDevicedaten";
               name:@"recording"
             object:nil];
 
-   /*
+   
    [nc addObserver:self
           selector:@selector(AbspielPosAktion:)
               name:@"abspielpos"
             object:nil];
-   */
+   
    
    [nc addObserver:self
           selector:@selector(ListeAktualisierenAktion:)
@@ -406,7 +406,7 @@ NSString*	RPDevicedatenKey=	@"RPDevicedaten";
    NSString* lb=@"Lesebox";
    NSString* cb=@"Anmerkungen";
    NSString*HomeLeseboxPfad=[NSHomeDirectory() stringByAppendingFormat:@"%@%@",@"/Documents/",lb];
-   NSLog(@"cb: %@  Lesebox: %@ HomeLeseboxPfad: %@",cb,lb,HomeLeseboxPfad);
+   //NSLog(@"cb: %@  Lesebox: %@ HomeLeseboxPfad: %@",cb,lb,HomeLeseboxPfad);
    
    NSString* locBeenden=@"Beenden";
    NSColor* HintergrundFarbe=[NSColor colorWithDeviceRed: 150.0/255 green:249.0/255 blue:150.0/255 alpha:1.0];
@@ -602,7 +602,7 @@ NSString*	RPDevicedatenKey=	@"RPDevicedaten";
    [self Aufnahmevorbereiten];
    NSFont* Lesernamenfont;
    Lesernamenfont=[NSFont fontWithName:@"Helvetica" size: 20];
-   NSColor * LesernamenFarbe=[NSColor whiteColor];
+   NSColor * LesernamenFarbe=[NSColor greenColor];
    [self.Leserfeld setFont: Lesernamenfont];
    [self.Leserfeld setTextColor: LesernamenFarbe];
    
@@ -708,20 +708,6 @@ NSString*	RPDevicedatenKey=	@"RPDevicedaten";
                                                           repeats:YES];
    
    [self.TimeoutFeld setIntValue:self.TimeoutDelay];
-   // AVRecorder
-   
-   if (!(AVRecorder))
-   {
-      AVRecorder = [[rAVRecorder alloc]init];
-   }
-   if (AVRecorder)
-   {
-      AVRecorder.RecorderFenster = [self.view window];
-      //   [AVRecorder setRecording:YES];
-      // if AVRecorder
-      AufnahmeZeit=0;
-      [AVRecorder setstartzeit:startzeit];
-   }
    
    if (!(AVAbspielplayer))
    {
@@ -805,13 +791,33 @@ NSString*	RPDevicedatenKey=	@"RPDevicedaten";
       [item setEnabled:YES];
    }
    
+   
 
-   NSLog(@"viewDidLoad end");
+   //NSLog(@"viewDidLoad end");
    [[self.view window] display];
    //NSLog(@"MenuItem: Modus: %@",[[appMenu itemWithTitle:@"Admin"]title]);
 
 }
 
+- (void)viewDidLayout
+{
+   //NSLog(@"viewDidLayout");
+   // AVRecorder
+   
+   if (!(AVRecorder))
+   {
+      AVRecorder = [[rAVRecorder alloc]init];
+   }
+   if (AVRecorder)
+   {
+      AVRecorder.RecorderFenster = [self.view window];
+      //   [AVRecorder setRecording:YES];
+      // if AVRecorder
+      AufnahmeZeit=0;
+      [AVRecorder setstartzeit:startzeit];
+   }
+
+}
 
 
 - (void)setRepresentedObject:(id)representedObject {
@@ -1353,7 +1359,7 @@ return YES;
     */
    NSFont* Lesernamenfont;
    Lesernamenfont=[NSFont fontWithName:@"Helvetica" size: 20];
-   NSColor * LesernamenFarbe=[NSColor whiteColor];
+   NSColor * LesernamenFarbe=[NSColor greenColor];
    [self.Leserfeld setFont: Lesernamenfont];
    [self.Leserfeld setTextColor: LesernamenFarbe];
    
@@ -2974,21 +2980,22 @@ QTMovie* qtMovie;
         // ++
       
    }
+   [self.Testfeld setStringValue: @"Hallo"];
    //NSLog(@"setzeLeser: LeserPfad: %@ ",self.LeserPfad);
    //NSLog(@"setLeser: ProjektPfad: %@",[self.ProjektPfad description]);
    
    [self.ArchivnamenPop synchronizeTitleAndSelectedItem];
    
-   //NSString* Leser =[sender titleOfSelectedItem];
+   NSString* Leser =[sender titleOfSelectedItem];
    
    if ([[sender titleOfSelectedItem] length]>0)
    {
       self.Leser=[NSString stringWithString:[sender titleOfSelectedItem]];
       
-      NSLog(@"setLeser: neuer Leser: %@",self.Leser);
+      //NSLog(@"setzeLeser: neuer Leser: %@",self.Leser);
       
       self.LeserPfad=[self.ProjektPfad stringByAppendingPathComponent:self.Leser];
-      //NSLog(@"setLeser: neuer LeserPfad: %@",self.LeserPfad);
+      //NSLog(@"setzeLeser: neuer LeserPfad: %@",self.LeserPfad);
       if (self.mitUserPasswort)
       {
          BOOL PasswortOK=NO;
@@ -3071,8 +3078,11 @@ QTMovie* qtMovie;
    }
    [self.LogoutKnopf setEnabled:YES];
    
+   //NSLog(@"setzeLeser title: %@",[sender titleOfSelectedItem]);
    
    [self.Leserfeld setStringValue:[sender titleOfSelectedItem]];
+   //NSLog(@"setzeLeser Leserfeld: %@",[self.Leserfeld stringValue]);
+ 
    //NSLog(@"setLeser: alter LeserPfad: %@",[self.LeserPfad description]);
    NSFileManager *Filemanager=[NSFileManager defaultManager];
    if ([Filemanager fileExistsAtPath:self.LeserPfad])
@@ -3184,7 +3194,7 @@ QTMovie* qtMovie;
                
             }//for anzahl
          }//while tausch
-         NSLog(@"TitelArray nach Sortieren: %@",[TitelArray description]);
+         //NSLog(@"TitelArray nach Sortieren: %@",[TitelArray description]);
          NSMutableArray* AufnahmenPopArray=[[NSMutableArray alloc] initWithCapacity:self.aktuellAnzAufnahmen];
          [self.ArchivDaten resetArchivDaten];
          for (i=(int)[TitelArray count]-1;i>=0;i--)//Reihenfolge umkehren für TitelPop
@@ -3972,23 +3982,71 @@ QTMovie* qtMovie;
 }
 
 
-- (void)updateArchivPlayBalken:(NSTimer *)derTimer
+- (void)AbspielPosAktion:(NSNotification*)note
 {
-   /*
-    QTTime Gesamtzeit=[[ArchivQTKitPlayer movie]duration];
-    QTTime Spielzeit=[[ArchivQTKitPlayer movie]currentTime];
-    float Restzeit=(float)(Gesamtzeit.timeValue-Spielzeit.timeValue);///Gesamtzeit.timeScale;
-    //NSLog(@"Restzeit: %2.2f",Restzeit);
-    [ArchivAbspielanzeige setLevel:(Spielzeit.timeValue)];
-    
-    [ArchivAbspieldauerFeld setStringValue:[self Zeitformatieren:Restzeit]];
-    if (Restzeit==0)
-    {
-    [derTimer invalidate];
-    //NSLog(@"Restzeit ist null");
-    }
-    */
+   
+   double pos;
+   double dur;
+   int posint=0;
+   if ([[note userInfo]objectForKey:@"pos"])
+   {
+      NSNumber* posNumber=[[note userInfo]objectForKey:@"pos"];
+      pos=[posNumber doubleValue];
+      posint =[posNumber intValue];
+      
+   }
+   if ([[note userInfo]objectForKey:@"dur"])
+   {
+      NSNumber* durNumber=[[note userInfo]objectForKey:@"dur"];
+      dur=[durNumber doubleValue];
+   }
+   //NSLog(@"Archivplayer AbspielPosAktion dur: %2.2f pos: %2.2f",dur,pos);
+   
+   if (dur - pos < 0.1)
+   {
+      //NSLog(@"Ende erreicht");
+      NSNumber* durationNumber=[NSNumber numberWithDouble:[AVAbspielplayer duration]];
+      posint=[durationNumber intValue];
+      
+   }
+   //NSLog(@"duration: %2.2d",AufnahmeZeit);
+   int Minuten = posint/60;
+   int Sekunden =posint%60;
+   //NSLog(@"Minuten: %d Sekunden: %d",Minuten,Sekunden);
+   NSString* MinutenString;
+   
+   NSString* SekundenString;
+   if (Sekunden<10)
+   {
+      SekundenString=[NSString stringWithFormat:@"0%d",Sekunden];
+   }
+   else
+   {
+      SekundenString=[NSString stringWithFormat:@"%d",Sekunden];
+   }
+   if (Minuten<10)
+   {
+      MinutenString=[NSString stringWithFormat:@"0%d",Minuten];
+   }
+   else
+   {
+      MinutenString=[NSString stringWithFormat:@"%d",Minuten];
+   }
+   [self.Abspieldauerfeld setStringValue:[NSString stringWithFormat:@"%@:%@",MinutenString, SekundenString]];
+   
+   
+   
+   //   int max =[self.Fortschritt maxValue];
+   //NSLog(@"AbspielPosAktion pos: %f dur: %f wert: %f",pos,dur,pos/dur*1024 );
+   //  [self.Abspielanzeige setMax:dur];
+   [Abspielanzeige setLevel:pos];
+   [Abspielanzeige display];
+   
+   
+   
+   //  [self.Fortschritt setDoubleValue:(pos+1)/dur*max];
 }
+
 
 - (NSString*)zeitStringVonInt:(double)zeit
 {

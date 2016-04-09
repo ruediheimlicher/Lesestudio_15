@@ -12,7 +12,7 @@
 
 - (void)AufnahmeTimerFunktion:(NSTimer*)derTimer
 {
-  //NSLog(@"AufnahmeTimerFunktion");
+  //NSLog(@"ViewController AufnahmeTimerFunktion");
    if (aufnahmetimerstatus)
    {
       AufnahmeZeit++;
@@ -39,7 +39,7 @@
       {
          MinutenString=[NSString stringWithFormat:@"%d",Minuten];
       }
- //     [self.Zeitfeld setStringValue:[NSString stringWithFormat:@"%@:%@",MinutenString, SekundenString]];
+      [self.Zeitfeld setStringValue:[NSString stringWithFormat:@"%@:%@",MinutenString, SekundenString]];
    }
    
 }
@@ -56,11 +56,12 @@
 
 - (IBAction)startAVRecord:(id)sender
 {
-   if ([AVRecorder isRecording])
+   if ([AVRecorder istRecording])
    {
       //NSLog(@"ViewController Aufnahme in Gang");
       return;
    }
+   
    if ([self.ArchivnamenPop indexOfSelectedItem]==0)
    {
       [self.StartStopString setStringValue:@"START"];
@@ -110,7 +111,6 @@
    self.istNeueAufnahme=1;
    OSErr err=0;
    
-  
    if (!(AVRecorder))
    {
       AVRecorder = [[rAVRecorder alloc]init];
@@ -202,18 +202,19 @@
 
 - (BOOL)isRecording
 {
-   return [AVRecorder isRecording];//([mCaptureMovieFileOutput outputFileURL] != nil);
+   return [AVRecorder istRecording];//([mCaptureMovieFileOutput outputFileURL] != nil);
 }
 
 #pragma mark startAVStop
 - (IBAction)startAVStop:(id)sender
 {
+   BOOL nimmtauf=[AVRecorder istRecording];
    
-   //NSLog(@"startAVStop state: %d",[sender state]);
+   NSLog(@"startAVStop state: %ld, nimmt auf: %d",(long)[sender state],nimmtauf);
    NSImage* StartRecordImg=[NSImage imageNamed:@"recordicon_k.gif"];//
    
    
-   if ([AVRecorder isRecording])
+   if ([AVRecorder istRecording])
 	  {
         NSImage* StartRecordImg=[NSImage imageNamed:@"recordicon_k.gif"];     //
        // [[self.StartStopKnopf cell]setImage:StartRecordImg];
@@ -267,7 +268,7 @@
 
 - (IBAction)stop:(id)sender
 {
-   //NSLog(@"startAVPlay");
+   //NSLog(@"stopAVPlay");
    [AVRecorder stop:nil];
    [Utils startTimeout:self.TimeoutDelay];
 }
@@ -458,7 +459,7 @@
    {
       NSNumber* durationNumber=[[note userInfo]objectForKey:@"duration"];
       AufnahmeZeit=[durationNumber intValue];
-      //NSLog(@"duration: %2.2d",AufnahmeZeit);
+      NSLog(@"duration: %2.2d",AufnahmeZeit);
       int Minuten = AufnahmeZeit/60;
       int Sekunden =AufnahmeZeit%60;
       
@@ -507,7 +508,7 @@
       NSNumber* durNumber=[[note userInfo]objectForKey:@"dur"];
       dur=[durNumber doubleValue];
    }
-NSLog(@"dur: %2.2f pos: %2.2f",dur,pos);
+   //NSLog(@"AbspielPosAktion dur: %2.2f pos: %2.2f",dur,pos);
    if (dur - pos < 0.1)
    {
       //NSLog(@"Ende erreicht");

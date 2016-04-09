@@ -56,19 +56,22 @@
 - (id)init
 {
    self = [super init];
-   if (self) {
+   if (self)
+   {
       // Create a capture session
-      session = [[AVCaptureSession alloc] init];
+      self.session = [[AVCaptureSession alloc] init];
       
+      /*
       // Attach preview to session
       CALayer *previewViewLayer = [[self previewView] layer];
-     // [previewViewLayer setBackgroundColor:CGColorGetConstantColor(kCGColorBlack)];
+     
+      // [previewViewLayer setBackgroundColor:CGColorGetConstantColor(kCGColorBlack)];
       AVCaptureVideoPreviewLayer *newPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:[self session]];
       [newPreviewLayer setFrame:[previewViewLayer bounds]];
       [newPreviewLayer setAutoresizingMask:kCALayerWidthSizable | kCALayerHeightSizable];
       [previewViewLayer addSublayer:newPreviewLayer];
       [self setPreviewLayer:newPreviewLayer];
-      
+      */
       // Start the session
       [[self session] startRunning];
       
@@ -167,7 +170,7 @@
 #pragma mark - Device selection
 - (void)refreshDevices
 {
-   [self setVideoDevices:[[AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo] arrayByAddingObjectsFromArray:[AVCaptureDevice devicesWithMediaType:AVMediaTypeMuxed]]];
+ //  [self setVideoDevices:[[AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo] //arrayByAddingObjectsFromArray://[AVCaptureDevice devicesWithMediaType:AVMediaTypeMuxed]]];
    [self setAudioDevices:[AVCaptureDevice devicesWithMediaType:AVMediaTypeAudio]];
    
    [[self session] beginConfiguration];
@@ -404,6 +407,8 @@
    return ((videoDeviceInput != nil) || (audioDeviceInput != nil));
 }
 
+
+
 + (NSSet *)keyPathsForValuesAffectingRecording
 {
    return [NSSet setWithObject:@"movieFileOutput.recording"];
@@ -419,7 +424,7 @@
 {
  //  NSDate *now = [[NSDate alloc] init];
  //  long t1 = (int)now.timeIntervalSince1970 - startzeit;
-   //NSLog(@"setRecording leserpfad: %@",leserpfad);
+   NSLog(@"setRecording record: %d leserpfad: %@",record,leserpfad);
    LeserPfad = leserpfad;
    if (record)
    {
@@ -431,7 +436,7 @@
       }
     
       tempDirPfad = [NSTemporaryDirectory() stringByAppendingPathComponent:[[NSProcessInfo processInfo] globallyUniqueString]];
-      //NSLog(@"tempDirPfad: %@",tempDirPfad);
+      NSLog(@"tempDirPfad: %@",tempDirPfad);
       tempfileURL = [NSURL fileURLWithPath:tempDirPfad isDirectory:YES];
       //NSLog(@"tempfileURL: %@",tempfileURL);
      // NSDate *now = [[NSDate alloc] init];
@@ -462,7 +467,7 @@
 
 - (void)AufnahmeTimerFunktion:(NSTimer*)derTimer
 {
-   //NSLog(@"AufnahmeTimerFunktion");
+   NSLog(@"AVRecorder AufnahmeTimerFunktion");
 }
 
 
@@ -779,7 +784,7 @@
 
 - (void)setPlaying:(BOOL)play
 {
-   //NSLog(@"AVVRecorder startAVPlay");
+   NSLog(@"AVVRecorder setPlaying: y/n %d",play);
    AVCaptureDevice *device = [self selectedAudioDevice];
    [self setTransportMode:AVCaptureDeviceTransportControlsPlayingMode speed:play ? 1.f : 0.f forDevice:device];
 }
@@ -794,6 +799,7 @@
    AVCaptureDevice *device = [self selectedVideoDevice];
    return [device transportControlsSupported] && ([device transportControlsSpeed] < -1.f);
 }
+
 
 - (void)setRewinding:(BOOL)rewind
 {
@@ -850,7 +856,7 @@ NSError *error = nil;
 {
    NSDate *now = [[NSDate alloc] init];
    long t3 = now.timeIntervalSince1970/1000000 - startzeit;
-   NSLog(@"setRecording t3: %ld",t3);
+   NSLog(@"didStartRecordingToOutputFileAtURL t3: %ld",t3);
 
    //NSLog(@"Did start recording to %@", [fileURL description]);
   

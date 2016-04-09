@@ -35,6 +35,8 @@
 - (void)prepareAdminAufnahmeAnURL:(NSURL*)url;
 - (NSURL*)AufnahmeURL;
 - (BOOL)isPlaying;
+- (BOOL)istPlaying;
+
 - (void)invalTimer;
 - (double)duration;
 - (double)position;

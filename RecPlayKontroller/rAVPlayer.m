@@ -297,6 +297,10 @@
 {
    return [AVAbspielplayer isPlaying];
 }
+- (BOOL)istPlaying
+{
+   return [AVAbspielplayer isPlaying];
+}
 
 - (double)duration
 {

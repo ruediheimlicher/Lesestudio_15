@@ -72,7 +72,7 @@ enum
       //NSLog(@"User nach gewuenschter Lesebox fragen LeseboxPfad: %@",LeseboxPfad);
       //Rücgabe: LeseboxPfad ungeprüft
    }
-   NSLog(@"Leseboxvorbereiten: LeseboxPfad: %@",self.LeseboxPfad);
+   //NSLog(@"Leseboxvorbereiten: LeseboxPfad: %@",self.LeseboxPfad);
    
    BOOL ArchivOK=NO;
    BOOL ProjektListeOK=NO;
@@ -87,7 +87,7 @@ enum
    //NSLog(@"Leseboxvorbereiten istSystemVolume: %d",self.istSystemVolume);
    //NSLog(@"Leseboxvorbereiten vor Leseboxcomplete: LeseboxPfad: %@",self.LeseboxPfad);
    NSArray* checkArray = [Utils LeseboxCompleteAnPfad: self.LeseboxPfad];
-   NSLog(@"LeseboxComplete *%@*",checkArray);
+   //NSLog(@"LeseboxComplete *%@*",checkArray);
    
    self.LeseboxOK=[Utils LeseboxValidAnPfad:self.LeseboxPfad aufSystemVolume:self.istSystemVolume];//Lesebox checken, ev einrichten
    //NSLog(@"Leseboxvorbereiten nach LeseboxOK: LeseboxOK: %d  self.istSystemVolume: %d",self.LeseboxOK,self.istSystemVolume);

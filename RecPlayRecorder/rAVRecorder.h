@@ -69,7 +69,8 @@
 @property (retain) AVCaptureSession *session;
 @property (readonly) NSArray *availableSessionPresets;
 @property (readonly) BOOL hasRecordingDevice;
-@property (assign,getter=isRecording) BOOL recording;
+//@property (assign,getter=isRecording) BOOL recording;
+@property (assign) BOOL recording;
 
 #pragma mark - Preview
 @property (assign) IBOutlet NSView *previewView;

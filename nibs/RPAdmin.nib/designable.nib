@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment version="1050" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="8191"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9532"/>
         <capability name="box content view" minToolsVersion="7.0"/>
     </dependencies>
     <objects>
@@ -45,7 +45,7 @@
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <window title="AdminPlayer" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="5" userLabel="Window">
             <windowStyleMask key="styleMask" titled="YES" miniaturizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES"/>
@@ -288,7 +288,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <popUpButtonCell key="cell" type="bevel" title="Projekt wählen:" bezelStyle="regularSquare" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" pullsDown="YES" preferredEdge="maxY" selectedItem="193" id="348">
                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="system"/>
+                                        <font key="font" metaFont="menu"/>
                                         <menu key="menu" title="OtherViews" id="190">
                                             <items>
                                                 <menuItem title="Projekt wählen:" state="on" hidden="YES" id="193"/>
@@ -326,7 +326,7 @@
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="20" headerView="381" id="234" customClass="rAdminListe">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="489" height="177"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="491" height="177"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                                     <color key="backgroundColor" red="0.76277375219999999" green="1" blue="0.77737224100000002" alpha="1" colorSpace="deviceRGB"/>
@@ -387,7 +387,7 @@
                                                             <autoresizingMask key="autoresizingMask"/>
                                                         </scroller>
                                                         <tableHeaderView key="headerView" id="381">
-                                                            <rect key="frame" x="0.0" y="0.0" width="489" height="17"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="491" height="17"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                         </tableHeaderView>
                                                     </scrollView>
@@ -407,7 +407,7 @@
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="none" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" headerView="378" id="240">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="362" height="153"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="347" height="19"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -419,7 +419,7 @@
                                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                                 <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
                                                                             </tableHeaderCell>
-                                                                            <imageCell key="dataCell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyDown" image="417D3443-D4DC-45CC-B0F7-199853B5B58D" id="274"/>
+                                                                            <imageCell key="dataCell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyDown" image="41DA7859-7A45-4DD0-BB53-019383362E8E" id="274"/>
                                                                         </tableColumn>
                                                                         <tableColumn identifier="aufnahme" editable="NO" width="272.51123046875" minWidth="40" maxWidth="1000" id="242">
                                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Aufnahme">
@@ -470,7 +470,7 @@
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <popUpButtonCell key="cell" type="push" title=" " bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="246" id="351">
                                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                            <font key="font" metaFont="system"/>
+                                                            <font key="font" metaFont="menu"/>
                                                             <menu key="menu" title="OtherViews" id="244">
                                                                 <items>
                                                                     <menuItem title=" " state="on" id="246"/>
@@ -640,7 +640,7 @@
                                     <rect key="frame" x="102" y="39" width="61" height="20"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" drawsBackground="YES" id="421">
-                                        <font key="font" metaFont="titleBar" size="12"/>
+                                        <font key="font" metaFont="cellTitle"/>
                                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" red="0.90217393639999999" green="0.90217393639999999" blue="0.90217393639999999" alpha="1" colorSpace="calibratedRGB"/>
                                     </textFieldCell>
@@ -719,10 +719,10 @@
         </window>
     </objects>
     <resources>
-        <image name="417D3443-D4DC-45CC-B0F7-199853B5B58D" width="17" height="17">
+        <image name="41DA7859-7A45-4DD0-BB53-019383362E8E" width="17" height="17">
             <mutableData key="keyedArchiveRepresentation">
-YnBsaXN0MDDUAQIDBAUGPj9YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
-GR4fIyQsLzI4O1UkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
+YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
+GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
 c1dOU0NvbG9ygAKADRIgwAAAgAOAC1h7MTcsIDE3fdIVChYYWk5TLm9iamVjdHOhF4AEgArSFQoaHaIb
 HIAFgAaACRAA0iAKISJfEBROU1RJRkZSZXByZXNlbnRhdGlvboAHgAhPESBiTU0AKgAABIz29vb/9vb2
 //b29v/29vb/9vb2/9bW1v/29vb/9vb2//b29v/29vb/2dnZ/4qKiv/v7+//9vb2/83Nzf+QkJD/fX19
@@ -863,13 +863,13 @@ brTZtke3ubkwuqq8JL2bvw7AfcHqw1fExMYyx6HJEsqEy/fNbM7k0F3R2dNX1NfWVNfJ2TLaktvr3T7e
 jt/d4S3ifuPQ5SPmeOfN6SPqduvA7P7uMe9K8FnxWfJO8zz0I/UH9eL2uveA+D348PmB+hL6oPsJ+3H7
 2fxC/Jn86P03/YX91P4j/mn+rf7w/zT/eP+7//8AAHNmMzIAAAAAAAEMQgAABd7///MmAAAHkgAA/ZH/
 //ui///9owAAA9wAAMBsbW1vZAAAAAAAAAYQAACcxQAAAADGeuOAAAAAAAAAAAAAAAAAAAAAANIlJico
-WiRjbGFzc25hbWVYJGNsYXNzZXNfEBBOU0JpdG1hcEltYWdlUmVwoykqK18QEE5TQml0bWFwSW1hZ2VS
-ZXBaTlNJbWFnZVJlcFhOU09iamVjdNIlJi0uV05TQXJyYXmiLSvSJSYwMV5OU011dGFibGVBcnJheaMw
-LSvTMzQKNTY3V05TV2hpdGVcTlNDb2xvclNwYWNlRDAgMAAQA4AM0iUmOTpXTlNDb2xvcqI5K9IlJjw9
-V05TSW1hZ2WiPCtfEA9OU0tleWVkQXJjaGl2ZXLRQEFUcm9vdIABAAgAEQAaACMALQAyADcARgBMAFcA
-XgBlAHIAeQCBAIMAhQCKAIwAjgCXAJwApwCpAKsArQCyALUAtwC5ALsAvQDCANkA2wDdIUMhSCFTIVwh
-byFzIYYhkSGaIZ8hpyGqIa8hviHCIckh0SHeIeMh5SHnIewh9CH3IfwiBCIHIhkiHCIhAAAAAAAAAgEA
-AAAAAAAAQgAAAAAAAAAAAAAAAAAAIiM
+WiRjbGFzc25hbWVYJGNsYXNzZXNfEBBOU0JpdG1hcEltYWdlUmVwoycpKlpOU0ltYWdlUmVwWE5TT2Jq
+ZWN00iUmLC1XTlNBcnJheaIsKtIlJi8wXk5TTXV0YWJsZUFycmF5oy8sKtMyMwo0NTZXTlNXaGl0ZVxO
+U0NvbG9yU3BhY2VEMCAwABADgAzSJSY4OVdOU0NvbG9yojgq0iUmOzxXTlNJbWFnZaI7Kl8QD05TS2V5
+ZWRBcmNoaXZlctE/QFRyb290gAEACAARABoAIwAtADIANwBGAEwAVwBeAGUAcgB5AIEAgwCFAIoAjACO
+AJcAnACnAKkAqwCtALIAtQC3ALkAuwC9AMIA2QDbAN0hQyFIIVMhXCFvIXMhfiGHIYwhlCGXIZwhqyGv
+IbYhviHLIdAh0iHUIdkh4SHkIekh8SH0IgYiCSIOAAAAAAAAAgEAAAAAAAAAQQAAAAAAAAAAAAAAAAAA
+IhA
 </mutableData>
         </image>
         <image name="foreward_w" width="101" height="102"/>
