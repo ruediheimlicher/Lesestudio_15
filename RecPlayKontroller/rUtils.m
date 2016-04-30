@@ -1794,7 +1794,7 @@ return versionOK;
 	NSFileManager *Filemanager=[NSFileManager defaultManager];
 	if ([Filemanager fileExistsAtPath:tempPListPfad])
 	{
-		NSMutableDictionary*  tempPListDic=[NSDictionary dictionaryWithContentsOfFile:tempPListPfad];
+		NSMutableDictionary*  tempPListDic=[NSMutableDictionary dictionaryWithContentsOfFile:tempPListPfad];
 		if ([tempPListDic objectForKey:@"projektarray"])
 		{
 			return [tempPListDic objectForKey:@"projektarray"];

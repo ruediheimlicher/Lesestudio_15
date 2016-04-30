@@ -327,7 +327,7 @@ typedef NS_ENUM(NSInteger, A)
          {
             //NSLog(@"alleKommentareZuTitel: Kommentarordner von %@ ist leer",tempLeser);
             //NSString* ArchivLeerString=NSLocalizedString(@"There are no comments for this project",@"FŸr dieses Projekt hat es keine Anmerkungen");
-            NSString* ArchivLeerString=@"FŸr dieses Projekt hat es keine Anmerkungen";
+            NSString* ArchivLeerString=@"Fuer dieses Projekt hat es keine Anmerkungen";
             [alleKommentareArray addObject:ArchivLeerString];
             
             //return alleKommentareArray;
@@ -344,7 +344,7 @@ typedef NS_ENUM(NSInteger, A)
                
                //NSLog(@"alleKommentareZuTitel: Kommentarordner nach .DS von %@ ist leer",tempLeser);
                //NSString* ArchivLeerString=NSLocalizedString(@"There are no comments for this project",@"FŸr dieses Projekt hat es keine Anmerkungen");
-               NSString* ArchivLeerString=@"FŸr dieses Projekt hat es keine Anmerkungen";
+               NSString* ArchivLeerString=@"Fuer dieses Projekt hat es keine Anmerkungen";
                [alleKommentareArray addObject:ArchivLeerString];
                
                //return alleKommentareArray;

@@ -557,7 +557,7 @@ return [KommentarFenster nurMarkierte];
 		//Keine Kommentare für diese Settings
 		NSMutableDictionary* keinKommentarStringDic=[[NSMutableDictionary alloc]initWithCapacity:0];
 		NSString* keinKommentarProjektString=@"Leerer Ordner für Anmerkungen";
-		NSString* keinKommentarString=@"Keine Kommentare für diese Einstellungen";
+		NSString* keinKommentarString=@"Keine Kommentare fuer diese Einstellungen";
 		
 		[keinKommentarStringDic setObject: keinKommentarString forKey:@"kommentarstring"];
 		[keinKommentarStringDic setObject: keinKommentarProjektString forKey:@"projekt"];

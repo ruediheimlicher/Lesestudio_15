@@ -74,7 +74,7 @@
    [EingabeFeld setToolTip:@"Name des neuen Projekts"];
    [FixTaste setToolTip:@"Titelfuer neue Aufnahmen fixieren.\nDie Liste der Titel kann im Menu 'Admin->Change Nameliste' veraendert werden."];
    [InListeTaste setToolTip:@"Einen neuen Projektordner einrichten und in der Liste einsetzen."];
-   [AuswahlenTaste setToolTip:@"Das angeklickte Projekt auswählen"];
+   [AuswahlenTaste setToolTip:@"Das angeklickte Projekt auswaehlen"];
    [EntfernenTaste setToolTip:@"Das angeklickte Projekt mit verschiedenen Optionen entfernen."];
 
 
