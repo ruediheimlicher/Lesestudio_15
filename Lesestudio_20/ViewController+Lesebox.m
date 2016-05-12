@@ -724,7 +724,7 @@ enum
    NSString *bundlePfad = [[NSBundle mainBundle] bundlePath];
    //NSLog(@"Leseboxvorbereiten	bundlePfad: %@",bundlePfad);
    NSArray* homeArray = [[NSFileManager defaultManager]contentsOfDirectoryAtPath:[bundlePfad stringByDeletingLastPathComponent] error:nil];
- 
+
    long leseboxindex = [homeArray indexOfObject:@"Lesebox"];
    //NSLog(@"Leseboxvorbereiten	homeArray: %@ leseboxindex: %ld",homeArray,leseboxindex);
    if (leseboxindex < NSNotFound)

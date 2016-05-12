@@ -424,7 +424,7 @@
 {
  //  NSDate *now = [[NSDate alloc] init];
  //  long t1 = (int)now.timeIntervalSince1970 - startzeit;
-   NSLog(@"setRecording record: %d leserpfad: %@",record,leserpfad);
+   //NSLog(@"setRecording record: %d leserpfad: %@",record,leserpfad);
    LeserPfad = leserpfad;
    if (record)
    {
@@ -436,7 +436,7 @@
       }
     
       tempDirPfad = [NSTemporaryDirectory() stringByAppendingPathComponent:[[NSProcessInfo processInfo] globallyUniqueString]];
-      NSLog(@"tempDirPfad: %@",tempDirPfad);
+      //NSLog(@"tempDirPfad: %@",tempDirPfad);
       tempfileURL = [NSURL fileURLWithPath:tempDirPfad isDirectory:YES];
       //NSLog(@"tempfileURL: %@",tempfileURL);
      // NSDate *now = [[NSDate alloc] init];
@@ -856,7 +856,7 @@ NSError *error = nil;
 {
    NSDate *now = [[NSDate alloc] init];
    long t3 = now.timeIntervalSince1970/1000000 - startzeit;
-   NSLog(@"didStartRecordingToOutputFileAtURL t3: %ld",t3);
+   //NSLog(@"didStartRecordingToOutputFileAtURL t3: %ld",t3);
 
    //NSLog(@"Did start recording to %@", [fileURL description]);
   
@@ -894,7 +894,7 @@ NSError *error = nil;
    aufnahmezeit = [[NSNumber numberWithFloat:zeit]intValue];
    // aufnahmezeit = lrintf(zeit);
    
-   NSLog(@"didFinishRecordingToOutputFileAtURL: %@ an Leserpfad : %@ zeit: %f aufnahmezeit: %d",outputFileURL,LeserPfad,zeit,aufnahmezeit);
+   //NSLog(@"didFinishRecordingToOutputFileAtURL: %@ an Leserpfad : %@ zeit: %f aufnahmezeit: %d",outputFileURL,LeserPfad,zeit,aufnahmezeit);
    
    NSNotificationCenter * nc=[NSNotificationCenter defaultCenter];
    NSMutableDictionary* saveDic = [[NSMutableDictionary alloc]initWithCapacity:0];

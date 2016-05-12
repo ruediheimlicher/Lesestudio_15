@@ -227,12 +227,12 @@ NSString*	RPDevicedatenKey=	@"RPDevicedaten";
           selector:@selector(StartStatusNotifikationAktion:)
               name:@"StartStatus"
             object:nil];
-   
+ /*
    [nc addObserver:self
           selector:@selector(UmgebungAktion:)
               name:@"Umgebung"
             object:nil];
-   
+  */ 
    [nc addObserver:self
           selector:@selector(VolumesAktion:)
               name:@"VolumeWahl"

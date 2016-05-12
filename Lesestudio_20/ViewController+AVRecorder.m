@@ -135,7 +135,7 @@
    self.Leser=[self.ArchivnamenPop titleOfSelectedItem];
    long n=[self.ArchivnamenPop indexOfSelectedItem];
    //NSLog(@"Selected Item: %ld",n);
-   NSLog(@"startRecord:Selected Item: %ld		Leser: %@",n,self.Leser);
+   //NSLog(@"startRecord:Selected Item: %ld		Leser: %@",n,self.Leser);
    
    
    NSFileManager *Filemanager=[NSFileManager defaultManager];
@@ -210,7 +210,7 @@
 {
    BOOL nimmtauf=[AVRecorder istRecording];
    
-   NSLog(@"startAVStop state: %ld, nimmt auf: %d",(long)[sender state],nimmtauf);
+   //NSLog(@"startAVStop state: %ld, nimmt auf: %d",(long)[sender state],nimmtauf);
    NSImage* StartRecordImg=[NSImage imageNamed:@"recordicon_k.gif"];//
    
    
@@ -352,7 +352,7 @@
 
 - (void)RecordingAktion:(NSNotification*)note
 {
-   NSLog(@"RecordingAktion note: %@",[note description]);
+  // NSLog(@"RecordingAktion note: %@",[note description]);
    if ([[note userInfo ]objectForKey:@"record"])
    {
       switch([[[note userInfo ] objectForKey:@"record"]intValue])
@@ -459,7 +459,7 @@
    {
       NSNumber* durationNumber=[[note userInfo]objectForKey:@"duration"];
       AufnahmeZeit=[durationNumber intValue];
-      NSLog(@"duration: %2.2d",AufnahmeZeit);
+     // NSLog(@"duration: %2.2d",AufnahmeZeit);
       int Minuten = AufnahmeZeit/60;
       int Sekunden =AufnahmeZeit%60;
       
