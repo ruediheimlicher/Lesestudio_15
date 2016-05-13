@@ -35,9 +35,9 @@ enum
 */
    //NSLog(@"helpString: %@",[Utils helpString:@"infoRecorder"]);
 
-   NSString* teststring = @"ES 1 30. Juni 2010.m4a";
+//   NSString* teststring = @"ES 1 30. Juni 2010.m4a";
    
-   NSString* resultat = [self AufnahmeTitelVon:teststring];
+//   NSString* resultat = [self AufnahmeTitelVon:teststring];
    
    //NSLog(@"teststring: %@ resultat: %@",teststring,resultat);
    
@@ -61,6 +61,7 @@ enum
    
    //	LeseboxDa=YES;
    //	LeseboxPfad=@"/Users/sysadmin/Documents/Lesebox";
+   
    if (!self.LeseboxDa)
    {
       //NSLog(@"User nach gewuenschter Lesebox fragen");
@@ -70,7 +71,7 @@ enum
       
       self.LeseboxURL =[NSURL fileURLWithPath:self.LeseboxPfad];
       //NSLog(@"User nach gewuenschter Lesebox fragen LeseboxPfad: %@",LeseboxPfad);
-      //Rücgabe: LeseboxPfad ungeprüft
+      //Rückgabe: LeseboxPfad ungeprüft
    }
    //NSLog(@"Leseboxvorbereiten: LeseboxPfad: %@",self.LeseboxPfad);
    
@@ -84,6 +85,7 @@ enum
    NSString* ArchivString=[NSString stringWithFormat:@"Archiv"];
    NSString* KommentarString=@"Anmerkungen";
    self.istSystemVolume=[Utils istSystemVolumeAnPfad:self.LeseboxPfad];
+   
    //NSLog(@"Leseboxvorbereiten istSystemVolume: %d",self.istSystemVolume);
    //NSLog(@"Leseboxvorbereiten vor Leseboxcomplete: LeseboxPfad: %@",self.LeseboxPfad);
    NSArray* checkArray = [Utils LeseboxCompleteAnPfad: self.LeseboxPfad];
@@ -91,8 +93,19 @@ enum
    
    self.LeseboxOK=[Utils LeseboxValidAnPfad:self.LeseboxPfad aufSystemVolume:self.istSystemVolume];//Lesebox checken, ev einrichten
    //NSLog(@"Leseboxvorbereiten nach LeseboxOK: LeseboxOK: %d  self.istSystemVolume: %d",self.LeseboxOK,self.istSystemVolume);
+
+   NSUserDefaults*defaultData = [NSUserDefaults standardUserDefaults];
+   [defaultData setValue:self.LeseboxPfad forKey:@"lastleseboxpfad"];
+   [defaultData setValue:[NSNumber numberWithBool:self.istSystemVolume]forKey:@"istsystemvolume"];
    
+   [[NSUserDefaults standardUserDefaults]synchronize];
    
+   // Kontrolle
+   NSString* lastleseboxpfad = [[NSUserDefaults standardUserDefaults] stringForKey:@"lastleseboxpfad"];
+   BOOL istsysvol = [[NSUserDefaults standardUserDefaults] boolForKey:@"istsystemvolume"];
+   
+   NSLog(@"Leseboxvorbereiten lastleseboxpfad: %@ istsysvol: %d",lastleseboxpfad,istsysvol);
+
    if (self.LeseboxOK)
    {
       //NSLog(@"Leseboxvorbereiten LeseboxOK=1 PListDic lesen");
@@ -664,6 +677,7 @@ enum
       {
          [VolumesPanel setLeseboxPfad:tempLeseboxPfad];
          [VolumesPanel setLeseboxOK:YES];
+         [VolumesPanel setPfadwahl:@"Letzter verwendeter Pfad"];
       }
       else
       {
@@ -711,6 +725,51 @@ enum
 
 - (NSString*) chooseLeseboxPfad
 {
+   // ******
+   if (!Utils)
+   {
+      Utils = [[rUtils alloc ]init];
+   }
+   NSArray* hostarray = [Utils hostarray];
+   NSLog(@"chooseLeseboxPfad	 hostarray: %@",hostarray);
+   
+   NSUserDefaults*defaultData = [NSUserDefaults standardUserDefaults];
+   NSLog(@"defaultData: %@",defaultData);
+   
+   NSString* pickLeseboxPfad = @"--";
+   BOOL lastpfadok = NO;
+   NSString* defaultleseboxpfad = [[NSUserDefaults standardUserDefaults] stringForKey:@"lastleseboxpfad"];
+   BOOL istsysvol = [[NSUserDefaults standardUserDefaults] boolForKey:@"istsystemvolume"];
+   NSString*  PfadwahlString = NSLocalizedString(@"no path choosen yet.", nil);
+   NSLog(@"chooseLeseboxPfad lastleseboxpfad: %@ istsysvol: %d",defaultleseboxpfad,istsysvol);
+   
+   if ([defaultleseboxpfad rangeOfString:@"Users/" ].location < NSNotFound)
+   {
+      // lastleseboxpfad war auf dem lokalen computer
+      NSLog(@"chooseLeseboxPfad pick pfad: %@",defaultleseboxpfad);
+      pickLeseboxPfad = defaultleseboxpfad;
+      BOOL lastpfadok = YES;
+      PfadwahlString = NSLocalizedString(@"path on this volume.", nil);
+      
+   }
+   else
+   {
+      for (int i=0;i<[hostarray count];i++)
+      {
+         if (([[hostarray objectAtIndex:i]rangeOfString:[defaultleseboxpfad stringByDeletingLastPathComponent]].location < NSNotFound))
+         {
+            // lastleseboxpfad war auf einem externen Volume (Stick)
+            NSLog(@"chooseLeseboxPfad hostarray pick pfad: %@",[hostarray objectAtIndex:i]);
+            pickLeseboxPfad = [hostarray objectAtIndex:i];
+            BOOL lastpfadok = YES;
+            PfadwahlString = NSLocalizedString(@"path on external volume.", nil);
+         }
+      }
+   }
+   
+   NSLog(@"chooseLeseboxPfad pick pfad: %@",pickLeseboxPfad);
+     // * *******
+
    if (VolumesPanel)
    {
       
@@ -719,22 +778,27 @@ enum
    {
       VolumesPanel = [[rVolumes alloc]init];
    }
+   
    NSModalSession VolumeSession=[NSApp beginModalSessionForWindow:[VolumesPanel window]];
    
-   NSString *bundlePfad = [[NSBundle mainBundle] bundlePath];
-   //NSLog(@"Leseboxvorbereiten	bundlePfad: %@",bundlePfad);
-   NSArray* homeArray = [[NSFileManager defaultManager]contentsOfDirectoryAtPath:[bundlePfad stringByDeletingLastPathComponent] error:nil];
+   NSString *homePfad = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
+   NSLog(@"Leseboxvorbereiten	homePfad: %@",homePfad);
+   NSArray* homeArray = [[NSFileManager defaultManager]contentsOfDirectoryAtPath:homePfad  error:nil];
 
    long leseboxindex = [homeArray indexOfObject:@"Lesebox"];
-   //NSLog(@"Leseboxvorbereiten	homeArray: %@ leseboxindex: %ld",homeArray,leseboxindex);
+   NSLog(@"Leseboxvorbereiten	homeArray: %@ leseboxindex: %ld",homeArray,leseboxindex);
+   
    if (leseboxindex < NSNotFound)
    {
-      NSString* tempLeseboxPfad =[[bundlePfad stringByDeletingLastPathComponent]stringByAppendingPathComponent:@"Lesebox" ];
+      NSString* tempLeseboxPfad =[homePfad stringByAppendingPathComponent:@"Lesebox" ];
        BOOL isDir;
       if ([[NSFileManager defaultManager]fileExistsAtPath:tempLeseboxPfad isDirectory:&isDir] && isDir)
       {
-         [VolumesPanel setLeseboxPfad:tempLeseboxPfad];
+         [VolumesPanel setLeseboxPfad:pickLeseboxPfad];
+        //  [VolumesPanel setLeseboxPfad:@"abc"];
+         
          [VolumesPanel setLeseboxOK:YES];
+         
       }
       else
       {
@@ -745,7 +809,13 @@ enum
    {
       [VolumesPanel setLeseboxPfad:@"--"];
    }
- 
+  
+   //pickLeseboxPfad = @"dsfghjk";
+ //[VolumesPanel setLeseboxPfad:pickLeseboxPfad];
+   [VolumesPanel setLastPfadOK:lastpfadok];
+   [VolumesPanel setPfadwahl:PfadwahlString];
+
+ //
    
    long modalAntwort = [NSApp runModalForWindow:[VolumesPanel window]];
    
@@ -753,8 +823,8 @@ enum
    
    //LeseboxPfad aus Panel abfragen
    NSString* tempLeseboxPfad=[NSString stringWithString:[VolumesPanel LeseboxPfad]];
-   
-   //Für Volumes mit System zeigt der Leseboxpfad auf einen Ordner in Documents
+ //  [VolumesPanel setPfadLabel:[[NSBundle mainBundle]bundlePath]];
+      //Für Volumes mit System zeigt der Leseboxpfad auf einen Ordner in Documents
    //Für Externe HDs zeigt der Leseboxpfad auf einen Ordner direkt auf der HD.
    //Die PList wird im Ordner 'Data' in der Lesebox abgelegt.
    

@@ -23,7 +23,7 @@
 	IBOutlet id NetzwerkDrawer;
    
    
-	
+	IBOutlet NSTextField* PfadwahlFeld;
 	IBOutlet id PfadFeld;
 	IBOutlet id LeseboxerfolgFeld;
 
@@ -55,6 +55,8 @@
 - (void)setNetworkArray:(NSArray*) derNetworkArray;
 - (void) setLeseboxPfad:(NSString*)leseboxpfad;
 - (void) setLeseboxOK:(BOOL)status;
+- (void)setPfadwahl:(NSString*)pfadwahl;
+- (void)setLastPfadOK:(BOOL)lastpfadok;
 - (NSString*)LeseboxPfad;
 - (BOOL)istSystemVolume;
 - (IBAction)reportHelp:(id)sender;

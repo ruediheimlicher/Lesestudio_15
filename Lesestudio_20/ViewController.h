@@ -60,7 +60,7 @@
    NSString *	RPBewertungKey;
    NSString *	RPNoteKey;
    NSString *	RPStartStatusKey;
-   
+   NSString *	lastPfad;
    NSMutableData*						RPDevicedaten;
    NSMutableData*						SystemDevicedaten;
 

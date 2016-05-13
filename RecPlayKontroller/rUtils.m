@@ -462,6 +462,26 @@ Gibt den Pfad der Lesebox auf home zurück
   
 }
 
+- (NSArray*)hostarray
+{
+  
+   //Eingeloggte Volumes mit Lesebox suchen
+   NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
+
+   NSMutableArray * volumesArray=[NSMutableArray arrayWithArray:[workspace mountedLocalVolumePaths]];
+   //NSLog(@"mountedLocalVolumePaths:\nvolumesArray raw: %@   Anzahl Volumes: %d",[volumesArray description],[volumesArray count]);
+   
+   [volumesArray removeObject:@"/"];
+   [volumesArray removeObject:@"/Network"];
+   [volumesArray removeObject:@"/Volumes/Untitled"];
+   [volumesArray removeObject:@"/net"];
+   [volumesArray removeObject:@".TemporaryItems"];
+   [volumesArray removeObject:@"/Volumes/MobileBackups"];
+   
+ //  NSLog(@"mountedLocalVolumePaths:\nvolumesArray sauber: %@   Anzahl Volumes: %ld",[volumesArray description],[volumesArray count]);
+
+   return (NSArray*)volumesArray;
+}
 
 - (NSArray*) checkUsersMitLesebox
 {
@@ -524,7 +544,7 @@ Die Dics enthalten den Pfad und eine Anzeige für die Lesebox
 	[volumesArray removeObject:@".TemporaryItems"];
    [volumesArray removeObject:@"/Volumes/MobileBackups"];
 
-	//NSLog(@"mountedLocalVolumePaths:\nvolumesArray sauber: %@   Anzahl Volumes: %d",[volumesArray description],[volumesArray count]);
+	NSLog(@"mountedLocalVolumePaths:\nvolumesArray sauber: %@   Anzahl Volumes: %d",[volumesArray description],[volumesArray count]);
 	int volumesIndex;
 	if ([volumesArray count]) //Es sind Volumes eingeloggt
 	{
@@ -774,7 +794,7 @@ NSAppleEventDescriptor *netDiskNames = [volumeInfoScpt executeAndReturnError:&di
 - (NSArray*) checkNetzwerkVolumes
 {
 /*
-Gibt die Volumes im Ordner 'Network' zurück
+ Gibt die Volumes im Ordner 'Network' zurück
 */
 
 	NSFileManager *Filemanager = [NSFileManager defaultManager];

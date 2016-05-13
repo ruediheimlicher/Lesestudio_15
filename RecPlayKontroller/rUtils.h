@@ -61,6 +61,7 @@
 - (NSArray*)UProjektArray;
 - (void)setUProjektArray:(NSArray*)derArray;
 #pragma mark -
+- (NSArray*)hostarray;
 - (NSArray*) checkUsersMitLesebox;
 - (NSArray*) checkNetzwerkVolumes;
 - (NSString*)checkHomeLesebox;

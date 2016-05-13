@@ -59,7 +59,6 @@
 	
 	[TitelString setFont: Titelfont];
 	[TitelString setTextColor: TitelFarbe];
-	
 	NSFont* ComputerimNetzfont;
 	ComputerimNetzfont=[NSFont fontWithName:@"Helvetica" size: 14];
 	NSColor * ComputerimNetzFarbe=[NSColor blueColor];
@@ -87,6 +86,7 @@
 	[NetzwerkKnopf setToolTip:@"Öffnet ein Dialogfeld, um die Verbindung zu einen Benutzer im Netzwerk einzurichten."];
 	[UserTable setToolTip:@"Liste der angemeldeten Benutzer."];
 //	//NSLog(@"rVolumes: awakeFromNib end");
+//   [PfadwahlFeld setStringValue:@"abcdef"];
 }
 
 - (int) anzVolumes
@@ -108,6 +108,29 @@
 - (void) setLeseboxOK:(BOOL)status
 {
    [AuswahlenKnopf setEnabled:status];
+   if (status)
+   {
+      [AuswahlenKnopf setKeyEquivalent:@"\r"];
+   }
+   else
+   {
+      [AuswahlenKnopf setKeyEquivalent:@""];
+   }
+}
+
+- (void)setLastPfadOK:(BOOL)lastpfadok
+{
+   NSLog(@"Volumes setLastPfadOK: %d",lastpfadok);
+ //  [PfadwahlFeld setStringValue:NSLocalizedString(@"Last used Path", nil)];
+   
+}
+
+- (void)setPfadwahl:(NSString*)pfadwahl
+{
+   
+   NSLog(@"*Volumes setPfadLabel: %@",pfadwahl);
+   [PfadwahlFeld setStringValue:pfadwahl];
+   
 }
 
 
@@ -479,10 +502,6 @@
 - (NSString*)chooseNetworkLeseboxPfad
 {
    
-   BOOL erfolg=NO;
-   NSFileManager *Filemanager=[NSFileManager defaultManager];
-   NSString* lb=@"Lesebox";
-   NSString* NetzPfad=@"//Volumes";
    NSOpenPanel * LeseboxDialog=[NSOpenPanel openPanel];
    NSImage* OpenPanelImg=[NSImage imageNamed:@"MicroIcon120.png"];
    NSRect cellFeld = NSMakeRect(0, 0, 60, 60);
@@ -495,11 +514,12 @@
    [LeseboxDialog setAllowsMultipleSelection:NO];
    LeseboxDialog.prompt = @"Ordner auswählen";
    [LeseboxDialog setDirectoryURL:[NSURL fileURLWithPath:[NSHomeDirectory()stringByAppendingPathComponent:@"Documents"]]];
-   NSString* s1=@"Auf welchem Computer soll die Lesebox eingerichtet werden?";
-   NSString* s2=@"Die Lesebox auch nach dem Login eingerichtet werden";
+   NSString* s1=@"Wo ist die Lesebox zu finden?";
+   NSString* s2=@"Wenn noch keine Lesebox vorhanden ist, kann sie auch nach dem Login eingerichtet werden";
    NSString* s3=@"Auswahl des Orders, in dem die Lesebox liegt oder dem die Lesebox eingerichtet werden soll";
+   s3=@"";
    NSFont* TitelFont=[NSFont fontWithName:@"Helvetica" size: 24];
-   NSString* DialogTitelString=[NSString stringWithFormat:@"%@\r\r%@\r%@",s1,s2,s3];
+   NSString* DialogTitelString=[NSString stringWithFormat:@"%@\r%@\r%@",s1,s2,s3];
    //[DialogTitelString setFont:TitelFont];
    
    [LeseboxDialog setMessage:DialogTitelString];
@@ -512,7 +532,6 @@
    //LeseboxHit=[LeseboxDialog runModalForDirectory:NetzPfad file:@"Network" types:NULL];
    
    [LeseboxDialog beginSheetModalForWindow:[self window] completionHandler:^(NSInteger result)
-    //[LeseboxDialog beginWithCompletionHandler:^(NSInteger result)
     
     {
        
@@ -607,11 +626,6 @@
 	NSString* NetzwerkString=@"Lesebox im Netz suchen";
 	//NSLog(@"OKSheet:  stopModalWithCode HomeStatus: %d", HomeStatus);
 	//NSString* lb=@"Lesebox";
-	//if ([HomeKnopf state])
-	  {
-		//	LeseboxPfad=[[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]stringByAppendingPathComponent:lb];
-	  }
-	//else
 	  {
 		if ([UserTable numberOfSelectedRows])
 		  {
@@ -651,7 +665,7 @@
 
 - (IBAction)reportOpenNetwork:(id)sender
 {
-   //NSLog(@"\nreportOpenNetwork\n\n");
+   NSLog(@"\nreportOpenNetwork\n\n");
    NSString* NetwerkLeseboxPfad=[self chooseNetworkLeseboxPfad];
    
    if (NetwerkLeseboxPfad)

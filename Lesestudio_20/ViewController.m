@@ -116,10 +116,15 @@ NSString*	RPDevicedatenKey=	@"RPDevicedaten";
    // http://stackoverflow.com/questions/2962790/best-way-to-change-the-background-color-for-an-nsview
    [self.view setWantsLayer:YES];
    [self.view.layer setBackgroundColor:[FensterFarbe CGColor]];
-
    
    NSBundle* LesestudioBundle = [NSBundle mainBundle];
-   NSString* ResourcePfad = [[LesestudioBundle bundlePath]stringByAppendingPathComponent:@"Contents/Resources"];
+   //Bundle Pfad auf Stick:Pfad: /Volumes/DATA/Lesestudio_15.app/Contents/Resources
+
+   NSString* BundlePfad = [[NSBundle mainBundle] bundlePath];
+   NSString* Ident = [[NSBundle mainBundle] bundleIdentifier];
+   NSLog(@"BundlePfad: %@",BundlePfad);
+   NSLog(@"Ident: %@",Ident);
+
    //NSArray* mainarray = [[NSFileManager defaultManager]contentsOfDirectoryAtPath:ResourcePfad error:nil];
    //NSLog(@"mainarray: %@",mainarray);
    
@@ -394,7 +399,6 @@ NSString*	RPDevicedatenKey=	@"RPDevicedaten";
    
    BOOL success = NO;
    NSError *error;
-   Utils = [[rUtils alloc ]init];
    
    self.ProjektArray = [[NSMutableArray alloc]initWithCapacity:0];
    self.PListProjektArray = [[NSMutableArray alloc]initWithCapacity:0];
@@ -698,7 +702,7 @@ NSString*	RPDevicedatenKey=	@"RPDevicedaten";
 //   [[self.ModusMenu itemWithTag:kKommentarTag]setToolTip:@"Hallo"];
    [[self.AblaufMenu itemWithTag:kEinstellungenTag]setToolTip:@"Hallo"];
    int i=[[[NSUserDefaults standardUserDefaults]objectForKey:@"Wert1"]intValue];
-   //NSLog(@"Test Wert1: %d",i);
+   NSLog(@"Test Wert1: %d",i);
    //i--;
    
    NSTimer* KontrollTimer=[NSTimer scheduledTimerWithTimeInterval:0.5
