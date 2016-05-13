@@ -20,7 +20,6 @@
    //NSLog(@"applicationDidFinishLaunching");
    [NSApp setApplicationIconImage: ProgrammImage];
    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints"];
-  
     }
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification
@@ -46,5 +45,8 @@
    return NSTerminateNow;
 }
 
-
+- (void)NSUserDefaultsDidChangeNotification:(NSNotification*)note
+{
+   NSLog(@"NSUserDefaultsDidChangeNotification");
+}
 @end

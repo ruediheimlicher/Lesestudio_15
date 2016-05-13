@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment version="1050" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="8191"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9532"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="rVolumes">
@@ -11,6 +11,7 @@
                 <outlet property="AuswahlenKnopf" destination="117" id="119"/>
                 <outlet property="LesestudioString" destination="99" id="100"/>
                 <outlet property="PfadFeld" destination="SGY-XC-my8" id="XQH-vl-jWf"/>
+                <outlet property="PfadLabel" destination="ZDd-GK-kp5" id="er5-bt-Mo9"/>
                 <outlet property="RecPlayIcon" destination="97" id="98"/>
                 <outlet property="StartString" destination="101" id="102"/>
                 <outlet property="SuchenKnopf" destination="186" id="n75-Mt-aPQ"/>
@@ -36,7 +37,7 @@
                         <imageCell key="cell" enabled="NO" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="MicroIcon_128x128" id="168"/>
                     </imageView>
                     <button verticalHuggingPriority="750" id="2">
-                        <rect key="frame" x="402" y="23" width="109" height="32"/>
+                        <rect key="frame" x="14" y="13" width="109" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="Abbrechen" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="165">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -50,7 +51,7 @@ Gw
                         </connections>
                     </button>
                     <textField verticalHuggingPriority="750" id="43">
-                        <rect key="frame" x="23" y="156" width="260" height="26"/>
+                        <rect key="frame" x="23" y="156" width="234" height="26"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" alignment="left" title="Wo ist die Lesebox?" id="166">
                             <font key="font" metaFont="systemBold"/>
@@ -77,7 +78,7 @@ Gw
                         </textFieldCell>
                     </textField>
                     <button verticalHuggingPriority="750" id="186">
-                        <rect key="frame" x="14" y="111" width="245" height="32"/>
+                        <rect key="frame" x="257" y="152" width="245" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="Lesebox suchen" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="187">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -88,7 +89,7 @@ Gw
                         </connections>
                     </button>
                     <textField verticalHuggingPriority="750" id="SGY-XC-my8">
-                        <rect key="frame" x="20" y="64" width="485" height="27"/>
+                        <rect key="frame" x="20" y="71" width="485" height="27"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" drawsBackground="YES" id="etb-CR-Oup">
                             <font key="font" size="14" name=".HelveticaNeueDeskInterface-Regular"/>
@@ -96,17 +97,8 @@ Gw
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="c6O-oq-uly">
-                        <rect key="frame" x="23" y="93" width="33" height="17"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Pfad" id="4sn-CQ-aiL">
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
                     <button verticalHuggingPriority="750" id="117">
-                        <rect key="frame" x="276" y="23" width="109" height="32"/>
+                        <rect key="frame" x="346" y="13" width="109" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="Auswählen" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" inset="2" id="171">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -117,7 +109,7 @@ Gw
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" id="Ta0-B1-Eyo">
-                        <rect key="frame" x="14" y="5" width="39" height="32"/>
+                        <rect key="frame" x="472" y="13" width="39" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="?" alternateTitle="Volumes" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="wvl-bB-nvB">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -127,6 +119,15 @@ Gw
                             <action selector="reportHelp:" target="-1" id="n4K-hi-bzL"/>
                         </connections>
                     </button>
+                    <textField verticalHuggingPriority="750" id="ZDd-GK-kp5">
+                        <rect key="frame" x="20" y="108" width="354" height="22"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" drawsBackground="YES" id="Uf1-Oj-38H">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
                 </subviews>
             </view>
             <connections>
