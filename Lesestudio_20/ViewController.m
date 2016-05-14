@@ -122,8 +122,8 @@ NSString*	RPDevicedatenKey=	@"RPDevicedaten";
 
    NSString* BundlePfad = [[NSBundle mainBundle] bundlePath];
    NSString* Ident = [[NSBundle mainBundle] bundleIdentifier];
-   NSLog(@"BundlePfad: %@",BundlePfad);
-   NSLog(@"Ident: %@",Ident);
+   //NSLog(@"BundlePfad: %@",BundlePfad);
+   //NSLog(@"Ident: %@",Ident);
 
    //NSArray* mainarray = [[NSFileManager defaultManager]contentsOfDirectoryAtPath:ResourcePfad error:nil];
    //NSLog(@"mainarray: %@",mainarray);
@@ -702,7 +702,7 @@ NSString*	RPDevicedatenKey=	@"RPDevicedaten";
 //   [[self.ModusMenu itemWithTag:kKommentarTag]setToolTip:@"Hallo"];
    [[self.AblaufMenu itemWithTag:kEinstellungenTag]setToolTip:@"Hallo"];
    int i=[[[NSUserDefaults standardUserDefaults]objectForKey:@"Wert1"]intValue];
-   NSLog(@"Test Wert1: %d",i);
+   //NSLog(@"Test Wert1: %d",i);
    //i--;
    
    NSTimer* KontrollTimer=[NSTimer scheduledTimerWithTimeInterval:0.5
@@ -5690,6 +5690,7 @@ if (!self.KommentarFenster)
             //Kein Projektordner eingerichtet
             //NSLog(@"neuesProjektAktion neuesProjektOK: NO kein Pojekt 	ProjektPanel resetPanel");
             [ProjektPanel resetPanel];
+            
             neuesProjektOK=NO;
          }
          

@@ -637,8 +637,8 @@
          double duration =CMTimeGetSeconds(cmtduration);
          //NSLog(@"cut duration seconds: %f",duration);
          CMTime startTime = CMTimeMake(0, 1);
-         CMTime cutstartTime = CMTimeMake(1, 1);
-         CMTime cutendTime = CMTimeMake(duration-1, 1);
+         CMTime cutstartTime = CMTimeMake(0.2, 1);
+         CMTime cutendTime = CMTimeMake(duration-0.2, 1);
          CMTimeRange cutRange = CMTimeRangeFromTimeToTime(startTime, cutendTime);
          exporter.timeRange = cutRange;
          

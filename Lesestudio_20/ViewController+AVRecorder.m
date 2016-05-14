@@ -220,7 +220,7 @@
        // [[self.StartStopKnopf cell]setImage:StartRecordImg];
         //self.StartStopKnopf.image=StartRecordImg;
         
-        
+        self.StartStopKnopf.title = @"START";
         [self.StartStopString setStringValue:@"START"];
         [self stopAVRecord:sender];
         //[AVRecorder setRecording:NO];
@@ -483,7 +483,7 @@
          MinutenString=[NSString stringWithFormat:@"%d",Minuten];
       }
       
-      [self.Zeitfeld setStringValue:[NSString stringWithFormat:@"%@:%@",MinutenString, SekundenString]];
+ //     [self.Zeitfeld setStringValue:[NSString stringWithFormat:@"%@:%@",MinutenString, SekundenString]];
 
       
    }

@@ -23,15 +23,17 @@
 	IBOutlet id NetzwerkDrawer;
    
    
-	IBOutlet NSTextField* PfadwahlFeld;
-	IBOutlet id PfadFeld;
-	IBOutlet id LeseboxerfolgFeld;
-
+	IBOutlet NSTextField*   PfadwahlFeld;
+   IBOutlet NSTextField*   LeseboxDaFeld;
+	IBOutlet id             PfadFeld;
+	IBOutlet id             LeseboxerfolgFeld;
+   IBOutlet NSButton*             LeseboxOK;
  
 	NSMutableArray*			UserArray;
 	NSMutableArray*			NetworkArray;
 	NSMutableDictionary*    UserDic;
-	NSString*               LeseboxPfad;
+   NSString*               LeseboxPfad;
+	NSString*               neuerLeseboxPfad;
 	NSTextFieldCell*        NamenCell;
 	NSImageCell*            RecPlayIcon;
 	NSMutableString*        neuerHostName;

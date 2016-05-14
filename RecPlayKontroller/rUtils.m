@@ -1753,10 +1753,11 @@ return versionOK;
 
 - (void)UEinzelNamenAktion:(NSNotification*)note
 {
-   //NSLog(@"UEinzelNamenAktion note: %@", [[note userInfo]description]);
+   NSLog(@"UEinzelNamenAktion note: %@", [[note userInfo]description]);
    NSMutableArray* sauberNamenStringArray = [[NSMutableArray alloc]initWithCapacity:0];
    NSMutableArray* FehlerNamenArray = [[NSMutableArray alloc]initWithCapacity:0];
    
+  
    NSMutableArray* rawStringArray = [[note userInfo]objectForKey:@"neueNamenArray"];
    for (int zeile=0;zeile<[rawStringArray count];zeile++)
    {
@@ -1789,6 +1790,7 @@ return versionOK;
       
       NSModalResponse antwort = [Warnung runModal];
    }
+    
    NSNumber* EinsetzenVarianteNumber=[NSNumber numberWithInt:0];
    NSMutableDictionary* NotificationDic=[[NSMutableDictionary alloc]initWithCapacity:0];
    
@@ -2381,6 +2383,7 @@ return versionOK;
 			//NSLog(@"Keine Namen, remove Projektordner");
 			[Filemanager removeItemAtURL:[NSURL fileURLWithPath:derProjektPfad] error:nil];
 			OrdnereinrichtenOK=NO;
+         
 			//tempProjektNamenListe leer
 			
 		}

@@ -103,8 +103,8 @@ enum
    // Kontrolle
    NSString* lastleseboxpfad = [[NSUserDefaults standardUserDefaults] stringForKey:@"lastleseboxpfad"];
    BOOL istsysvol = [[NSUserDefaults standardUserDefaults] boolForKey:@"istsystemvolume"];
-   
-   NSLog(@"Leseboxvorbereiten lastleseboxpfad: %@ istsysvol: %d",lastleseboxpfad,istsysvol);
+  
+//   NSLog(@"Leseboxvorbereiten lastleseboxpfad: %@ istsysvol: %d",lastleseboxpfad,istsysvol);
 
    if (self.LeseboxOK)
    {
@@ -669,7 +669,7 @@ enum
    
    long leseboxindex = [homeArray indexOfObject:@"Lesebox"];
    //NSLog(@"Leseboxvorbereiten	homeArray: %@ leseboxindex: %ld",homeArray,leseboxindex);
-   if (leseboxindex < NSNotFound)
+   if (leseboxindex < NSNotFound) // Lesebox im Pfad
    {
       NSString* tempLeseboxPfad =[[bundlePfad stringByDeletingLastPathComponent]stringByAppendingPathComponent:@"Lesebox" ];
       BOOL isDir;
@@ -731,26 +731,32 @@ enum
       Utils = [[rUtils alloc ]init];
    }
    NSArray* hostarray = [Utils hostarray];
-   NSLog(@"chooseLeseboxPfad	 hostarray: %@",hostarray);
+   //NSLog(@"chooseLeseboxPfad	 hostarray: %@",hostarray);
    
    NSUserDefaults*defaultData = [NSUserDefaults standardUserDefaults];
-   NSLog(@"defaultData: %@",defaultData);
+   //NSLog(@"defaultData: %@",defaultData);
    
    NSString* pickLeseboxPfad = @"--";
    BOOL lastpfadok = NO;
    NSString* defaultleseboxpfad = [[NSUserDefaults standardUserDefaults] stringForKey:@"lastleseboxpfad"];
+   
+//   defaultleseboxpfad=@"";
+//   pickLeseboxPfad = @"--";
    BOOL istsysvol = [[NSUserDefaults standardUserDefaults] boolForKey:@"istsystemvolume"];
-   NSString*  PfadwahlString = NSLocalizedString(@"no path choosen yet.", nil);
-   NSLog(@"chooseLeseboxPfad lastleseboxpfad: %@ istsysvol: %d",defaultleseboxpfad,istsysvol);
+   NSString*  PfadwahlString = NSLocalizedString(@"no path choosen yet", nil);
+   //NSLog(@"chooseLeseboxPfad lastleseboxpfad: %@ istsysvol: %d",defaultleseboxpfad,istsysvol);
+   
+   // Automatische Angabe des Pfads nur wenn LB letztes Mal auf Stick oder auf dem gleichen Computer war
    
    if ([defaultleseboxpfad rangeOfString:@"Users/" ].location < NSNotFound)
    {
       // lastleseboxpfad war auf dem lokalen computer
-      NSLog(@"chooseLeseboxPfad pick pfad: %@",defaultleseboxpfad);
+//      NSLog(@"chooseLeseboxPfad pick pfad: %@",defaultleseboxpfad);
       pickLeseboxPfad = defaultleseboxpfad;
-      BOOL lastpfadok = YES;
-      PfadwahlString = NSLocalizedString(@"path on this volume.", nil);
+      lastpfadok = YES;
       
+      PfadwahlString = NSLocalizedString(@"Path on this volume", nil);
+
    }
    else
    {
@@ -759,15 +765,16 @@ enum
          if (([[hostarray objectAtIndex:i]rangeOfString:[defaultleseboxpfad stringByDeletingLastPathComponent]].location < NSNotFound))
          {
             // lastleseboxpfad war auf einem externen Volume (Stick)
-            NSLog(@"chooseLeseboxPfad hostarray pick pfad: %@",[hostarray objectAtIndex:i]);
+//            NSLog(@"chooseLeseboxPfad hostarray pick pfad: %@",[hostarray objectAtIndex:i]);
             pickLeseboxPfad = [hostarray objectAtIndex:i];
-            BOOL lastpfadok = YES;
-            PfadwahlString = NSLocalizedString(@"path on external volume.", nil);
+            lastpfadok = YES;
+            PfadwahlString = NSLocalizedString(@"Path on external volume", nil);
          }
       }
    }
    
-   NSLog(@"chooseLeseboxPfad pick pfad: %@",pickLeseboxPfad);
+   
+//   NSLog(@"chooseLeseboxPfad resultat pick pfad: %@",pickLeseboxPfad);
      // * *******
 
    if (VolumesPanel)
@@ -781,43 +788,58 @@ enum
    
    NSModalSession VolumeSession=[NSApp beginModalSessionForWindow:[VolumesPanel window]];
    
-   NSString *homePfad = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
-   NSLog(@"Leseboxvorbereiten	homePfad: %@",homePfad);
-   NSArray* homeArray = [[NSFileManager defaultManager]contentsOfDirectoryAtPath:homePfad  error:nil];
-
-   long leseboxindex = [homeArray indexOfObject:@"Lesebox"];
-   NSLog(@"Leseboxvorbereiten	homeArray: %@ leseboxindex: %ld",homeArray,leseboxindex);
    
-   if (leseboxindex < NSNotFound)
+   // wenn Pickpfad: Nachschauen, ob eine LB vorhanden ist
+   if (pickLeseboxPfad && [pickLeseboxPfad length]> 5)
    {
-      NSString* tempLeseboxPfad =[homePfad stringByAppendingPathComponent:@"Lesebox" ];
-       BOOL isDir;
-      if ([[NSFileManager defaultManager]fileExistsAtPath:tempLeseboxPfad isDirectory:&isDir] && isDir)
+      if ([pickLeseboxPfad length]&&[pickLeseboxPfad rangeOfString:@"Lesebox"].location == NSNotFound)
       {
-         [VolumesPanel setLeseboxPfad:pickLeseboxPfad];
-        //  [VolumesPanel setLeseboxPfad:@"abc"];
-         
-         [VolumesPanel setLeseboxOK:YES];
-         
+         pickLeseboxPfad =[pickLeseboxPfad stringByAppendingPathComponent:@"Lesebox" ];
       }
-      else
+//      NSLog(@"pickLeseboxPfad: %@",pickLeseboxPfad);
+      NSArray* pickArray = [[NSFileManager defaultManager]contentsOfDirectoryAtPath:[pickLeseboxPfad stringByDeletingLastPathComponent] error:nil];
+      
+      long leseboxindex = [pickArray indexOfObject:@"Lesebox"]; // LB da?
+      if (leseboxindex < NSNotFound)
       {
-          [VolumesPanel setLeseboxPfad:@"--"];
+         BOOL isDir;
+         if ([[NSFileManager defaultManager]fileExistsAtPath:pickLeseboxPfad isDirectory:&isDir] && isDir) // LB da
+         {
+            [VolumesPanel setLeseboxPfad:pickLeseboxPfad];
+            //  [VolumesPanel setLeseboxPfad:@"abc"];
+            
+            [VolumesPanel setLeseboxOK:YES];
+            
+         }
+         else // noch keine LB
+         {
+            [VolumesPanel setLeseboxOK:NO];
+         }
       }
    }
    else
    {
-      [VolumesPanel setLeseboxPfad:@"--"];
+      [VolumesPanel setLeseboxOK:NO];
+      //[VolumesPanel setLeseboxPfad:@"--"];
    }
-  
+
+  // [VolumesPanel setLeseboxOK:YES];
+   
+   
    //pickLeseboxPfad = @"dsfghjk";
- //[VolumesPanel setLeseboxPfad:pickLeseboxPfad];
+   DLog(@"pickLeseboxPfad: %@",pickLeseboxPfad);
+   if (!pickLeseboxPfad)
+   {
+      pickLeseboxPfad = @"--";
+   }
+   [VolumesPanel setLeseboxPfad:pickLeseboxPfad];
    [VolumesPanel setLastPfadOK:lastpfadok];
    [VolumesPanel setPfadwahl:PfadwahlString];
 
  //
-   
    long modalAntwort = [NSApp runModalForWindow:[VolumesPanel window]];
+   
+
    
    //NSLog(@"VolumesPanel: Antwort: %d",modalAntwort);
    
@@ -836,7 +858,7 @@ enum
    
    [[VolumesPanel window] orderOut:NULL];
    //NSLog(@"VolumesPanel: Antwort: %d",modalAntwort);
-   
+//   NSLog(@"chooseLeseboxPfad end: tempLeseboxPfad: %@",tempLeseboxPfad);
    return tempLeseboxPfad;
    
 }//chooseLeseboxPfadVon
@@ -1192,7 +1214,8 @@ enum
             //**
             //Kein Projektordner eingerichtet
             //NSLog(@"neuesProjektAktion neuesProjektOK: NO kein Pojekt 	ProjektPanel resetPanel");
-            [ProjektPanel resetPanel];
+            [ProjektPanel reportCancel:nil];
+            //[ProjektPanel resetPanel];
             neuesProjektOK=NO;
          }
          

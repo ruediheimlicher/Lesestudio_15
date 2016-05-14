@@ -1,5 +1,6 @@
 Information Volumes
-Anzugeben ist die Lesebox oder der Ort, an dem die Lesebox neu angelegt werden soll.
+Auszuwählen ist eine vorhandene Lesebox oder der Ort, an dem die Lesebox liegt oder neu angelegt werden soll.
 Die Lesebox kann auch auf einem USB-Stick liegen, auch auf dem gleichen, der auch das Programm enthält.
 
-Zum Anlegen einer neuen Lesebox braucht es einen Namen für das erste Projekt und mindestens einen Namen eines Lesers oder einer Leserin.
+Zum Anlegen einer neuen Lesebox braucht es einen Namen für das erste Projekt und mindestens einen Namen eines Lesers oder einer Leserin. Es kann auch eine Namenliste eingefügt werden.
+Vor- und Nachnamen müssen durch einen Leerschlag oder Tabulator getrennt sein. Sonderzeichen und Bindestriche sind nicht zulässig.

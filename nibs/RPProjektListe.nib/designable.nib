@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment version="1050" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="8191"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9532"/>
         <capability name="box content view" minToolsVersion="7.0"/>
     </dependencies>
     <objects>
@@ -160,7 +160,7 @@ DQ
                                                 <tableColumns>
                                                     <tableColumn identifier="ok" width="39.916015625" minWidth="30" maxWidth="1000" id="75">
                                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Aktiv">
-                                                            <font key="font" metaFont="system"/>
+                                                            <font key="font" metaFont="smallSystem"/>
                                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" white="0.33333299" alpha="1" colorSpace="calibratedWhite"/>
                                                         </tableHeaderCell>
@@ -172,7 +172,7 @@ DQ
                                                     </tableColumn>
                                                     <tableColumn identifier="projekt" editable="NO" width="274.5439453125" minWidth="55.5439453125" maxWidth="1000" id="72">
                                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Projekt">
-                                                            <font key="font" metaFont="system"/>
+                                                            <font key="font" metaFont="smallSystem"/>
                                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" white="0.33333299" alpha="1" colorSpace="calibratedWhite"/>
                                                         </tableHeaderCell>
@@ -185,7 +185,7 @@ DQ
                                                     </tableColumn>
                                                     <tableColumn identifier="fix" width="52.3056640625" minWidth="44.8740234375" maxWidth="1000" id="73">
                                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Titel fix">
-                                                            <font key="font" metaFont="system"/>
+                                                            <font key="font" metaFont="smallSystem"/>
                                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                         </tableHeaderCell>
@@ -197,7 +197,7 @@ DQ
                                                     </tableColumn>
                                                     <tableColumn identifier="mituserpw" width="59.2373046875" minWidth="46.2373046875" maxWidth="1000" id="84">
                                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Mit PW">
-                                                            <font key="font" metaFont="system"/>
+                                                            <font key="font" metaFont="smallSystem"/>
                                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                         </tableHeaderCell>

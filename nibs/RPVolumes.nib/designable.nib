@@ -9,6 +9,7 @@
             <connections>
                 <outlet property="AbbrechenKnopf" destination="2" id="54"/>
                 <outlet property="AuswahlenKnopf" destination="117" id="119"/>
+                <outlet property="LeseboxDaFeld" destination="rFo-NH-IgB" id="MA1-0G-xon"/>
                 <outlet property="LesestudioString" destination="99" id="100"/>
                 <outlet property="PfadFeld" destination="SGY-XC-my8" id="XQH-vl-jWf"/>
                 <outlet property="PfadwahlFeld" destination="caw-4K-3RQ" id="z3X-ga-vB5"/>
@@ -21,23 +22,23 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="10" userLabel="Panel1">
+        <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="10" userLabel="Panel1" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="99" y="603" width="525" height="279"/>
+            <rect key="contentRect" x="99" y="603" width="525" height="249"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
             <value key="minSize" type="size" width="94" height="7"/>
             <view key="contentView" id="7">
-                <rect key="frame" x="0.0" y="0.0" width="525" height="279"/>
+                <rect key="frame" x="0.0" y="0.0" width="525" height="249"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView id="97">
-                        <rect key="frame" x="25" y="197" width="70" height="70"/>
+                        <rect key="frame" x="25" y="167" width="70" height="70"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <imageCell key="cell" enabled="NO" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="MicroIcon_128x128" id="168"/>
                     </imageView>
                     <button verticalHuggingPriority="750" id="2">
-                        <rect key="frame" x="14" y="13" width="109" height="32"/>
+                        <rect key="frame" x="19" y="13" width="109" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="Abbrechen" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="165">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -51,16 +52,16 @@ Gw
                         </connections>
                     </button>
                     <textField verticalHuggingPriority="750" id="43">
-                        <rect key="frame" x="23" y="156" width="234" height="26"/>
+                        <rect key="frame" x="124" y="166" width="234" height="26"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" alignment="left" title="Wo ist die Lesebox?" id="166">
                             <font key="font" metaFont="systemBold"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="textColor" name="selectedMenuItemColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" id="99">
-                        <rect key="frame" x="124" y="230" width="243" height="37"/>
+                        <rect key="frame" x="124" y="200" width="243" height="37"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" alignment="left" title="Lesestudio" id="169">
                             <font key="font" metaFont="systemBold"/>
@@ -69,7 +70,7 @@ Gw
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" id="101">
-                        <rect key="frame" x="413" y="230" width="94" height="37"/>
+                        <rect key="frame" x="413" y="200" width="94" height="37"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" alignment="right" title="Start" id="170">
                             <font key="font" metaFont="systemBold"/>
@@ -78,7 +79,7 @@ Gw
                         </textFieldCell>
                     </textField>
                     <button verticalHuggingPriority="750" id="186">
-                        <rect key="frame" x="257" y="152" width="245" height="32"/>
+                        <rect key="frame" x="133" y="13" width="263" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="Lesebox suchen" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="187">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -89,7 +90,7 @@ Gw
                         </connections>
                     </button>
                     <textField verticalHuggingPriority="750" id="SGY-XC-my8">
-                        <rect key="frame" x="20" y="71" width="485" height="27"/>
+                        <rect key="frame" x="65" y="83" width="440" height="27"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" drawsBackground="YES" id="etb-CR-Oup">
                             <font key="font" size="14" name=".HelveticaNeueDeskInterface-Regular"/>
@@ -98,7 +99,7 @@ Gw
                         </textFieldCell>
                     </textField>
                     <button verticalHuggingPriority="750" id="117">
-                        <rect key="frame" x="346" y="13" width="109" height="32"/>
+                        <rect key="frame" x="402" y="13" width="109" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="Auswählen" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" inset="2" id="171">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -108,8 +109,35 @@ Gw
                             <action selector="reportAuswahlen:" target="-2" id="121"/>
                         </connections>
                     </button>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="caw-4K-3RQ">
+                        <rect key="frame" x="23" y="120" width="429" height="23"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Pfad" id="xbP-ca-UDn">
+                            <font key="font" metaFont="system" size="16"/>
+                            <color key="textColor" name="selectedMenuItemColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="9Lv-tC-h2O">
+                        <rect key="frame" x="23" y="88" width="36" height="17"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Pfad:" id="KdG-Oa-qKe">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="rFo-NH-IgB">
+                        <rect key="frame" x="63" y="45" width="444" height="36"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" id="Eb7-3u-niz">
+                            <font key="font" metaFont="system" size="12"/>
+                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
                     <button verticalHuggingPriority="750" id="Ta0-B1-Eyo">
-                        <rect key="frame" x="472" y="13" width="39" height="32"/>
+                        <rect key="frame" x="472" y="162" width="39" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="?" alternateTitle="Volumes" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="wvl-bB-nvB">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -119,31 +147,13 @@ Gw
                             <action selector="reportHelp:" target="-1" id="n4K-hi-bzL"/>
                         </connections>
                     </button>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="caw-4K-3RQ">
-                        <rect key="frame" x="18" y="106" width="489" height="17"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Pfad" id="xbP-ca-UDn">
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
                 </subviews>
             </view>
             <connections>
                 <outlet property="delegate" destination="-2" id="23"/>
             </connections>
-            <point key="canvasLocation" x="318.5" y="189.5"/>
+            <point key="canvasLocation" x="71.5" y="168.5"/>
         </window>
-        <drawer preferredEdge="minY" leadingOffset="5" trailingOffset="5" id="127" userLabel="Drawer">
-            <size key="contentSize" width="493" height="135"/>
-            <size key="minContentSize" width="50" height="50"/>
-            <size key="maxContentSize" width="500" height="135"/>
-            <connections>
-                <outlet property="delegate" destination="-2" id="129"/>
-                <outlet property="parentWindow" destination="10" id="128"/>
-            </connections>
-        </drawer>
     </objects>
     <resources>
         <image name="MicroIcon_128x128" width="128" height="128"/>

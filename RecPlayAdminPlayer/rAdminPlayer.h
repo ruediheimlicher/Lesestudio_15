@@ -21,6 +21,7 @@
 
 #import "rAbspielanzeige.h"
 
+#import "defines.h"
 
 #import "rUtils.h"
 //#import <fcntl.h>

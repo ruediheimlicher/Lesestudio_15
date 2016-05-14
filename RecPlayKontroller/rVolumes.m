@@ -79,7 +79,7 @@
    frame.size.height = 48.0;
 //   [AuswahlenKnopf  setFrame: frame];
 
-   
+   [SuchenKnopf setKeyEquivalent:@"\r"];
    
 	[AbbrechenKnopf setToolTip:@"Programm beenden."];
 	[AuswahlenKnopf setToolTip:@"Den angeklickten Benutzer auswählen."];
@@ -87,6 +87,9 @@
 	[UserTable setToolTip:@"Liste der angemeldeten Benutzer."];
 //	//NSLog(@"rVolumes: awakeFromNib end");
 //   [PfadwahlFeld setStringValue:@"abcdef"];
+   
+   [LeseboxOK setState:NSOnState];
+
 }
 
 - (int) anzVolumes
@@ -100,8 +103,19 @@
 }
 - (void) setLeseboxPfad:(NSString*)leseboxpfad
 {
-   [SuchenKnopf setKeyEquivalent:@"\r"];
+   [SuchenKnopf setKeyEquivalent:@""];
+   [AuswahlenKnopf setKeyEquivalent:@"\r"];
+   if (leseboxpfad)
+   {
    [PfadFeld setStringValue:leseboxpfad];
+      if ([leseboxpfad length]<5)
+      {
+         [AuswahlenKnopf setEnabled:NO];
+      }
+      else{
+         [AuswahlenKnopf setEnabled:YES];
+      }
+   }
    [[self window]makeFirstResponder:self];
 }
 
@@ -110,27 +124,53 @@
    [AuswahlenKnopf setEnabled:status];
    if (status)
    {
-      [AuswahlenKnopf setKeyEquivalent:@"\r"];
+      [LeseboxDaFeld setStringValue:NSLocalizedString(@"LB present", nil)];
+     // [AuswahlenKnopf setKeyEquivalent:@"\r"];
+      //NSLog(@"setLeseboxOK LeseboxOK setState ON vor: %ld LeseboxOK: %@",(long)[LeseboxOK state],LeseboxOK);
+      //[LeseboxOK setState:NSOnState];
+      //NSLog(@"setLeseboxOK LeseboxOK setState ON nach: %ld",(long)[LeseboxOK state]);
+  
    }
    else
    {
-      [AuswahlenKnopf setKeyEquivalent:@""];
+       [LeseboxDaFeld setStringValue:NSLocalizedString(@"LB not present but installable", nil)];
+     // [AuswahlenKnopf setKeyEquivalent:@""];
+      //[LeseboxOK setState:NSOffState];
+      
    }
 }
 
 - (void)setLastPfadOK:(BOOL)lastpfadok
 {
-   NSLog(@"Volumes setLastPfadOK: %d",lastpfadok);
+ //  NSLog(@"Volumes setLastPfadOK: %d",lastpfadok);
  //  [PfadwahlFeld setStringValue:NSLocalizedString(@"Last used Path", nil)];
-   
+   if (lastpfadok)
+       {
+          [SuchenKnopf setKeyEquivalent:@""];
+          [SuchenKnopf setTitle: NSLocalizedString(@"search other LB", nil)];
+       //   [AuswahlenKnopf setEnabled:YES];
+         [AuswahlenKnopf setKeyEquivalent:@"\r"];
+                 }
+   else
+   {
+       [SuchenKnopf setKeyEquivalent:@"\r"];
+      [SuchenKnopf setTitle: NSLocalizedString(@"search LB", nil)];
+
+      [AuswahlenKnopf setKeyEquivalent:@""];
+     // [AuswahlenKnopf setEnabled:NO];
+   }
+   //[LeseboxOK setState:NSOnState];
+
 }
 
 - (void)setPfadwahl:(NSString*)pfadwahl
 {
    
-   NSLog(@"*Volumes setPfadLabel: %@",pfadwahl);
+  NSLog(@"*Volumes setPfadLabel: %@",pfadwahl);
    [PfadwahlFeld setStringValue:pfadwahl];
-   
+  // [AuswahlenKnopf setEnabled:YES];
+   //[AuswahlenKnopf setEnabled:NO];
+ 
 }
 
 
@@ -147,7 +187,7 @@
 		//NSLog(@"setUserArray nach Enum");
 		while (einObjekt=[enumerator nextObject])
 		{
-			//NSLog(@"setUserArray: einObjekt: %@",[einObjekt description]);
+			//NSLog(@"setUserArray: einObjekt: %@",[einObjekt description])
 			NSMutableDictionary* tempUserDic=[[NSMutableDictionary alloc]initWithCapacity:0];
 			int LeseboxOrt=0;
 			NSNumber* LeseboxOrtNumber=[einObjekt objectForKey:@"leseboxort"];
@@ -537,14 +577,42 @@
        
        if (result == NSModalResponseOK)
        {
-          //NSLog(@"NSModalResponseOK pfad: %@",[[LeseboxDialog URL]path]);
+          NSLog(@"NSModalResponseOK pfad: %@",[[LeseboxDialog URL]path]);
          	NSMutableDictionary* LeseboxDic=[NSMutableDictionary dictionaryWithObject:[LeseboxDialog URL] forKey:@"url"];
-          [LeseboxDic setObject:[NSNumber numberWithInt:1]forKey:@"LeseboxDa"];
+          [LeseboxDic setObject:[[LeseboxDialog URL]path ]forKey:@"pfad"];
+         [LeseboxDic setObject:[NSNumber numberWithInt:1]forKey:@"LeseboxDa"];
           NSNotificationCenter* nc=[NSNotificationCenter defaultCenter];
-          [nc postNotificationName:@"VolumeWahl" object:self userInfo:LeseboxDic];
-          [PfadFeld setStringValue:[[LeseboxDialog URL]path]];
+          [nc postNotificationName:@"StartVolumeWahl" object:self userInfo:LeseboxDic];
+ //         [PfadFeld setStringValue:[[LeseboxDialog URL]path]];
+ //         [AuswahlenKnopf setEnabled:YES];
+         [AuswahlenKnopf setKeyEquivalent:@"\r"];
+  //        [LeseboxOK setState:1];
+          neuerLeseboxPfad = [[LeseboxDialog URL]path ];
+          [SuchenKnopf setKeyEquivalent:@""];
           [AuswahlenKnopf setEnabled:YES];
           [AuswahlenKnopf setKeyEquivalent:@"\r"];
+          
+          if ([neuerLeseboxPfad rangeOfString:@"Lesebox"].location < NSNotFound) // Lesebox im Pfad, Vorhandensein testen
+          {
+             BOOL isDir=NO;
+             if ([[NSFileManager defaultManager]fileExistsAtPath:neuerLeseboxPfad isDirectory:&isDir]) // LB ist da und ist ordner
+             {
+                if (isDir)
+                {
+                   [LeseboxDaFeld setStringValue:NSLocalizedString(@"LB present", nil)];
+                }
+                else
+                {
+                   [LeseboxDaFeld setStringValue:NSLocalizedString(@"LB not present", nil)];
+                }
+             }
+          }
+          else // keine LB da
+          {
+             [LeseboxDaFeld setStringValue:NSLocalizedString(@"LB not present but installable", nil)];
+          }
+          [PfadFeld setStringValue:neuerLeseboxPfad];
+          
          // [[self window]makeFirstResponder:AuswahlenKnopf];
 
        }
@@ -667,12 +735,12 @@
 {
    NSLog(@"\nreportOpenNetwork\n\n");
    NSString* NetwerkLeseboxPfad=[self chooseNetworkLeseboxPfad];
-   
+   NSLog(@"\nende reportOpenNetwork: path: %@",NetwerkLeseboxPfad);
    if (NetwerkLeseboxPfad)
    {
       NSURL* NetzURL=[NSURL fileURLWithPath:NetwerkLeseboxPfad];
       //CFStringRef=CFURLCopyHostName
-      //NSLog(@"\nende reportOpenNetwork: URL: %@\n\n",NetzURL);
+      NSLog(@"\nende reportOpenNetwork: URL: %@\n\n",NetzURL);
    }
    
 }
@@ -1019,7 +1087,7 @@
    }
    //NSLog(@"ident: %@",[sender alternateTitle]);
    NSString* helpPfad =[[[[NSBundle mainBundle] bundlePath]stringByAppendingPathComponent:@"Contents/Resources"]stringByAppendingPathComponent:name];
-   //NSLog(@"Utils helpPfad: %@",helpPfad);
+   NSLog(@"Volumes helpPfad: %@",helpPfad);
    if ([[NSFileManager defaultManager]fileExistsAtPath:helpPfad] )
    {
       NSString* helpString = [NSString stringWithContentsOfURL:[NSURL fileURLWithPath:helpPfad] encoding:NSUTF8StringEncoding error:nil];

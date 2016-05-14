@@ -450,7 +450,7 @@ enum
          {
             
             NSString* tempNamenPfad=[self.ProjektPfad stringByAppendingPathComponent:einName];
-            //NSLog(@"Export*** tempNamenPfad %@",tempNamenPfad);
+            NSLog(@"Export*** tempNamenPfad %@",tempNamenPfad);
             
             BOOL istOrdner;
             if (([Filemanager fileExistsAtPath:tempNamenPfad isDirectory:&istOrdner])&&istOrdner)
@@ -707,7 +707,7 @@ enum
    
    NSString* i3=@"Einzelne Aufnahmen können in Admin exportiert werden.";
    NSString* I0=[NSString stringWithFormat:@"%@\n%@\n%@",i3,i2,i1];
-   [Warnung setAccessoryView:ExportOrdnerFeld];
+ //  [Warnung setAccessoryView:ExportOrdnerFeld];
    [Warnung setInformativeText:I0];
    [Warnung setAlertStyle:NSWarningAlertStyle];
    
@@ -728,7 +728,6 @@ enum
    //	[ExportPanel setRequiredFileType:@"wav"];
    [ExportPanel setCanCreateDirectories:YES];
    [ExportPanel setCanSelectHiddenExtension:YES];
-  
    
    //NSString* ExportPanelPfad = [NSHomeDirectory()stringByAppendingPathComponent:@"Desktop"];
    NSString* ExportPanelPfad = [self.LeseboxPfad stringByDeletingLastPathComponent];
@@ -751,11 +750,11 @@ enum
    {
       case NSFileHandlingPanelOKButton:
       {
-         //NSLog(@"ExportPanel: filename: %@ ExportOrdnerPfad: %@",[ExportPanel filename],ExportOrdnerPfad);
+         NSLog(@"ExportPanel: filename: %@ ExportOrdnerPfad: %@",[ExportPanel filename],ExportOrdnerPfad);
          NSString* 	tempExportFilePfad=[[[ExportPanel URL]path]copy];
-         //NSLog(@"ExportPanel: filename: %@ tempExportFilePfad: %@",[ExportPanel filename],tempExportFilePfad);
+         NSLog(@"ExportPanel: filename: %@ tempExportFilePfad: %@",[ExportPanel filename],tempExportFilePfad);
          ExportOrdnerPfad=[tempExportFilePfad stringByDeletingLastPathComponent];
-         //NSLog(@"ExportPanel: filename: %@ ExportOrdnerPfad: %@",[[ExportPanel URL]path],ExportOrdnerPfad);
+         NSLog(@"ExportPanel: filename: %@ ExportOrdnerPfad: %@",[[ExportPanel URL]path],ExportOrdnerPfad);
          
          
       }break;

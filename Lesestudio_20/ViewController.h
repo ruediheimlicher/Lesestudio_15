@@ -31,6 +31,7 @@
 
 #import "NSString+StringExtensions.h"
 
+#import "defines.h"
 @protocol ExportProgressWindowControllerDelegate;
 @class AVAssetExportSession;
 
