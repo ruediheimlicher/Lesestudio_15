@@ -68,12 +68,15 @@
    [SchliessenTaste setEnabled:YES];
    [[self window]makeFirstResponder:EingabeFeld];
    //[SchliessenTaste setKeyEquivalent:@"\r"];
-   [ProjektTable setToolTip:@"Liste aller aktiven Projekte.\nAktive Projekte koennen vom Leser ausgewaehlt werden.\nFixierte Titel kann der Leser nicht aendern."];
-   [EingabeFeld setToolTip:@"Name des neuen Projekts"];
-   [FixTaste setToolTip:@"Titelfuer neue Aufnahmen fixieren.\nDie Liste der Titel kann im Menu 'Admin->Change Nameliste' veraendert werden."];
-   [InListeTaste setToolTip:@"Einen neuen Projektordner einrichten und in der Liste einsetzen."];
-   [AuswahlenTaste setToolTip:@"Das angeklickte Projekt auswaehlen"];
-   [EntfernenTaste setToolTip:@"Das angeklickte Projekt mit verschiedenen Optionen entfernen."];
+   [ProjektTable setToolTip:NSLocalizedString(@"List of activated projects",@"Liste aller aktiven Projekte.\nAktive Projekte koennen vom Leser ausgewaehlt werden.\nFixierte Titel kann der Leser nicht aendern.")];
+   
+   [EingabeFeld setToolTip:NSLocalizedString(@"Name of the new project",@"Name des neuen Projekts")];
+   [FixTaste setToolTip:NSLocalizedString(@"Fix title for new record",@"Titelfuer neue Aufnahmen fixieren.\nDie Liste der Titel kann im Menu 'Admin->Change Nameliste' veraendert werden.")];
+   [PWTaste setToolTip:NSLocalizedString(@"Password for user", @"Passwort fuer user")];
+   
+   [InListeTaste setToolTip:NSLocalizedString(@"Create new projectfolder and insert in list",@"Einen neuen Projektordner einrichten und in der Liste einsetzen.")];
+   [AuswahlenTaste setToolTip:NSLocalizedString(@"Choose the clicked project",@"Das angeklickte Projekt auswaehlen")];
+   [EntfernenTaste setToolTip:NSLocalizedString(@"Remove the clicked project, with options",@"Das angeklickte Projekt mit verschiedenen Optionen entfernen.")];
    
    
    
@@ -848,7 +851,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
       
       if (istProjektZeile)
       {
-         [cell setTextColor:[NSColor darkGrayColor]];
+         [cell setTextColor:[NSColor blueColor]];
          //[EntfernenTaste setEnabled:NO];
       }
       else

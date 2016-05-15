@@ -87,19 +87,19 @@ NSString*	RPDevicedatenKey=	@"RPDevicedaten";
 
 - (id)initWithNibName:(NSString *)nibname bundle:(NSBundle *)bundlename
 {
-   NSLog(@"init nibname: %@ ",self.nibName);
+   DLog(@"init nibname: %@ ",self.nibName);
    self = [ super initWithNibName: nil bundle:nil];
    return self;
 }
 - (void)viewDidLoad
 {
    [super viewDidLoad];
-      //NSLog(@"nibname: %@ window: %@",self.nibName, [[self.view window]description]);
+      //DLog(@"nibname: %@ window: %@",self.nibName, [[self.view window]description]);
    
 //
    //NSString *universal = @"Üniversäl";
    
-   //NSLog(@"Üniversal: %@", universal);
+   //DLog(@"Üniversal: %@", universal);
    
    //printf("NSMacOSRomanStringEncoding: %s\n", [universal cStringUsingEncoding:NSMacOSRomanStringEncoding]);
    //printf("NSISOLatin1StringEncoding: %s\n", [universal cStringUsingEncoding:NSISOLatin1StringEncoding]);
@@ -122,19 +122,19 @@ NSString*	RPDevicedatenKey=	@"RPDevicedaten";
 
    NSString* BundlePfad = [[NSBundle mainBundle] bundlePath];
    NSString* Ident = [[NSBundle mainBundle] bundleIdentifier];
-   //NSLog(@"BundlePfad: %@",BundlePfad);
-   //NSLog(@"Ident: %@",Ident);
+   //DLog(@"BundlePfad: %@",BundlePfad);
+   //DLog(@"Ident: %@",Ident);
 
    //NSArray* mainarray = [[NSFileManager defaultManager]contentsOfDirectoryAtPath:ResourcePfad error:nil];
-   //NSLog(@"mainarray: %@",mainarray);
+   //DLog(@"mainarray: %@",mainarray);
    
    /*
    NSString* helpPfad =[[[[NSBundle mainBundle] bundlePath]stringByAppendingPathComponent:@"Contents/Resources"]stringByAppendingPathComponent:@"infoRecorder.txt"];
-   //NSLog(@"helpPfad: %@",helpPfad);
+   //DLog(@"helpPfad: %@",helpPfad);
    if ([[NSFileManager defaultManager]fileExistsAtPath:helpPfad] )
    {
       NSString* helpString = [NSString stringWithContentsOfURL:[NSURL fileURLWithPath:helpPfad] encoding:NSMacOSRomanStringEncoding error:nil];
-      //NSLog(@"helpString: %@",helpString);
+      //DLog(@"helpString: %@",helpString);
    }
 */
  
@@ -173,17 +173,17 @@ NSString*	RPDevicedatenKey=	@"RPDevicedaten";
    
    [self.view.window setDelegate:self];
    
-   //NSLog(@"NSAlertDefaultReturn: %d",NSAlertDefaultReturn);
+   //DLog(@"NSAlertDefaultReturn: %d",NSAlertDefaultReturn);
    
-   //NSLog(@"[NSDate date]: %@",[[NSDate date]description]); // 2015-09-12 17:15:21 +0000
- //NSLog(@"[NSCalendarDate date]: %@",[[NSCalendarDate date]description]); // 2015-09-12 19:16:41 +0200
+   //DLog(@"[NSDate date]: %@",[[NSDate date]description]); // 2015-09-12 17:15:21 +0000
+ //DLog(@"[NSCalendarDate date]: %@",[[NSCalendarDate date]description]); // 2015-09-12 19:16:41 +0200
    
    
    // http://stackoverflow.com/questions/1268509/convert-utc-nsdate-to-local-timezone-objective-c
    localDate = [NSDateFormatter localizedStringFromDate:[NSDate date] dateStyle:NSDateFormatterMediumStyle timeStyle:NSDateFormatterMediumStyle];//  12.09.2015 19:20:26
-   //NSLog(@"localDate: %@",localDate);
+   //DLog(@"localDate: %@",localDate);
    heuteDatumString = [NSDateFormatter localizedStringFromDate:[NSDate date] dateStyle:NSDateFormatterMediumStyle timeStyle:NSDateFormatterMediumStyle];//  12.09.2015 19:20:26
-   //NSLog(@"heuteDatumString: %@",heuteDatumString);
+   //DLog(@"heuteDatumString: %@",heuteDatumString);
    
    NSDate *currentDate = [NSDate date];
    NSCalendar* calendar = [NSCalendar currentCalendar];
@@ -193,11 +193,11 @@ NSString*	RPDevicedatenKey=	@"RPDevicedaten";
    long tag = [components day]; //gives you day
    long jahr = [components year]; // gives you year
 
-   //NSLog(@"tag: %ld monat: %ld jahr: %ld",tag,monat,jahr);
+   //DLog(@"tag: %ld monat: %ld jahr: %ld",tag,monat,jahr);
    
    heuteTagDesJahres = [[NSCalendar currentCalendar] ordinalityOfUnit:NSCalendarUnitDay inUnit:NSCalendarUnitYear forDate:[NSDate date]];
 
-   //NSLog(@"heuteTagDesJahres: %ld ",heuteTagDesJahres);
+   //DLog(@"heuteTagDesJahres: %ld ",heuteTagDesJahres);
  
    
    
@@ -410,7 +410,7 @@ NSString*	RPDevicedatenKey=	@"RPDevicedaten";
    NSString* lb=@"Lesebox";
    NSString* cb=@"Anmerkungen";
    NSString*HomeLeseboxPfad=[NSHomeDirectory() stringByAppendingFormat:@"%@%@",@"/Documents/",lb];
-   //NSLog(@"cb: %@  Lesebox: %@ HomeLeseboxPfad: %@",cb,lb,HomeLeseboxPfad);
+   //DLog(@"cb: %@  Lesebox: %@ HomeLeseboxPfad: %@",cb,lb,HomeLeseboxPfad);
    
    NSString* locBeenden=@"Beenden";
    NSColor* HintergrundFarbe=[NSColor colorWithDeviceRed: 150.0/255 green:249.0/255 blue:150.0/255 alpha:1.0];
@@ -424,7 +424,7 @@ NSString*	RPDevicedatenKey=	@"RPDevicedaten";
    [[self ModusString] setFont:TitelFont];
    [[self ModusString] setTextColor:TitelFarbe];
    HomeLeseboxPfad = @"/Users/ruediheimlicher/Documents/Lesebox";
-   //NSLog(@"viewdidload cb: %@ Lesebox: %@ HomeLeseboxPfad: %@",cb,lb,HomeLeseboxPfad);
+   //DLog(@"viewdidload cb: %@ Lesebox: %@ HomeLeseboxPfad: %@",cb,lb,HomeLeseboxPfad);
    
    //BOOL istOrdner;
    //   [self.RecPlayFenster setDelegate:self];
@@ -464,7 +464,7 @@ NSString*	RPDevicedatenKey=	@"RPDevicedaten";
    [[self.ModusMenu itemWithTag:kKommentarTag] setTarget:self];//Kommentar
    [[self.ModusMenu itemWithTag:kEinstellungenTag] setTarget:self];//Kommentar
    */
-   //NSLog(@"Menu: %@ setAutoenablesItems: %d",[[ModusMenu itemWithTag:30002] title],[ModusMenu autoenablesItems]);
+   //DLog(@"Menu: %@ setAutoenablesItems: %d",[[ModusMenu itemWithTag:30002] title],[ModusMenu autoenablesItems]);
    //[AblaufMenu setDelegate:self];
    [[self.AblaufMenu itemWithTag:kAndereLeseboxTag] setTarget:self];//neue Lesebox
    [[self.AblaufMenu itemWithTag:kListeAktualisierenTag] setTarget:self];//Lesebox aktualisieren
@@ -476,7 +476,7 @@ NSString*	RPDevicedatenKey=	@"RPDevicedaten";
    [[self.AblaufMenu itemWithTag:kAlleMarkierungenLoschenTag] setTarget:self];//
    [[self.AblaufMenu itemWithTag:kTitelListeBearbeitenTag] setTarget:self];//
    
-   //NSLog(@"Menu: %@ tag: %d",[[AblaufMenu itemWithTag:kProjektWahlenTag]description],kProjektWahlenTag);
+   //DLog(@"Menu: %@ tag: %d",[[AblaufMenu itemWithTag:kProjektWahlenTag]description],kProjektWahlenTag);
    //[[AblaufMenu itemWithTag:kProjektWahlenTag] setTarget:self];//
    
    [[self.RecorderMenu itemWithTag:kRecorderProjektWahlenTag] setTarget:self];//
@@ -524,7 +524,7 @@ NSString*	RPDevicedatenKey=	@"RPDevicedaten";
    {
       case 1:
       {
-         //NSLog(@"vor beginAdminPlayer:      ProjektArray: \n%@",[ProjektArray description]);
+         //DLog(@"vor beginAdminPlayer:      ProjektArray: \n%@",[ProjektArray description]);
          
          if(!self.AdminZugangOK)
          {
@@ -534,18 +534,18 @@ NSString*	RPDevicedatenKey=	@"RPDevicedaten";
             
          {
             //self.Umgebung=1;
-            //NSLog(@"PListDic nach checkAdminZugang: %@",[PListDic description]);
+            //DLog(@"PListDic nach checkAdminZugang: %@",[PListDic description]);
             [Utils setPListBusy:NO anPfad:self.LeseboxPfad];
             
             [self beginAdminPlayer:nil];
-            //NSLog(@"PListDic nach beginAdminPlayer: %@",[PListDic description]);
+            //DLog(@"PListDic nach beginAdminPlayer: %@",[PListDic description]);
             
             
             return;
          }
          else
          {
-            //NSLog(@"case kAdminUmgebung: Zugang nicht OK");
+            //DLog(@"case kAdminUmgebung: Zugang nicht OK");
             
             self.Umgebung=0;
             //Kein gültiges PW für Admin, also Recorder öffnen
@@ -571,7 +571,7 @@ NSString*	RPDevicedatenKey=	@"RPDevicedaten";
                   
                   if ([Filemanager fileExistsAtPath:self.LeseboxPfad])
                   {
-                     //NSLog(@"awake LB entfernen: %@",self.LeseboxPfad);
+                     //DLog(@"awake LB entfernen: %@",self.LeseboxPfad);
                      [Filemanager removeItemAtURL:[NSURL fileURLWithPath:self.LeseboxPfad] error:NULL];
                   }
                   [Utils setPListBusy:NO anPfad:self.LeseboxPfad];
@@ -595,7 +595,7 @@ NSString*	RPDevicedatenKey=	@"RPDevicedaten";
       }break;
       default:
       {
-         //NSLog(@"switch RPModus: terminate");
+         //DLog(@"switch RPModus: terminate");
          [Utils setPListBusy:NO anPfad:self.LeseboxPfad];
          [NSApp terminate:NULL];
          
@@ -611,7 +611,7 @@ NSString*	RPDevicedatenKey=	@"RPDevicedaten";
    [self.Leserfeld setTextColor: LesernamenFarbe];
    
    NSRect f = Abspielanzeige.frame;
-   //NSLog(@"didLoad x: %f y: %f w:%f h:%f",f.origin.x,f.origin.y,f.size.width,f.size.height);
+   //DLog(@"didLoad x: %f y: %f w:%f h:%f",f.origin.x,f.origin.y,f.size.width,f.size.height);
    
    
    NSRect abspielanzeigerect = NSMakeRect(315,295,225,20);
@@ -627,7 +627,7 @@ NSString*	RPDevicedatenKey=	@"RPDevicedaten";
    [[[self.RecPlayTab tabViewItemAtIndex:1] view]addSubview:self.ArchivAbspielanzeige];
    
 //   NSArray* viewArray0 = [[[self.RecPlayTab tabViewItemAtIndex:0]view]subviews];
-   //NSLog(@"viewArray0: %@",[viewArray0 description]);
+   //DLog(@"viewArray0: %@",[viewArray0 description]);
    [Abspielanzeige setMax:abspielanzeigerect.size.width];
    [self.Fortschritt startAnimation:nil];
    [self.RecPlayFenster setIsVisible:YES];
@@ -663,7 +663,7 @@ NSString*	RPDevicedatenKey=	@"RPDevicedaten";
    self.ArchivDaten=[[rArchivDS alloc]initWithRowCount:0];
    [self.ArchivView setDelegate: self.ArchivDaten];
    [self.ArchivView setDataSource: self.ArchivDaten];
-   //NSLog(@"setRecPlay:	mitUserPasswort: %d",mitUserPasswort);
+   //DLog(@"setRecPlay:	mitUserPasswort: %d",mitUserPasswort);
    if (self.mitUserPasswort)
    {
       [self.PWFeld setStringValue:@"Mit Passwort"];
@@ -672,9 +672,12 @@ NSString*	RPDevicedatenKey=	@"RPDevicedaten";
    {
       [self.PWFeld setStringValue:@"Ohne Passwort"];
    }
-   //NSLog(@"TimeoutDelay: %f",self.TimeoutDelay);
+   
+   [self.WeitereAufnahmeKnopf setTitle:NSLocalizedString(@"Additional record",@"Weitere Aufnahme")];
+   //DLog(@"TimeoutDelay: %f",self.TimeoutDelay);
    //self.TimeoutDelay=40.0;
    self.AdminTimeoutDelay = 40.0;
+   
    //Tooltips
    
    [self.StartStopKnopf setToolTip:@"Aufnahme beginnen\nEine schon vorhandene ungesicherte Aufnahme wird überschrieben"];
@@ -685,6 +688,8 @@ NSString*	RPDevicedatenKey=	@"RPDevicedaten";
    [self.RewindKnopf setToolTip:@"3 Sekunden zurück"];
    [self.ForewardKnopf setToolTip:@"3 Sekunden vorwärts"];
    [self.SichernKnopf setToolTip:@"Aufnahme sichern.\nDie Aufnahme wird in der Lesebox gesichert."];
+   [self.WeitereAufnahmeKnopf setToolTip:NSLocalizedString(@"Additional record with same name",@"Weitere Aufnahme")];
+
    [self.LogoutKnopf setToolTip:@"Abmelden des aktuellen Lesers."];
    //[[RecPlayTab tabViewItemAtIndex:1]setToolTip:@"Archiv von bisherigen Aufnahmen."];
    [self.ArchivInListeTaste setToolTip:@"Aktuelle Aufnahme in die Liste zurücklegen"];
@@ -702,7 +707,7 @@ NSString*	RPDevicedatenKey=	@"RPDevicedaten";
 //   [[self.ModusMenu itemWithTag:kKommentarTag]setToolTip:@"Hallo"];
    [[self.AblaufMenu itemWithTag:kEinstellungenTag]setToolTip:@"Hallo"];
    int i=[[[NSUserDefaults standardUserDefaults]objectForKey:@"Wert1"]intValue];
-   //NSLog(@"Test Wert1: %d",i);
+   //DLog(@"Test Wert1: %d",i);
    //i--;
    
    NSTimer* KontrollTimer=[NSTimer scheduledTimerWithTimeInterval:0.5
@@ -724,11 +729,11 @@ NSString*	RPDevicedatenKey=	@"RPDevicedaten";
    
   
    self.mainstoryboard = [NSStoryboard storyboardWithName:@"Main" bundle:nil];
-   //NSLog(@"mainstoryboard: %@",[self.mainstoryboard description]);
+   //DLog(@"mainstoryboard: %@",[self.mainstoryboard description]);
 //   self.Testfenster = [rTestfensterController new];
    self.Testfenster = [self.mainstoryboard instantiateControllerWithIdentifier:@"testfenster"];
    //[[[self.Testfenster view]window] makeKeyAndOrderFront:nil];
-    //NSLog(@"Testfenster: %@",[self.Testfenster description]);
+    //DLog(@"Testfenster: %@",[self.Testfenster description]);
  
    // EinstellungenFenster init
    self.EinstellungenFenster = [self.mainstoryboard instantiateControllerWithIdentifier:@"einstellungenfenster"];
@@ -741,7 +746,7 @@ NSString*	RPDevicedatenKey=	@"RPDevicedaten";
    [self.view.window setIsVisible:YES];
    [self.view.window makeFirstResponder:nil];
    
-   //NSLog(@"end nibname: %@ window: %@",self.nibName, [[self.view window]description]);
+   //DLog(@"end nibname: %@ window: %@",self.nibName, [[self.view window]description]);
 
    
    if (startcode)
@@ -753,21 +758,21 @@ NSString*	RPDevicedatenKey=	@"RPDevicedaten";
    NSMenu *modusMenu = [[mainMenu itemWithTitle:@"Modus"] submenu];
       for (NSMenuItem *item in [modusMenu itemArray])
       {
-          //NSLog(@"Menuitem: %@",[item title]);
+          //DLog(@"Menuitem: %@",[item title]);
          [item setTarget:self];
       }
 
    NSMenu *adminMenu = [[mainMenu itemWithTitle:@"Admin"]submenu];
    for (NSMenuItem *item in [adminMenu itemArray])
    {
-      //NSLog(@"Menuitem: %@",[item title]);
+      //DLog(@"Menuitem: %@",[item title]);
       [item setTarget:self];
       
    }
    NSMenu *recorderMenu = [[mainMenu itemWithTitle:@"Recorder"]submenu];
    for (NSMenuItem *item in [recorderMenu itemArray])
    {
-      //NSLog(@"Menuitem: %@",[item title]);
+      //DLog(@"Menuitem: %@",[item title]);
       [item setTarget:self];
       
    }
@@ -785,7 +790,7 @@ NSString*	RPDevicedatenKey=	@"RPDevicedaten";
  //  [[appMenu itemWithTitle:@"Admin"]setTarget:self];
  //  [[appMenu itemWithTitle:@"Anmerkungen"]setTarget:self];
    [appMenu setAutoenablesItems:NO];
-   //NSLog(@"viewDidLoad MenuItem: Modus: %@",[[appMenu itemWithTitle:@"Admin"]title]);
+   //DLog(@"viewDidLoad MenuItem: Modus: %@",[[appMenu itemWithTitle:@"Admin"]title]);
    [[mainMenu itemWithTitle:@"Modus"]setEnabled:YES];
    [[appMenu itemWithTitle:@"Admin"]setEnabled:YES];
    
@@ -797,15 +802,15 @@ NSString*	RPDevicedatenKey=	@"RPDevicedaten";
    
    
 
-   //NSLog(@"viewDidLoad end");
+   //DLog(@"viewDidLoad end");
    [[self.view window] display];
-   //NSLog(@"MenuItem: Modus: %@",[[appMenu itemWithTitle:@"Admin"]title]);
+   //DLog(@"MenuItem: Modus: %@",[[appMenu itemWithTitle:@"Admin"]title]);
 
 }
 
 - (void)viewDidLayout
 {
-   //NSLog(@"viewDidLayout");
+   //DLog(@"viewDidLayout");
    // AVRecorder
    
    if (!(AVRecorder))
@@ -826,7 +831,7 @@ NSString*	RPDevicedatenKey=	@"RPDevicedaten";
 
 - (void)setRepresentedObject:(id)representedObject {
    [super setRepresentedObject:representedObject];
-   //NSLog(@"setRepresentedObject");
+   //DLog(@"setRepresentedObject");
    // Update the view, if already loaded.
 }
 
@@ -836,7 +841,7 @@ NSString*	RPDevicedatenKey=	@"RPDevicedaten";
    
     // [self presentViewController:Testfenster animated:YES completion:nil];
    // http://beardforhire.com/blog/super-simple-custom-segues/
-   //NSLog(@"startTestfeld self.Testfenster: %@",[self.Testfenster description]);
+   //DLog(@"startTestfeld self.Testfenster: %@",[self.Testfenster description]);
    NSStoryboardSegue* adminsegue = [[NSStoryboardSegue alloc] initWithIdentifier:@"testfeld" source:self destination:self.Testfenster];
    [self prepareForSegue:adminsegue sender:sender];
    //[adminsegue perform];
@@ -854,7 +859,7 @@ NSString*	RPDevicedatenKey=	@"RPDevicedaten";
 
 - (void)prepareForSegue:(NSStoryboardSegue *)segue sender:(id)sender
 {
-   //NSLog(@"prepareForSegue %@",[segue description]);
+   //DLog(@"prepareForSegue %@",[segue description]);
    if ([[segue identifier] isEqualToString:@"admindata"])
    {
       
@@ -864,7 +869,7 @@ NSString*	RPDevicedatenKey=	@"RPDevicedaten";
    
    if ([[segue identifier] isEqualToString:@"testfeld"])
    {
-      //NSLog(@"prepareForSegue testfeld");
+      //DLog(@"prepareForSegue testfeld");
       // Get destination view
       self.Testfenster = [segue destinationController];
       [self.Testfenster setzeAnzeigeFeld:@"First"];
@@ -876,14 +881,14 @@ NSString*	RPDevicedatenKey=	@"RPDevicedaten";
       
       [self.Testfenster setzeAnzeigeFeld:@"Seccond"];
       
-      //NSLog(@"prepareForSegue erfolg: %d",erfolg);
+      //DLog(@"prepareForSegue erfolg: %d",erfolg);
    }
    
    
    
    if ([[segue identifier] isEqualToString:@"einstellungenanzeigefeld"])// zweiter kontakt
    {
-      //NSLog(@"prepareForSegue einstellungenanzeigefeld");
+      //DLog(@"prepareForSegue einstellungenanzeigefeld");
       
  //     [self.EinstellungenFenster setzeAnzeigeFeld:@"*Anzeige*"];
    
@@ -892,7 +897,7 @@ NSString*	RPDevicedatenKey=	@"RPDevicedaten";
    
     if ([[segue identifier] isEqualToString:@"einstellungensegue"]) // erster kontakt
     {
-       //NSLog(@"prepareForSegue einstellungensegue");
+       //DLog(@"prepareForSegue einstellungensegue");
        self.EinstellungenFenster = (rEinstellungen*)segue.destinationController ;
        
        [self.EinstellungenFenster setBewertung:YES];
@@ -903,7 +908,7 @@ NSString*	RPDevicedatenKey=	@"RPDevicedaten";
    
    if ([[segue identifier] isEqualToString:@"adminplayersegue"]) // erster kontakt
    {
-      //NSLog(@"prepareForSegue adminplayersegue");
+      //DLog(@"prepareForSegue adminplayersegue");
       self.AdminPlayer = (rAdminPlayer*)segue.destinationController ;
  
    }
@@ -911,19 +916,19 @@ NSString*	RPDevicedatenKey=	@"RPDevicedaten";
    // adminanzeigesegue
    if ([[segue identifier] isEqualToString:@"adminanzeigesegue"]) // erster kontakt
    {
-      //NSLog(@"prepareForSegue adminanzeigesegue");
+      //DLog(@"prepareForSegue adminanzeigesegue");
       
        self.AdminPlayer = (rAdminPlayer*)segue.destinationController ;
-      //NSLog(@"in beginAdminPlayer vor setAdminProjektArray: AdminPlayer:      ProjektArray: \n%@",[self.ProjektArray description]);
+      //DLog(@"in beginAdminPlayer vor setAdminProjektArray: AdminPlayer:      ProjektArray: \n%@",[self.ProjektArray description]);
    
       
       [self.AdminPlayer setAdminPlayer:self.LeseboxPfad inProjekt:[self.ProjektPfad lastPathComponent]];
       
       [self.AdminPlayer setAdminProjektArray:self.ProjektArray];
 
-      //NSLog(@"beginAdminPlayer nach setAdminPlayer");
+      //DLog(@"beginAdminPlayer nach setAdminPlayer");
       self.Umgebung=3;
-     //NSLog(@"in beginAdminPlayer vor setProjektPop: AdminPlayer:      ProjektArray: \n%@",[self.ProjektArray description]);
+     //DLog(@"in beginAdminPlayer vor setProjektPop: AdminPlayer:      ProjektArray: \n%@",[self.ProjektArray description]);
       
       [self.AdminPlayer setProjektPopMenu:self.ProjektArray];
       
@@ -934,7 +939,7 @@ NSString*	RPDevicedatenKey=	@"RPDevicedaten";
 - (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier
                                   sender:(id)sender
 {
-   //NSLog(@"shouldPerformSegueWithIdentifier segue: %@",identifier);
+   //DLog(@"shouldPerformSegueWithIdentifier segue: %@",identifier);
    
    
    if ([identifier isEqualToString:@"einstellungensegue"])
@@ -956,42 +961,42 @@ return YES;
 
 - (void)AdminStartAktion:(NSNotification*)note
 {
-   //NSLog(@"AdminStartAktion note: %@",note);
+   //DLog(@"AdminStartAktion note: %@",note);
    
    NSString* tempProjektWahl=[[note userInfo] objectForKey:@"projektwahl"];
    //tempProjektWahl = [tempProjektWahl stringByAppendingPathComponent:tempProjektWahl];
-   //NSLog(@"ProjektStartAktion tempProjektWahl: %@",tempProjektWahl);
+   //DLog(@"ProjektStartAktion tempProjektWahl: %@",tempProjektWahl);
    
    self.ProjektPfad=[self.ArchivPfad stringByAppendingPathComponent:tempProjektWahl];
    if ([[note userInfo] objectForKey:@"projektpfad"])
    {
       self.ProjektPfad=[[note userInfo] objectForKey:@"projektpfad"];
    }
-   //NSLog(@"ArchivPfad :%@ * ProjektPfad: %@",self.ArchivPfad,self.ProjektPfad);
+   //DLog(@"ArchivPfad :%@ * ProjektPfad: %@",self.ArchivPfad,self.ProjektPfad);
   //  [self beginAdminPlayer:nil];
    startcode=1;
 }
 
 
 - (void)RecordingAktion2:(NSNotification*)note{
-   //NSLog(@"RecordingAktion note: %@",note);
+   //DLog(@"RecordingAktion note: %@",note);
    if ([[note userInfo ]objectForKey:@"record"])
    {
       switch([[[note userInfo ] objectForKey:@"record"]intValue])
       {
          case 0:
          {
-            //NSLog(@"RecordingAktion2 Aufnahme stop");
+            //DLog(@"RecordingAktion2 Aufnahme stop");
             if ([AufnahmeTimer isValid])
             {
-               //NSLog(@"RecordingAktion Timer valid");
+               //DLog(@"RecordingAktion Timer valid");
                [AufnahmeTimer invalidate];
             }
          }break;
             
          case 1:
          {
-            //NSLog(@"RecordingAktion2 Aufnahme start");
+            //DLog(@"RecordingAktion2 Aufnahme start");
             
             AufnahmeTimer=[NSTimer scheduledTimerWithTimeInterval:1.0
                                                            target:self
@@ -1007,7 +1012,7 @@ return YES;
 
 - (void)TimeoutAktion:(NSNotification*)note
 {
-   //NSLog(@"TimeoutAktion %@",[[note userInfo]description]);
+   //DLog(@"TimeoutAktion %@",[[note userInfo]description]);
    
    if ([[note userInfo]objectForKey:@"run"])
    {
@@ -1035,7 +1040,7 @@ return YES;
    if ([[note userInfo]objectForKey:@"abmelden"])
    {
       int  AbmeldenCode=[[[note userInfo]objectForKey:@"abmelden"]intValue];
-      //NSLog(@"TimeoutAktion: AbmeldenCode: %d",AbmeldenCode);
+      //DLog(@"TimeoutAktion: AbmeldenCode: %d",AbmeldenCode);
       switch (AbmeldenCode)
       {
          case 2://Retten
@@ -1067,7 +1072,7 @@ return YES;
 
 - (void)SaveKommentarAktion:(NSNotification*)note
 {
-   //NSLog(@"SaveKommentarAktion");
+   //DLog(@"SaveKommentarAktion");
    
    if ([[note userInfo]objectForKey:@"druckview"])
    {
@@ -1089,7 +1094,7 @@ return YES;
          //NSData* DataToSave=[DruckView RTFFromRange:NSMakeRange(0,[[DruckView textStorage] length])];
          //[DataToSave writeToFile:[[savePanel filename]stringByAppendingPathComponent:@"Kommentar.doc"]  atomically:YES];
          //[DruckView writeRTFDToFile:[savePanel filename]  atomically:YES];
-         //NSLog(@"[savePanel filename]: %@, RemoveOK: %d",[savePanel filename],RemoveOK);
+         //DLog(@"[savePanel filename]: %@, RemoveOK: %d",[savePanel filename],RemoveOK);
          NSString* Pfad=[[savePanel URL]path];
          NSRange SaveRange=NSMakeRange(0,[[SaveView textStorage] length]);
          [[SaveView RTFFromRange:SaveRange] writeToFile:Pfad  atomically:YES];
@@ -1100,7 +1105,7 @@ return YES;
 
 - (IBAction)KommentarSichern:(id)sender
 {
-   //NSLog(@"RecplayController: KommentarSichern");
+   //DLog(@"RecplayController: KommentarSichern");
    //[AdminPlayer SaveKommentarVonProjekt:[ProjektPfad lastPathComponent]];
    //*   [self.AdminPlayer KommentarSichern];
 }
@@ -1110,7 +1115,7 @@ return YES;
 {
    
    BOOL OK=[self beenden];
-   //NSLog(@"BeendenAktion OK: %d",OK);
+   //DLog(@"BeendenAktion OK: %d",OK);
    if (OK)
    {
       [Utils setPListBusy:NO anPfad:self.LeseboxPfad];
@@ -1123,7 +1128,7 @@ return YES;
 -(IBAction)terminate:(id)sender
 {
    BOOL OK=[self beenden];
-   //NSLog(@"terminate OK: %d",OK);
+   //DLog(@"terminate OK: %d",OK);
    if (OK)
    {
       [Utils setPListBusy:NO anPfad:self.LeseboxPfad];
@@ -1143,7 +1148,7 @@ return YES;
    BOOL BeendenOK=YES;
 
    NSFileManager *Filemanager=[NSFileManager defaultManager];
-   //NSLog(@"neueAufnahmepfad: %@",neueAufnahmePfad);
+   //DLog(@"neueAufnahmepfad: %@",neueAufnahmePfad);
    if (self.neueAufnahmePfad)
    {
       BOOL sauberOK=[Filemanager removeItemAtURL:[NSURL fileURLWithPath:self.neueAufnahmePfad] error:nil];
@@ -1154,7 +1159,7 @@ return YES;
 - (BOOL)windowShouldClose:(id)sender
 {
    BOOL OK=[self beenden];
-   //NSLog(@"windowShouldClose");
+   //DLog(@"windowShouldClose");
    if (OK)
    {
       [Utils setPListBusy:NO anPfad:self.LeseboxPfad];
@@ -1186,7 +1191,7 @@ return YES;
    
    NSString* tempAchivPlayPfad = [self.ArchivPlayPfad stringByAppendingPathExtension:@"m4a"];
    
-   //NSLog(@"ArchivaufnahmeInPlayer tempAchivPlayPfad: %@",tempAchivPlayPfad);
+   //DLog(@"ArchivaufnahmeInPlayer tempAchivPlayPfad: %@",tempAchivPlayPfad);
    
    NSURL *ArchivURL = [NSURL fileURLWithPath:tempAchivPlayPfad];
    [AVAbspielplayer prepareAufnahmeAnURL:ArchivURL];
@@ -1204,15 +1209,15 @@ return YES;
 
 - (IBAction)ArchivZurListe:(id)sender
 {
-   //NSLog(@"ArchivZurListe");
+   //DLog(@"ArchivZurListe");
    self.ArchivPlayerGeladen=NO;
    NSFileManager *Filemanager=[NSFileManager defaultManager];
-   //NSLog(@"ArchivZurListe: ArchivKommentarPfad: %@",self.ArchivKommentarPfad);
+   //DLog(@"ArchivZurListe: ArchivKommentarPfad: %@",self.ArchivKommentarPfad);
    if ([Filemanager fileExistsAtPath:[self.ArchivKommentarPfad stringByAppendingPathExtension:@"txt"]])
 			{
-            //NSLog(@"vor saveUserMarkFuerAufnahmePfad: UserMarkCheckbox: %d",[UserMarkCheckbox state]);
+            //DLog(@"vor saveUserMarkFuerAufnahmePfad: UserMarkCheckbox: %d",[UserMarkCheckbox state]);
             [self saveUserMarkFuerAufnahmePfad:[self.ArchivKommentarPfad stringByAppendingPathExtension:@"txt"]];
-            //NSLog(@"nach saveUserMarkFuerAufnahmePfad");
+            //DLog(@"nach saveUserMarkFuerAufnahmePfad");
             
          }
    
@@ -1237,13 +1242,13 @@ return YES;
    if (tempKommentarString)
    {
       NSMutableArray* tempMarkArray=(NSMutableArray*)[tempKommentarString componentsSeparatedByString:@"\r"];
-      //NSLog(@"tempMarkArray: %@ UserMarkCheckbox state: %d",[tempMarkArray description],[UserMarkCheckbox state]);
+      //DLog(@"tempMarkArray: %@ UserMarkCheckbox state: %d",[tempMarkArray description],[UserMarkCheckbox state]);
       NSNumber* MarkNumber =[NSNumber numberWithBool:[self.UserMarkCheckbox state]];
       if ([tempMarkArray count]==8)//Zeile für Mark  ist da
       {
-         //NSLog(@"UserMark Hier? %@",[MarkNumber stringValue]);
+         //DLog(@"UserMark Hier? %@",[MarkNumber stringValue]);
          [tempMarkArray replaceObjectAtIndex:UserMark withObject:[MarkNumber stringValue]];
-         //NSLog(@"tempMarkArray neu: %@",[tempMarkArray description]);
+         //DLog(@"tempMarkArray neu: %@",[tempMarkArray description]);
          
          //[tempKommentarString setString:[tempMarkArray componentsJoinedByString:@"\r"]];
          
@@ -1253,7 +1258,7 @@ return YES;
          [tempMarkArray insertObject:[MarkNumber stringValue] atIndex:UserMarkReturn];
       }
       [tempKommentarString setString:[tempMarkArray componentsJoinedByString:@"\r"]];
-      //NSLog(@"saveUserMarkFuerAufnahmePfad: tempKommentarString: %@",tempKommentarString);
+      //DLog(@"saveUserMarkFuerAufnahmePfad: tempKommentarString: %@",tempKommentarString);
       [tempKommentarString writeToFile:derAufnahmePfad atomically:YES encoding:NSMacOSRomanStringEncoding error:NULL];
    }
 }
@@ -1261,12 +1266,12 @@ return YES;
 
 - (void) VolumesAktion:(NSNotification*)note
 {
-   //NSLog(@"VolumesAktion");
+   DLog(@"VolumesAktion note: %@",note);
    NSNumber* n=[[note userInfo]objectForKey:@"LeseboxDa"];
    self.LeseboxDa=[n boolValue];
    if ([n intValue]==0)//Abbrechen
    {
-      //NSLog(@"VolumesAktion: number=0 %d   ",[n intValue]);
+      //DLog(@"VolumesAktion: number=0 %d   ",[n intValue]);
       //Beenden
       NSMutableDictionary* BeendenDic=[[NSMutableDictionary alloc]initWithCapacity:0];
       [BeendenDic setObject:[NSNumber numberWithInt:1] forKey:@"beenden"];
@@ -1275,10 +1280,10 @@ return YES;
    }
    if ([n intValue]==1)//
    {
-      //NSLog(@"URL: %@",[[note userInfo]objectForKey:@"url"]);
+      //DLog(@"URL: %@",[[note userInfo]objectForKey:@"url"]);
    }
    
-   //NSLog(@"VolumesAktion: number %d   ",[n intValue]);
+   //DLog(@"VolumesAktion: number %d   ",[n intValue]);
 }
 
 - (IBAction)PrefsLesen:(id)sender
@@ -1287,37 +1292,37 @@ return YES;
    Testnummer=[[NSUserDefaults standardUserDefaults]objectForKey:Wert1Key];
    self.Wert1=[Testnummer intValue];
    //[Levelfeld setIntValue:Wert1];
-   //NSLog(@"Prefs lesen Wert 1: %d",Wert1);
+   //DLog(@"Prefs lesen Wert 1: %d",Wert1);
    Testnummer=[[NSUserDefaults standardUserDefaults]objectForKey:Wert2Key];
    self.Wert2=[Testnummer intValue];
-   //NSLog(@"Prefs lesen Wert 2: %d",Wert2);
+   //DLog(@"Prefs lesen Wert 2: %d",Wert2);
    [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:self.Wert1+2] forKey:Wert2Key];
    self.Wert1=[[[NSUserDefaults standardUserDefaults]objectForKey:Wert2Key]intValue];
-   //NSLog(@"Prefs lesen:Wert1 nach: %d",Wert1);
+   //DLog(@"Prefs lesen:Wert1 nach: %d",Wert1);
    [[NSUserDefaults standardUserDefaults]setObject:[NSNumber numberWithInt:self.Wert1] forKey:Wert1Key];
    
    self.RPDevicedaten=[[NSUserDefaults standardUserDefaults]objectForKey:RPDevicedatenKey];
    //int l=[RPDevicedaten length];
-   //NSLog(@"Prefs lesen: Länge Devicedaten: %d",l);
+   //DLog(@"Prefs lesen: Länge Devicedaten: %d",l);
    
 }
 - (IBAction)PrefsSchreiben:(id)sender
 {
    //Wert1=[Levelfeld intValue];
-   //NSLog(@"Prefs schreiben neuer Wert 1: %d",Wert1);
+   //DLog(@"Prefs schreiben neuer Wert 1: %d",Wert1);
    [[NSUserDefaults standardUserDefaults]setInteger: self.Wert1 forKey: Wert1Key];
    
    //Wert2+=10;
-   //NSLog(@"Prefs schreiben neuer Wert 2: %d",Wert2);
+   //DLog(@"Prefs schreiben neuer Wert 2: %d",Wert2);
    //RPModus=1;
    
    short l=[self.RPDevicedaten length];
-   //NSLog(@"Prefs schreiben: Länge Devicedaten: %ddata: %@",l,[RPDevicedaten description]);
+   //DLog(@"Prefs schreiben: Länge Devicedaten: %ddata: %@",l,[RPDevicedaten description]);
    //NSString * datenstring=[RPDevicedaten description];
    //int n,sum=0;   //Summe der unicode-chars bestimmen
    //for (n=0;n<l;n++)
    //	sum+=[datenstring characterAtIndex:n];
-   //NSLog(@"Prefs schreiben: Länge Devicedaten: %d  summe: %d",l,sum);
+   //DLog(@"Prefs schreiben: Länge Devicedaten: %d  summe: %d",l,sum);
    if(l>0)
    {
       [[NSUserDefaults standardUserDefaults]setObject:self.RPDevicedaten forKey:RPDevicedatenKey];
@@ -1328,7 +1333,7 @@ return YES;
    
    
    
-   //NSLog(@"Gesicherte Prefs lesen: %d",ii);
+   //DLog(@"Gesicherte Prefs lesen: %d",ii);
 }
 
 - (void)setRecPlay
@@ -1393,7 +1398,7 @@ return YES;
    }
    [self.ArchivView setDelegate: self.ArchivDaten];
    [self.ArchivView setDataSource: self.ArchivDaten];
-   //NSLog(@"setRecPlay:	mitUserPasswort: %d",mitUserPasswort);
+   //DLog(@"setRecPlay:	mitUserPasswort: %d",mitUserPasswort);
    if (self.mitUserPasswort)
    {
       [self.PWFeld setStringValue:@"Mit Passwort"];
@@ -1417,17 +1422,17 @@ return YES;
     err=MemError();
     if (err)
     {
-    //NSLog(@"ReadDeviceEinstellungen: MemErr nach NewHandle:%d",err);;
+    //DLog(@"ReadDeviceEinstellungen: MemErr nach NewHandle:%d",err);;
     }
     //	*RecordereinstellungenHandle=*(Recorder->GetEinstellungen());
     
     HLock(RecordereinstellungenHandle);
     long l=GetHandleSize(RecordereinstellungenHandle);
-    //NSLog(@"GetHandleSize(RecordereinstellungenH): %d",l);
+    //DLog(@"GetHandleSize(RecordereinstellungenH): %d",l);
     RPDevicedaten=[NSData dataWithBytes:(UInt8*)*RecordereinstellungenHandle length: l];
     l=[RPDevicedaten length];
-    //NSLog(@"Controller: err nach GetEinstellungen Fehler: %d Laenge: %d\n ", err,l);
-    //	//NSLog(@"************************GetEinstellungen: Devicedaten: %@",[RPDevicedaten description]);
+    //DLog(@"Controller: err nach GetEinstellungen Fehler: %d Laenge: %d\n ", err,l);
+    //	//DLog(@"************************GetEinstellungen: Devicedaten: %@",[RPDevicedaten description]);
     
     HUnlock(RecordereinstellungenHandle);
     DisposeHandle(RecordereinstellungenHandle);
@@ -1462,7 +1467,7 @@ return YES;
 {
    OSErr err=0;
    //err=Recorder->Einstellungentest();
-   //NSLog(@"err bei Einstellungentest: %d ", err);
+   //DLog(@"err bei Einstellungentest: %d ", err);
    
 }
 
@@ -1479,7 +1484,7 @@ return YES;
 
 - (IBAction)goQTKitStart:(id)sender
 {
-   //NSLog(@"goQTKitStart");
+   //DLog(@"goQTKitStart");
    
 }
 
@@ -1493,7 +1498,7 @@ return YES;
    
    //*  QTCaptureConnection *connection = nil;
    NSUInteger numberOfPowerLevels = 0;	// Keep track of the total number of power levels in order to take the mean
-   //NSLog(@"updateAudioLevels: %d",[[movieFileOutput connections] count]);
+   //DLog(@"updateAudioLevels: %d",[[movieFileOutput connections] count]);
    
    /*
     for (i = 0; i < [[movieFileOutput connections] count]; i++)
@@ -1524,7 +1529,7 @@ return YES;
    }
    
    //  float l=(float)[mCaptureMovieFileOutput  recordedDuration].timeValue/[mCaptureMovieFileOutput  recordedDuration].timeScale;
-   //NSLog(@"updateAudioLevels l: %2.1f",l);
+   //DLog(@"updateAudioLevels l: %2.1f",l);
    
    
    
@@ -1544,17 +1549,17 @@ return YES;
     {
     SekundenString=[NSString stringWithFormat:@"%d",Sekunden];
     }
-    //NSLog(@"updateAudioLevels Min: %@ Sek: %@",MinutenString, SekundenString);
+    //DLog(@"updateAudioLevels Min: %@ Sek: %@",MinutenString, SekundenString);
     */
    
    //QTTime aktuelleZeit = [mCaptureMovieFileOutput  recordedDuration];
    //float floatZeit=(float)aktuelleZeit.timeValue/aktuelleZeit.timeScale;
-   //NSLog(@"floatZeit : %2.0f",floatZeit );
+   //DLog(@"floatZeit : %2.0f",floatZeit );
    //NSString* ZeitString=[NSString stringWithFormat:@"%2.0f",floatZeit];
-   //NSLog(@"ZeitString: %@",ZeitString);
-   //	//NSLog(@"recordedDuration: %2.2f",(float)[mCaptureMovieFileOutput  recordedDuration].timeValue/1000);
+   //DLog(@"ZeitString: %@",ZeitString);
+   //	//DLog(@"recordedDuration: %2.2f",(float)[mCaptureMovieFileOutput  recordedDuration].timeValue/1000);
    //	NSValue* ZeitVal=[NSValue valueWithQTTime:aktuelleZeit];
-   //NSLog(@"aktuelleZeit timescale: %d",aktuelleZeit.timeScale );
+   //DLog(@"aktuelleZeit timescale: %d",aktuelleZeit.timeScale );
    
    //   [self.Zeitfeld setStringValue:[NSString stringWithFormat:@"%@:%@",MinutenString, SekundenString]];
    
@@ -1612,7 +1617,7 @@ QTMovie* qtMovie;
    printf ("panel dismissed\n");
    //NSURL* url = [[panel URLs] objectAtIndex: 0];
    NSURL* url=[NSURL fileURLWithPath:@"/Users/sysadmin/Documents/neueAufnahme.mov"];
-   //NSLog(@"URL: %@\n",url );
+   //DLog(@"URL: %@\n",url );
    
    printf ("Creating qtmovie\n");
    NSError* openError = nil;
@@ -1637,7 +1642,7 @@ QTMovie* qtMovie;
     QTTime Gesamtzeit=[[RecordQTKitPlayer movie]duration];
     QTTime Spielzeit=[[RecordQTKitPlayer movie]currentTime];
     float Restzeit=(float)(Gesamtzeit.timeValue-Spielzeit.timeValue)/Gesamtzeit.timeScale;
-    //NSLog(@"Restzeit: %2.2f",Restzeit);
+    //DLog(@"Restzeit: %2.2f",Restzeit);
     [Abspielanzeige setLevel:(Spielzeit.timeValue)];
     if (Restzeit>0)
     {
@@ -1646,14 +1651,14 @@ QTMovie* qtMovie;
     if (Restzeit==0)
     {
     [derTimer invalidate];
-    //NSLog(@"Restzeit ist null");
+    //DLog(@"Restzeit ist null");
     }
     */
 }
 
 - (IBAction)startPlay:(id)sender
 {
-   //NSLog(@"startPlay");
+   //DLog(@"startPlay");
    if([self istRecording])
    {
       NSBeep();
@@ -1665,7 +1670,7 @@ QTMovie* qtMovie;
    /*
     if (![RecordQTKitPlayer movie])
     {
-    //NSLog(@"Noch kein Movie da");
+    //DLog(@"Noch kein Movie da");
     
     NSURL *movieUrl = [NSURL fileURLWithPath:hiddenAufnahmePfad];
     NSError* startErr=0;
@@ -1685,17 +1690,17 @@ QTMovie* qtMovie;
     [RecordQTKitPlayer setMovie:tempMovie];
     if (!tempMovie)
     {
-    //NSLog(@"Kein Movie da");
+    //DLog(@"Kein Movie da");
     }
     // retrieve the QuickTime-style movie (type "Movie" from QuickTime/Movies.h)
     //PlayerMovie =[tempMovie quickTimeMovie];
     
-    //NSLog(@"Beginn startPlay: Dauer in s:%2.2f ",Dauer/600.0);
+    //DLog(@"Beginn startPlay: Dauer in s:%2.2f ",Dauer/600.0);
     
     double PlayerVolume=120.0;
     }
     */
-   //NSLog(@"startPlay hiddenAufnahmePfad: %@",hiddenAufnahmePfad);
+   //DLog(@"startPlay hiddenAufnahmePfad: %@",hiddenAufnahmePfad);
    NSURL *movieURL = [NSURL fileURLWithPath:self.hiddenAufnahmePfad];
    NSError* err1;
    
@@ -1715,9 +1720,9 @@ QTMovie* qtMovie;
    
    //	QTMovie *tempMovie=[RecordQTKitPlayer movie];
    //Dauer=[tempMovie duration].timeValue/[tempMovie duration].timeScale;
-   //NSLog(@"startPlay Dauer: %d",Dauer);
+   //DLog(@"startPlay Dauer: %d",Dauer);
    //   QTKitDauer=(float)[tempMovie duration].timeValue/[tempMovie duration].timeScale;
-   //NSLog(@"startPlay QTKitDauer: %2.2f",QTKitDauer);
+   //DLog(@"startPlay QTKitDauer: %2.2f",QTKitDauer);
    [Utils stopTimeout];
    //GesamtAbspielzeit=Dauer;
    // self.QTKitGesamtAbspielzeit=self.QTKitDauer;
@@ -1776,7 +1781,7 @@ QTMovie* qtMovie;
    
    //*[self.RecordQTKitPlayer pause:NULL];
    int PauseZeit=(self.Laufzeit)/60;
-   //NSLog(@"Laufzeit:%d  PauseZeit: %d",Laufzeit,PauseZeit);
+   //DLog(@"Laufzeit:%d  PauseZeit: %d",Laufzeit,PauseZeit);
    self.Pause=self.Laufzeit/60;
    
    
@@ -1824,14 +1829,14 @@ QTMovie* qtMovie;
 
 - (void)setLevel:(int)derLevel
 {
-   //NSLog(@"RPC setLevel: %d",derLevel);
+   //DLog(@"RPC setLevel: %d",derLevel);
    [self.Levelmeter setLevel:derLevel];
 }
 
 
 - (OSErr) finishMovie:(NSString*)derAufnahmePfad zuPfad:(NSString*)derFinishPfad
 {
-   //NSLog(@"finishMovie: derAufnahmePfad: %@  derFinishPfad: %@",derAufnahmePfad,derFinishPfad);
+   //DLog(@"finishMovie: derAufnahmePfad: %@  derFinishPfad: %@",derAufnahmePfad,derFinishPfad);
    /*
     BOOL success = NO;
     
@@ -1901,8 +1906,8 @@ QTMovie* qtMovie;
    /*
     QTTime gesamtTime=[tempQTKitMovie duration];
     float floatZeit=(float)gesamtTime.timeValue/gesamtTime.timeScale;
-    //NSLog(@"floatZeit: %f",floatZeit);
-    //NSLog(@"gesamtTime vor: %2.2f",(float)gesamtTime.timeValue/gesamtTime.timeScale);
+    //DLog(@"floatZeit: %f",floatZeit);
+    //DLog(@"gesamtTime vor: %2.2f",(float)gesamtTime.timeValue/gesamtTime.timeScale);
     long timeScale=gesamtTime.timeScale;
     
     QTTime startZeit=QTMakeTime(0,timeScale);
@@ -1910,14 +1915,14 @@ QTMovie* qtMovie;
     QTTime knackZeit=QTMakeTime(KnackDelay,timeScale);
     [tempQTKitMovie deleteSegment:QTMakeTimeRange(startZeit,knackZeit)];
     QTTime startKnackDauer=[tempQTKitMovie duration];
-    //NSLog(@"gesamtTime nach: %2.2f",(float)startKnackDauer.timeValue/startKnackDauer.timeScale);
+    //DLog(@"gesamtTime nach: %2.2f",(float)startKnackDauer.timeValue/startKnackDauer.timeScale);
     
     //Endknacks abschneiden
     QTTime endZeit=QTMakeTime(gesamtTime.timeValue,timeScale);
     QTTime endKnackZeit=QTMakeTime(gesamtTime.timeValue-KnackDelay,timeScale);
     [tempQTKitMovie deleteSegment:QTMakeTimeRange(endKnackZeit,endZeit)];
     QTTime endKnackDauer=[tempQTKitMovie duration];
-    //NSLog(@"gesamtTime nach end: %2.2f",(float)endKnackDauer.timeValue/endKnackDauer.timeScale);
+    //DLog(@"gesamtTime nach end: %2.2f",(float)endKnackDauer.timeValue/endKnackDauer.timeScale);
     */
    /*
     [RecordQTKitPlayer setMovie:tempQTKitMovie];
@@ -1927,7 +1932,7 @@ QTMovie* qtMovie;
    
    /*
     long movieScale = [[tempQTKitMovie attributeForKey:QTMovieTimeScaleAttribute] longValue]; //get movie scale
-    //NSLog(@"movieScale: %d duration: %d",movieScale, [tempQTKitMovie duration].timeValue);
+    //DLog(@"movieScale: %d duration: %d",movieScale, [tempQTKitMovie duration].timeValue);
     
     NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:
     [NSNumber numberWithBool:YES], QTMovieExport,
@@ -1944,7 +1949,7 @@ QTMovie* qtMovie;
    //	[Filemanager moveItemAtPath:derAufnahmePfad toPath:derFinishPfad error:NULL];
    
    
-   //	//NSLog(@"exportErfolg: %d derFinishPfad: %@",exportErr,derFinishPfad);
+   //	//DLog(@"exportErfolg: %d derFinishPfad: %@",exportErr,derFinishPfad);
    
    
    
@@ -1955,13 +1960,13 @@ QTMovie* qtMovie;
    UniChar								buffer[255]; // HFS+ filename max is 255
    NSString*							finishAufnahmeName=[[derFinishPfad copy] lastPathComponent];
    
-   //	//NSLog(@"finishAufnahmeName: %@",finishAufnahmeName);
+   //	//DLog(@"finishAufnahmeName: %@",finishAufnahmeName);
    
    [finishAufnahmeName getCharacters:buffer];
    
    //NSFileManager* Filemanager=[NSFileManager defaultManager];
    NSString* LeserordnerPfad=[[derFinishPfad copy] stringByDeletingLastPathComponent];
-   //NSLog(@"LeserordnerPfad: %@",LeserordnerPfad);
+   //DLog(@"LeserordnerPfad: %@",LeserordnerPfad);
    
    BOOL KommentarOK=[Utils setKommentar:@"Hallo" inAufnahmeAnPfad:derAufnahmePfad];
    
@@ -1979,11 +1984,11 @@ QTMovie* qtMovie;
 
 - (void)SaveAufnahmeTimerFunktion:(NSTimer*)derTimer
 {
-   //NSLog(@"        SaveAufnahmeTimerFunktion info: %d",[[derTimer userInfo]intValue]);
+   //DLog(@"        SaveAufnahmeTimerFunktion info: %d",[[derTimer userInfo]intValue]);
    
    if ([[derTimer userInfo]intValue])	//Sichern und abmelden
    {
-      //NSLog(@"        SaveAufnahmeTimerFunktion: Sichern und Abmelden");
+      //DLog(@"        SaveAufnahmeTimerFunktion: Sichern und Abmelden");
       [self.ArchivnamenPop selectItemAtIndex:0];
       [self.Leserfeld setStringValue:@""];
       [[self.TitelPop cell]setStringValue:@""];
@@ -2030,14 +2035,14 @@ QTMovie* qtMovie;
     }
     if ([Leser length]==0)
     {
-    //NSLog(@"[Leser length]==0");
+    //DLog(@"[Leser length]==0");
     return FehlerArray;
     }
     
     
     if (QTKitGesamtAufnahmezeit==0)
     {
-    //NSLog(@"GesamtAufnahmezeit==0");
+    //DLog(@"GesamtAufnahmezeit==0");
     return FehlerArray;
     }
     */
@@ -2063,7 +2068,7 @@ QTMovie* qtMovie;
          }
          
          //NSString* Aufnahmenliste=[tempAufnahmeArray description];
-         //NSLog(@"tempAufnahmeListe: %@", Aufnahmenliste);
+         //DLog(@"tempAufnahmeListe: %@", Aufnahmenliste);
          NSMutableString* tempNummerString=[NSMutableString stringWithCapacity:0];
          NSNumber* tempNummer;
          int maxNummer=0;
@@ -2100,16 +2105,16 @@ QTMovie* qtMovie;
                }//while pos
                if (posLeerstelle1 && posLeerstelle2)
                {
-                  //NSLog(@"loopNummerString: %@   pos Leerstelle1:%d pos Leerstelle2:%d",loopNummerString,posLeerstelle1,posLeerstelle2);
+                  //DLog(@"loopNummerString: %@   pos Leerstelle1:%d pos Leerstelle2:%d",loopNummerString,posLeerstelle1,posLeerstelle2);
                   NSRange tempRange=NSMakeRange(posLeerstelle1+1,(posLeerstelle2-posLeerstelle1));
                   tempNummerString=(NSMutableString*)[loopNummerString substringWithRange:tempRange];
-                  //NSLog(@"loopNummerString: %@   pos Leerstelle1:%d pos Leerstelle2:%d",loopNummerString,posLeerstelle1,posLeerstelle2);
+                  //DLog(@"loopNummerString: %@   pos Leerstelle1:%d pos Leerstelle2:%d",loopNummerString,posLeerstelle1,posLeerstelle2);
                   
                   int loopNummer=[tempNummerString intValue];
                   if (loopNummer>maxNummer)
                      maxNummer=loopNummer;
                }
-               //NSLog(@"neue maxNummer: %d",maxNummer);
+               //DLog(@"neue maxNummer: %d",maxNummer);
                //[loopNummerString release];
             }
          }
@@ -2145,7 +2150,7 @@ QTMovie* qtMovie;
          BOOL createKommentarOK=[Utils createKommentarFuerLeser:self.Leser FuerAufnahmePfad:tempAufnahmePfad];
          if (createKommentarOK)
          {
-            //NSLog(@"AufnahmePfad : %@", tempAufnahmePfad);
+            //DLog(@"AufnahmePfad : %@", tempAufnahmePfad);
             
             OSErr err=[self finishMovie:self.neueAufnahmePfad zuPfad:tempAufnahmePfad];
             if (err)
@@ -2188,15 +2193,15 @@ QTMovie* qtMovie;
    //SessionLeserArray aktualisieren
    
     NSString* creatingDatum=heuteDatumString;
-   //NSLog(@"Projekt: %@ creatingDatum: %@",[ProjektPfad lastPathComponent],creatingDatum);
+   //DLog(@"Projekt: %@ creatingDatum: %@",[ProjektPfad lastPathComponent],creatingDatum);
    
    NSString* tempLeser=[self.ArchivnamenPop titleOfSelectedItem];
-   //NSLog(@"saveRecord Projekt: %@ tempLeser: %@",[ProjektPfad lastPathComponent],tempLeser);
+   //DLog(@"saveRecord Projekt: %@ tempLeser: %@",[ProjektPfad lastPathComponent],tempLeser);
    
    //Leser zur Sessionliste zufügen
    
    NSUInteger ProjektIndex=[[self.ProjektArray valueForKey:@"projekt"] indexOfObject:[self.ProjektPfad lastPathComponent]];
-   //NSLog(@"ProjektIndex: %d",ProjektIndex);
+   //DLog(@"ProjektIndex: %d",ProjektIndex);
    if (ProjektIndex<NSNotFound)
    {
       NSMutableDictionary* tempProjektDic=(NSMutableDictionary*)[self.ProjektArray objectAtIndex:ProjektIndex];
@@ -2205,16 +2210,16 @@ QTMovie* qtMovie;
       
       if ([tempProjektDic objectForKey:@"sessionleserarray"])//Array ist vorhanden
       {
-         //NSLog(@"SessionLeserArray da: ");
+         //DLog(@"SessionLeserArray da: ");
          [SessionLeserArray addObjectsFromArray:[tempProjektDic objectForKey:@"sessionleserarray"]];
          
-         //NSLog(@"SessionLeserArray da2");
+         //DLog(@"SessionLeserArray da2");
       }
       if (![SessionLeserArray containsObject:tempLeser])//tempLeser einsetzen
       {
          [SessionLeserArray addObject:tempLeser];
       }
-      //NSLog(@"vor setArchivNamenPop");
+      //DLog(@"vor setArchivNamenPop");
       [tempProjektDic setObject:SessionLeserArray forKey:@"sessionleserarray"];
       
       //SessionListe in der PList sichern
@@ -2232,7 +2237,7 @@ QTMovie* qtMovie;
 
 - (void)resetRecPlay
 {
-   //NSLog(@"resetRecPlay");
+   //DLog(@"resetRecPlay");
    
    [self stopAVRecord:NULL];
    [Utils stopTimeout];
@@ -2301,14 +2306,14 @@ QTMovie* qtMovie;
    //int i=1;
    NSFileManager *Manager = [NSFileManager defaultManager];
    PfadArray = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-   //NSLog(@"PfadArray  : %@",[PfadArray description]);
+   //DLog(@"PfadArray  : %@",[PfadArray description]);
    if ([PfadArray count] > 0)
    { //
       //neueAufnahmePfad = [[PfadArray objectAtIndex:0] stringByAppendingPathComponent:[neueAufnahme lastPathComponent]];
       //i++;
       NSString *DokumentordnerPfad = [PfadArray objectAtIndex:0];//[LeseboxPfad stringByDeletingLastPathComponent];
       self.neueAufnahmePfad=[DokumentordnerPfad stringByAppendingPathComponent:neueAufnahmeName];
-      //NSLog(@"Aufnahmevorbereiten  neueAufnahmePfad: %@",neueAufnahmePfad);
+      //DLog(@"Aufnahmevorbereiten  neueAufnahmePfad: %@",neueAufnahmePfad);
       
       status=YES;
       
@@ -2328,7 +2333,7 @@ QTMovie* qtMovie;
 
 - (IBAction)resetLesebox:(id)sender
 {
-   //NSLog(@"resetLesebox");
+   //DLog(@"resetLesebox");
    [self resetArchivPlayer:sender];
    [self.RecPlayTab selectFirstTabViewItem:sender];
    [self.ArchivnamenPop selectItemAtIndex:0];
@@ -2353,13 +2358,13 @@ QTMovie* qtMovie;
 {
    BOOL erfolg;
    OSErr err=0;
-   //NSLog(@"setLesebox Modus: %d",self.RPModus);
+   //DLog(@"setLesebox Modus: %d",self.RPModus);
    //if Umgebung==1
    switch (self.Umgebung)
    {
       case 1:
       {
-         //NSLog(@"setLeseboxcase 1");
+         //DLog(@"setLeseboxcase 1");
          erfolg=[self setNetworkLeseboxPfad:nil];
          if (erfolg)
          {
@@ -2368,7 +2373,7 @@ QTMovie* qtMovie;
       }break;
       case 0:
       {
-         //NSLog(@"setLeseboxcase 0");
+         //DLog(@"setLeseboxcase 0");
          //        if ([AufnahmeGrabber isRecording])
          //return;
          [self resetLesebox:sender];
@@ -2379,7 +2384,7 @@ QTMovie* qtMovie;
       }break;
       case 2:
       {
-         //NSLog(@"setLesebox case 2");
+         //DLog(@"setLesebox case 2");
       }break;
    }
    
@@ -2428,7 +2433,7 @@ QTMovie* qtMovie;
       [LeseboxDialog  setDirectoryURL:[NSURL URLWithString:NSHomeDirectory()]];
    }
    
-//NSLog(@"setNetworkLeseboxPfad NSOKButton: %d NSModalResponseOK: %d" ,NSOKButton,NSModalResponseOK);
+//DLog(@"setNetworkLeseboxPfad NSOKButton: %d NSModalResponseOK: %d" ,NSOKButton,NSModalResponseOK);
    if (LeseboxHit==NSModalResponseOK)
 	  {
         tempLeseboxPfad=[[LeseboxDialog URL]path]; //"home"
@@ -2437,12 +2442,12 @@ QTMovie* qtMovie;
         NSString* lb=@"Lesebox";
         tempLeseboxPfad=[tempLeseboxPfad stringByAppendingPathComponent:lb];
         self.LeseboxPfad=(NSMutableString*)tempLeseboxPfad;
-      //NSLog(@"setNetworkLeseboxPfad:   LeseboxPfad: %@",self.LeseboxPfad);
+      //DLog(@"setNetworkLeseboxPfad:   LeseboxPfad: %@",self.LeseboxPfad);
         
         
         if ([Filemanager fileExistsAtPath:tempLeseboxPfad ])
         {
-        //NSLog(@"AdminLeseboxPfad da: %@",tempLeseboxPfad);
+        //DLog(@"AdminLeseboxPfad da: %@",tempLeseboxPfad);
            erfolg=YES;
         }
         else
@@ -2478,7 +2483,7 @@ QTMovie* qtMovie;
    {
       case 1:
       {
-         //NSLog(@"setLeserliste RPModus=2");
+         //DLog(@"setLeserliste RPModus=2");
          [self SessionListeAktualisieren];
          
          //     [self.AdminPlayer resetAdminPlayer];
@@ -2489,7 +2494,7 @@ QTMovie* qtMovie;
       }break;
       case 0:
       {
-         //NSLog(@"setLeserliste RPModus=0");
+         //DLog(@"setLeserliste RPModus=0");
          //29.1.
          [self SessionListeAktualisieren];
          [self setArchivNamenPop];
@@ -2524,17 +2529,17 @@ QTMovie* qtMovie;
       }
       
    }
-   //NSLog(@"ProjektSessionDatum: %@",ProjektSessionDatum);
+   //DLog(@"ProjektSessionDatum: %@",ProjektSessionDatum);
    
    int PopAnz=[self.ArchivnamenPop numberOfItems];
-   //NSLog(@"ArchivnamenPop numberOfItems %d",PopAnz);
+   //DLog(@"ArchivnamenPop numberOfItems %d",PopAnz);
    
    if (PopAnz>1)//Alle ausser erstes Item entfernen (Name wählen)
    {
       while (PopAnz>1)
       {
          
-         //NSLog(@"ArchivnamenPop removeItemAtIndex  %@",[[ArchivnamenPop itemAtIndex:1]description]);
+         //DLog(@"ArchivnamenPop removeItemAtIndex  %@",[[ArchivnamenPop itemAtIndex:1]description]);
          [self.ArchivnamenPop removeItemAtIndex:1];
          PopAnz--;
          
@@ -2552,12 +2557,12 @@ QTMovie* qtMovie;
    //Sessioleserarray
    NSArray* tempSessionLeserArray=[self SessionLeserListeVonProjekt:[self.ProjektPfad lastPathComponent]];
    
-   //NSLog(@"tempSessionLeserArray 1: %@",[tempSessionLeserArray description]);
+   //DLog(@"tempSessionLeserArray 1: %@",[tempSessionLeserArray description]);
    NSEnumerator* NamenEnum=[tempProjektNamenArray objectEnumerator];
    id einName;
    while (einName=[NamenEnum nextObject])
    {
-      //NSLog(@"einName: %@",einName);
+      //DLog(@"einName: %@",einName);
       [self.ArchivnamenPop addItemWithTitle:einName];
    }
 	  
@@ -2566,13 +2571,13 @@ QTMovie* qtMovie;
    int ItemIndex=1;
    while (einSessionName=[SessionNamenEnum nextObject])
    {
-      //NSLog(@"setArchivNamenPopMitProjektArray tempProjektNamenArray index: %d: einSessionName: %@",ItemIndex,einSessionName);
+      //DLog(@"setArchivNamenPopMitProjektArray tempProjektNamenArray index: %d: einSessionName: %@",ItemIndex,einSessionName);
       BOOL NameDa=NO;
       
       
       if (tempSessionLeserArray &&[tempSessionLeserArray containsObject:einSessionName])
       {
-         //NSLog(@"Name da: %@",einSessionName);
+         //DLog(@"Name da: %@",einSessionName);
          NameDa=YES;//Name ist in der Sessionsliste
       }
       
@@ -2602,7 +2607,7 @@ QTMovie* qtMovie;
       
    }//while
    
-   //NSLog(@"setArchivnamenPop tempProjektNamenArray: %@",[tempProjektNamenArray description]);
+   //DLog(@"setArchivnamenPop tempProjektNamenArray: %@",[tempProjektNamenArray description]);
    //	  [ArchivnamenPop addItemsWithTitles:tempProjektNamenArray];
    
    [self.Zeitfeld setSelectable:NO];
@@ -2614,7 +2619,7 @@ QTMovie* qtMovie;
 - (OSErr)Leseboxeinrichten	//	Nicht verwendet
 {
    //Die Lesebox ist da und vollständig
-   //NSLog(@"Leseboxeinrichten		LeseboxPfad: %@",self.LeseboxPfad);
+   //DLog(@"Leseboxeinrichten		LeseboxPfad: %@",self.LeseboxPfad);
    OSErr err=0;
    NSFileManager *Filemanager=[NSFileManager defaultManager];
    
@@ -2647,13 +2652,13 @@ QTMovie* qtMovie;
       }
       
       int PopAnz=[self.ArchivnamenPop numberOfItems];
-      //NSLog(@"ArchivnamenPop numberOfItems %d",PopAnz);
+      //DLog(@"ArchivnamenPop numberOfItems %d",PopAnz);
       if (PopAnz>1)//Alle ausser erstel Item entfernen (Name wählen)
       {
          while (PopAnz>1)
          {
             
-            //NSLog(@"ArchivnamenPop removeItemAtIndex  %@",[[ArchivnamenPop itemAtIndex:1]description]);
+            //DLog(@"ArchivnamenPop removeItemAtIndex  %@",[[ArchivnamenPop itemAtIndex:1]description]);
             [self.ArchivnamenPop removeItemAtIndex:1];
             PopAnz--;
             
@@ -2679,7 +2684,7 @@ QTMovie* qtMovie;
 - (BOOL)LeseboxEinrichtenAnPfad:(NSString*)derProjektPfad	//	Nicht verwendet
 {
    //Die Lesebox ist da und vollständig
-   //NSLog(@"LeseboxEinrichtenAnPfad: %@\nProjektArray: %@",derProjektPfad,[self.ProjektArray description]);
+   //DLog(@"LeseboxEinrichtenAnPfad: %@\nProjektArray: %@",derProjektPfad,[self.ProjektArray description]);
    OSErr err=0;
    
    NSFileManager *Filemanager=[NSFileManager defaultManager];
@@ -2697,13 +2702,13 @@ QTMovie* qtMovie;
         }
         
         int PopAnz=[self.ArchivnamenPop numberOfItems];
-        //NSLog(@"ArchivnamenPop numberOfItems %d",PopAnz);
+        //DLog(@"ArchivnamenPop numberOfItems %d",PopAnz);
         if (PopAnz>1)//Alle ausser erstel Item entfernen (Name wählen)
         {
            while (PopAnz>1)
            {
               
-              //NSLog(@"ArchivnamenPop removeItemAtIndex  %@",[[ArchivnamenPop itemAtIndex:1]description]);
+              //DLog(@"ArchivnamenPop removeItemAtIndex  %@",[[ArchivnamenPop itemAtIndex:1]description]);
               [self.ArchivnamenPop removeItemAtIndex:1];
               PopAnz--;
               
@@ -2753,7 +2758,7 @@ QTMovie* qtMovie;
             }//count
          }//while
       }//count
-      //NSLog(@"tempProjektNamenArray: %@",[tempProjektNamenArray description]);
+      //DLog(@"tempProjektNamenArray: %@",[tempProjektNamenArray description]);
    }//fileExists
    return tempProjektNamenArray;
 }
@@ -2811,7 +2816,7 @@ QTMovie* qtMovie;
 
 - (NSString*)KommentarstringFuerLeser:(NSString*) derLeser vonAufnahme:(NSString*)dieAufnahme
 {
-   //NSLog(@"KommentarstringFuerLeser Leser: %@ Aufnahme: %@",derLeser, dieAufnahme);
+   //DLog(@"KommentarstringFuerLeser Leser: %@ Aufnahme: %@",derLeser, dieAufnahme);
    NSString* Kommentarstring;
    BOOL erfolg=YES;
    BOOL istDirectory;
@@ -2842,13 +2847,13 @@ QTMovie* qtMovie;
       NSString* testString;
       testString=@"Bemerkungen:";
       tempKommentarPfad=[tempKommentarOrdnerPfad stringByAppendingPathComponent:[tempAufnahme stringByAppendingPathExtension:@"txt"]];
-      //NSLog(@"KommentarstringFuerLeser tempKommentarPfad: %@ ",tempKommentarPfad);
+      //DLog(@"KommentarstringFuerLeser tempKommentarPfad: %@ ",tempKommentarPfad);
       
       if (![Filemanager fileExistsAtPath:tempAufnahme])
       {
          Kommentarstring=[NSString stringWithContentsOfFile:tempKommentarPfad encoding:NSMacOSRomanStringEncoding error:NULL];
          
-         //NSLog(@"KommentarstringFuerLeser Kommentarstring: %@ ",Kommentarstring);
+         //DLog(@"KommentarstringFuerLeser Kommentarstring: %@ ",Kommentarstring);
          //[KommentarView setEditable:NO];
       }
       
@@ -2872,7 +2877,7 @@ QTMovie* qtMovie;
 
 - (NSString*)Zeitformatieren:(long) dieSekunden
 {
-   //NSLog(@"Zeitformatieren dieSekunden: %d",dieSekunden);
+   //DLog(@"Zeitformatieren dieSekunden: %d",dieSekunden);
    short Sekunden=dieSekunden%60;
    short Minuten=dieSekunden/60;
    NSNumber * n=0;
@@ -2898,7 +2903,7 @@ QTMovie* qtMovie;
       stringZeit=[stringZeit stringByAppendingString:@"0"];
    }
    stringZeit=[stringZeit stringByAppendingString:stringSekunden];
-   //NSLog(@"Zeitformatieren dieSekunden: %d stringZeit: %@",dieSekunden,stringZeit);
+   //DLog(@"Zeitformatieren dieSekunden: %d stringZeit: %@",dieSekunden,stringZeit);
    return stringZeit;
    
 }
@@ -2915,16 +2920,16 @@ QTMovie* qtMovie;
    [Warnung setInformativeText:@"Es werden alle ungesicherten Aufnahmen geloescht."];
    [Warnung setAlertStyle:NSWarningAlertStyle];
    long modalAntwort=[Warnung runModal];
-   //NSLog(@"Logout modalAntwort: %d",modalAntwort);
+   //DLog(@"Logout modalAntwort: %d",modalAntwort);
    switch (modalAntwort)
    {
       case NSAlertFirstButtonReturn:
       {
-         //NSLog(@"NSAlertFirstButtonReturn");
+         //DLog(@"NSAlertFirstButtonReturn");
       }break;
       case NSAlertSecondButtonReturn:
       {
-         //NSLog(@"NSAlertSecondButtonReturn");
+         //DLog(@"NSAlertSecondButtonReturn");
          return;
       }break;
          
@@ -2985,8 +2990,8 @@ QTMovie* qtMovie;
       
    }
    [self.Testfeld setStringValue: @"Hallo"];
-   //NSLog(@"setzeLeser: LeserPfad: %@ ",self.LeserPfad);
-   //NSLog(@"setLeser: ProjektPfad: %@",[self.ProjektPfad description]);
+   //DLog(@"setzeLeser: LeserPfad: %@ ",self.LeserPfad);
+   //DLog(@"setLeser: ProjektPfad: %@",[self.ProjektPfad description]);
    
    [self.ArchivnamenPop synchronizeTitleAndSelectedItem];
    
@@ -2996,10 +3001,10 @@ QTMovie* qtMovie;
    {
       self.Leser=[NSString stringWithString:[sender titleOfSelectedItem]];
       
-      //NSLog(@"setzeLeser: neuer Leser: %@",self.Leser);
+      //DLog(@"setzeLeser: neuer Leser: %@",self.Leser);
       
       self.LeserPfad=[self.ProjektPfad stringByAppendingPathComponent:self.Leser];
-      //NSLog(@"setzeLeser: neuer LeserPfad: %@",self.LeserPfad);
+      //DLog(@"setzeLeser: neuer LeserPfad: %@",self.LeserPfad);
       if (self.mitUserPasswort)
       {
          BOOL PasswortOK=NO;
@@ -3026,38 +3031,38 @@ QTMovie* qtMovie;
          NSMutableDictionary* tempPWDictionary=[[NSMutableDictionary alloc]initWithCapacity:0];
          [tempPWDictionary setObject:self.Leser forKey:@"name"];
          [tempPWDictionary setObject:tempPWData forKey:@"pw"];
-         //NSLog(@"setLeser	tempPWDictionary: %@",[tempPWDictionary description]);
+         //DLog(@"setLeser	tempPWDictionary: %@",[tempPWDictionary description]);
          if ([tempPWData length])
          {
             PasswortOK=[Utils confirmPasswort:tempPWDictionary];
          }
          else
          {
-            //NSLog(@"UserPasswortArray vor changePasswort: %@\n",[UserPasswortArray description]);
-            //NSLog(@"tempPWDictionary vor changePasswort: %@",[tempPWDictionary description]);
+            //DLog(@"UserPasswortArray vor changePasswort: %@\n",[UserPasswortArray description]);
+            //DLog(@"tempPWDictionary vor changePasswort: %@",[tempPWDictionary description]);
             NSMutableDictionary* neuesPWDic=[[NSMutableDictionary alloc]initWithCapacity:0];
             
             neuesPWDic=(NSMutableDictionary*)[Utils changePasswort:tempPWDictionary];
             
-            //NSLog(@"tempPWDictionary in setLeser nach changePasswort: %@",[tempPWDictionary description]);
+            //DLog(@"tempPWDictionary in setLeser nach changePasswort: %@",[tempPWDictionary description]);
             
-            //NSLog(@"UserPasswortArray nach changePasswort: %@\n",[UserPasswortArray description]);
+            //DLog(@"UserPasswortArray nach changePasswort: %@\n",[UserPasswortArray description]);
             
-            //NSLog(@"neuesPWDic: %@",[neuesPWDic description]);
+            //DLog(@"neuesPWDic: %@",[neuesPWDic description]);
             if ([neuesPWDic objectForKey:@"pw"]&&[[neuesPWDic objectForKey:@"pw"]length])
             {
                PasswortOK=YES;
                //NSEnumerator* neuesPWEnum=[UserPasswortArray objectEnumerator];
                if (position>=0)//Leser hat ein PWDic im UserPasswortArray
                {
-                  //NSLog(@"Leser %@ hat ein PWDic im UserPasswortArray",self.Leser);
+                  //DLog(@"Leser %@ hat ein PWDic im UserPasswortArray",self.Leser);
                   [self.UserPasswortArray replaceObjectAtIndex:position withObject:neuesPWDic];
                }
                else
                {
-                  //NSLog(@"Alter PasswortArray: %@\nLeser %@ hat kein PWDic im UserPasswortArray\nneues PWDic: %@ ",[UserPasswortArray description],Leser,[neuesPWDic description]);
+                  //DLog(@"Alter PasswortArray: %@\nLeser %@ hat kein PWDic im UserPasswortArray\nneues PWDic: %@ ",[UserPasswortArray description],Leser,[neuesPWDic description]);
                   [self.UserPasswortArray addObject:neuesPWDic];
-                  //NSLog(@"neuer UserPasswortArray: %@\n",[UserPasswortArray description]);
+                  //DLog(@"neuer UserPasswortArray: %@\n",[UserPasswortArray description]);
                   //[UserPasswortArray sortUsingSelector:@selector(compare:)];
                   //UserPasswortArray=[UserPasswortArray sortedArrayUsingFunction:ArrayOfDicSort context:@"name"];
                   
@@ -3069,7 +3074,7 @@ QTMovie* qtMovie;
          
          if(!PasswortOK)
          {
-            //NSLog(@"Passwort nicht OK");
+            //DLog(@"Passwort nicht OK");
             [sender selectItemAtIndex:0];
             [self resetLesebox:NULL];
             return;
@@ -3082,17 +3087,17 @@ QTMovie* qtMovie;
    }
    [self.LogoutKnopf setEnabled:YES];
    
-   //NSLog(@"setzeLeser title: %@",[sender titleOfSelectedItem]);
+   //DLog(@"setzeLeser title: %@",[sender titleOfSelectedItem]);
    
    [self.Leserfeld setStringValue:[sender titleOfSelectedItem]];
-   //NSLog(@"setzeLeser Leserfeld: %@",[self.Leserfeld stringValue]);
+   //DLog(@"setzeLeser Leserfeld: %@",[self.Leserfeld stringValue]);
  
-   //NSLog(@"setLeser: alter LeserPfad: %@",[self.LeserPfad description]);
+   //DLog(@"setLeser: alter LeserPfad: %@",[self.LeserPfad description]);
    NSFileManager *Filemanager=[NSFileManager defaultManager];
    if ([Filemanager fileExistsAtPath:self.LeserPfad])
    {
       NSDictionary* Attribute=[Filemanager attributesOfFileSystemForPath:self.LeserPfad error:NULL];
-      //NSLog(@"Attribute: %@",[Attribute description]);
+      //DLog(@"Attribute: %@",[Attribute description]);
       
       //TitelAufnahmen im Ordner Leser
       NSMutableArray* TitelArray=[[NSMutableArray alloc] initWithArray:[Filemanager contentsOfDirectoryAtPath:self.LeserPfad error:NULL]];
@@ -3105,7 +3110,7 @@ QTMovie* qtMovie;
       NSString* nextindexTitelString;
       NSString* tempTitelnummerString;
       int tempNummer;
-      //NSLog(@"TitelArray von FM: %@",[TitelArray description]);
+      //DLog(@"TitelArray von FM: %@",[TitelArray description]);
       if (self.aktuellAnzAufnahmen)
       {
          if ([[TitelArray objectAtIndex:0] hasPrefix:@".DS"]) //Unsichtbare Ordner entfernen
@@ -3137,28 +3142,28 @@ QTMovie* qtMovie;
          
          
       }
-      //NSLog(@"Kommentarindex: %d",Kommentarindex);
+      //DLog(@"Kommentarindex: %d",Kommentarindex);
       if (!(Kommentarindex==NSNotFound))
       {
          [TitelArray removeObjectAtIndex:Kommentarindex];
          self.aktuellAnzAufnahmen--;
       }
-      //NSLog(@"TitelArray vor Sortieren: %@",[TitelArray description]);
+      //DLog(@"TitelArray vor Sortieren: %@",[TitelArray description]);
       
       //**
       
       //bei Löschen im Netz: File 'afpDeletedxxxx' suchen
-      //NSLog(@"setLeser: bei Löschen im Netz: File 'afpDeletedxxxx' suchen: %@",[TitelArray description]);
+      //DLog(@"setLeser: bei Löschen im Netz: File 'afpDeletedxxxx' suchen: %@",[TitelArray description]);
       int afpZeile=-1;
       
       for(k=0;k<self.aktuellAnzAufnahmen;k++)
       {
          if ([[[TitelArray objectAtIndex:k]description]characterAtIndex:0]=='.')
          {
-            //NSLog(@"String mit Punkt: %@ auf Zeile: %d",[[TitelArray objectAtIndex:k]description],k);
+            //DLog(@"String mit Punkt: %@ auf Zeile: %d",[[TitelArray objectAtIndex:k]description],k);
             afpZeile=k;
          }
-         //NSLog(@"kein Kommentar bei %d",k);
+         //DLog(@"kein Kommentar bei %d",k);
          
       }
       if (afpZeile>=0) //afpDelete entfernen
@@ -3187,18 +3192,18 @@ QTMovie* qtMovie;
                nextindexTitelString=[NSString stringWithString:[TitelArray objectAtIndex:i+1]];
                int n1=[self AufnahmeNummerVon:indexTitelString];
                int n2=[self AufnahmeNummerVon:nextindexTitelString];
-               //NSLog(@"indexTitelString: %@  Nr:%d",indexTitelString,n1);
-               //NSLog(@"nextindexTitelString: %@  Nr:%d",nextindexTitelString,n2);
+               //DLog(@"indexTitelString: %@  Nr:%d",indexTitelString,n1);
+               //DLog(@"nextindexTitelString: %@  Nr:%d",nextindexTitelString,n2);
                if(n2<n1)
                {
                   [TitelArray exchangeObjectAtIndex:i withObjectAtIndex:i+1];
-                  //NSLog(@"tausch: n1: %d    n2: %d",n1,n2);
+                  //DLog(@"tausch: n1: %d    n2: %d",n1,n2);
                   tausch++;
                }
                
             }//for anzahl
          }//while tausch
-         //NSLog(@"TitelArray nach Sortieren: %@",[TitelArray description]);
+         //DLog(@"TitelArray nach Sortieren: %@",[TitelArray description]);
          NSMutableArray* AufnahmenPopArray=[[NSMutableArray alloc] initWithCapacity:self.aktuellAnzAufnahmen];
          [self.ArchivDaten resetArchivDaten];
          for (i=(int)[TitelArray count]-1;i>=0;i--)//Reihenfolge umkehren für TitelPop
@@ -3206,35 +3211,35 @@ QTMovie* qtMovie;
             [AufnahmenPopArray addObject:[TitelArray objectAtIndex:i]];
             
             [self.ArchivDaten setAufnahmePfad:[[TitelArray objectAtIndex:i]description] forRow:0];
-            //NSLog(@"TitelArray: %@",[[TitelArray objectAtIndex:i]description]);
+            //DLog(@"TitelArray: %@",[[TitelArray objectAtIndex:i]description]);
             
-            //NSLog(@"TitelArray :%@END",[[TitelArray objectAtIndex:i]description]);
+            //DLog(@"TitelArray :%@END",[[TitelArray objectAtIndex:i]description]);
             //indexTitelString=[NSString stringWithString:[TitelArray objectAtIndex:i]];
             tempTitelString=[self AufnahmeTitelVon:[TitelArray objectAtIndex:i]];
-            //NSLog(@"index: %d           tempTitel: %@",i,tempTitelString);
+            //DLog(@"index: %d           tempTitel: %@",i,tempTitelString);
             if (![TitelPopArray containsObject:tempTitelString])
             {
                //[TitelPopArray insertObject:tempTitelString atIndex:tempNummer];
                long letzterPlatz=[TitelPopArray count];
-               //NSLog(@"letzterPlatz: %d      indexTitelString: %@ ",letzterPlatz,tempTitelString);
+               //DLog(@"letzterPlatz: %d      indexTitelString: %@ ",letzterPlatz,tempTitelString);
                
                [TitelPopArray insertObject:tempTitelString atIndex:letzterPlatz];
             }
          }//for anzahl
          
-         //NSLog(@"TitelPopArray : %@",[TitelPopArray description]);
+         //DLog(@"TitelPopArray : %@",[TitelPopArray description]);
          
          [self.ArchivView reloadData];
          self.ArchivZeilenhit=NO;
          
-         //NSLog(@"AufnahmenPopArray def: %@",[AufnahmenPopArray description]);
+         //DLog(@"AufnahmenPopArray def: %@",[AufnahmenPopArray description]);
          [self.KommentarPop removeAllItems];
          [self.KommentarPop addItemsWithTitles:AufnahmenPopArray];
-         //NSLog(@"TitelPopArray def: %@",[TitelPopArray description]);
+         //DLog(@"TitelPopArray def: %@",[TitelPopArray description]);
          [self.TitelPop removeAllItems];
          [self.TitelPop addItemsWithObjectValues:TitelPopArray];
          
-         //NSLog(@"FirstResponder: %@",[[RecPlayFenster firstResponder]description]);
+         //DLog(@"FirstResponder: %@",[[RecPlayFenster firstResponder]description]);
          //[TitelPop selectText:nil];
          
          //Titel von PList aus Projektordner anfügen
@@ -3245,7 +3250,7 @@ QTMovie* qtMovie;
          if (!(ProjektIndex==NSNotFound))
          {
             NSDictionary* tempProjectDic=[self.ProjektArray objectAtIndex:ProjektIndex];
-            //NSLog(@"tempProjectDic: %@",[tempProjectDic description]);
+            //DLog(@"tempProjectDic: %@",[tempProjectDic description]);
             if ([tempProjectDic objectForKey:@"fix"])
             {
                TitelEditOK=![[tempProjectDic objectForKey:@"fix"]boolValue];//Titel sind  fixiert heisst bool ist 1
@@ -3254,12 +3259,12 @@ QTMovie* qtMovie;
             if ([tempProjectDic objectForKey:@"titelarray"])
             {
                tempTitelArray=[NSArray arrayWithArray:[tempProjectDic objectForKey:@"titelarray"]];
-               //NSLog(@"tempTitelArray: %@ [TitelPop objectValues]: %@",[tempTitelArray description],[[TitelPop objectValues]description]);
+               //DLog(@"tempTitelArray: %@ [TitelPop objectValues]: %@",[tempTitelArray description],[[TitelPop objectValues]description]);
                NSEnumerator* TitelEnum=[tempTitelArray objectEnumerator];
                id einTitelDic;
                while (einTitelDic=[TitelEnum nextObject])
                {
-                  //NSLog(@"einTitelDic: %@",[einTitelDic description]);
+                  //DLog(@"einTitelDic: %@",[einTitelDic description]);
                   NSString* tempTitel=[einTitelDic objectForKey:@"titel"];
                   if ([[einTitelDic objectForKey:@"ok"]boolValue]&&[tempTitel length])
                   {
@@ -3270,7 +3275,7 @@ QTMovie* qtMovie;
             }//if ([[ProjektArray objectAtIndex:ProjektIndex]objectForKey:@"titelarray"])
          }//if (!(ProjektIndex==NSNotFound))
          
-         //NSLog(@"setLeser nicht leer: LeserPfad: %@ TitelEditOK : %d ",[self.LeserPfad description], TitelEditOK);
+         //DLog(@"setLeser nicht leer: LeserPfad: %@ TitelEditOK : %d ",[self.LeserPfad description], TitelEditOK);
          
          [self.TitelPop selectItemAtIndex:0];
          [self.TitelPop setEnabled:YES];
@@ -3298,7 +3303,7 @@ QTMovie* qtMovie;
       }//if aktuellAnzAufnahmen
       else //noch keine Aufnahmen im Ordner
       {
-         //NSLog(@"setLeser leer: LeserPfad: %@ ",[self.LeserPfad description]);
+         //DLog(@"setLeser leer: LeserPfad: %@ ",[self.LeserPfad description]);
          
          [self.TitelPop removeAllItems];
          
@@ -3319,12 +3324,12 @@ QTMovie* qtMovie;
             if ([tempProjectDic objectForKey:@"titelarray"])
             {
                tempTitelArray=[NSArray arrayWithArray:[tempProjectDic objectForKey:@"titelarray"]];
-               //NSLog(@"tempTitelArray: %@ [TitelPop objectValues]: %@",[tempTitelArray description],[[TitelPop objectValues]description]);
+               //DLog(@"tempTitelArray: %@ [TitelPop objectValues]: %@",[tempTitelArray description],[[TitelPop objectValues]description]);
                NSEnumerator* TitelEnum=[tempTitelArray objectEnumerator];
                id einTitelDic;
                while (einTitelDic=[TitelEnum nextObject])
                {
-                  //NSLog(@"einTitelDic: %@",[einTitelDic description]);
+                  //DLog(@"einTitelDic: %@",[einTitelDic description]);
                   NSString* tempTitel=[einTitelDic objectForKey:@"titel"];
                   if ([[einTitelDic objectForKey:@"ok"]boolValue]&&[tempTitel length])
                   {
@@ -3346,7 +3351,7 @@ QTMovie* qtMovie;
          {
             [self.TitelPop addItemWithObjectValue:@"neue Aufnahme"];
          }
-         //NSLog(@"setLeser leer: LeserPfad: %@ titelfix : %d ",self.LeserPfad , TitelEditOK);
+         //DLog(@"setLeser leer: LeserPfad: %@ titelfix : %d ",self.LeserPfad , TitelEditOK);
          
          [self.TitelPop selectItemAtIndex:0];
          
@@ -3378,8 +3383,8 @@ QTMovie* qtMovie;
 - (IBAction)setTitel:(id)sender
 {
    //int i=[sender indexOfSelectedItem];
-   //NSLog(@"setTitel index: %d  Item: %@",i,[sender objectValueOfSelectedItem]);
-   //NSLog(@"Titel: %@",[self titel]);
+   //DLog(@"setTitel index: %d  Item: %@",i,[sender objectValueOfSelectedItem]);
+   //DLog(@"Titel: %@",[self titel]);
    
 }
 
@@ -3394,19 +3399,19 @@ QTMovie* qtMovie;
    BOOL checkAktiviert=NO;
    if ([self.ProjektArray count])
    {
-      //NSLog(@"istAktiviert Projekt: %@ ProjektArray: %@",dasProjekt,[ProjektArray description]);
+      //DLog(@"istAktiviert Projekt: %@ ProjektArray: %@",dasProjekt,[ProjektArray description]);
       NSEnumerator* ProjektEnum=[self.ProjektArray objectEnumerator];
       id einProjekt;
       while (einProjekt=[ProjektEnum nextObject])
       {
          if ([einProjekt objectForKey:@"projekt"])
          {
-            //NSLog(@"istAktiviert einProjekt: %@",[einProjekt description]);
+            //DLog(@"istAktiviert einProjekt: %@",[einProjekt description]);
             if([[einProjekt objectForKey:@"projekt"]isEqualToString:dasProjekt])
             {
                checkAktiviert= [[einProjekt objectForKey:@"ok"]boolValue];
             }
-            //NSLog(@"istAktiviert einProjekt: %@ checkAktiviert: %d",[einProjekt description],checkAktiviert);
+            //DLog(@"istAktiviert einProjekt: %@ checkAktiviert: %d",[einProjekt description],checkAktiviert);
          }
       }//while
       
@@ -3438,11 +3443,11 @@ QTMovie* qtMovie;
    [self.KommentarView setEditable:NO];
 
 
-   //NSLog(@"switchAdminPlayer start");
+   //DLog(@"switchAdminPlayer start");
    [Utils stopTimeout];
    if (self.AdminZugangOK || [self checkAdminZugang])
    {
-      //NSLog(@"switchAdminPlayer ok");
+      //DLog(@"switchAdminPlayer ok");
    //   [[self.ModusMenu itemWithTag:kRecPlayTag]setEnabled:YES];
       [self beginAdminPlayer:nil];
       
@@ -3452,7 +3457,7 @@ QTMovie* qtMovie;
    {
       [Utils startTimeout:self.TimeoutDelay];
       NSBeep();
-      //NSLog(@"switchAdminPlayer abgebrochen");
+      //DLog(@"switchAdminPlayer abgebrochen");
       
    }
 }
@@ -3569,7 +3574,7 @@ QTMovie* qtMovie;
         charpos++;
      }//while pos
    
-   //NSLog(@"tempAufnahme: %@   pos Leerstelle1:%d pos Leerstelle2:%d  TitelChars: %d",tempAufnahme,posLeerstelle1,posLeerstelle2,TitelChars);
+   //DLog(@"tempAufnahme: %@   pos Leerstelle1:%d pos Leerstelle2:%d  TitelChars: %d",tempAufnahme,posLeerstelle1,posLeerstelle2,TitelChars);
    
    if ((posLeerstelle2 - posLeerstelle1)>1&&TitelChars)//Nummer an zweiter Stelle und chars nach 2. Leerstelle
 	  {
@@ -3616,7 +3621,7 @@ QTMovie* qtMovie;
         }
         charpos++;
      }//while pos
-   //NSLog(@"indexTitelString: %@   pos Leerstelle1:%d pos Leerstelle2:%d",indexTitelString,posLeerstelle1,posLeerstelle2);
+   //DLog(@"indexTitelString: %@   pos Leerstelle1:%d pos Leerstelle2:%d",indexTitelString,posLeerstelle1,posLeerstelle2);
    
    if ((posLeerstelle2 - posLeerstelle1)>1)
 	  {
@@ -3634,7 +3639,7 @@ QTMovie* qtMovie;
 - (NSString*)KommentarVon:(NSString*) derKommentarString
 {
    NSArray* tempMarkArray=[derKommentarString componentsSeparatedByString:@"\r"];
-   //NSLog(@"KommentarVon: anz Components: %d",[tempMarkArray count]);
+   //DLog(@"KommentarVon: anz Components: %d",[tempMarkArray count]);
    if ([tempMarkArray count]==6)//noch keine Zeile für Mark
    {
       NSString* tempKommentarString=[tempMarkArray objectAtIndex:5];
@@ -3653,7 +3658,7 @@ QTMovie* qtMovie;
          pos++;
       }//while
       tempKommentarString=[tempKommentarString substringFromIndex:pos];
-      //NSLog(@" *** 6 el ***  tempKommentarString: %@", tempKommentarString);
+      //DLog(@" *** 6 el ***  tempKommentarString: %@", tempKommentarString);
       
       return tempKommentarString;
    }//noch keine Zeile für Mark
@@ -3661,7 +3666,7 @@ QTMovie* qtMovie;
    {
       //		NSString* tempKommentarString=[tempMarkArray objectAtIndex:Kommentar];
       NSString* tempKommentarString=[tempMarkArray lastObject];
-      //NSLog(@" *** else  ***  tempKommentarString: %@", tempKommentarString);
+      //DLog(@" *** else  ***  tempKommentarString: %@", tempKommentarString);
       
       //		return [tempMarkArray objectAtIndex:Kommentar];
       return [tempMarkArray lastObject];
@@ -3707,7 +3712,7 @@ QTMovie* qtMovie;
            tempDatumString=@"--";
            return tempDatumString;
         }
-        //NSLog(@"tempDatumString: %@", tempDatumString);
+        //DLog(@"tempDatumString: %@", tempDatumString);
         pos=0;
         unsigned int leerpos=0;
         while(pos<[tempDatumString length])
@@ -3722,7 +3727,7 @@ QTMovie* qtMovie;
         {
            r=NSMakeRange(0,leerpos);
            tempDatumString=[tempDatumString substringWithRange:r];
-           //NSLog(@"tempDatumString: %@", tempDatumString);
+           //DLog(@"tempDatumString: %@", tempDatumString);
         }
         else
         {
@@ -3772,7 +3777,7 @@ QTMovie* qtMovie;
            tempBewertungString=@" ";
            return tempBewertungString;
         }
-        //NSLog(@"BewertungVon:		tempBewertungString: %@", tempBewertungString);
+        //DLog(@"BewertungVon:		tempBewertungString: %@", tempBewertungString);
      }
    else
 	  {
@@ -3788,7 +3793,7 @@ QTMovie* qtMovie;
 {
    BOOL MarkSet=NO;
    NSArray* tempMarkArray=[derKommentarString componentsSeparatedByString:@"\r"];
-   //NSLog(@"AdminMarkVon: anz Components: %d",[tempMarkArray count]);
+   //DLog(@"AdminMarkVon: anz Components: %d",[tempMarkArray count]);
    if ([tempMarkArray count]==8)//Zeile für Mark ist da
    {
       if ([[tempMarkArray objectAtIndex:6]isEqualToString:@"1"])
@@ -3807,7 +3812,7 @@ QTMovie* qtMovie;
 {
    BOOL MarkSet=NO;
    NSArray* tempMarkArray=[derKommentarString componentsSeparatedByString:@"\r"];
-   //NSLog(@"UserMarkVon: tempMarkArray: %@",[tempMarkArray description]);
+   //DLog(@"UserMarkVon: tempMarkArray: %@",[tempMarkArray description]);
    if ([tempMarkArray count]==8)//Zeile für Mark ist da
    {
       if ([[tempMarkArray objectAtIndex:UserMark]isEqualToString:@"1"])
@@ -3816,7 +3821,7 @@ QTMovie* qtMovie;
       }
    }
    
-   //NSLog(@"UserMarkVon: MarkSet: %d",MarkSet);
+   //DLog(@"UserMarkVon: MarkSet: %d",MarkSet);
    return MarkSet;
 }
 
@@ -3859,7 +3864,7 @@ QTMovie* qtMovie;
            tempNotenString=@"--";
            return tempNotenString;
         }
-        //NSLog(@"NoteVon:		tempNotenString: %@", tempNotenString);
+        //DLog(@"NoteVon:		tempNotenString: %@", tempNotenString);
      }
    else
 	  {
@@ -3875,11 +3880,11 @@ QTMovie* qtMovie;
 {
    self.ArchivPlayPfad=[NSString stringWithString:self.LeserPfad];
    self.ArchivPlayPfad=[self.ArchivPlayPfad stringByAppendingPathComponent:[dieAufnahme copy]];
-   //NSLog(@"setArchivPfadFuerAufnahme ArchivPlayPfad: %@",self.ArchivPlayPfad);
+   //DLog(@"setArchivPfadFuerAufnahme ArchivPlayPfad: %@",self.ArchivPlayPfad);
    
    //	BOOL KommentarOK=[Utils setKommentar:@"Hallo" inAufnahmeAnPfad:ArchivPlayPfad];
    //	NSString* Kontrollstring=[Utils KommentarStringVonAufnahmeAnPfad:ArchivPlayPfad];
-   //	//NSLog(@"setArchivPfadFuerAufnahme ArchivPlayPfad: %@  Kontrollstring: %@",ArchivPlayPfad,Kontrollstring);
+   //	//DLog(@"setArchivPfadFuerAufnahme ArchivPlayPfad: %@  Kontrollstring: %@",ArchivPlayPfad,Kontrollstring);
    
    
    
@@ -3889,22 +3894,22 @@ QTMovie* qtMovie;
         
         [self.ArchivInPlayerTaste setEnabled:YES];
         [self.ArchivInListeTaste setEnabled:NO];
-        //NSLog(@"gueltiger ArchivPlayPfad: %@",ArchivPlayPfad);
+        //DLog(@"gueltiger ArchivPlayPfad: %@",ArchivPlayPfad);
         self.ArchivKommentarPfad=[NSString stringWithString:self.LeserPfad];
         //self.ArchivKommentarPfad=[self.ArchivKommentarPfad stringByAppendingPathComponent:@"Anmerkungen"];
         self.ArchivKommentarPfad=[self.ArchivKommentarPfad stringByAppendingPathComponent:@"Anmerkungen"];
         self.ArchivKommentarPfad=[self.ArchivKommentarPfad stringByAppendingPathComponent:[dieAufnahme copy]];
-        //NSLog(@"setArchivPfadFuerAufnahme ArchivKommentarPfad: %@",self.ArchivKommentarPfad);
+        //DLog(@"setArchivPfadFuerAufnahme ArchivKommentarPfad: %@",self.ArchivKommentarPfad);
         
         NSString* tempArchivKommentarPfad = [self.ArchivKommentarPfad stringByAppendingPathExtension:@"txt"];
         if ([Filemanager fileExistsAtPath:tempArchivKommentarPfad])
         {
-           //NSLog(@"Archiv: Kommentar da");
+           //DLog(@"Archiv: Kommentar da");
            [self setArchivKommentarFuerAufnahmePfad:tempArchivKommentarPfad];
         }
         else //Kein Kommentar da
         {
-           //NSLog(@"Archiv: KEIN Kommentar da");
+           //DLog(@"Archiv: KEIN Kommentar da");
            [self clearArchivKommentar];
            
         }
@@ -3912,7 +3917,7 @@ QTMovie* qtMovie;
      }//file exists
    else
 	  {
-        //NSLog(@"kein gueltiger ArchivPlayPfad");
+        //DLog(@"kein gueltiger ArchivPlayPfad");
         [self.ArchivPlayTaste setEnabled:NO];
         [self.ArchivInListeTaste setEnabled:NO];
         [self.ArchivInPlayerTaste setEnabled:NO];
@@ -3927,11 +3932,11 @@ QTMovie* qtMovie;
 - (void)setArchivKommentarFuerAufnahmePfad:(NSString*)derAufnahmePfad;
 {
    //NSFileManager *Filemanager=[NSFileManager defaultManager];
-   //NSLog(@"setArchivKommentarFuerAufnahmePfad: derAufnahmePfad: %@",derAufnahmePfad);
+   //DLog(@"setArchivKommentarFuerAufnahmePfad: derAufnahmePfad: %@",derAufnahmePfad);
    NSString* tempKommentarString=[NSString stringWithContentsOfFile:derAufnahmePfad encoding:NSMacOSRomanStringEncoding error:NULL];
-   //NSLog(@"\nsetArchivKommentarFuerAufnahmePfad: tempKommentarString: %@",tempKommentarString);
+   //DLog(@"\nsetArchivKommentarFuerAufnahmePfad: tempKommentarString: %@",tempKommentarString);
    NSString* inhalt =[self KommentarVon:tempKommentarString];
-   //NSLog(@"setArchivKommentarFuerAufnahmePfad: inhalt: %@",inhalt);
+   //DLog(@"setArchivKommentarFuerAufnahmePfad: inhalt: %@",inhalt);
    if (inhalt)
       [self.ArchivKommentarView setString:inhalt];
    [self.ArchivKommentarView setSelectable:NO];
@@ -3941,7 +3946,7 @@ QTMovie* qtMovie;
    [self.ArchivTitelfeld setStringValue:[[self AufnahmeTitelVon:[derAufnahmePfad lastPathComponent]]stringByDeletingPathExtension]];
    int aufnahmenummer=[self AufnahmeNummerVon:[derAufnahmePfad lastPathComponent]];
    [self.ArchivAufnahmenummerfeld setIntValue:aufnahmenummer];
-   //NSLog(@"setArchivKommentarFuerAufnahmePfad titel: %@ nummer: %d",[derAufnahmePfad lastPathComponent],aufnahmenummer);
+   //DLog(@"setArchivKommentarFuerAufnahmePfad titel: %@ nummer: %d",[derAufnahmePfad lastPathComponent],aufnahmenummer);
    if (self.BewertungZeigen)
 	  {
         //[ArchivBewertungfeld setHidden:NO];
@@ -3962,15 +3967,15 @@ QTMovie* qtMovie;
         //[ArchivNotenfeld setHidden:YES];
         [self.ArchivNotenfeld setStringValue:@"-"];
      }
-   //NSLog(@"setArchivKommentarFuerAufnahmePfad 2");
+   //DLog(@"setArchivKommentarFuerAufnahmePfad 2");
    BOOL userMarkOK=[self UserMarkVon:tempKommentarString];
-   //NSLog(@"setArchivKommentarFuerAufnahmePfad MarkOK: %d",userMarkOK);
+   //DLog(@"setArchivKommentarFuerAufnahmePfad MarkOK: %d",userMarkOK);
    [self.UserMarkCheckbox setState:userMarkOK];
-   //NSLog(@"setArchivKommentatFuerAufnahmepfad: MarkOK: %d",MarkOK);
+   //DLog(@"setArchivKommentatFuerAufnahmepfad: MarkOK: %d",MarkOK);
    BOOL adminMarkOK=[self AdminMarkVon:tempKommentarString];
-   //NSLog(@"setArchivKommentarFuerAufnahmePfad MarkOK: %d",adminMarkOK);
+   //DLog(@"setArchivKommentarFuerAufnahmePfad MarkOK: %d",adminMarkOK);
    [self.AdminMarkCheckbox setState:adminMarkOK];
-   //NSLog(@"setArchivKommentatFuerAufnahmepfad: MarkOK: %d",adminMarkOK);
+   //DLog(@"setArchivKommentatFuerAufnahmepfad: MarkOK: %d",adminMarkOK);
 
    return ;
 }
@@ -4004,19 +4009,19 @@ QTMovie* qtMovie;
       NSNumber* durNumber=[[note userInfo]objectForKey:@"dur"];
       dur=[durNumber doubleValue];
    }
-   //NSLog(@"Archivplayer AbspielPosAktion dur: %2.2f pos: %2.2f",dur,pos);
+   //DLog(@"Archivplayer AbspielPosAktion dur: %2.2f pos: %2.2f",dur,pos);
    
    if (dur - pos < 0.1)
    {
-      //NSLog(@"Ende erreicht");
+      //DLog(@"Ende erreicht");
       NSNumber* durationNumber=[NSNumber numberWithDouble:[AVAbspielplayer duration]];
       posint=[durationNumber intValue];
       
    }
-   //NSLog(@"duration: %2.2d",AufnahmeZeit);
+   //DLog(@"duration: %2.2d",AufnahmeZeit);
    int Minuten = posint/60;
    int Sekunden =posint%60;
-   //NSLog(@"Minuten: %d Sekunden: %d",Minuten,Sekunden);
+   //DLog(@"Minuten: %d Sekunden: %d",Minuten,Sekunden);
    NSString* MinutenString;
    
    NSString* SekundenString;
@@ -4041,7 +4046,7 @@ QTMovie* qtMovie;
    
    
    //   int max =[self.Fortschritt maxValue];
-   //NSLog(@"AbspielPosAktion pos: %f dur: %f wert: %f",pos,dur,pos/dur*1024 );
+   //DLog(@"AbspielPosAktion pos: %f dur: %f wert: %f",pos,dur,pos/dur*1024 );
    //  [self.Abspielanzeige setMax:dur];
    [Abspielanzeige setLevel:pos];
    [Abspielanzeige display];
@@ -4058,7 +4063,7 @@ QTMovie* qtMovie;
    
    int Minuten = posint/60;
    int Sekunden =posint%60;
-   //NSLog(@"Minuten: %d Sekunden: %d",Minuten,Sekunden);
+   //DLog(@"Minuten: %d Sekunden: %d",Minuten,Sekunden);
    NSString* MinutenString;
    
    NSString* SekundenString;
@@ -4084,8 +4089,8 @@ QTMovie* qtMovie;
 
 - (IBAction)startArchivPlayer:(id)sender
 {
-   //NSLog(@"startArchivPlayer:");
-   //NSLog(@"startArchivPlayer:			ArchivPlayPfad: %@",self.ArchivPlayPfad);
+   //DLog(@"startArchivPlayer:");
+   //DLog(@"startArchivPlayer:			ArchivPlayPfad: %@",self.ArchivPlayPfad);
    
   // NSString* tempAchivPlayPfad = [self.ArchivPlayPfad stringByAppendingPathExtension:@"m4a"];
    
@@ -4109,7 +4114,7 @@ QTMovie* qtMovie;
 {
    [AVAbspielplayer stopTempAufnahme];
    self.Pause=self.ArchivLaufzeit/60;
-   //NSLog(@"Laufzeit:%d  PauseZeit: %d",Laufzeit,Pause);
+   //DLog(@"Laufzeit:%d  PauseZeit: %d",Laufzeit,Pause);
    
    [self.ArchivPlayTaste setEnabled:YES];
    //  [self.ArchivStopTaste setEnabled:NO];
@@ -4134,7 +4139,7 @@ QTMovie* qtMovie;
    NSFileManager *Filemanager=[NSFileManager defaultManager];
    NSMutableArray* AufnahmenArray;
    AufnahmenArray=[[NSMutableArray alloc] initWithArray:[Filemanager contentsOfDirectoryAtPath:self.LeserPfad error:NULL]];
-   //NSLog(@"Archiv AufnahmenArray: %@",[AufnahmenArray description]);
+   //DLog(@"Archiv AufnahmenArray: %@",[AufnahmenArray description]);
    //SEL DoppelSelektor;
 //   DoppelSelektor=@selector(ArchivaufnahmeInPlayer:);
    
@@ -4161,7 +4166,7 @@ QTMovie* qtMovie;
    [self.ArchivForewardTaste setEnabled:NO];
    
    [self.ArchivZumStartTaste setEnabled:NO];
-   //NSLog(@"reset UserMarkCheckbox");
+   //DLog(@"reset UserMarkCheckbox");
    [self.UserMarkCheckbox setState:NO];
    [self.UserMarkCheckbox setEnabled:NO];
    
@@ -4181,7 +4186,7 @@ QTMovie* qtMovie;
 - (void)keyDown:(NSEvent *)theEvent
 {
    int nr=[theEvent keyCode];
-   //NSLog(@"RecPlay  keyDown: nr: %d  char: %@",nr,[theEvent characters]);
+   //DLog(@"RecPlay  keyDown: nr: %d  char: %@",nr,[theEvent characters]);
   // [self keyDownAktion:nil];
    [super keyDown:theEvent];
 }
@@ -4200,11 +4205,11 @@ QTMovie* qtMovie;
 }
 - (void) KeyNotifikationAktion:(NSNotification*)note
 {
-   //NSLog(@"KeyNotifikationAktion: note: %@",[note object]);
+   //DLog(@"KeyNotifikationAktion: note: %@",[note object]);
    //NSNumber* KeyNummer=[note object];
    //int keyNr=(int)[KeyNummer floatValue];
-   //NSLog(@"keyDown KeyNotifikationAktion description: %@",[KeyNummer description]);
-   //NSLog(@"keyDown KeyNotifikationAktion keyNr: %d",keyNr);
+   //DLog(@"keyDown KeyNotifikationAktion description: %@",[KeyNummer description]);
+   //DLog(@"keyDown KeyNotifikationAktion keyNr: %d",keyNr);
    //[self setLself.NamenListe ];
    //[self startAdminPlayer:AdminQTPlayer];
 }
@@ -4219,7 +4224,7 @@ QTMovie* qtMovie;
 
    if (self.ArchivZeilenhit)
 	  {
-        //NSLog(@"ArchivZeilenhit=YES");
+        //DLog(@"ArchivZeilenhit=YES");
         self.ArchivZeilenhit=NO;
         //return ;
      }
@@ -4229,11 +4234,11 @@ QTMovie* qtMovie;
    NSDictionary* QuellenDic=[note object];
    
    NSString* Quelle=[QuellenDic objectForKey:@"Quelle"];
-   //NSLog(@"ZeilenNotifikationAktion:   Quelle: %@",Quelle);
+   //DLog(@"ZeilenNotifikationAktion:   Quelle: %@",Quelle);
    
    if ([Quelle isEqualToString:@"ArchivView"])
 	  {
-       //NSLog(@"ZeilenNotifikationAktion:   Quelle: %@",Quelle);
+       //DLog(@"ZeilenNotifikationAktion:   Quelle: %@",Quelle);
 
         double lastZeilenNummer = [[QuellenDic objectForKey:@"lastarchivzeilennummer"]doubleValue];
         
@@ -4248,8 +4253,8 @@ QTMovie* qtMovie;
         
         NSNumber* ZeilenNummer=[QuellenDic objectForKey:@"ArchivZeilenNummer"];
         int zeilenNr=(int)[ZeilenNummer floatValue];
-        //NSLog(@"keyDown ZeilenNotifikationAktion description: %@",[ZeilenNummer description]);
-        //NSLog(@"\n\nZeilenNotifikationAktion fuer ArchivView       zeilenNr: %d\n",zeilenNr);
+        //DLog(@"keyDown ZeilenNotifikationAktion description: %@",[ZeilenNummer description]);
+        //DLog(@"\n\nZeilenNotifikationAktion fuer ArchivView       zeilenNr: %d\n",zeilenNr);
         [self.UserMarkCheckbox setState:NO];
         
         self.ArchivSelektierteZeile=zeilenNr;
@@ -4259,11 +4264,11 @@ QTMovie* qtMovie;
            [self.ArchivPlayTaste setEnabled:YES];
            [self setArchivPfadFuerAufnahme:[self.ArchivDaten AufnahmePfadFuerZeile:zeilenNr]];
            
-           //NSLog(@"ZeilenNotifikationAktion AchivPlayPfad: %@",self.ArchivPlayPfad);
+           //DLog(@"ZeilenNotifikationAktion AchivPlayPfad: %@",self.ArchivPlayPfad);
            
            NSString* tempAchivPlayPfad = [self.ArchivPlayPfad stringByAppendingPathExtension:@"m4a"];
            
-           //NSLog(@"ZeilenNotifikationAktion tempAchivPlayPfad: %@",tempAchivPlayPfad);
+           //DLog(@"ZeilenNotifikationAktion tempAchivPlayPfad: %@",tempAchivPlayPfad);
            
            NSURL *ArchivURL = [NSURL fileURLWithPath:tempAchivPlayPfad];
            [AVAbspielplayer prepareArchivAufnahmeAnURL:ArchivURL];
@@ -4292,9 +4297,9 @@ QTMovie* qtMovie;
 
 - (void)EnterKeyNotifikationAktion:(NSNotification*)note
 {
-   //NSLog(@"RecPlay    EnterKeyNotifikationAktion: note: %@",[note object]);
+   //DLog(@"RecPlay    EnterKeyNotifikationAktion: note: %@",[note object]);
    NSString* Quelle=[[note object]description];
-   //NSLog(@"RecPlay EnterKeyNotifikationAktion: Quelle: %@",Quelle);
+   //DLog(@"RecPlay EnterKeyNotifikationAktion: Quelle: %@",Quelle);
    //BOOL erfolg;
    
    if ([Quelle isEqualToString:@"ArchivListe"])
@@ -4314,7 +4319,7 @@ QTMovie* qtMovie;
            //			[MoviePlayer start:nil];
            //           [RecordQTKitPlayer gotoBeginning:NULL];
            //           [RecordQTKitPlayer play:nil];
-           //NSLog(@"		Quelle: ArchivListe->QTPlayer: Enterkey erfolg: %d",erfolg);
+           //DLog(@"		Quelle: ArchivListe->QTPlayer: Enterkey erfolg: %d",erfolg);
            
         }
         else
@@ -4334,8 +4339,8 @@ QTMovie* qtMovie;
 {
    
    BOOL umschalten=YES;
-   //NSLog(@"vor shouldSelectTabViewItem");
-   //NSLog(@"vor shouldSelectTabViewItem: UserMarkCheckbox: %d",[self.UserMarkCheckbox state]);
+   //DLog(@"vor shouldSelectTabViewItem");
+   //DLog(@"vor shouldSelectTabViewItem: UserMarkCheckbox: %d",[self.UserMarkCheckbox state]);
    if ([[tabViewItem label]isEqualToString:@"Archiv"])
 	  {
         [self.StartRecordKnopf setEnabled:YES];
@@ -4381,7 +4386,7 @@ QTMovie* qtMovie;
         
         [Utils stopTimeout];
         [AVAbspielplayer invalTimer];
-        //NSLog(@"TabView: archiv");
+        //DLog(@"TabView: archiv");
         if (self.aktuellAnzAufnahmen &&!([AVRecorder istRecording]))
         {
            [self resetArchivPlayer:nil];
@@ -4420,16 +4425,16 @@ QTMovie* qtMovie;
            [Warnung setInformativeText:@"Es werden alle ungesicherten Aufnahmen geloescht."];
            [Warnung setAlertStyle:NSWarningAlertStyle];
            long modalAntwort=[Warnung runModal];
-           //NSLog(@"Logout modalAntwort: %d",modalAntwort);
+           //DLog(@"Logout modalAntwort: %d",modalAntwort);
            switch (modalAntwort)
            {
               case NSAlertFirstButtonReturn:
               {
-                 //NSLog(@"NSAlertFirstButtonReturn");
+                 //DLog(@"NSAlertFirstButtonReturn");
               }break;
               case NSAlertSecondButtonReturn:
               {
-                 //NSLog(@"NSAlertSecondButtonReturn");
+                 //DLog(@"NSAlertSecondButtonReturn");
                  umschalten=NO;
               }break;
                  
@@ -4443,8 +4448,8 @@ QTMovie* qtMovie;
    if ([[tabViewItem label]isEqualToString:@"Recorder"])
    {
       
-      //NSLog(@"TabView:recorder");
-      //NSLog(@"vor shouldSelectTabViewItem: UserMarkCheckbox: %d",[UserMarkCheckbox state]);
+      //DLog(@"TabView:recorder");
+      //DLog(@"vor shouldSelectTabViewItem: UserMarkCheckbox: %d",[UserMarkCheckbox state]);
       umschalten=YES;
       if (AVAbspielplayer && [AVAbspielplayer isPlaying])
       {
@@ -4452,7 +4457,7 @@ QTMovie* qtMovie;
          
       }
       //!MoviePlayerbusy;
-      //NSLog(@"TabView:archiv: umschalten: %d isPlaying: %f",umschalten,[[RecordQTKitPlayer movie]rate]);
+      //DLog(@"TabView:archiv: umschalten: %d isPlaying: %f",umschalten,[[RecordQTKitPlayer movie]rate]);
       if (umschalten)
       {
          [Utils stopTimeout];
@@ -4490,7 +4495,7 @@ QTMovie* qtMovie;
    
     if(!self.EinstellungenFenster)
 	  {
-        //NSLog(@"EinstellungenFenster error");
+        //DLog(@"EinstellungenFenster error");
         /*
         if ((EinstellungenFenster=[[rEinstellungen alloc]init]))
         {
@@ -4500,7 +4505,7 @@ QTMovie* qtMovie;
      }
 
    //[[[self.Testfenster view]window] makeKeyAndOrderFront:nil];
-   //NSLog(@"EinstellungenFenster: %@",[self.EinstellungenFenster description]);
+   //DLog(@"EinstellungenFenster: %@",[self.EinstellungenFenster description]);
 
  
    // erster Aufruf
@@ -4523,7 +4528,7 @@ QTMovie* qtMovie;
    [EinstellungenFenster setBewertung:self.BewertungZeigen];
    [EinstellungenFenster setNote:self.NoteZeigen];
    [EinstellungenFenster setMitPasswort:self.mitUserPasswort];
-   //NSLog(@"showEinstellungen: TimeoutDelay: %d",(int)self.TimeoutDelay);
+   //DLog(@"showEinstellungen: TimeoutDelay: %d",(int)self.TimeoutDelay);
    [EinstellungenFenster setTimeoutDelay:self.TimeoutDelay];
    */
    
@@ -4531,10 +4536,10 @@ QTMovie* qtMovie;
 
 - (void)BewertungNotifikationAktion:(NSNotification*)note
 {
-   //NSLog(@"BewertungNotifikationAktion: note: %@",[note userInfo]);
+   //DLog(@"BewertungNotifikationAktion: note: %@",[note userInfo]);
    NSNumber* CheckboxStatus=[[note userInfo]objectForKey:@"Status"];
    int status=(int)[CheckboxStatus floatValue];
-   //NSLog(@"BewertungNotifikationAktion: %@  Status: %d",[CheckboxStatus description],status);
+   //DLog(@"BewertungNotifikationAktion: %@  Status: %d",[CheckboxStatus description],status);
    self.BewertungZeigen=(status==1);
    [[NSUserDefaults standardUserDefaults]setInteger: status forKey: RPBewertungKey];
    
@@ -4542,10 +4547,10 @@ QTMovie* qtMovie;
 }
 - (void)NotenNotifikationAktion:(NSNotification*)note
 {
-   //NSLog(@"BewertungNotifikationAktion: note: %@",[note userInfo]);
+   //DLog(@"BewertungNotifikationAktion: note: %@",[note userInfo]);
    NSNumber* CheckboxStatus=[[note userInfo]objectForKey:@"Status"];
    int status=(int)[CheckboxStatus floatValue];
-   //NSLog(@"NotenNotifikationAktion: %@  Status: %d",[CheckboxStatus description],status);
+   //DLog(@"NotenNotifikationAktion: %@  Status: %d",[CheckboxStatus description],status);
    self.NoteZeigen=(status==1);
    self.NoteZeigen=0;
    [[NSUserDefaults standardUserDefaults]setInteger: status forKey: RPNoteKey];
@@ -4558,7 +4563,7 @@ QTMovie* qtMovie;
    self.mitUserPasswort=[mitPasswort intValue];
    [self.PListDic setObject:mitPasswort forKey:@"mituserpasswort"];
 
-   //NSLog(@"StartStatusNotifikationAktion	mitPasswort: %@",[mitPasswort description]);
+   //DLog(@"StartStatusNotifikationAktion	mitPasswort: %@",[mitPasswort description]);
    if (self.mitUserPasswort)
    {
       [self.PWFeld setStringValue:@"Mit Passwort"];
@@ -4575,7 +4580,7 @@ QTMovie* qtMovie;
    
    self.TimeoutDelay = [[[note userInfo]objectForKey:@"timeoutdelay"]intValue];
    [self.PListDic setObject:[NSNumber numberWithInt:self.TimeoutDelay] forKey:@"timeoutdelay"];
-   //NSLog(@"TimeoutDelay: %f",self.TimeoutDelay);
+   //DLog(@"TimeoutDelay: %f",self.TimeoutDelay);
    [self.TimeoutFeld setIntValue:self.TimeoutDelay];
    //[Utils startTimeout:TimeoutDelay];
    //[Utils stopTimeout];
@@ -4585,9 +4590,9 @@ QTMovie* qtMovie;
    if (ProjektIndex>=0)
    {
       NSMutableDictionary* tempProjektDic=(NSMutableDictionary*)[self.ProjektArray objectAtIndex:ProjektIndex];
-      //NSLog(@"StatusnotAktion: tempProjektDic: %@",[tempProjektDic description]);
+      //DLog(@"StatusnotAktion: tempProjektDic: %@",[tempProjektDic description]);
       [tempProjektDic setObject:[[note userInfo] objectForKey:@"mituserpasswort"] forKey:@"mituserpw"];
-      //NSLog(@"ProjektStartAktion: tempProjektDic: %@",[tempProjektDic description]);
+      //DLog(@"ProjektStartAktion: tempProjektDic: %@",[tempProjektDic description]);
       
    }
    
@@ -4608,7 +4613,7 @@ QTMovie* qtMovie;
    {
       return;
    }
-   NSLog(@"ViewController showKommentar");
+   DLog(@"ViewController showKommentar");
    NSMutableDictionary* NotificationDic=[[NSMutableDictionary alloc]initWithCapacity:0];
    [NotificationDic setObject:@"Kommentar" forKey:@"quelle"];
    NSNotificationCenter* nc=[NSNotificationCenter defaultCenter];
@@ -4660,12 +4665,12 @@ if (!self.KommentarFenster)
       [Warnung setAlertStyle:NSWarningAlertStyle];
       [Warnung beginSheetModalForWindow:[self.view window]
                       completionHandler:nil];
-      //NSLog(@"!!! Es hat noch keine Projekte im Projektordner");
+      //DLog(@"!!! Es hat noch keine Projekte im Projektordner");
       
       [self beenden];
       return;
    }
-   //NSLog(@"setAdminPlayer AdminProjektNamenArray: %@", AdminProjektNamenArray);
+   //DLog(@"setAdminPlayer AdminProjektNamenArray: %@", AdminProjektNamenArray);
    
    if ([[self.ProjektNamenArray objectAtIndex:0] hasPrefix:@".DS"])					//Unsichtbare Ordner entfernen
    {
@@ -4678,7 +4683,7 @@ if (!self.KommentarFenster)
         self.CleanFenster=[[rClean alloc]initWithRowCount:[self.ProjektNamenArray count]];
      }
    
-   //NSLog(@"AdminPlayer showClean: tab: %d",tab);
+   //DLog(@"AdminPlayer showClean: tab: %d",tab);
    
    nurTitelZuNamenOption=0;
    
@@ -4697,7 +4702,7 @@ if (!self.KommentarFenster)
    //    [AdminPlayer setCleanTask:0];
 
    
-   //NSLog(@"RecPlayController	showClean: sender tag: %ld",[sender tag]);
+   //DLog(@"RecPlayController	showClean: sender tag: %ld",[sender tag]);
    if ([sender tag] == 40006)
    {
    [self.CleanFenster setTaskTab:0];
@@ -4721,7 +4726,7 @@ if (!self.KommentarFenster)
    {
       return;
    }
-   NSLog(@"RecPlayController	showExport: sender tag: %d",[sender tag]);
+   DLog(@"RecPlayController	showExport: sender tag: %d",[sender tag]);
     [AdminPlayer showCleanFenster:2];
     [AdminPlayer setCleanTask:1];
 }
@@ -4760,18 +4765,18 @@ if (!self.KommentarFenster)
 - (void)MarkierungNotificationAktion:(NSNotification*)note
 {
    int var=[[[note userInfo]objectForKey:@"MarkierungVariante"]intValue];
-   //NSLog(@"MarkierungNotificationAktion  Variante: %d ",var);
+   //DLog(@"MarkierungNotificationAktion  Variante: %d ",var);
    switch (var)
    {
       case 0://Nur Leser
       {
-         //NSLog(@"MarkierungNotificationAktion Nur markierungen von einem Leser");
+         //DLog(@"MarkierungNotificationAktion Nur markierungen von einem Leser");
          [self MarkierungEntfernenFuerLeser:[self.ArchivnamenPop titleOfSelectedItem]];
          
       }break;
       case 1://alle
       {
-         //NSLog(@"MarkierungNotificationAktion alle  markierungen");
+         //DLog(@"MarkierungNotificationAktion alle  markierungen");
          [self AlleMarkierungenEntfernen];
       }break;
    }//switch
@@ -4782,17 +4787,17 @@ if (!self.KommentarFenster)
 - (void)MarkierungEntfernenFuerLeser:(NSString*)leser
 {
    //NSDictionary* tempZeilenDic=[AdminDaten dataForRow:dieZeile];
-   //NSLog(@"tempZeilenDic: %@",[tempZeilenDic description]);
+   //DLog(@"tempZeilenDic: %@",[tempZeilenDic description]);
    
    //NSString* tempName=[tempZeilenDic objectForKey:@"namen"];
  //  int tempAnzahlAufnahmen=[[tempZeilenDic objectForKey:@"anz"]intValue];
    
    
    //int x=[[[self.NamenListe tableColumnWithIdentifier:@"aufnahmen"]dataCellForRow:tempZeile]indexOfSelectedItem];
-   //NSLog(@"tempZeile: %d  tempItem: %d  x: %d",tempZeile,tempItem,x);
+   //DLog(@"tempZeile: %d  tempItem: %d  x: %d",tempZeile,tempItem,x);
    NSFileManager *Filemanager=[NSFileManager defaultManager];
    NSString* tempLeserPfad=[self.ProjektPfad stringByAppendingPathComponent:leser];
-   //NSLog(@"MarkierungEntfernenFuerZeile: tempLeserPfad: %@",tempLeserPfad);
+   //DLog(@"MarkierungEntfernenFuerZeile: tempLeserPfad: %@",tempLeserPfad);
    
    BOOL istOrdner=NO;
    if ([Filemanager fileExistsAtPath:tempLeserPfad isDirectory:&istOrdner]&&istOrdner)//Ordner ist da
@@ -4801,7 +4806,7 @@ if (!self.KommentarFenster)
       NSString* tempAnmerkungenPfad=[tempLeserPfad stringByAppendingPathComponent:@"Anmerkungen"];
       if ([Filemanager fileExistsAtPath:tempAnmerkungenPfad isDirectory:&istOrdner]&&istOrdner)//Ordner ist da
       {
-         //NSLog(@"Anmerkungen sind da");
+         //DLog(@"Anmerkungen sind da");
          NSMutableArray* tempAnmerkungenArray=[[NSMutableArray alloc] initWithArray:[Filemanager contentsOfDirectoryAtPath:tempAnmerkungenPfad error:NULL]];
          
          if ([tempAnmerkungenArray count])
@@ -4819,7 +4824,7 @@ if (!self.KommentarFenster)
                if ([Filemanager fileExistsAtPath:tempAnmerkungPfad])
                {
                   
-                  //NSLog(@"File exists: %@",tempAnmerkungPfad);
+                  //DLog(@"File exists: %@",tempAnmerkungPfad);
                   [self saveAdminMarkFuerLeser:leser FuerAufnahme:eineAnmerkung
                                   mitAdminMark:0];
                   
@@ -4833,7 +4838,7 @@ if (!self.KommentarFenster)
     }//Ordner ist da
    else
    {
-      //NSLog(@"Kein Ordner da");	
+      //DLog(@"Kein Ordner da");	
    }
    
 }
@@ -4864,7 +4869,7 @@ if (!self.KommentarFenster)
 
 - (void)ProjektExportieren:(NSString*)projekt
 {
-   //NSLog(@"ProjektExportieren: %@",projekt);
+   //DLog(@"ProjektExportieren: %@",projekt);
    if (!ProjektExportFenster)
    {
       ProjektExportFenster=[[rProjektExport alloc]init];
@@ -4881,7 +4886,7 @@ if (!self.KommentarFenster)
   [ProjektExportFenster setNamenString:projekt];
    //Rückgabe wird von UKopierOrdnerWahlAktion gesetzt: -> UProjektName
    //int modalAntwort = [NSApp runModalSession:ProjektSession];
-   //NSLog(@"MarkierungenEntfernen Antwort: %ld",modalAntwort);
+   //DLog(@"MarkierungenEntfernen Antwort: %ld",modalAntwort);
    
    
    [NSApp endModalSession:ProjektSession];
@@ -4900,7 +4905,7 @@ if (!self.KommentarFenster)
          
       }break;
    }
-   //NSLog(@"endSheet: Antwort: %ld",modalAntwort);
+   //DLog(@"endSheet: Antwort: %ld",modalAntwort);
 
 }
 
@@ -4908,7 +4913,7 @@ if (!self.KommentarFenster)
 - (void)ProjektExportNotificationAktion:(NSNotification*)note
 {
    int var=[[[note userInfo]objectForKey:@"exportvariante"]intValue];
-   //NSLog(@"ProjektExportNotificationAktion  Variante: %d ",var);
+   //DLog(@"ProjektExportNotificationAktion  Variante: %d ",var);
   // [self ProjektExportMitOption:[note userInfo]];
    
    [self ProjektAnPfad:self.ProjektPfad exportierenMitOption:[note userInfo]];
@@ -4917,12 +4922,12 @@ if (!self.KommentarFenster)
    {
       case 0://Nur markierte Aufnahmen
       {
-         //NSLog(@"ProjektExportNotificationAktion Projekt nur mit markierten Aufnahmen");
+         //DLog(@"ProjektExportNotificationAktion Projekt nur mit markierten Aufnahmen");
          
       }break;
       case 1://alle Aufnahmen
       {
-         //NSLog(@"ProjektExportNotificationAktion Projekt mit allen  Aufnahmen");
+         //DLog(@"ProjektExportNotificationAktion Projekt mit allen  Aufnahmen");
       }break;
    }//switch
    */
@@ -4930,23 +4935,23 @@ if (!self.KommentarFenster)
 
 - (void)ProjektExportMitOption:(NSDictionary*)optionDic
 {
-   //NSLog(@"Export: derExportDic: %@",[optionDic description]);
+   //DLog(@"Export: derExportDic: %@",[optionDic description]);
    NSFileManager *Filemanager=[NSFileManager defaultManager];
    
    int exportvariante=[[optionDic objectForKey:@"exportvariante"]intValue];
     int anzahlExportieren=[[optionDic objectForKey:@"exportanzahl"]intValue];
    if (anzahlExportieren<0)
    {
-      //NSLog(@"Anzahl nochmals überlegen");
+      //DLog(@"Anzahl nochmals überlegen");
       return;
    }
    
    
-   //NSLog(@"Export*** ProjektPfad %@",self.ProjektPfad);
+   //DLog(@"Export*** ProjektPfad %@",self.ProjektPfad);
    BOOL istOrdner;
    if (([Filemanager fileExistsAtPath:self.ProjektPfad isDirectory:&istOrdner])&&istOrdner)
    {
-      //NSLog(@"Export*** Ordner am Pfad %@ ist da",tempNamenPfad);
+      //DLog(@"Export*** Ordner am Pfad %@ ist da",tempNamenPfad);
       NSMutableArray* tempLeserArray=[[Filemanager contentsOfDirectoryAtPath:self.ProjektPfad error:NULL]mutableCopy];
       int index=0;
       if ([tempLeserArray count])
@@ -4959,7 +4964,7 @@ if (!self.KommentarFenster)
          {
             [tempLeserArray removeObject:@"Anmerkungen"];
          }
-         //NSLog(@"Export*** tempAufnahmenArray: %@",[tempLeserArray description]);
+         //DLog(@"Export*** tempAufnahmenArray: %@",[tempLeserArray description]);
          if ([tempLeserArray count])
          {
             for (int leserindex=0;leserindex < [tempLeserArray count]; leserindex++)
@@ -4974,21 +4979,21 @@ if (!self.KommentarFenster)
 
       }// if ProjektPfad
    
-   //NSLog(@"Clean:  Variante: %d  behalten: %d  anzahl: %d",var, behalten, anzahl);
+   //DLog(@"Clean:  Variante: %d  behalten: %d  anzahl: %d",var, behalten, anzahl);
    NSMutableArray* exportNamenArray=[optionDic objectForKey:@"exportnamen"];
    
-   //NSLog(@"Export	exportNamenArray: %@",[exportNamenArray description]);
+   //DLog(@"Export	exportNamenArray: %@",[exportNamenArray description]);
    
    if (exportNamenArray)
    {
-      //NSLog(@"ClearNotificationAktion*** exportNamenArray: %@",[exportNamenArray description]);
+      //DLog(@"ClearNotificationAktion*** exportNamenArray: %@",[exportNamenArray description]);
       
       NSMutableArray* exportTitelArray=[optionDic objectForKey:@"exporttitel"];
-      //NSLog(@"Export	exportTitelArray: %@",[exportTitelArray description]);
+      //DLog(@"Export	exportTitelArray: %@",[exportTitelArray description]);
       
       if (exportTitelArray)
       {
-         //NSLog(@"Export*** exportTitelArray: %@",[exportTitelArray description]);
+         //DLog(@"Export*** exportTitelArray: %@",[exportTitelArray description]);
          //Array für zu l√∂schende Aufnahmen
          NSMutableArray* ExportTitelPfadArray=[[NSMutableArray alloc]initWithCapacity:0];
          
@@ -4998,12 +5003,12 @@ if (!self.KommentarFenster)
          {
             
             NSString* tempNamenPfad=[self.ProjektPfad stringByAppendingPathComponent:einName];
-            //NSLog(@"Export*** tempNamenPfad %@",tempNamenPfad);
+            //DLog(@"Export*** tempNamenPfad %@",tempNamenPfad);
             
             BOOL istOrdner;
             if (([Filemanager fileExistsAtPath:tempNamenPfad isDirectory:&istOrdner])&&istOrdner)
             {
-               //NSLog(@"Export*** Ordner am Pfad %@ ist da",tempNamenPfad);
+               //DLog(@"Export*** Ordner am Pfad %@ ist da",tempNamenPfad);
                NSMutableArray* tempAufnahmenArray=[[Filemanager contentsOfDirectoryAtPath:tempNamenPfad error:NULL]mutableCopy];
                int index=0;
                if ([tempAufnahmenArray count])
@@ -5016,12 +5021,12 @@ if (!self.KommentarFenster)
                   {
                      [tempAufnahmenArray removeObject:@"Anmerkungen"];
                   }
-                  //NSLog(@"Clean*** tempAufnahmenArray: %@",[tempAufnahmenArray description]);
+                  //DLog(@"Clean*** tempAufnahmenArray: %@",[tempAufnahmenArray description]);
                   //tempAufnahmenArray=(NSMutableArray*)[self sortNachNummer:tempAufnahmenArray];
                   
                   
                   tempAufnahmenArray=[[self sortNachABC:tempAufnahmenArray]mutableCopy];
-                  //NSLog(@"Export*** tempAufnahmenArray nach sort: %@",[tempAufnahmenArray description]);
+                  //DLog(@"Export*** tempAufnahmenArray nach sort: %@",[tempAufnahmenArray description]);
                   
                   switch (exportvariante) //
                   {//
@@ -5036,7 +5041,7 @@ if (!self.KommentarFenster)
                            NSString* testtitel =[self AufnahmeTitelVon:eineAufnahme];
                            if ([testtitel length] < 4)
                            {
-                              //NSLog(@"kurzer titel: %@",testtitel);
+                              //DLog(@"kurzer titel: %@",testtitel);
                            }
                            if ([exportTitelArray containsObject:[self AufnahmeTitelVon:eineAufnahme]])
                            {
@@ -5046,13 +5051,13 @@ if (!self.KommentarFenster)
                                  BOOL AdminMark=[self AufnahmeIstMarkiertAnPfad:tempLeserAufnahmePfad];
                                  if (AdminMark)
                                  {
-                                    //NSLog(@"Aufnahme %@ ist markiert",eineAufnahme);
+                                    //DLog(@"Aufnahme %@ ist markiert",eineAufnahme);
                                     [ExportTitelPfadArray addObject:[tempNamenPfad stringByAppendingPathComponent:eineAufnahme]];
                                     
                                  }
                                  else
                                  {
-                                    //NSLog(@"Aufnahme %@ ist nicht markiert",eineAufnahme);
+                                    //DLog(@"Aufnahme %@ ist nicht markiert",eineAufnahme);
                                     //[DeleteTitelArray addObject:eineAufnahme];
                                     
                                  }
@@ -5090,11 +5095,11 @@ if (!self.KommentarFenster)
                               }//if in exportTitelArray
                            }//while AufnahmenEnum
                            
-                           //NSLog(@"einLeserTitel: %@ * tempExportTitelArray: %@",einLeserTitel,[tempExportTitelArray description]);
+                           //DLog(@"einLeserTitel: %@ * tempExportTitelArray: %@",einLeserTitel,[tempExportTitelArray description]);
                            if ([tempExportTitelArray count])
                            {
                               tempExportTitelArray=[[self sortNachNummer:tempExportTitelArray]mutableCopy];
-                              //NSLog(@"			*** *** tempExportTitelArray nach sort: %@",[tempExportTitelArray description]);
+                              //DLog(@"			*** *** tempExportTitelArray nach sort: %@",[tempExportTitelArray description]);
                            }
                            
                            NSEnumerator* ExportEnum=[tempExportTitelArray objectEnumerator];
@@ -5129,7 +5134,7 @@ if (!self.KommentarFenster)
             
          }//while NamenEnum
          
-         //NSLog(@"Export Ergebnis*** ExportTitelPfadArray: %@",[ExportTitelPfadArray description]);
+         //DLog(@"Export Ergebnis*** ExportTitelPfadArray: %@",[ExportTitelPfadArray description]);
          if ([ExportTitelPfadArray count])
          {
             
@@ -5149,7 +5154,7 @@ if (!self.KommentarFenster)
             //[Warnung setIcon:RPImage];
             [Warnung runModal];
             
-            //NSLog(@"Nichts zu exportieren");
+            //DLog(@"Nichts zu exportieren");
          }
       }//if (exportTitelArray)
    }//if (exportNamenArray)
@@ -5168,8 +5173,8 @@ if (!self.KommentarFenster)
    //   RPExportdaten=[[[NSUserDefaults standardUserDefaults]dataForKey:@"RPExportdaten"]mutableCopy];
    
    ExportOrdnerPfad=[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
-   //NSLog(@"AufnahmenArrayExportieren\n\n");
-   //NSLog(@"AufnahmenArrayExportieren:Nach Dialog: Exportdaten: %@",[RPExportdaten length]);
+   //DLog(@"AufnahmenArrayExportieren\n\n");
+   //DLog(@"AufnahmenArrayExportieren:Nach Dialog: Exportdaten: %@",[RPExportdaten length]);
    
    // 8.12.08: HomeDirectory wieder eingestellt
    //ExportOrdnerPfad=[AdminLeseboxPfad stringByDeletingLastPathComponent];//Documents
@@ -5181,11 +5186,11 @@ if (!self.KommentarFenster)
    NSString* ExportOrdnerName = [projektpfad lastPathComponent];
    
    NSString *bundlePfad = [[NSBundle mainBundle] bundlePath];
-   //NSLog(@"ProjektExportieren	bundlePfad: %@",bundlePfad);
+   //DLog(@"ProjektExportieren	bundlePfad: %@",bundlePfad);
    NSArray* homeArray = [[NSFileManager defaultManager]contentsOfDirectoryAtPath:[bundlePfad stringByDeletingLastPathComponent] error:nil];
    
    long leseboxindex = [homeArray indexOfObject:@"Lesebox"];
-   //NSLog(@"AufnahmenArrayExportieren	homeArray: %@ leseboxindex: %ld",homeArray,leseboxindex);
+   //DLog(@"AufnahmenArrayExportieren	homeArray: %@ leseboxindex: %ld",homeArray,leseboxindex);
    if (leseboxindex < NSNotFound)
    {
       NSString* tempLeseboxPfad =[[bundlePfad stringByDeletingLastPathComponent]stringByAppendingPathComponent:@"Lesebox" ];
@@ -5245,7 +5250,7 @@ if (!self.KommentarFenster)
    //NSString* ExportPanelPfad = [NSHomeDirectory()stringByAppendingPathComponent:@"Desktop"];
    NSString* ExportPanelPfad = [self.LeseboxPfad stringByDeletingLastPathComponent];
    
-   //NSLog(@"ExportPanelPfad: %@",ExportPanelPfad);
+   //DLog(@"ExportPanelPfad: %@",ExportPanelPfad);
    [ExportPanel setDirectoryURL:[NSURL fileURLWithPath:ExportPanelPfad]];
    [ExportPanel setNameFieldStringValue:ExportOrdnerName];
    NSString* labelString=@"Ordner fuer das Projekt:";
@@ -5258,28 +5263,28 @@ if (!self.KommentarFenster)
    long modalAntwort=[ExportPanel runModal] ;//
    
    
-   //NSLog(@"ExportPanel: modalAntwort: %d",modalAntwort);
-   //NSLog(@"AufnahmenArrayExportieren:Nach Dialog: Expotdaten: %@",[RPExportdaten length]);
+   //DLog(@"ExportPanel: modalAntwort: %d",modalAntwort);
+   //DLog(@"AufnahmenArrayExportieren:Nach Dialog: Expotdaten: %@",[RPExportdaten length]);
    switch (modalAntwort)
    {
       case NSFileHandlingPanelOKButton:
       {
-         //NSLog(@"ExportPanel: filename: %@ tempExportFilePfad: %@",[ExportPanel filename],tempExportFilePfad);
+         //DLog(@"ExportPanel: filename: %@ tempExportFilePfad: %@",[ExportPanel filename],tempExportFilePfad);
          ExportOrdnerPfad=[[[ExportPanel URL]path]copy]; //[tempExportFilePfad stringByDeletingLastPathComponent];
-         //NSLog(@"ExportPanel: filename: %@ ExportOrdnerPfad: %@",[[ExportPanel URL]path],ExportOrdnerPfad);
+         //DLog(@"ExportPanel: filename: %@ ExportOrdnerPfad: %@",[[ExportPanel URL]path],ExportOrdnerPfad);
          
          
       }break;
       case NSFileHandlingPanelCancelButton:
       {
-         //NSLog(@"ExportPanel: keine Eingabe ExportOrdnerPfad: %@",ExportOrdnerPfad);
+         //DLog(@"ExportPanel: keine Eingabe ExportOrdnerPfad: %@",ExportOrdnerPfad);
          return;
       }break;
    }//switch
    
    int anzahlexportfehler=0;
    int anzahlexporterfolge=0;
-   //NSLog(@"AufnahmenArrayExportieren:Nach Dialog: Exportdaten: %d",[RPExportdaten length]);
+   //DLog(@"AufnahmenArrayExportieren:Nach Dialog: Exportdaten: %d",[RPExportdaten length]);
    ExportOrdnerPfad =[ExportOrdnerPfad stringByAppendingPathComponent:ExportOrdnerName ];
    int exportordnererfolg = 0;
    if ( [Filemanager fileExistsAtPath:ExportOrdnerPfad])
@@ -5297,11 +5302,11 @@ if (!self.KommentarFenster)
    }
    
    
-   //NSLog(@"Export*** ProjektPfad %@",self.ProjektPfad);
+   //DLog(@"Export*** ProjektPfad %@",self.ProjektPfad);
    BOOL istOrdner;
    if (([Filemanager fileExistsAtPath:self.ProjektPfad isDirectory:&istOrdner])&&istOrdner)
    {
-      //NSLog(@"Export*** Ordner am Pfad %@ ist da",self.ProjektPfad);
+      //DLog(@"Export*** Ordner am Pfad %@ ist da",self.ProjektPfad);
       NSMutableArray* tempLeserArray=[[Filemanager contentsOfDirectoryAtPath:self.ProjektPfad error:NULL]mutableCopy];
       
       if ([tempLeserArray count])
@@ -5314,7 +5319,7 @@ if (!self.KommentarFenster)
          {
             [tempLeserArray removeObject:@"Anmerkungen"];
          }
-         //NSLog(@"Export*** tempLeserArray: %@",[tempLeserArray description]);
+         //DLog(@"Export*** tempLeserArray: %@",[tempLeserArray description]);
          
          if ([tempLeserArray count])
          {
@@ -5356,7 +5361,7 @@ if (!self.KommentarFenster)
                   {
                      [tempAufnahmenArray removeObject:@"Anmerkungen"];
                   }
-                  //NSLog(@"Export*** tempAufnahmenArray: %@",[tempAufnahmenArray description]);
+                  //DLog(@"Export*** tempAufnahmenArray: %@",[tempAufnahmenArray description]);
                   
                   for (int aufnahmenindex=0;aufnahmenindex < [tempAufnahmenArray count]; aufnahmenindex++)
                   {
@@ -5375,12 +5380,12 @@ if (!self.KommentarFenster)
                               BOOL AdminMark=[self AufnahmeIstMarkiertAnPfad:AufnahmeQuellePfad];
                               if (AdminMark)
                               {
-                                 //NSLog(@"Aufnahme %@ ist markiert",[projektpfad lastPathComponent]);
+                                 //DLog(@"Aufnahme %@ ist markiert",[projektpfad lastPathComponent]);
                                  exportOK = YES;
                               }
                               else
                               {
-                                 //NSLog(@"Aufnahme %@ ist nicht markiert",[projektpfad lastPathComponent]);
+                                 //DLog(@"Aufnahme %@ ist nicht markiert",[projektpfad lastPathComponent]);
                               }
                            }
                         }break;
@@ -5390,7 +5395,7 @@ if (!self.KommentarFenster)
                            {
                               if (aufnahmenindex < exportanzahl)
                               {
-                                 //NSLog(@"Aufnahme %@ wird exportiert",[projektpfad lastPathComponent]);
+                                 //DLog(@"Aufnahme %@ wird exportiert",[projektpfad lastPathComponent]);
                                  exportOK = YES;
                               }
                            }
@@ -5436,10 +5441,10 @@ if (!self.KommentarFenster)
       
    }// if ProjektPfad
    
-   //NSLog(@"ProjektExport	fehlerarray: %@",fehlerarray);
+   //DLog(@"ProjektExport	fehlerarray: %@",fehlerarray);
   
-     //NSLog(@"AufnahmenArrayExportieren:2");
-    //NSLog(@"ProjektExportieren\r exportiertearray: %@\r nichtexportiertearray: %@\r vorhandenearray: %@",exportiertearray,nichtexportiertearray,vorhandenearray);
+     //DLog(@"AufnahmenArrayExportieren:2");
+    //DLog(@"ProjektExportieren\r exportiertearray: %@\r nichtexportiertearray: %@\r vorhandenearray: %@",exportiertearray,nichtexportiertearray,vorhandenearray);
     NSString* infoOKString = [NSString stringWithFormat:@"Die exportierten Aufnahmen liegen im Ordner \r%@\r am Pfad\r%@",ExportOrdnerName,ExportOrdnerPfad];
     NSString* infoFehlerString = [NSString stringWithFormat:@"Folgende Aufnahmen konnten nicht exportiert werden. \r%@\r%@",[nichtexportiertearray componentsJoinedByString:@"\r" ],infoOKString];
    NSString* infostring =[NSString stringWithFormat:@"%@\r%@",infoOKString,infoFehlerString];
@@ -5462,7 +5467,7 @@ if (!self.KommentarFenster)
                   mitAdminMark:(long)dieAdminMark
 
 {
-   //NSLog(@"in saveAdminMarkFuerLeser Anfang Leser: %@ Aufnahme: %@ AdminMark: %d",derLeser,dieAufnahme,dieAdminMark);
+   //DLog(@"in saveAdminMarkFuerLeser Anfang Leser: %@ Aufnahme: %@ AdminMark: %d",derLeser,dieAufnahme,dieAdminMark);
    
    BOOL erfolg;
    BOOL istDirectory;
@@ -5471,18 +5476,18 @@ if (!self.KommentarFenster)
    NSString* tempLeser=[derLeser copy];
    if ([tempLeser length]==0)
    {
-      //NSLog(@"saveAdminMarkFuerLeser: Kein Leser");
+      //DLog(@"saveAdminMarkFuerLeser: Kein Leser");
       return NO;
    }
    NSString* tempAufnahme;
    tempAufnahme=[dieAufnahme copy];
-   //NSLog(@"\n");
+   //DLog(@"\n");
    NSString* tempAdminAufnahmePfad=[NSString stringWithString:self.ProjektPfad];
    tempAdminAufnahmePfad=[tempAdminAufnahmePfad stringByAppendingPathComponent:tempLeser];
    
    NSString* KommentarOrdnerString=@"Anmerkungen";
    NSString* tempAdminKommentarPfad=[[self.ProjektPfad copy] stringByAppendingPathComponent:tempLeser];
-   //NSLog(@"in saveAdminMarkFuerLeser tempAdminKommentarPfad: %@",tempAdminKommentarPfad);
+   //DLog(@"in saveAdminMarkFuerLeser tempAdminKommentarPfad: %@",tempAdminKommentarPfad);
    if ([Filemanager fileExistsAtPath:tempAdminKommentarPfad isDirectory:&istDirectory])//Ordner des Lesers ist da
    {
       if (istDirectory)
@@ -5490,39 +5495,39 @@ if (!self.KommentarFenster)
          tempAdminKommentarPfad=[tempAdminKommentarPfad stringByAppendingPathComponent:KommentarOrdnerString];
          NSString* tempAnmerkungname = [[dieAufnahme stringByDeletingPathExtension]stringByAppendingPathExtension:@"txt"];
          tempAdminKommentarPfad=[tempAdminKommentarPfad stringByAppendingPathComponent:tempAnmerkungname];
-         //NSLog(@"in saveAdminMarkFuerLeser tempAdminKommentarPfad: %@",tempAdminKommentarPfad);
+         //DLog(@"in saveAdminMarkFuerLeser tempAdminKommentarPfad: %@",tempAdminKommentarPfad);
          if ([Filemanager fileExistsAtPath:tempAdminKommentarPfad])
          {
             NSString* tempKommentarString=[NSString stringWithContentsOfFile:tempAdminKommentarPfad encoding:NSMacOSRomanStringEncoding error:NULL];
             NSMutableArray* tempKommentarArrary=(NSMutableArray *)[tempKommentarString componentsSeparatedByString:@"\r"];
-            //NSLog(@"tempKommentarArrary vor: %@",[tempKommentarArrary description]);
+            //DLog(@"tempKommentarArrary vor: %@",[tempKommentarArrary description]);
             if (tempKommentarArrary &&[tempKommentarArrary count]>7)
             {
                NSNumber* AdminMarkNumber=[NSNumber numberWithLong:dieAdminMark];
-               //NSLog(@"saveMark		replaceObjectAtIndex1");
+               //DLog(@"saveMark		replaceObjectAtIndex1");
                [tempKommentarArrary replaceObjectAtIndex:kAdminMark withObject:[AdminMarkNumber stringValue]];
-               //NSLog(@"tempKommentarArrary nach: %@ AdminMark:%d",[tempKommentarArrary description],[AdminMarkNumber intValue]);
+               //DLog(@"tempKommentarArrary nach: %@ AdminMark:%d",[tempKommentarArrary description],[AdminMarkNumber intValue]);
                
                
             }
             NSString* newKommentarString=[tempKommentarArrary componentsJoinedByString:@"\r"];
-            //NSLog(@"newKommentarString: %@",newKommentarString);
+            //DLog(@"newKommentarString: %@",newKommentarString);
             [newKommentarString writeToFile:tempAdminKommentarPfad atomically:YES encoding:NSMacOSRomanStringEncoding error:NULL];
          }//if Kommentar da
          else
          {
-            //NSLog(@"Kein Kommentar an tempAdminKommentarPfad");
+            //DLog(@"Kein Kommentar an tempAdminKommentarPfad");
          }
          
       }
       else
       {
-         //NSLog(@"Kein Directory an tempAdminKommentarPfad");
+         //DLog(@"Kein Directory an tempAdminKommentarPfad");
       }
    }
    else
    {
-      //NSLog(@"Kein Ordner an tempAdminKommentarPfad");
+      //DLog(@"Kein Ordner an tempAdminKommentarPfad");
    }
    
    return erfolg;
@@ -5541,7 +5546,7 @@ if (!self.KommentarFenster)
       MarkierungFenster=[[rMarkierung alloc]init];
    }
    //	MarkierungSelektor=@selector(sheetDidEnd: returnCode: contextInfo:);
-   //NSLog(@"MarkierungenWeg: Leser: %@",leser);
+   //DLog(@"MarkierungenWeg: Leser: %@",leser);
    //[MarkierungFenster setNamenString:leser];
 
    NSModalSession ProjektSession=[NSApp beginModalSessionForWindow:[MarkierungFenster window]];
@@ -5553,7 +5558,7 @@ if (!self.KommentarFenster)
    //[MarkierungFenster setNamenString:leser];
    //Rückgabe wird von UKopierOrdnerWahlAktion gesetzt: -> UProjektName
    //int modalAntwort = [NSApp runModalSession:ProjektSession];
-   //NSLog(@"MarkierungenEntfernen Antwort: %ld",modalAntwort);
+   //DLog(@"MarkierungenEntfernen Antwort: %ld",modalAntwort);
    
    
    [NSApp endModalSession:ProjektSession];
@@ -5572,7 +5577,7 @@ if (!self.KommentarFenster)
          
       }break;
    }
-   //NSLog(@"endSheet: Antwort: %ld",modalAntwort);
+   //DLog(@"endSheet: Antwort: %ld",modalAntwort);
 }
 
 - (void)AlleMarkierungenEntfernen
@@ -5587,7 +5592,7 @@ if (!self.KommentarFenster)
    NSModalResponse antwort = [Warnung runModal];
    if (antwort==NSAlertFirstButtonReturn)
    {
-      //NSLog(@"alertDidEnd: NSAlertFirstButtonReturn");
+      //DLog(@"alertDidEnd: NSAlertFirstButtonReturn");
       [self Markierungenreset];
       
    }
@@ -5596,7 +5601,7 @@ if (!self.KommentarFenster)
 - (void)Markierungenreset
 {
    NSMutableArray* tempLesernamenArray = (NSMutableArray*)[self.ArchivnamenPop itemTitles];
-   //NSLog(@"Markierungenreset tempLesernamenArray: %@",tempLesernamenArray );
+   //DLog(@"Markierungenreset tempLesernamenArray: %@",tempLesernamenArray );
    //[tempLesernamenArray removeObject:@".DS_Store"];
    [tempLesernamenArray removeObjectAtIndex:0];
    int i;
@@ -5621,9 +5626,9 @@ if (!self.KommentarFenster)
    //Note von Projektliste über neues Projekt: reportNeuesProjekt
    BOOL neuesProjektOK=NO;
    NSMutableDictionary* tempNeuesProjektDic=[[[note userInfo] objectForKey:@"neuesprojektdic"]mutableCopy];
-   NSLog(@"ViewController neuesProjektVomStartAktion: userInfo: %@",[[note userInfo] description]);
+   DLog(@"ViewController neuesProjektVomStartAktion: userInfo: %@",[[note userInfo] description]);
    
-   //NSLog(@"RPC neuesProjektAktion: tempNeuesProjektDic: %@",[tempNeuesProjektDic description]);
+   //DLog(@"RPC neuesProjektAktion: tempNeuesProjektDic: %@",[tempNeuesProjektDic description]);
    //NSString* neuesProjektName=[tempNeuesProjektDic objectForKey:projekt];
    NSString* neuesProjektName=[tempNeuesProjektDic objectForKey:@"projekt"];
    NSMutableDictionary* neuesProjektDic;
@@ -5632,8 +5637,8 @@ if (!self.KommentarFenster)
       if ([neuesProjektName length])
       {
          NSString* tempProjektPfad=[self.ArchivPfad stringByAppendingPathComponent:neuesProjektName];
-         //NSLog(@"neuesProjektAktion tempProjektPfad: %@",tempProjektPfad);
-         //NSLog(@"ProjektArray ist da: %d",!(ProjektArray==NULL));
+         //DLog(@"neuesProjektAktion tempProjektPfad: %@",tempProjektPfad);
+         //DLog(@"ProjektArray ist da: %d",!(ProjektArray==NULL));
          if (self.ProjektArray&&[self.ProjektArray count])
          {
             
@@ -5646,7 +5651,7 @@ if (!self.KommentarFenster)
          
          if ([Utils ProjektOrdnerEinrichtenAnPfad:tempProjektPfad])
          {
-            //NSLog(@"ProjektOrdnerEinrichtenAnPfad: ist OK");
+            //DLog(@"ProjektOrdnerEinrichtenAnPfad: ist OK");
             
             neuesProjektDic=[NSMutableDictionary dictionaryWithObject:neuesProjektName forKey:@"projekt"];
             [neuesProjektDic setObject:[tempProjektPfad copy] forKey:@"projektpfad"];
@@ -5665,7 +5670,7 @@ if (!self.KommentarFenster)
             {
                [neuesProjektDic setObject: [NSNumber numberWithInt:0] forKey:@"fix"];
             }
-            //NSLog(@"neuesProjektAktion neuesProjektDic: %@",[neuesProjektDic description]);
+            //DLog(@"neuesProjektAktion neuesProjektDic: %@",[neuesProjektDic description]);
             
             NSNumber* tempMitUserPW=[tempNeuesProjektDic objectForKey:@"mituserpw"];//Mit Userpasswort?
             if (tempMitUserPW)
@@ -5677,18 +5682,18 @@ if (!self.KommentarFenster)
             {
                [neuesProjektDic setObject: [NSNumber numberWithInt:0] forKey:@"mituserpw"];
             }
-            //NSLog(@"neuesProjektAktion neuesProjektDic: %@",[neuesProjektDic description]);
+            //DLog(@"neuesProjektAktion neuesProjektDic: %@",[neuesProjektDic description]);
             
             [self.ProjektArray addObject:neuesProjektDic];
             
             neuesProjektOK=YES;
-            //NSLog(@"neuesProjektAktion neuesProjektOK: YES");
+            //DLog(@"neuesProjektAktion neuesProjektOK: YES");
          }
          else
          {
             //**
             //Kein Projektordner eingerichtet
-            //NSLog(@"neuesProjektAktion neuesProjektOK: NO kein Pojekt 	ProjektPanel resetPanel");
+            //DLog(@"neuesProjektAktion neuesProjektOK: NO kein Pojekt 	ProjektPanel resetPanel");
             [ProjektPanel resetPanel];
             
             neuesProjektOK=NO;
@@ -5702,7 +5707,7 @@ if (!self.KommentarFenster)
       [self setProjektMenu];
       [ProjektPanel setNeuesProjekt];
       [ProjektPanel setProjektListeArray:self.ProjektArray inProjekt:neuesProjektName];
-      //NSLog(@"\n\n                    +++++   neuesProjektAktion Schluss: ProjektArray: %@\n",[self.ProjektArray description]);
+      //DLog(@"\n\n                    +++++   neuesProjektAktion Schluss: ProjektArray: %@\n",[self.ProjektArray description]);
       
       [self saveNeuesProjekt:neuesProjektDic];
       //*      [AdminPlayer setAdminProjektArray:ProjektArray];
@@ -5712,7 +5717,7 @@ if (!self.KommentarFenster)
    }//if NeueProjektListeOK
    else
    {
-      //NSLog(@"*neuesProjektListeAktion Kein neues Projekt %@",[ProjektArray description]);
+      //DLog(@"*neuesProjektListeAktion Kein neues Projekt %@",[ProjektArray description]);
       [ProjektPanel resetPanel];
    }
    
@@ -5725,7 +5730,7 @@ if (!self.KommentarFenster)
 
 - (void)ProjektMenuAktion:(NSNotification*)note
 {
-   //NSLog(@"\n\n************ ProjektMenuAktion : \nNeues Projekt: %@",[[note userInfo] objectForKey:@"projekt"]);
+   //DLog(@"\n\n************ ProjektMenuAktion : \nNeues Projekt: %@",[[note userInfo] objectForKey:@"projekt"]);
    NSString* tempProjektString=[NSString stringWithString:[[note userInfo] objectForKey:@"projekt"]];
    if (tempProjektString)
    {
@@ -5739,17 +5744,17 @@ if (!self.KommentarFenster)
 
 - (void)anderesProjektAktion:(NSNotification*)note
 {
-   //NSLog(@"\nanderesProjektAktion start: \n%@",[[note userInfo] objectForKey:@"projekt"]);
-   //NSLog(@"\nanderesProjektAktion start: %@",[[note userInfo] description]);
+   //DLog(@"\nanderesProjektAktion start: \n%@",[[note userInfo] objectForKey:@"projekt"]);
+   //DLog(@"\nanderesProjektAktion start: %@",[[note userInfo] description]);
    [Utils stopTimeout];
    
    NSArray* tempProjektArray=[[note userInfo] objectForKey:@"projektarray"];
-   //NSLog(@"anderesProjektAktion tempProjektArray: %@",[tempProjektArray description]);
+   //DLog(@"anderesProjektAktion tempProjektArray: %@",[tempProjektArray description]);
    if (tempProjektArray&&[tempProjektArray count])
    {
-      //NSLog(@"tempProjektarray ist OK");
+      //DLog(@"tempProjektarray ist OK");
       [self.ProjektArray setArray:[tempProjektArray mutableCopy]];//Array mit allen Aenderungen aus ProjektlistePanel
-      //NSLog(@"anderesProjektAktion Projektarray laden: %@",[ProjektArray description]);
+      //DLog(@"anderesProjektAktion Projektarray laden: %@",[ProjektArray description]);
       [self saveNeuenProjektArray:tempProjektArray];
    }
    
@@ -5769,7 +5774,7 @@ if (!self.KommentarFenster)
 
 - (void)ProjektEntfernenAktion:(NSNotification*)note
 {
-   //NSLog(@"*********ProjektEntfernenAktion start: %@",[[note userInfo] objectForKey:@"projekt"]);
+   //DLog(@"*********ProjektEntfernenAktion start: %@",[[note userInfo] objectForKey:@"projekt"]);
    NSString* clearProjekt=[[note userInfo] objectForKey:@"projekt"];
    NSFileManager *Filemanager=[NSFileManager defaultManager];
    
@@ -5778,7 +5783,7 @@ if (!self.KommentarFenster)
       NSString* EntfernenPfad=[self.ArchivPfad stringByAppendingPathComponent:clearProjekt];
       if (![Filemanager fileExistsAtPath:EntfernenPfad ])
       {
-         //NSLog(@"Zu entfernender Ordner nicht vorhanden");
+         //DLog(@"Zu entfernender Ordner nicht vorhanden");
          return;
       }
       int wohin=[[[note userInfo] objectForKey:@"wohin"]intValue];
@@ -5788,26 +5793,26 @@ if (!self.KommentarFenster)
       {
          case 0://>Papierkorb
          {
-            //NSLog(@"*ProjektEntfernenAktion: Papierkorb: EntfernenPfad: %@",EntfernenPfad);
+            //DLog(@"*ProjektEntfernenAktion: Papierkorb: EntfernenPfad: %@",EntfernenPfad);
             [self fileInPapierkorb:EntfernenPfad];
-            //NSLog(@"*ProjektEntfernenAktion: nach inPapierkorbMitPfad ");
+            //DLog(@"*ProjektEntfernenAktion: nach inPapierkorbMitPfad ");
             //[self updateProjektArray];
-            //NSLog(@"*ProjektEntfernenAktion: nach updateProjektArray");
+            //DLog(@"*ProjektEntfernenAktion: nach updateProjektArray");
          
          }break;
             
          case 1: //Magazin
          {
-            //NSLog(@"*ProjektEntfernenAktion: Magazin: EntfernenPfad: %@",EntfernenPfad);
+            //DLog(@"*ProjektEntfernenAktion: Magazin: EntfernenPfad: %@",EntfernenPfad);
             NSString* MagazinPfad=[self.LeseboxPfad stringByAppendingPathComponent:@"Magazin"];
-            //NSLog(@"*ProjektEntfernenAktion: Magazin: MagazinPfad: %@",MagazinPfad);
+            //DLog(@"*ProjektEntfernenAktion: Magazin: MagazinPfad: %@",MagazinPfad);
             BOOL istOrdner=NO;
             
             
             if (!([Filemanager fileExistsAtPath:MagazinPfad isDirectory:&istOrdner]&&istOrdner))
             {
                BOOL createMagazinOK=[Filemanager createDirectoryAtPath:MagazinPfad  withIntermediateDirectories:NO attributes:NULL error:NULL];
-               //NSLog(@"createMagazinOK: %d",createMagazinOK);
+               //DLog(@"createMagazinOK: %d",createMagazinOK);
                if (!createMagazinOK)
                {
                   NSAlert *Warnung = [[NSAlert alloc] init];
@@ -5828,7 +5833,7 @@ if (!self.KommentarFenster)
                }
             }
             ZielPfad=[[MagazinPfad stringByAppendingPathComponent:clearProjekt]stringByAppendingString:@" alt"];
-            //NSLog(@"ZielPfad: %@",ZielPfad);
+            //DLog(@"ZielPfad: %@",ZielPfad);
             if ([Filemanager fileExistsAtPath:ZielPfad])
             {
                [Filemanager removeItemAtURL:[NSURL fileURLWithPath:ZielPfad] error:nil];
@@ -5838,13 +5843,13 @@ if (!self.KommentarFenster)
             {
                BOOL ProjektOK=[self ProjektListeValidAnPfad:self.ArchivPfad];
             }
-            //NSLog(@"MagazinOK: %d",MagazinOK);
+            //DLog(@"MagazinOK: %d",MagazinOK);
             
             
          }break;
          case 2://ex
          {
-            //NSLog(@"*ProjektEntfernenAktion: ex: %@",EntfernenPfad);
+            //DLog(@"*ProjektEntfernenAktion: ex: %@",EntfernenPfad);
             if ([Filemanager fileExistsAtPath:EntfernenPfad])
             {
                BOOL ExOK=[Filemanager removeItemAtURL:[NSURL fileURLWithPath:EntfernenPfad] error:nil];
@@ -5860,7 +5865,7 @@ if (!self.KommentarFenster)
             return;
          }break;
       }//switch
-      //NSLog(@"ProjektEntfernen ArchivPfad: %@  \nProjektArray: %@",ArchivPfad,[ProjektArray description]);
+      //DLog(@"ProjektEntfernen ArchivPfad: %@  \nProjektArray: %@",ArchivPfad,[ProjektArray description]);
       
       
       [self setProjektMenu];
@@ -5878,7 +5883,7 @@ if (!self.KommentarFenster)
    BOOL succeeded;
    NSString* HomeDir=@"";// = [NSHomeDirectory() stringByAppendingPathComponent:@".Trash"];
    NSFileManager* Filemanager=[NSFileManager defaultManager];
-   //NSLog(@"fileInPapierkorb:NSHomeDirectory %@",NSHomeDirectory());
+   //DLog(@"fileInPapierkorb:NSHomeDirectory %@",NSHomeDirectory());
    
    NSMutableArray* PfadKomponenten=(NSMutableArray*)[derFilepfad pathComponents] ;
    int index=0;
@@ -5897,13 +5902,13 @@ if (!self.KommentarFenster)
         NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
         
         NSArray * vols=[workspace mountedLocalVolumePaths];
-        //NSLog(@"fileInPapierkorb volumes: %@   sourceDir:%@ trashDir: %@",[vols description],sourceDir, trashDir);
+        //DLog(@"fileInPapierkorb volumes: %@   sourceDir:%@ trashDir: %@",[vols description],sourceDir, trashDir);
         
         NSArray *files = [NSArray arrayWithObject:[derFilepfad lastPathComponent]];
         succeeded = [workspace performFileOperation:NSWorkspaceRecycleOperation
                                              source:sourceDir destination:trashDir
                                               files:files tag:&tag];
-        //NSLog(@"fileInPapierkorb tag: %ld succeeded: %d",(long)tag, succeeded);
+        //DLog(@"fileInPapierkorb tag: %ld succeeded: %d",(long)tag, succeeded);
         return tag;//0 ist OK
      }
    else
@@ -5911,7 +5916,7 @@ if (!self.KommentarFenster)
         
         NSString* sourceDir=derFilepfad;
         int removeIt=[Filemanager removeItemAtURL:[NSURL fileURLWithPath:sourceDir] error:nil];
-        //NSLog(@"removePath: removeIt: %d",removeIt);
+        //DLog(@"removePath: removeIt: %d",removeIt);
         return 0;
         
      }
@@ -5919,14 +5924,14 @@ if (!self.KommentarFenster)
 
 - (IBAction)setNeuesProjekt:(id)sender
 {
-   //NSLog(@"setNeuesProjekt");
+   //DLog(@"setNeuesProjekt");
 }
 
 
 
 - (void)windowWillClose:(NSNotification *)notification
 {
-   NSLog(@"RecPlayFenster windowWillClose: %@",notification);
+   DLog(@"RecPlayFenster windowWillClose: %@",notification);
 }
 
 
@@ -5974,7 +5979,7 @@ if (!self.KommentarFenster)
     {
     if (rowIndex>=[TitelArray count])
     {
-    //NSLog(@"neue Titelzeile");
+    //DLog(@"neue Titelzeile");
     [TitelArray addObject: [NSMutableDictionary dictionary]];
     }
     aRow = [TitelArray objectAtIndex: rowIndex];
@@ -5985,7 +5990,7 @@ if (!self.KommentarFenster)
     
     
     //aRow = [NamenArray objectAtIndex: rowIndex];
-    //NSLog(@"setData rowIndex: %d  someData: %@   aRow: %@",rowIndex,[someData description],[aRow description]);
+    //DLog(@"setData rowIndex: %d  someData: %@   aRow: %@",rowIndex,[someData description],[aRow description]);
     NS_DURING
     
     NS_HANDLER
@@ -6004,7 +6009,7 @@ if (!self.KommentarFenster)
 - (id)tableView:(NSTableView *)aTableView objectValueForTableColumn:(NSTableColumn *)aTableColumn row:(long)rowIndex
 {
    id dieZeile, derWert;
-   //NSLog(@"objectValueForTableColumn tag: %d",[aTableView tag]);
+   //DLog(@"objectValueForTableColumn tag: %d",[aTableView tag]);
    /*
     switch([aTableView tag])
     {

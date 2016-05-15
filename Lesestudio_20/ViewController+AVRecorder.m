@@ -12,7 +12,7 @@
 
 - (void)AufnahmeTimerFunktion:(NSTimer*)derTimer
 {
-  //NSLog(@"ViewController AufnahmeTimerFunktion");
+  //DLog(@"ViewController AufnahmeTimerFunktion");
    if (aufnahmetimerstatus)
    {
       AufnahmeZeit++;
@@ -58,7 +58,7 @@
 {
    if ([AVRecorder istRecording])
    {
-      //NSLog(@"ViewController Aufnahme in Gang");
+      //DLog(@"ViewController Aufnahme in Gang");
       return;
    }
    
@@ -83,10 +83,10 @@
    NSImage* StopRecordImg=[NSImage imageNamed:@"stopicon_w.gif"];
    //self.StartStopKnopf.image=StopRecordImg;
 
-   //NSLog(@"recording Datum %@",heuteDatumString);
+   //DLog(@"recording Datum %@",heuteDatumString);
    NSDate *now = [[NSDate alloc] init];
    startzeit = (int)now.timeIntervalSince1970;
-   //NSLog(@"setRecording startzeit: %ld",startzeit);
+   //DLog(@"setRecording startzeit: %ld",startzeit);
    if ([AufnahmeTimer isValid])
    {
       
@@ -134,13 +134,13 @@
    
    self.Leser=[self.ArchivnamenPop titleOfSelectedItem];
    long n=[self.ArchivnamenPop indexOfSelectedItem];
-   //NSLog(@"Selected Item: %ld",n);
-   //NSLog(@"startRecord:Selected Item: %ld		Leser: %@",n,self.Leser);
+   //DLog(@"Selected Item: %ld",n);
+   //DLog(@"startRecord:Selected Item: %ld		Leser: %@",n,self.Leser);
    
    
    NSFileManager *Filemanager=[NSFileManager defaultManager];
    BOOL sauberOK=0;
-   //NSLog(@"startAVRecord neueAufnahmePfad: %@",neueAufnahmePfad);
+   //DLog(@"startAVRecord neueAufnahmePfad: %@",neueAufnahmePfad);
    NSError* startErr;
    //[self.StartPlayQTKitKnopf setEnabled:NO];
    //NSImage* StopRecordImg=[NSImage imageNamed:@"stopicon.gif"];
@@ -171,7 +171,7 @@
 
 - (IBAction)stopAVRecord:(id)sender
 {
-   //NSLog(@"stopAVRecord");
+   //DLog(@"stopAVRecord");
 
   [AVRecorder setRecording:NO mitLeserPfad:self.LeserPfad];
    
@@ -210,7 +210,7 @@
 {
    BOOL nimmtauf=[AVRecorder istRecording];
    
-   //NSLog(@"startAVStop state: %ld, nimmt auf: %d",(long)[sender state],nimmtauf);
+   //DLog(@"startAVStop state: %ld, nimmt auf: %d",(long)[sender state],nimmtauf);
    NSImage* StartRecordImg=[NSImage imageNamed:@"recordicon_k.gif"];//
    
    
@@ -247,7 +247,7 @@
    // Get the mean audio level from the movie file output's audio connections
    
    
-   //NSLog(@"Level: %2.2f",level);
+   //DLog(@"Level: %2.2f",level);
 
 
    if (level > 0)
@@ -268,7 +268,7 @@
 
 - (IBAction)stop:(id)sender
 {
-   //NSLog(@"stopAVPlay");
+   //DLog(@"stopAVPlay");
    [AVRecorder stop:nil];
    [Utils startTimeout:self.TimeoutDelay];
 }
@@ -277,10 +277,10 @@
 - (IBAction)startAVPlay:(id)sender
 {
   
-   //NSLog(@"startAVPlay hiddenaufnahmepfad: %@",self.hiddenAufnahmePfad);
+   //DLog(@"startAVPlay hiddenaufnahmepfad: %@",self.hiddenAufnahmePfad);
    if ([[NSFileManager defaultManager]fileExistsAtPath:self.hiddenAufnahmePfad ])
    {
-      //NSLog(@"startAVPlay Aufnahmeda");
+      //DLog(@"startAVPlay Aufnahmeda");
    }
   // [AVRecorder setPlaying:YES];
    [self.StartRecordKnopf setEnabled:NO];
@@ -297,7 +297,7 @@
    [AVAbspielplayer playAufnahme];
    float dur = ([AVAbspielplayer duration]);
    [Abspielanzeige setMax:dur];
-   //NSLog(@"+AVRecorder startAVPlay dur: %f",dur);
+   //DLog(@"+AVRecorder startAVPlay dur: %f",dur);
    [Abspielanzeige setNeedsDisplay:YES];
    [self.ArchivAbspielanzeige setMax:dur];
    
@@ -307,7 +307,7 @@
 
 - (IBAction)stopAVPlay:(id)sender
 {
-   //NSLog(@"stopAVPlay");
+   //DLog(@"stopAVPlay");
    [AVAbspielplayer stopTempAufnahme];
    [self.StartRecordKnopf setEnabled:YES];
    [self.SichernKnopf setEnabled:YES];
@@ -321,7 +321,7 @@
 
 - (IBAction)backAVPlay:(id)sender
 {
-   //NSLog(@"backAVPlay");
+   //DLog(@"backAVPlay");
    [AVAbspielplayer toStartTempAufnahme];
    [self.SichernKnopf setEnabled:YES];
    [self.BackKnopf setEnabled:NO];
@@ -332,7 +332,7 @@
 
 - (IBAction)rewindAVPlay:(id)sender
 {
-   //NSLog(@"rewindAVPlay");
+   //DLog(@"rewindAVPlay");
    [AVAbspielplayer rewindTempAufnahme];
    //[self.BackKnopf setEnabled:NO];
    [self.StopPlayKnopf setEnabled:YES];
@@ -341,7 +341,7 @@
 
 - (IBAction)forewardAVPlay:(id)sender
 {
-   //NSLog(@"forewardAVPlay");
+   //DLog(@"forewardAVPlay");
    [AVAbspielplayer forewardTempAufnahme];
    //[self.BackKnopf setEnabled:NO];
    [self.StopPlayKnopf setEnabled:YES];
@@ -352,14 +352,14 @@
 
 - (void)RecordingAktion:(NSNotification*)note
 {
-  // NSLog(@"RecordingAktion note: %@",[note description]);
+  // DLog(@"RecordingAktion note: %@",[note description]);
    if ([[note userInfo ]objectForKey:@"record"])
    {
       switch([[[note userInfo ] objectForKey:@"record"]intValue])
       {
          case 0:
          {
-            //NSLog(@"RecordingAktion Aufnahme stop");
+            //DLog(@"RecordingAktion Aufnahme stop");
             aufnahmetimerstatus=0;
             
             // erfolg checken
@@ -381,17 +381,17 @@
                // Player vorbereiten
                if ([[note userInfo ] objectForKey:@"desturl"] && [[[[note userInfo ] objectForKey:@"desturl"]path]length])
                {
-                  //NSLog(@"RecordingAktion desturl: %@",[[note userInfo ]objectForKey:@"desturl"]);
+                  //DLog(@"RecordingAktion desturl: %@",[[note userInfo ]objectForKey:@"desturl"]);
                   NSURL* destURL = [[note userInfo ] objectForKey:@"desturl"];
                   self.hiddenAufnahmePfad = [destURL path];
                   [AVAbspielplayer prepareAufnahmeAnURL:destURL];
-                  //NSLog(@"RecordingAktion nach prepare");
+                  //DLog(@"RecordingAktion nach prepare");
                }
                
                if ([[note userInfo ] objectForKey:@"aufnahmezeit"] )
                {
                   self.Aufnahmedauer = [[[note userInfo ] objectForKey:@"aufnahmezeit"]intValue];
-                  //NSLog(@"RecordingAktion self.Aufnahmedauer: %d",self.Aufnahmedauer);
+                  //DLog(@"RecordingAktion self.Aufnahmedauer: %d",self.Aufnahmedauer);
                }
                
                
@@ -422,7 +422,7 @@
                //[Warnung setIcon:RPImage];
                [Warnung runModal];
                
-               //NSLog(@"Fehler beim Sichern der Aufnahmen");
+               //DLog(@"Fehler beim Sichern der Aufnahmen");
                
                
                
@@ -432,7 +432,7 @@
             
          case 1:
          {
-            //NSLog(@"RecordingAktion Aufnahme gestartet");
+            //DLog(@"RecordingAktion Aufnahme gestartet");
             aufnahmetimerstatus=1;
             AufnahmeZeit = 0;
             [Utils stopTimeout];
@@ -444,13 +444,13 @@
 
 - (void)LevelmeterAktion:(NSNotification*)note
 {
-   //NSLog(@"LevelmeterAktion");
+   //DLog(@"LevelmeterAktion");
    
    if ([[note userInfo]objectForKey:@"level"])
    {
       NSNumber* LevelNumber=[[note userInfo]objectForKey:@"level"];
       float Level=[LevelNumber floatValue];
-      //NSLog(@"Level: %2.2f",Level);
+      //DLog(@"Level: %2.2f",Level);
       // [self.Levelmeter setLevel:4*Level];
       [self updateAudioLevels:Level];
       
@@ -459,7 +459,7 @@
    {
       NSNumber* durationNumber=[[note userInfo]objectForKey:@"duration"];
       AufnahmeZeit=[durationNumber intValue];
-     // NSLog(@"duration: %2.2d",AufnahmeZeit);
+     // DLog(@"duration: %2.2d",AufnahmeZeit);
       int Minuten = AufnahmeZeit/60;
       int Sekunden =AufnahmeZeit%60;
       
@@ -508,20 +508,20 @@
       NSNumber* durNumber=[[note userInfo]objectForKey:@"dur"];
       dur=[durNumber doubleValue];
    }
-   //NSLog(@"AbspielPosAktion dur: %2.2f pos: %2.2f",dur,pos);
+   //DLog(@"AbspielPosAktion dur: %2.2f pos: %2.2f",dur,pos);
    if (dur - pos < 0.1)
    {
-      //NSLog(@"Ende erreicht");
+      //DLog(@"Ende erreicht");
       [self.SichernKnopf setEnabled:YES];
       //[AVAbspielplayer resetTimer];
    }
    NSNumber* durationNumber=[[note userInfo]objectForKey:@"duration"];
    
    WiedergabeZeit=[durationNumber intValue];
-   //NSLog(@"duration: %2.2d",AufnahmeZeit);
+   //DLog(@"duration: %2.2d",AufnahmeZeit);
    int Minuten = posint/60;
    int Sekunden =posint%60;
-   //NSLog(@"Minuten: %d Sekunden: %d",Minuten,Sekunden);
+   //DLog(@"Minuten: %d Sekunden: %d",Minuten,Sekunden);
    NSString* MinutenString;
    
    NSString* SekundenString;
@@ -548,7 +548,7 @@
    
    
    //   int max =[self.Fortschritt maxValue];
-   //NSLog(@"AbspielPosAktion pos: %f dur: %f wert: %f",pos,dur,pos/dur*1024 );
+   //DLog(@"AbspielPosAktion pos: %f dur: %f wert: %f",pos,dur,pos/dur*1024 );
    //  [self.Abspielanzeige setMax:dur];
    [Abspielanzeige setLevel:pos];
    [Abspielanzeige display];
@@ -573,7 +573,7 @@
 //   [mainMenu setDelegate:self];
    NSMenu *appMenu = [[mainMenu itemWithTitle:@"Modus"] submenu];
   //[appMenu setAutoenablesItems:NO];
-//NSLog(@"saveRecord MenuItem: Modus: %@",[[appMenu itemWithTitle:@"Admin"]title]);
+//DLog(@"saveRecord MenuItem: Modus: %@",[[appMenu itemWithTitle:@"Admin"]title]);
 //   [appMenu setDelegate:self];
    
    for (NSMenuItem *item in [appMenu itemArray])
@@ -583,11 +583,11 @@
   
    
 
-   //NSLog(@"saveRecord tag: %ld Leser: %@ ",(long)[sender tag],self.Leser);
+   //DLog(@"saveRecord tag: %ld Leser: %@ ",(long)[sender tag],self.Leser);
    
-   //NSLog(@"anzProjekte vor: %d",[[self.ProjektArray valueForKey:@"projekt"]count]);
+   //DLog(@"anzProjekte vor: %d",[[self.ProjektArray valueForKey:@"projekt"]count]);
 
-   //NSLog(@"saveRecord hiddenAufnahmePfad: %@",self.hiddenAufnahmePfad);
+   //DLog(@"saveRecord hiddenAufnahmePfad: %@",self.hiddenAufnahmePfad);
    if ([self.Leser length]==0)
    {
       NSAlert *Warnung = [[NSAlert alloc] init];
@@ -603,7 +603,7 @@
    
    if ((self.Aufnahmedauer==0)&&([self.Leser length]==0))
    {
-      //NSLog(@"Save ohne Aufnahme");
+      //DLog(@"Save ohne Aufnahme");
       NSAlert *Warnung = [[NSAlert alloc] init];
       [Warnung addButtonWithTitle:@"OK"];
       //[Warnung addButtonWithTitle:@"Cancel"];
@@ -639,7 +639,7 @@
    [Abspielanzeige setLevel:0];
    [Abspielanzeige setNeedsDisplay:YES];
    
-   //NSLog(@"saveRecord: QTKitGesamtAufnahmezeit: %2.2f",QTKitGesamtAufnahmezeit);
+   //DLog(@"saveRecord: QTKitGesamtAufnahmezeit: %2.2f",QTKitGesamtAufnahmezeit);
    NSString* tempAufnahmePfad;
    //tempLeserPfad=[NSString stringWithString:@""];
    NSFileManager *Manager = [NSFileManager defaultManager];
@@ -658,7 +658,7 @@
          }
          
          //NSString* Aufnahmenliste=[tempAufnahmeArray description];
-         //NSLog(@"tempAufnahmeListe: %@", Aufnahmenliste);
+         //DLog(@"tempAufnahmeListe: %@", Aufnahmenliste);
          NSMutableString* tempNummerString=[NSMutableString stringWithCapacity:0];
          NSNumber* tempNummer;
          int maxNummer=0;
@@ -695,16 +695,16 @@
                }//while pos
                if (posLeerstelle1 && posLeerstelle2)
                {
-                  //NSLog(@"loopNummerString: %@   pos Leerstelle1:%d pos Leerstelle2:%d",loopNummerString,posLeerstelle1,posLeerstelle2);
+                  //DLog(@"loopNummerString: %@   pos Leerstelle1:%d pos Leerstelle2:%d",loopNummerString,posLeerstelle1,posLeerstelle2);
                   NSRange tempRange=NSMakeRange(posLeerstelle1+1,(posLeerstelle2-posLeerstelle1));
                   tempNummerString=(NSMutableString*)[loopNummerString substringWithRange:tempRange];
-                  //NSLog(@"loopNummerString: %@   pos Leerstelle1:%d pos Leerstelle2:%d",loopNummerString,posLeerstelle1,posLeerstelle2);
+                  //DLog(@"loopNummerString: %@   pos Leerstelle1:%d pos Leerstelle2:%d",loopNummerString,posLeerstelle1,posLeerstelle2);
                   
                   int loopNummer=[tempNummerString intValue];
                   if (loopNummer>maxNummer)
                      maxNummer=loopNummer;
                }
-               //NSLog(@"neue maxNummer: %d",maxNummer);
+               //DLog(@"neue maxNummer: %d",maxNummer);
                //[loopNummerString release];
             }
          }
@@ -722,7 +722,7 @@
          
          Leserinitialen=[Leserinitialen stringByAppendingString:tempNummerString];
          Leserinitialen=[Leserinitialen stringByAppendingString:@" "];
-         //NSLog(@"Titelpop: %@",[[self.TitelPop cell]stringValue]);
+         //DLog(@"Titelpop: %@",[[self.TitelPop cell]stringValue]);
        
          //NSString* titel =  [[[self.TitelPop cell]stringValue]pfadOhneExtension];
          NSString* titel =  [[self.TitelPop cell]stringValue];
@@ -747,13 +747,13 @@
             NSModalResponse antwort = [Warnung runModal];
             if (antwort==NSAlertFirstButtonReturn)
             {
-               //NSLog(@"alertDidEnd: NSAlertFirstButtonReturn");
+               //DLog(@"alertDidEnd: NSAlertFirstButtonReturn");
                [self.TitelPop setEnabled:YES];
                return;
             }
             else if (antwort==NSAlertSecondButtonReturn)
             {
-              //NSLog(@"ProjektStartAktion: NSAlertSecondButtonReturn");
+              //DLog(@"ProjektStartAktion: NSAlertSecondButtonReturn");
             }
 
          }
@@ -761,7 +761,7 @@
          NSString* AufnahmeTitel=[Leserinitialen stringByAppendingString:titel];
          if ([tempAufnahmeArray containsObject:AufnahmeTitel])
          {
-            //NSLog(@"Die Nummer ist schon vorhanden: %d",AnzAufnahmen+1);
+            //DLog(@"Die Nummer ist schon vorhanden: %d",AnzAufnahmen+1);
             return;
          }
          
@@ -770,7 +770,7 @@
          tempAufnahmePfad=[self.LeserPfad stringByAppendingPathComponent:[Utils pfadOhneExtension:AufnahmeTitel]];//Pfad im Ordner in der Lesebox
          
          
-         //NSLog(@"saveRecord tempAufnahmePfad : %@", tempAufnahmePfad);
+         //DLog(@"saveRecord tempAufnahmePfad : %@", tempAufnahmePfad);
          //[Manager movePath: neueAufnahmePfad toPath:tempAufnahmePfad handler:NULL];
          
          // Kommentar einfuegen
@@ -798,7 +798,7 @@
                NSError* err;
  
                NSMutableArray* tempArray =(NSMutableArray*)[[NSFileManager defaultManager] contentsOfDirectoryAtPath:self.LeserPfad error:&err];
-               //NSLog(@"tempArray: %@",[tempArray description]);
+               //DLog(@"tempArray: %@",[tempArray description]);
                
                if ([[tempArray objectAtIndex:0] hasPrefix:@".DS"]) //Unsichtbare Ordner
                {
@@ -809,7 +809,7 @@
                
                
                self.aktuellAnzAufnahmen = anz;
-               //NSLog(@"move 1 anz: %f tempAufnahmePfad: %@",anz, tempAufnahmePfad);
+               //DLog(@"move 1 anz: %f tempAufnahmePfad: %@",anz, tempAufnahmePfad);
                
                // Platz machen
                [[NSFileManager defaultManager] removeItemAtURL:[NSURL fileURLWithPath:self.hiddenAufnahmePfad] error:nil];
@@ -829,14 +829,14 @@
                //[Warnung setIcon:RPImage];
                double antwort=[Warnung runModal];
                
-               //NSLog(@"Fehler beim Sichern der Aufnahmen");
+               //DLog(@"Fehler beim Sichern der Aufnahmen");
                [[NSFileManager defaultManager] removeItemAtURL:[NSURL fileURLWithPath:self.hiddenAufnahmePfad] error:nil];
             }
             
-            //NSLog(@"err nach move: %d",err);
+            //DLog(@"err nach move: %d",err);
             if (err)
             {
-               //NSLog(@"err nach move: %d",err);
+               //DLog(@"err nach move: %d",err);
                NSAlert *Warnung = [[NSAlert alloc] init];
                [Warnung addButtonWithTitle:@"OK"];
                //[Warnung addButtonWithTitle:@"Cancel"];
@@ -852,36 +852,36 @@
          //SessionLeserArray aktualisieren
          
          //NSCalendarDate* creatingDatum=[NSCalendarDate calendarDate];
-         //NSLog(@"Projekt: %@ creatingDatum: %@",[ProjektPfad lastPathComponent],creatingDatum);
+         //DLog(@"Projekt: %@ creatingDatum: %@",[ProjektPfad lastPathComponent],creatingDatum);
          
          NSString* tempLeser=[self.ArchivnamenPop titleOfSelectedItem];
-         //NSLog(@"saveRecord Projekt: %@ tempLeser: %@",[ProjektPfad lastPathComponent],tempLeser);
+         //DLog(@"saveRecord Projekt: %@ tempLeser: %@",[ProjektPfad lastPathComponent],tempLeser);
          
          
          //Leser zur Sessionliste zufügen
-         //NSLog(@"anzProjekte nach: %lu",(unsigned long)[[self.ProjektArray valueForKey:@"projekt"]count]);
+         //DLog(@"anzProjekte nach: %lu",(unsigned long)[[self.ProjektArray valueForKey:@"projekt"]count]);
          
          double ProjektIndex=[[self.ProjektArray valueForKey:@"projekt"] indexOfObject:[self.ProjektPfad lastPathComponent]];
-         //NSLog(@"ProjektIndex: %d",ProjektIndex);
+         //DLog(@"ProjektIndex: %d",ProjektIndex);
          if (ProjektIndex<NSNotFound)
          {
-            //NSLog(@"Projekt da: ");
+            //DLog(@"Projekt da: ");
             NSMutableDictionary* tempProjektDic=(NSMutableDictionary*)[self.ProjektArray objectAtIndex:ProjektIndex];
             
             NSMutableArray* SessionLeserArray=[[NSMutableArray alloc]initWithCapacity:0];
             
             if ([tempProjektDic objectForKey:@"sessionleserarray"])//Array ist vorhanden
             {
-               //NSLog(@"SessionLeserArray da: ");
+               //DLog(@"SessionLeserArray da: ");
                [SessionLeserArray addObjectsFromArray:[tempProjektDic objectForKey:@"sessionleserarray"]];
                
-               //NSLog(@"SessionLeserArray da2");
+               //DLog(@"SessionLeserArray da2");
             }
             if (![SessionLeserArray containsObject:tempLeser])//tempLeser einsetzen
             {
                [SessionLeserArray addObject:tempLeser];
             }
-            //NSLog(@"vor setArchivNamenPop");
+            //DLog(@"vor setArchivNamenPop");
             [tempProjektDic setObject:SessionLeserArray forKey:@"sessionleserarray"];
             
             //SessionListe in der PList sichern
@@ -893,16 +893,16 @@
             {
                [self setArchivNamenPop];
             }
-            //NSLog(@"nach setArchivNamenPop");
+            //DLog(@"nach setArchivNamenPop");
          }//projektIndex
          else
          {
-            //NSLog(@"Projekt noch nicht da: ");
+            //DLog(@"Projekt noch nicht da: ");
          }
          //BOOL erfolg=[Manager removeFileAtPath:neueAufnahmePfad handler:nil];
          if (!erfolg)
          {
-            //NSLog(@"erfolg nach removeFileAtPath: %d",err);
+            //DLog(@"erfolg nach removeFileAtPath: %d",err);
             NSAlert *Warnung = [[NSAlert alloc] init];
             [Warnung addButtonWithTitle:@"OK"];
             //[Warnung addButtonWithTitle:@"Cancel"];
@@ -931,7 +931,7 @@
    
    
    
-   //NSLog(@" vor     SaveAufnahmeTimer");
+   //DLog(@" vor     SaveAufnahmeTimer");
    
    switch  ([sender tag])
    {
@@ -942,7 +942,7 @@
                                                                    selector:@selector(SaveAufnahmeTimerFunktion:)
                                                                    userInfo:[NSNumber numberWithDouble:[sender tag]]
                                                                     repeats:NO];
-         //NSLog(@"   set        SaveAufnahmeTimer");
+         //DLog(@"   set        SaveAufnahmeTimer");
       }break;
       case 0:
       {
@@ -969,6 +969,6 @@
 }
 
 -(void)onTick:(NSTimer *)timer {
-   //NSLog(@"AufnahmeTimerFunktion");
+   //DLog(@"AufnahmeTimerFunktion");
 }
 @end

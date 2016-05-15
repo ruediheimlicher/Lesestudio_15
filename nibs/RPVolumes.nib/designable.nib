@@ -130,7 +130,7 @@ Gw
                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="rFo-NH-IgB">
                         <rect key="frame" x="63" y="45" width="444" height="36"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" id="Eb7-3u-niz">
+                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" state="on" id="Eb7-3u-niz">
                             <font key="font" metaFont="system" size="12"/>
                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>

@@ -3050,7 +3050,7 @@ return versionOK;
 - (BOOL)confirmPasswort:(NSDictionary*)derNamenDic
 {
 	BOOL confirmOK=NO;
-	//NSLog(@"confirmPasswort start");
+	DLog(@"Utils confirmPasswort start");
 	NSString* tempName=[derNamenDic objectForKey:@"name"];
 	NSData* PWData=[derNamenDic objectForKey:@"pw"];
 	if (!UPasswortRequestPanel)
@@ -3064,6 +3064,10 @@ return versionOK;
 	long modalAntwort = [NSApp runModalForWindow:[UPasswortRequestPanel window]];
 	//NSLog(@"Utils confirmPasswort: modalAntwort: %d",modalAntwort);
 	[NSApp endModalSession:PasswortSession];
+   
+   long antwort = modalAntwort;
+   DLog(@"Utils confirmPasswort antwort: %ld",antwort);
+   
 	confirmOK=(modalAntwort==1);
 	return confirmOK;
 }

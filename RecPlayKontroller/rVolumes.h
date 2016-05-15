@@ -2,6 +2,8 @@
 
 #import <Cocoa/Cocoa.h>
 //#import "rNetzwerkDrawer.h"
+#import "defines.h"
+
 @interface rVolumes : NSWindowController  <NSComboBoxDataSource>
 {
 	IBOutlet id window;

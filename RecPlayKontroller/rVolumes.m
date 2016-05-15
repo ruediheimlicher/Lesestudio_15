@@ -23,7 +23,7 @@
 
 - (void) awakeFromNib
 {
-	//NSLog(@"rVolumes: awakeFromNib");
+	//DLog(@"rVolumes: awakeFromNib");
    [self.window setAnimationBehavior:NSWindowAnimationBehaviorNone];
 	//[VolumesPopUp addItemWithTitle:@"Hallo"];
 	UserDic=[[NSMutableDictionary alloc] initWithCapacity:0];
@@ -75,7 +75,7 @@
     //[NetzwerkDrawer setMaxContentSize:NSMakeSize(400, 400)];
    
    NSRect frame = [AuswahlenKnopf frame];
-   //NSLog(@"h: %2.2f",frame.size.height);
+   //DLog(@"h: %2.2f",frame.size.height);
    frame.size.height = 48.0;
 //   [AuswahlenKnopf  setFrame: frame];
 
@@ -85,7 +85,7 @@
 	[AuswahlenKnopf setToolTip:@"Den angeklickten Benutzer auswählen."];
 	[NetzwerkKnopf setToolTip:@"Öffnet ein Dialogfeld, um die Verbindung zu einen Benutzer im Netzwerk einzurichten."];
 	[UserTable setToolTip:@"Liste der angemeldeten Benutzer."];
-//	//NSLog(@"rVolumes: awakeFromNib end");
+//	//DLog(@"rVolumes: awakeFromNib end");
 //   [PfadwahlFeld setStringValue:@"abcdef"];
    
    [LeseboxOK setState:NSOnState];
@@ -126,9 +126,9 @@
    {
       [LeseboxDaFeld setStringValue:NSLocalizedString(@"LB present", nil)];
      // [AuswahlenKnopf setKeyEquivalent:@"\r"];
-      //NSLog(@"setLeseboxOK LeseboxOK setState ON vor: %ld LeseboxOK: %@",(long)[LeseboxOK state],LeseboxOK);
+      //DLog(@"setLeseboxOK LeseboxOK setState ON vor: %ld LeseboxOK: %@",(long)[LeseboxOK state],LeseboxOK);
       //[LeseboxOK setState:NSOnState];
-      //NSLog(@"setLeseboxOK LeseboxOK setState ON nach: %ld",(long)[LeseboxOK state]);
+      //DLog(@"setLeseboxOK LeseboxOK setState ON nach: %ld",(long)[LeseboxOK state]);
   
    }
    else
@@ -142,7 +142,7 @@
 
 - (void)setLastPfadOK:(BOOL)lastpfadok
 {
- //  NSLog(@"Volumes setLastPfadOK: %d",lastpfadok);
+ //  DLog(@"Volumes setLastPfadOK: %d",lastpfadok);
  //  [PfadwahlFeld setStringValue:NSLocalizedString(@"Last used Path", nil)];
    if (lastpfadok)
        {
@@ -166,7 +166,7 @@
 - (void)setPfadwahl:(NSString*)pfadwahl
 {
    
-  NSLog(@"*Volumes setPfadLabel: %@",pfadwahl);
+  DLog(@"*Volumes setPfadLabel: %@",pfadwahl);
    [PfadwahlFeld setStringValue:pfadwahl];
   // [AuswahlenKnopf setEnabled:YES];
    //[AuswahlenKnopf setEnabled:NO];
@@ -180,14 +180,14 @@
 	
 	if ([dieUser count])
 	{
-		//NSLog(@"Volumes setUserArray start	dieUser anz: %d desc: %@ \n",[dieUser count],[dieUser description]);
+		//DLog(@"Volumes setUserArray start	dieUser anz: %d desc: %@ \n",[dieUser count],[dieUser description]);
 		
 		NSEnumerator* enumerator=[dieUser objectEnumerator];
 		id einObjekt;
-		//NSLog(@"setUserArray nach Enum");
+		//DLog(@"setUserArray nach Enum");
 		while (einObjekt=[enumerator nextObject])
 		{
-			//NSLog(@"setUserArray: einObjekt: %@",[einObjekt description])
+			//DLog(@"setUserArray: einObjekt: %@",[einObjekt description])
 			NSMutableDictionary* tempUserDic=[[NSMutableDictionary alloc]initWithCapacity:0];
 			int LeseboxOrt=0;
 			NSNumber* LeseboxOrtNumber=[einObjekt objectForKey:@"leseboxort"];
@@ -223,7 +223,7 @@
 			
 			NSString* UserNameString=[einObjekt objectForKey:@"username"];
 			NSString* HostNameString=[einObjekt objectForKey:@"host"];
-			//NSLog(@"setUserArray Namen:		LeseboxOrt: %d HostNameString: %@  UserNameString: %@",LeseboxOrt,HostNameString,UserNameString);
+			//DLog(@"setUserArray Namen:		LeseboxOrt: %d HostNameString: %@  UserNameString: %@",LeseboxOrt,HostNameString,UserNameString);
 			if (UserNameString &&[UserNameString length])
 			{
 				switch (LeseboxOrt)
@@ -291,14 +291,14 @@
 				 [tempUserDic setObject:tempHostString forKey:@"host"];
 				 }
 				 */
-				//NSLog(@"tempUserDic: %@",[tempUserDic description]);
+				//DLog(@"tempUserDic: %@",[tempUserDic description]);
 				[UserArray addObject:[tempUserDic copy]];
 				//[neuerHostName setString:@""];
 				//[UserDic setObject:UserNameString forKey:NamenString];
 			}
 			
 		}//while
-		//NSLog(@"setUserArray nach while");
+		//DLog(@"setUserArray nach while");
 	}//count
 	else
 	{
@@ -308,7 +308,7 @@
 		//[ComputerimNetzString setStringValue:@"Lesebox im Netz suchen"];
 		
 	}
-	//NSLog(@"Volumes setUserArray :	UserArray fertig: %@",[UserArray description]);
+	//DLog(@"Volumes setUserArray :	UserArray fertig: %@",[UserArray description]);
 	NSString* NetzwerkString=@"Lesebox im Netz suchen";
 	//[tempArray release];
 	//[UserArray addObject:NetzwerkString];
@@ -323,7 +323,7 @@
 	[AuswahlenKnopf setKeyEquivalent:@"\r"];
 	
 //	return;
-	//NSLog(@"Volumes setUserArray :1");
+	//DLog(@"Volumes setUserArray :1");
 	[UserTable reloadData];
 //	[VolumesPop setEnabled:NO];
 	SEL DoppelSelektor;
@@ -335,7 +335,7 @@
 	int LeseboxIndex=(int)[UserArray count];//letzte zeile
 	while((einUserDic=[UserEnum nextObject])&&keineLesebox)
 	{
-		//NSLog(@"einUserDic: %@",[einUserDic description]);
+		//DLog(@"einUserDic: %@",[einUserDic description]);
 		NSNumber* tempOKNumber=[einUserDic objectForKey:@"userleseboxOK"];
 		if (tempOKNumber&&[tempOKNumber boolValue])
 		{
@@ -350,18 +350,18 @@
 	NSTextFieldCell* c=[[NSTextFieldCell alloc]init];
 	c=	[[UserTable tableColumnWithIdentifier:@"namen"]dataCellForRow:[UserArray count]-1];
 	[[[UserTable tableColumnWithIdentifier:@"namen"]dataCellForRow:(0)]setTextColor:SuchenFarbe];
-	//NSLog(@"Volumes setUserArray :2");
+	//DLog(@"Volumes setUserArray :2");
 	[UserTable reloadData];
-//	//NSLog(@"Volumes setUserArray :end");
+//	//DLog(@"Volumes setUserArray :end");
 }
 
 - (void)setNetworkArray:(NSArray*) derNetworkArray
 {
 	//NSMutableArray* tempArray=[[NSMutableArray alloc] initWithCapacity:0];
-	//NSLog(@"setNetworkArray start");
+	//DLog(@"setNetworkArray start");
 	if ([derNetworkArray count])
 	{
-		//NSLog(@"setNetworkArray: %@",[derNetworkArray description]);
+		//DLog(@"setNetworkArray: %@",[derNetworkArray description]);
 
 		NSEnumerator* enumerator=[derNetworkArray objectEnumerator];
 		id einObjekt;
@@ -369,7 +369,7 @@
 		{
 			NSMutableDictionary* tempNetworkDic=[[NSMutableDictionary alloc]initWithCapacity:0];
 			NSString* NetworkNameString=[einObjekt objectForKey:@"networkname"];
-			//NSLog(@"setNetworkArray NetworkNameString: %@",NetworkNameString);
+			//DLog(@"setNetworkArray NetworkNameString: %@",NetworkNameString);
 			if (NetworkNameString &&[NetworkNameString length])
 			{
 				[tempNetworkDic setObject:NetworkNameString forKey:@"networkname"];
@@ -389,9 +389,9 @@
 	{
 		
 	}
-	//NSLog(@"setNetworkArray ende: %@",[NetworkArray description]);
+	//DLog(@"setNetworkArray ende: %@",[NetworkArray description]);
 	[NetworkTable reloadData];
-	//NSLog(@"setNetworkArray reloadData");
+	//DLog(@"setNetworkArray reloadData");
 	SEL DoppelSelektor;
 	/*
 	DoppelSelektor=@selector(VolumeOK:);
@@ -428,7 +428,7 @@
 
 - (IBAction)Abbrechen:(id)sender
 {
-	//NSLog(@"Abbrechen: stopModalWithCode 0");
+	//DLog(@"Abbrechen: stopModalWithCode 0");
 	NSNumber* n=[NSNumber numberWithBool:NO];
 	NSMutableDictionary* LeseboxDic=[NSMutableDictionary dictionaryWithObject:n forKey:@"LeseboxDa"];
 	NSNotificationCenter* nc=[NSNotificationCenter defaultCenter];
@@ -443,9 +443,9 @@
 {	
 	NSString* s=@"Lesebox";
 	LeseboxPfad=[[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]stringByAppendingPathComponent:s];
-	//NSLog(@"LeseboxPfad: %@",[LeseboxPfad description]);
+	//DLog(@"LeseboxPfad: %@",[LeseboxPfad description]);
 	[NSApp stopModalWithCode:3];
-	//NSLog(@"Home");
+	//DLog(@"Home");
 	NSNumber* n=[NSNumber numberWithBool:YES];
 	NSMutableDictionary* LeseboxDic=[NSMutableDictionary dictionaryWithObject:n forKey:@"LeseboxDa"];
 	NSNotificationCenter* nc=[NSNotificationCenter defaultCenter];
@@ -461,7 +461,7 @@
 {
 	NSString* lb=@"Lesebox";
 	NSString* tempLeseboxPfad;
-	//NSLog(@"LeseboxpfadChoosed returnCode: %d",returnCode);
+	//DLog(@"LeseboxpfadChoosed returnCode: %d",returnCode);
 	NSMutableDictionary* NotificationDic=[[NSMutableDictionary alloc]initWithCapacity:0];
 	NSNotificationCenter* nc=[NSNotificationCenter defaultCenter];
 	[NotificationDic setObject:@"volumes" forKey:@"quelle"];
@@ -473,12 +473,12 @@
 		LeseboxPfad= [tempLeseboxPfad stringByAppendingPathComponent:lb];
 		[NotificationDic setObject:LeseboxPfad forKey:@"leseboxpfad"];
 		
-		//NSLog(@"NSAlertFirstButtonReturn: tempLeseboxPfad: %@",LeseboxPfad);
+		//DLog(@"NSAlertFirstButtonReturn: tempLeseboxPfad: %@",LeseboxPfad);
 	}
 	if (returnCode==NSAlertSecondButtonReturn)
 	{
 		[NotificationDic setObject:[NSNumber numberWithInt:0] forKey:@"erfolg"];
-		//NSLog(@"NSAlertSecondButtonReturn: Abbrechen");
+		//DLog(@"NSAlertSecondButtonReturn: Abbrechen");
 		[LeseboxerfolgFeld setStringValue:@"An diesem Ort ist noch keine Lesebox eingerichtet."];
 		//[self Markierungenreset];
 		return;
@@ -498,10 +498,10 @@
 		while ([tempLeseboxPfad rangeOfString:lb].location < NSNotFound)
 		{
 			tempLeseboxPfad= [tempLeseboxPfad stringByDeletingLastPathComponent];
-			//NSLog(@"tempLeseboxPfad: %@",tempLeseboxPfad);
+			//DLog(@"tempLeseboxPfad: %@",tempLeseboxPfad);
 		}//while
 		LeseboxPfad= [tempLeseboxPfad stringByAppendingPathComponent:lb];
-		//NSLog(@"LeseboxPfad: %@",LeseboxPfad);
+		//DLog(@"LeseboxPfad: %@",LeseboxPfad);
 		[NotificationDic setObject:[NSNumber numberWithInt:1] forKey:@"erfolg"];
 		[LeseboxerfolgFeld setStringValue:@"An diesem Ort ist eine Lesebox eingerichtet."];
 		[NotificationDic setObject:LeseboxPfad forKey:@"leseboxpfad"];
@@ -513,7 +513,7 @@
 	else if ([Filemanager fileExistsAtPath:[tempLeseboxPfad stringByAppendingPathComponent:lb] isDirectory:&istOrdner] && istOrdner)
 	{
 	
-	//NSLog(@"Abfrage Documents: tempLeseboxPfad: %@",tempLeseboxPfad);
+	//DLog(@"Abfrage Documents: tempLeseboxPfad: %@",tempLeseboxPfad);
 		// Lesebox ist schon da
 		LeseboxPfad=[tempLeseboxPfad stringByAppendingPathComponent:lb];
 		[NotificationDic setObject:[NSNumber numberWithInt:1] forKey:@"erfolg"];
@@ -523,15 +523,15 @@
 	}
 	else 
 	{
-		//NSLog(@"LeseboxpfadChoosed: Leseboxpfad unvollständig:  tempLeseboxPfad: %@",tempLeseboxPfad);
+		//DLog(@"LeseboxpfadChoosed: Leseboxpfad unvollständig:  tempLeseboxPfad: %@",tempLeseboxPfad);
 		[NotificationDic setObject:[NSNumber numberWithInt:0] forKey:@"erfolg"];
 		[LeseboxerfolgFeld setStringValue:@"An diesem Ort ist noch keine Lesebox eingerichtet."];
 		[NotificationDic setObject:tempLeseboxPfad forKey:@"leseboxpfad"];
 	}
 	[PfadFeld setStringValue:LeseboxPfad];
 	
-	//NSLog(@"LeseboxpfadChoosed end  LeseboxPfad: %@",LeseboxPfad);
-	//NSLog(@"Lesebox an Pfad: %@",[[Filemanager contentsOfDirectoryAtPath:LeseboxPfad error:NULL]description]);
+	//DLog(@"LeseboxpfadChoosed end  LeseboxPfad: %@",LeseboxPfad);
+	//DLog(@"Lesebox an Pfad: %@",[[Filemanager contentsOfDirectoryAtPath:LeseboxPfad error:NULL]description]);
 	[nc postNotificationName:@"Volumespfad" object:self userInfo:NotificationDic];
 
 }
@@ -577,7 +577,7 @@
        
        if (result == NSModalResponseOK)
        {
-          NSLog(@"NSModalResponseOK pfad: %@",[[LeseboxDialog URL]path]);
+          DLog(@"NSModalResponseOK pfad: %@",[[LeseboxDialog URL]path]);
          	NSMutableDictionary* LeseboxDic=[NSMutableDictionary dictionaryWithObject:[LeseboxDialog URL] forKey:@"url"];
           [LeseboxDic setObject:[[LeseboxDialog URL]path ]forKey:@"pfad"];
          [LeseboxDic setObject:[NSNumber numberWithInt:1]forKey:@"LeseboxDa"];
@@ -588,13 +588,14 @@
          [AuswahlenKnopf setKeyEquivalent:@"\r"];
   //        [LeseboxOK setState:1];
           neuerLeseboxPfad = [[LeseboxDialog URL]path ];
+          DLog(@"Volumes neuerLeseboxPfad: %@",neuerLeseboxPfad);
           [SuchenKnopf setKeyEquivalent:@""];
           [AuswahlenKnopf setEnabled:YES];
           [AuswahlenKnopf setKeyEquivalent:@"\r"];
-          
+          BOOL isDir=NO;
           if ([neuerLeseboxPfad rangeOfString:@"Lesebox"].location < NSNotFound) // Lesebox im Pfad, Vorhandensein testen
           {
-             BOOL isDir=NO;
+             
              if ([[NSFileManager defaultManager]fileExistsAtPath:neuerLeseboxPfad isDirectory:&isDir]) // LB ist da und ist ordner
              {
                 if (isDir)
@@ -607,6 +608,19 @@
                 }
              }
           }
+          else if ([[NSFileManager defaultManager]fileExistsAtPath:[neuerLeseboxPfad stringByAppendingPathComponent:@"Lesebox"] isDirectory:&isDir]) // LB ist da und ist ordner
+          {
+             if (isDir)
+             {
+                [LeseboxDaFeld setStringValue:NSLocalizedString(@"LB present", nil)];
+                
+             }
+             else
+             {
+                [LeseboxDaFeld setStringValue:NSLocalizedString(@"LB not present", nil)];
+             }
+            
+          }
           else // keine LB da
           {
              [LeseboxDaFeld setStringValue:NSLocalizedString(@"LB not present but installable", nil)];
@@ -614,11 +628,12 @@
           [PfadFeld setStringValue:neuerLeseboxPfad];
           
          // [[self window]makeFirstResponder:AuswahlenKnopf];
+          ALog(@"choose: neuerLeseboxPfad: %@",neuerLeseboxPfad);
 
        }
        
     }];
-   
+
    /*
     [LeseboxDialog beginSheetForDirectory:NetzPfad file:NULL types:NULL
     modalForWindow:[self window]
@@ -639,17 +654,17 @@
     if (LeseboxHit==NSModalResponseOK)
     {
     tempLeseboxPfad=[[LeseboxDialog URL]path]; //gewähltes "home"
-    //NSLog(@"choose: LeseboxPfad roh: %@",tempLeseboxPfad);
+    //DLog(@"choose: LeseboxPfad roh: %@",tempLeseboxPfad);
     NSArray* tempPfadArray=[tempLeseboxPfad pathComponents];
-    //NSLog(@"tempPfadArray: %@",[tempPfadArray description]);
+    //DLog(@"tempPfadArray: %@",[tempPfadArray description]);
     if ([tempPfadArray count]>2)
     {
     NSArray* UserPfadArray=[tempPfadArray subarrayWithRange:NSMakeRange(0,3)];
     NSString* UserPfad=[NSString pathWithComponents:UserPfadArray];
-    //NSLog(@"UserPfad: %@",UserPfad);
+    //DLog(@"UserPfad: %@",UserPfad);
     
     BOOL LeseboxCheck=[self checkUserAnPfad:tempLeseboxPfad];
-    //NSLog(@"tempLeseboxPfad: %@  LeseboxCheck: %d",tempLeseboxPfad,LeseboxCheck);
+    //DLog(@"tempLeseboxPfad: %@  LeseboxCheck: %d",tempLeseboxPfad,LeseboxCheck);
     
     }
     else
@@ -683,7 +698,7 @@
 
 - (void)VolumepfadAktion:(NSNotification*)note
 {
-//NSLog(@"VolumepfadAktion note: %@",[[note userInfo]description]);
+//DLog(@"VolumepfadAktion note: %@",[[note userInfo]description]);
 }
 
 
@@ -692,7 +707,7 @@
 	[NSApp stopModalWithCode:1];
 	//int HomeStatus=[HomeKnopf state];
 	NSString* NetzwerkString=@"Lesebox im Netz suchen";
-	//NSLog(@"OKSheet:  stopModalWithCode HomeStatus: %d", HomeStatus);
+	//DLog(@"OKSheet:  stopModalWithCode HomeStatus: %d", HomeStatus);
 	//NSString* lb=@"Lesebox";
 	  {
 		if ([UserTable numberOfSelectedRows])
@@ -700,7 +715,7 @@
 			long Zeile=[UserTable selectedRow];
 			if ([UserArray objectAtIndex:Zeile]==NetzwerkString)//->Lesebox im Netz suchen
 			  {
-				//NSLog(@"VolumeOK >Lesebox im Netz suchen");
+				//DLog(@"VolumeOK >Lesebox im Netz suchen");
 				LeseboxPfad=[self chooseNetworkLeseboxPfad];
 			  }
 			else
@@ -733,14 +748,14 @@
 
 - (IBAction)reportOpenNetwork:(id)sender
 {
-   NSLog(@"\nreportOpenNetwork\n\n");
+   DLog(@"\nreportOpenNetwork\n\n");
    NSString* NetwerkLeseboxPfad=[self chooseNetworkLeseboxPfad];
-   NSLog(@"\nende reportOpenNetwork: path: %@",NetwerkLeseboxPfad);
+   DLog(@"\nende reportOpenNetwork: path: %@",NetwerkLeseboxPfad);
    if (NetwerkLeseboxPfad)
    {
       NSURL* NetzURL=[NSURL fileURLWithPath:NetwerkLeseboxPfad];
       //CFStringRef=CFURLCopyHostName
-      NSLog(@"\nende reportOpenNetwork: URL: %@\n\n",NetzURL);
+      DLog(@"\nende reportOpenNetwork: URL: %@\n\n",NetzURL);
    }
    
 }
@@ -750,9 +765,9 @@
 {
 	istSystemVolume=NO;
 	NSString* lb=@"Lesebox";
-	//NSLog(@"reportAuswahlen lb: %@",lb);
+	//DLog(@"reportAuswahlen lb: %@",lb);
    
-   //NSLog(@"Externe HD oder Server UserPfad: %@",UserPfad);
+   //DLog(@"Externe HD oder Server UserPfad: %@",UserPfad);
    
    NSString* UserPfad= [PfadFeld stringValue];
    if ([[UserPfad lastPathComponent]isEqualToString:lb])// Schon eine LB vorhanden
@@ -763,8 +778,8 @@
    {
       UserPfad=[UserPfad stringByAppendingPathComponent:lb];
    }
-   //NSLog(@"Server UserPfad : %@",UserPfad);
-   //NSLog(@"Server LeseboxPfad vor UserPfad: %@",LeseboxPfad);
+   //DLog(@"Server UserPfad : %@",UserPfad);
+   //DLog(@"Server LeseboxPfad vor UserPfad: %@",LeseboxPfad);
    LeseboxPfad=UserPfad;
 
    
@@ -774,18 +789,18 @@
 	{
 		int Zeile=[UserTable selectedRow];
 		
-		//NSLog(@"reportAuswahlen: Zeile: %d",Zeile);
+		//DLog(@"reportAuswahlen: Zeile: %d",Zeile);
 		if (Zeile==0)//home
 		{
 			LeseboxPfad=[[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]stringByAppendingPathComponent:lb];
 			istSystemVolume=YES;
          
-         //NSLog(@"reportAuswahlen: Zeile 0: LeseboxPfad: %@",LeseboxPfad);
+         //DLog(@"reportAuswahlen: Zeile 0: LeseboxPfad: %@",LeseboxPfad);
 		}
 		else
 		{
 			NSFileManager *Filemanager=[NSFileManager defaultManager];
-			//NSLog(@"reportAuswahlen: Zeile: %d %@",Zeile,[[UserArray objectAtIndex:Zeile] description]);
+			//DLog(@"reportAuswahlen: Zeile: %d %@",Zeile,[[UserArray objectAtIndex:Zeile] description]);
 			NSString* Username=[[UserArray objectAtIndex:Zeile]objectForKey:@"username"];
 			NSString* Hostname=[[UserArray objectAtIndex:Zeile]objectForKey:@"host"];
 			NSString* UserPfad=[NSString string];;
@@ -793,7 +808,7 @@
          
          LeseboxOrt = 2;
          
-			//NSLog(@"Volumes:	LeseboxOrt: %d",LeseboxOrt);
+			//DLog(@"Volumes:	LeseboxOrt: %d",LeseboxOrt);
 			switch (LeseboxOrt)
 			{
 				case 0:
@@ -816,16 +831,16 @@
                
 				default:
 				{
-					//NSLog(@"Kein geeigneter Leseboxort da");
+					//DLog(@"Kein geeigneter Leseboxort da");
 					return;
 				}
 			}//switch
 			
-			//NSLog(@"reportAuswahlen: UserPfad: %@",UserPfad);
+			//DLog(@"reportAuswahlen: UserPfad: %@",UserPfad);
 			if ([Filemanager fileExistsAtPath:[UserPfad stringByAppendingPathComponent:@"Library"]]//ist Volume mit System
 				 &&![Filemanager fileExistsAtPath:[UserPfad stringByAppendingPathComponent:@"Users"]])//ist nicht die HD oder Server
 			{
-				//NSLog(@"Dokumente");
+				//DLog(@"Dokumente");
 				istSystemVolume=YES;
 				NSString* lb=@"Lesebox";
 				NSString* DocumentsPfad=[NSString stringWithFormat:@"%@/Documents",UserPfad];
@@ -834,7 +849,7 @@
 			}
 			else//Externe HD
 			{
-				//NSLog(@"Externe HD oder Server UserPfad: %@",UserPfad);
+				//DLog(@"Externe HD oder Server UserPfad: %@",UserPfad);
 				if ([[UserPfad lastPathComponent]isEqualToString:lb])// Schon eine LB vorhanden
 				{
 					// Nichts anhaengen
@@ -843,24 +858,25 @@
 				{
 				UserPfad=[UserPfad stringByAppendingPathComponent:lb];
 				}
-				//NSLog(@"Externe HD oder Server LeseboxPfad: %@",LeseboxPfad);
+				//DLog(@"Externe HD oder Server LeseboxPfad: %@",LeseboxPfad);
 				LeseboxPfad=UserPfad;
 			
 			}
 		}
 	}
 	
-	//NSLog(@"Volumes reportAuswahlen: LeseboxPfad: %@",LeseboxPfad);
+	//DLog(@"Volumes reportAuswahlen: LeseboxPfad: %@",LeseboxPfad);
 	*/
 	//Der Leseboxpfad wird in chooselesebox gelesen und in Leseboxvorbereiten gesetzt
 	
 	
+   
 	NSNumber* n=[NSNumber numberWithBool:YES];
 	NSMutableDictionary* LeseboxDic=[NSMutableDictionary dictionaryWithObject:n forKey:@"LeseboxDa"];
 	[LeseboxDic setObject:[NSNumber numberWithBool:istSystemVolume] forKey:@"istsysvol"];
 	NSNotificationCenter* nc=[NSNotificationCenter defaultCenter];
 	[nc postNotificationName:@"VolumeWahl" object:self userInfo:LeseboxDic];
-	//NSLog(@"LeseboxDic: %@",[LeseboxDic description]);
+	//DLog(@"LeseboxDic: %@",[LeseboxDic description]);
 	//NSMutableDictionary* UserDic=[NSMutableDictionary dictionaryWithObject:LeseboxPfad forKey:@"LeseboxVolume"];
 	//NSNotificationCenter* nc=[NSNotificationCenter defaultCenter];
 	//[nc postNotificationName:@"VolumeWahl" object:self userInfo:UserDic];[
@@ -877,19 +893,19 @@
 		
 		
 		NSMutableString* ComputerName=[[[NetworkArray objectAtIndex:[NetworkTable selectedRow]]objectForKey:@"networkname"]mutableCopy];
-		//NSLog(@"ComputerName: %@",ComputerName);
+		//DLog(@"ComputerName: %@",ComputerName);
 		[neuerHostName setString:ComputerName];
-		//NSLog(@"neuerHostName: %@",neuerHostName);
+		//DLog(@"neuerHostName: %@",neuerHostName);
 		[ComputerName replaceOccurrencesOfString:@"." withString:@"-" options:NSLiteralSearch range:NSMakeRange(0, [ComputerName length])];
 		[ComputerName replaceOccurrencesOfString:@" " withString:@"-" options:NSLiteralSearch range:NSMakeRange(0, [ComputerName length])];
 		NSArray* MV=[[NSWorkspace sharedWorkspace]mountedLocalVolumePaths];
 		//int AnzUser=[MV count];
-		//NSLog(@"MV: %@  Anzahl: %d",[MV description], AnzUser);
+		//DLog(@"MV: %@  Anzahl: %d",[MV description], AnzUser);
 		BOOL istOK=NO;
 		NSString* afpString=@"afp://";
 		NSString* ComputerNameString=[[afpString stringByAppendingString:ComputerName]stringByAppendingString:@".local"];
 		//NSString* ComputerNameString=[afpString stringByAppendingString:ComputerName];
-		//NSLog(@"ComputerNameString: %@",[ComputerNameString description]);
+		//DLog(@"ComputerNameString: %@",[ComputerNameString description]);
 		
 		//istOK=[[NSWorkspace sharedWorkspace]openURL:[NSURL URLWithString:@"afp://g4"]];
 		//istOK=[[NSWorkspace sharedWorkspace]openURL:[NSURL URLWithString:@"afp://g4/ruediheimlicher/Dokumente/Lesebox/Archiv"]];
@@ -906,7 +922,7 @@
 			[neuerHostName setString:ComputerName];
 			
 			NSString* neuerUserDocumentsPfad=[NSString stringWithFormat:@"/Volumes/%@/Documents",ComputerName];
-			//NSLog(@"ComputerNameString: %@",[neuerUserDocumentsPfad description]);
+			//DLog(@"ComputerNameString: %@",[neuerUserDocumentsPfad description]);
 			[PrufenKnopf setEnabled:YES];
 			[AnmeldenKnopf setEnabled:NO];
 			NSNumber* LoginOK=[NSNumber numberWithBool:YES];
@@ -914,9 +930,9 @@
 			[NetworkTable reloadData];
 		}
 		else
-			//NSLog(@"openURL: nichts");
+			//DLog(@"openURL: nichts");
 			[AnmeldenKnopf setEnabled:NO];
-		//NSLog(@"reportAnmelden: neuerHostName: %@",neuerHostName);
+		//DLog(@"reportAnmelden: neuerHostName: %@",neuerHostName);
 	}
 	
 	
@@ -930,8 +946,8 @@
 	long anz=[neueMountedVols count];
 	[neueMountedVols removeObject:@"/"];
 	[neueMountedVols removeObject:@"/Network"];
-	//NSLog(@"neueMountedVols: %@ anz: %ld  neuer Hostname: %@",[neueMountedVols description],anz,neuerHostName);
-	//NSLog(@"UserArray: %@",[UserArray description]);
+	//DLog(@"neueMountedVols: %@ anz: %ld  neuer Hostname: %@",[neueMountedVols description],anz,neuerHostName);
+	//DLog(@"UserArray: %@",[UserArray description]);
 	if ([neueMountedVols count])
 	{
 		NSEnumerator* MVEnum=[neueMountedVols objectEnumerator];
@@ -946,7 +962,7 @@
 			{
 				NSString* UserNameString=[einDic objectForKey:@"username"];
 			//	NSString* HostNameString=[einDic objectForKey:@"host"];
-				//NSLog(@"UserNameString: %@  HostNameString: %@",UserNameString,HostNameString);
+				//DLog(@"UserNameString: %@  HostNameString: %@",UserNameString,HostNameString);
 				if (UserNameString)
 				{
 					if ([UserNameString isEqualToString:tempMountedUserName])
@@ -973,13 +989,13 @@
 				BOOL LeseboxOK=NO;
 				NSString* lb=@"Lesebox";
 				NSString* tempPfad=[[einUser stringByAppendingPathComponent:@"Documents"]stringByAppendingPathComponent:lb];
-				//NSLog(@"tempPfad: %@",tempPfad);
+				//DLog(@"tempPfad: %@",tempPfad);
 				if ([Filemanager fileExistsAtPath:tempPfad])
 				{
 					LeseboxOK=YES;
 				}
 				[tempUserDic setObject:[NSNumber numberWithBool:LeseboxOK] forKey:@"userleseboxOK"];
-				//NSLog(@"checkUsert: add tempUserDic: %@",[tempUserDic description]);
+				//DLog(@"checkUsert: add tempUserDic: %@",[tempUserDic description]);
 				[UserArray addObject:tempUserDic];
 				[UserTable reloadData];
 				[neuerHostName setString:@""];
@@ -994,7 +1010,7 @@
 	//[AuswahlenKnopf setEnabled:YES];
 
 	[[self window]makeFirstResponder:UserTable];
-	//NSLog(@"checkUser: %@",[UserArray description]);
+	//DLog(@"checkUser: %@",[UserArray description]);
 	
 }
 
@@ -1011,7 +1027,7 @@
 	{
 		NSString* UserNameString=[einDic objectForKey:@"username"];
 		NSString* HostNameString=[einDic objectForKey:@"host"];
-		//NSLog(@"UserNameString: %@  HostNameString: %@",UserNameString,HostNameString);
+		//DLog(@"UserNameString: %@  HostNameString: %@",UserNameString,HostNameString);
 		if (UserNameString)
 		{
 			if ([UserNameString isEqualToString:tempMountedUserName])
@@ -1041,11 +1057,11 @@
 		NSString* lb=@"Lesebox";
 		[tempUserDic setObject:[NSNumber numberWithInt:0] forKey:@"leseboxort"];
 		NSString* tempUserLeseboxPfad=[tempUserPfad stringByAppendingPathComponent:lb];
-		//NSLog(@"tempUserLeseboxPfad: %@",tempUserLeseboxPfad);
+		//DLog(@"tempUserLeseboxPfad: %@",tempUserLeseboxPfad);
 
 		if ([Filemanager fileExistsAtPath:tempUserLeseboxPfad])//Lesebox ist auf dem Volume
 		{
-			//NSLog(@"Lesebox ist auf dem Volume");
+			//DLog(@"Lesebox ist auf dem Volume");
 			LeseboxOK=YES;
 			[tempUserDic setObject:[NSNumber numberWithBool:NO] forKey:@"leseboxindocuments"];
 			[tempUserDic setObject:[NSNumber numberWithInt:1] forKey:@"leseboxort"];
@@ -1053,10 +1069,10 @@
 		}
 
 		NSString* tempDocumentLeseboxPfad=[[tempUserPfad stringByAppendingPathComponent:@"Documents"]stringByAppendingPathComponent:lb];
-		//NSLog(@"tempDocumentLeseboxPfad: %@",tempDocumentLeseboxPfad);
+		//DLog(@"tempDocumentLeseboxPfad: %@",tempDocumentLeseboxPfad);
 		if ([Filemanager fileExistsAtPath:tempDocumentLeseboxPfad])
 		{
-			//NSLog(@"Lesebox ist auf in Documents");
+			//DLog(@"Lesebox ist auf in Documents");
 
 			LeseboxOK=YES;
 			[tempUserDic setObject:[NSNumber numberWithBool:YES] forKey:@"leseboxindocuments"];
@@ -1065,7 +1081,7 @@
 
 		}
 		[tempUserDic setObject:[NSNumber numberWithBool:LeseboxOK] forKey:@"userleseboxOK"];
-		//NSLog(@"checkUserAnPfad:	tempUserDic: %@",[tempUserDic description]);
+		//DLog(@"checkUserAnPfad:	tempUserDic: %@",[tempUserDic description]);
 		[UserArray addObject:tempUserDic];
 		
 		[UserTable reloadData];
@@ -1085,13 +1101,13 @@
    {
       name = [name stringByAppendingPathExtension:@"txt"];
    }
-   //NSLog(@"ident: %@",[sender alternateTitle]);
+   //DLog(@"ident: %@",[sender alternateTitle]);
    NSString* helpPfad =[[[[NSBundle mainBundle] bundlePath]stringByAppendingPathComponent:@"Contents/Resources"]stringByAppendingPathComponent:name];
-   NSLog(@"Volumes helpPfad: %@",helpPfad);
+   DLog(@"Volumes helpPfad: %@",helpPfad);
    if ([[NSFileManager defaultManager]fileExistsAtPath:helpPfad] )
    {
       NSString* helpString = [NSString stringWithContentsOfURL:[NSURL fileURLWithPath:helpPfad] encoding:NSUTF8StringEncoding error:nil];
-      //NSLog(@"helpString: %@",helpString);
+      //DLog(@"helpString: %@",helpString);
       if ([helpString length])
       {
          NSArray* helpArray;
@@ -1108,7 +1124,7 @@
          {
             return;
          }
-         //NSLog(@"helpArray: %@",helpArray);
+         //DLog(@"helpArray: %@",helpArray);
          NSAlert *Warnung = [[NSAlert alloc] init];
          [Warnung setMessageText:[helpArray objectAtIndex:0]];
          NSRect cellFeld = NSMakeRect(0, 0, 400, 100);
@@ -1121,9 +1137,9 @@
          
          NSTextView* helpView = [[NSTextView alloc] initWithFrame:cellFeld];
          NSRange inforange =NSMakeRange(1, [helpArray count]-1);
-         //NSLog(@"inforange loc: %ld len: %ld",inforange.location, inforange.length);
+         //DLog(@"inforange loc: %ld len: %ld",inforange.location, inforange.length);
          NSString* infoString = [[helpArray subarrayWithRange:NSMakeRange(1, [helpArray count]-1)]componentsJoinedByString:@"\r"];
-         //NSLog(@"infoString: %@",infoString); // korrectes encoding!!!
+         //DLog(@"infoString: %@",infoString); // korrectes encoding!!!
          
          [helpView insertText:[[helpArray subarrayWithRange:NSMakeRange(1, [helpArray count]-1)]componentsJoinedByString:@"\r"]];
          [helpView setEditable:NO];
@@ -1148,7 +1164,7 @@
 - (void)connection:(NSURLConnection *)connection 
     didReceiveData:(NSData *)data 
 { 
-//NSLog(@"didReceiveData");
+//DLog(@"didReceiveData");
      // add the new data to the old data 
     // [ComputerData appendData:data]; 
      // great opportunity to provide progress to the user 
@@ -1180,13 +1196,13 @@ case 0:
 			row:(long)rowIndex
 {
 id einObjekt;
-//NSLog(@"tableView tag: %d",[aTableView tag]);
+//DLog(@"tableView tag: %d",[aTableView tag]);
 switch ([aTableView tag])
 {
 case 0:
 {
       // NSDictionary *einUserDic;
-	//NSLog(@"UserArray: %@",[UserArray description]);
+	//DLog(@"UserArray: %@",[UserArray description]);
 	if (rowIndex<[UserArray count])
 	  {
     NS_DURING
@@ -1206,7 +1222,7 @@ case 0:
 	case 1:
 	{
 	    // NSDictionary *einVolumeDic;
-	//NSLog(@"objectValue NetworkArray: %@",[NetworkArray description]);
+	//DLog(@"objectValue NetworkArray: %@",[NetworkArray description]);
 	if (rowIndex<[NetworkArray count])
 	  {
     NS_DURING
@@ -1286,7 +1302,7 @@ BOOL selectOK=YES;
 	}//switch
 	
 	{
-		//NSLog(@"shouldSelectRow im Bereich: row %d",row);
+		//DLog(@"shouldSelectRow im Bereich: row %d",row);
 		
 	}
 	return YES;

@@ -299,6 +299,11 @@ extern const int StartmitDialog;//=2;
       [AdminTaste setEnabled:YES];
       [ProjektTable reloadData];
 	}//count
+   else
+   {
+      [AufnehmenTaste setEnabled:NO];
+      
+   }
 }
 
 
