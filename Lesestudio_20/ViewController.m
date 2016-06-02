@@ -1266,7 +1266,7 @@ return YES;
 
 - (void) VolumesAktion:(NSNotification*)note
 {
-   DLog(@"VolumesAktion note: %@",note);
+   //DLog(@"VolumesAktion note: %@",note);
    NSNumber* n=[[note userInfo]objectForKey:@"LeseboxDa"];
    self.LeseboxDa=[n boolValue];
    if ([n intValue]==0)//Abbrechen
