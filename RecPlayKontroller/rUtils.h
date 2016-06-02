@@ -102,7 +102,6 @@
 - (BOOL)createKommentarFuerLeser:(NSString*)derLeser FuerAufnahmePfad:(NSString*)derAufnahmePfad;
 - (BOOL)createKommentarFuerAufnahmePfad:(NSString*)derAufnahmePfad;
 - (BOOL)setKommentar:(NSString*)derKommentarString inAufnahmeAnPfad:(NSString*)derAufnahmePfad;
-- (NSString*)KommentarStringVonAufnahmeAnPfad:(NSString*)derAufnahmePfad;
 
 - (NSString*)pfadOhneExtension:(NSString*)pfad;
 - (NSString*)stringvon:(NSString*)eingangstring;

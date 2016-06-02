@@ -3882,10 +3882,7 @@ QTMovie* qtMovie;
    self.ArchivPlayPfad=[self.ArchivPlayPfad stringByAppendingPathComponent:[dieAufnahme copy]];
    //DLog(@"setArchivPfadFuerAufnahme ArchivPlayPfad: %@",self.ArchivPlayPfad);
    
-   //	BOOL KommentarOK=[Utils setKommentar:@"Hallo" inAufnahmeAnPfad:ArchivPlayPfad];
-   //	NSString* Kontrollstring=[Utils KommentarStringVonAufnahmeAnPfad:ArchivPlayPfad];
-   //	//DLog(@"setArchivPfadFuerAufnahme ArchivPlayPfad: %@  Kontrollstring: %@",ArchivPlayPfad,Kontrollstring);
-   
+    
    
    
    NSFileManager* Filemanager=[NSFileManager defaultManager];

@@ -2322,14 +2322,14 @@ return versionOK;
             
             
             
-				int antwort=[Warnung runModal];
+				long antwort=[Warnung runModal];
 				switch (antwort)
 				{
-					case NSAlertDefaultReturn:
+					case NSAlertFirstButtonReturn:
 					{
 						
 					}break;
-					case NSAlertAlternateReturn:
+					case NSAlertSecondButtonReturn:
 					{
 						//Beenden
 						NSMutableDictionary* BeendenDic=[[NSMutableDictionary alloc]initWithCapacity:0];
@@ -3482,106 +3482,7 @@ if (UTimeoutDialogPanel)
 	return(AufnahmeErr==0);
 }
 
-// Nicht benutzt. Holt C-String aus MovieUserData. Diese werden jedoch nicht auf externe Volumes uebertragen.
-- (NSString*)KommentarStringVonAufnahmeAnPfad:(NSString*)derAufnahmePfad
-{
-	//UserData					AufnahmeUserData = NULL;
-	Handle						AufnahmeHandle = NULL;
-	short						AufnahmeIndex = 0;
-	
-	OSErr						AufnahmeErr = noErr;
-	char*						CKommentarString=NULL;
-	long						AufnahmeLength = 0;
-	Handle					KommentarHandle=NewHandleClear(0);
-	
-	//Movie finden
-	NSError* loadErr;
-   NSString* tempKommentarString;
-   /*
-	NSURL *movieURL = [NSURL fileURLWithPath:derAufnahmePfad];
-	QTMovie* tempMovie= [[QTMovie alloc]initWithURL:movieURL error:&loadErr];
-	if (loadErr)
-	{
-		NSAlert *theAlert = [NSAlert alertWithError:loadErr];
-		[theAlert runModal]; // Ignore return value.
-	}
-	if (!tempMovie)
-		//NSLog(@"Kein Movie da");
-	// retrieve the QuickTime-style movie (type "Movie" from QuickTime/Movies.h) 
-	
-	Movie tempAufnahmeMovie =[tempMovie quickTimeMovie];
-	
-	
-	AufnahmeUserData = GetMovieUserData(tempAufnahmeMovie);
-	if (AufnahmeUserData == NULL)
-	{
-		return @"Fehler";//(paramErr);
-	}
-	
-	AufnahmeErr=GetUserData(AufnahmeUserData, KommentarHandle, kUserDataTextInformation, 1);
-	if (AufnahmeErr==noErr)
-	{
-		AufnahmeLength = GetHandleSize(KommentarHandle);
-		
-		if (AufnahmeLength > 0) 
-		{
-			CKommentarString = (char *)malloc(AufnahmeLength + 1);
-			if (CKommentarString != NULL) 
-			{
-				memcpy(CKommentarString, *AufnahmeHandle, AufnahmeLength);
-				CKommentarString[AufnahmeLength] = '\0';
-			}
-		}			
-	}	
-	
-	DisposeHandle(KommentarHandle);
-	
-	
-	
-	// clean up
-	DisposeHandle(AufnahmeHandle);
-	NSString* tempKommentarString=[NSString stringWithCString:CKommentarString
-                                                    encoding:NSMacOSRomanStringEncoding];
-	[tempKommentarString retain];
-    */
-	return tempKommentarString;
-}
-/*
-OSErr rUtils_AddUserDataTextToMovie (Movie theMovie, char *theText, OSType theType)
-{
-	UserData					myUserData = NULL;
-	Handle						myHandle = NULL;
-	short						myIndex = 0;
-	long						myLength = strlen(theText);
-	OSErr						myErr = noErr;
 
-	// get the movie's user data list
-	myUserData = GetMovieUserData(theMovie);
-	if (myUserData == NULL)
-		return(paramErr);
-	
-	// copy the specified text into a new handle
-	myHandle = NewHandleClear(myLength);
-	if (myHandle == NULL)
-		return(MemError());
-
-	BlockMoveData(theText, *myHandle, myLength);
-
-	// for simplicity, we assume that we want only one user data item of the specified type in the movie;
-	// as a result, we won't worry about overwriting any existing item of that type....
-	//
-	// if you need multiple user data items of a given type (for example, a copyright notice
-	// in several different languages), you would need to modify this code; this is left as an exercise
-	// for the reader....
-
-	// add the data to the movie's user data
-	myErr = AddUserDataText(myUserData, myHandle, theType, myIndex + 1, smSystemScript);
-
-	// clean up
-	DisposeHandle(myHandle);
-	return(myErr);
-}
-*/
 
 - (BOOL) setPListBusy:(BOOL)derStatus anPfad:(NSString*)derPfad
 {

@@ -48,7 +48,7 @@
 
 
 
-- (void)setstartzeit:(double) t
+- (void)setstartzeit:(double)t
 {
    startzeit = t;
 }
@@ -58,9 +58,10 @@
    self = [super init];
    if (self)
    {
+      
       // Create a capture session
       self.session = [[AVCaptureSession alloc] init];
-      
+       [session beginConfiguration];
       /*
       // Attach preview to session
       CALayer *previewViewLayer = [[self previewView] layer];
@@ -73,7 +74,7 @@
       [self setPreviewLayer:newPreviewLayer];
       */
       // Start the session
-      [[self session] startRunning];
+ //     [[self session] startRunning];
       
       // Start updating the audio level meter
       [self setAudioLevelTimer:[NSTimer scheduledTimerWithTimeInterval:0.1f target:self selector:@selector(updateAudioLevels:) userInfo:nil repeats:YES]];
@@ -119,7 +120,9 @@
       
       // Attach outputs to session
       movieFileOutput = [[AVCaptureMovieFileOutput alloc] init];
+      
       [movieFileOutput setDelegate:self];
+      
       [session addOutput:movieFileOutput];
       
       audioPreviewOutput = [[AVCaptureAudioPreviewOutput alloc] init];
@@ -142,7 +145,11 @@
       //NSLog(@"transportControlsSupported: %d",[[self selectedAudioDevice] transportControlsSupported]);
       // Initial refresh of device list
       [self refreshDevices];
-      
+      // end of configuration
+      [session commitConfiguration];
+      // Start the session
+      [[self session] startRunning];
+
    }
    return self;
 }
@@ -170,10 +177,11 @@
 #pragma mark - Device selection
 - (void)refreshDevices
 {
+   [[self session] beginConfiguration];
  //  [self setVideoDevices:[[AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo] //arrayByAddingObjectsFromArray://[AVCaptureDevice devicesWithMediaType:AVMediaTypeMuxed]]];
    [self setAudioDevices:[AVCaptureDevice devicesWithMediaType:AVMediaTypeAudio]];
    
-   [[self session] beginConfiguration];
+   
    //NSLog(@"refreshDevices selectedVideoDevice: %@",[[self selectedVideoDevice]description]);
    if (![[self videoDevices] containsObject:[self selectedVideoDevice]])
       [self setSelectedVideoDevice:nil];
@@ -447,6 +455,15 @@
      // NSString* tempPfad =[[tempDirPfad stringByAppendingPathComponent:@"tempAufnahme"] stringByAppendingPathExtension:@"mov"];
      //[[self movieFileOutput] setDelegate:self];
       NSString* tempPfad =[tempDirPfad  stringByAppendingPathExtension:@"mov"];
+      if ([[NSFileManager defaultManager]fileExistsAtPath:tempPfad isDirectory:nil])
+      {
+         NSLog(@"file exists: %@",tempPfad);
+      }
+      else
+      {
+         NSLog(@"file exists not yet: %@",tempPfad);
+
+      }
       
       NSURL* tempAufnahmeURL = [NSURL  fileURLWithPath:tempPfad];
      // now = [[NSDate alloc] init];
