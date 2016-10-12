@@ -2574,6 +2574,7 @@ extern NSString* alle;
    return tempTitelDicArray;
 }
 
+/*
 - (long)AufnahmeNummerVon:(NSString*) dieAufnahme
 {
    NSString* tempAufnahme=[dieAufnahme copy];
@@ -2619,9 +2620,9 @@ extern NSString* alle;
    }
    return tempNummer;
 }//AufnahmeNummerVon
+*/
 
-
-
+/*
 - (NSString*)AufnahmeTitelVon:(NSString*) dieAufnahme
 {
    
@@ -2671,7 +2672,7 @@ extern NSString* alle;
      }
    return tempString;
 }//AufnahmeTitelVon
-
+*/
 
 - (NSString*)KommentarVon:(NSString*) derKommentarString
 {

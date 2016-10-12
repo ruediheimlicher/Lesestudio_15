@@ -2593,6 +2593,16 @@ return versionOK;
     CFStringRef     trashPath;
     OSErr           err;
     NSFileManager   *mgr = [NSFileManager defaultManager];
+   
+   NSURL* toTrashURL = [NSURL fileURLWithPath:filePath];
+   NSURL* outResultingURL ;
+   NSError* error;
+   bool erfolg = [mgr trashItemAtURL:(NSURL *)toTrashURL resultingItemURL:&outResultingURL error:&error];
+   NSLog(@"trash erfolg: %d outResultingURL:%@",erfolg,outResultingURL);
+   //Return Value of [NSFileManager trashItemAtURL]
+
+   
+   /*
     err = FSFindFolder(kUserDomain, kTrashFolderType, kDontCreateFolder, &trashFolderRef);
     if (err == noErr) 
 	  {
@@ -2609,7 +2619,7 @@ return versionOK;
         
         }
     }
-	
+	*/
 }
 
  - (int) fileInPapierkorb:(NSString*) derFilepfad

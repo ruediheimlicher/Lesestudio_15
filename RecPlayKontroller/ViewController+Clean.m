@@ -1268,7 +1268,7 @@ enum
            {
               
               NSString* tempNamenPfad=[self.ProjektPfad stringByAppendingPathComponent:einName];
-              //DLog(@"Clean*** tempNamenPfad %@",tempNamenPfad);
+              DLog(@"Clean*** tempNamenPfad %@",tempNamenPfad);
               
               BOOL istOrdner;
               if (([Filemanager fileExistsAtPath:tempNamenPfad isDirectory:&istOrdner]) && istOrdner)

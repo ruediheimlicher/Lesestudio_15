@@ -379,7 +379,12 @@
                [self.WeitereAufnahmeKnopf setEnabled:YES];
                
                // Player vorbereiten
-               if ([[note userInfo ] objectForKey:@"desturl"] && [[[[note userInfo ] objectForKey:@"desturl"]path]length])
+               NSURL* destURL = [[note userInfo ] objectForKey:@"desturl"];
+               NSString* p=[destURL path];
+               long l= [p length];
+               if ([[note userInfo ] objectForKey:@"desturl"] && l)
+               
+              // if ([[note userInfo ] objectForKey:@"desturl"] && [[[[note userInfo ] objectForKey:@"desturl"]path]length])
                {
                   //DLog(@"RecordingAktion desturl: %@",[[note userInfo ]objectForKey:@"desturl"]);
                   NSURL* destURL = [[note userInfo ] objectForKey:@"desturl"];

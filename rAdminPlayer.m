@@ -3550,13 +3550,17 @@ const short kRecPlayUmgebung=0;
                     [Warnung setMessageText:s2];
                     [Warnung setInformativeText:FehlerString];
                     [Warnung setAlertStyle:NSWarningAlertStyle];
+                    [Warnung beginSheetModalForWindow:[self window] completionHandler:^(NSInteger result)
+                    {
+                   /*
                     [Warnung beginSheetModalForWindow:AdminFenster
                                         modalDelegate:nil
                                        didEndSelector:nil
                                           contextInfo:nil];
-                    
+                    */
                     //int Antwort=NSRunAlertPanel(@"Fehler beim Umnummerieren", FehlerString,@"OK", NULL,NULL);
                     return;
+                      }];
                  }
                  NSString*alterKommentarPfad=[LeserKommentarPfad stringByAppendingPathComponent:tempAufnahme];
                  if([Filemanager fileExistsAtPath:alterKommentarPfad])//Kommentar für diese Aufn. existiert
@@ -3577,13 +3581,11 @@ const short kRecPlayUmgebung=0;
                           [Warnung setMessageText:@"Fehler beim Umnummerieren des Kommentars"];
                           [Warnung setInformativeText:FehlerString];
                           [Warnung setAlertStyle:NSWarningAlertStyle];
-                          [Warnung beginSheetModalForWindow:AdminFenster
-                                              modalDelegate:nil
-                                             didEndSelector:nil
-                                                contextInfo:nil];
-                          
-                          //int Antwort=NSRunAlertPanel(@"", FehlerString,@"OK", NULL,NULL);
-                          return;
+                          [Warnung beginSheetModalForWindow:[self window] completionHandler:^(NSInteger result)
+                           {
+                               return;
+                           }];
+
                        }
                     }
                     

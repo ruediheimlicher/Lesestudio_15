@@ -224,6 +224,11 @@
 
 - (void)insMagazin:(NSString*)dieAufnahme;
 - (int)insMagazinMitPfad:(NSString*)derAufnahmePfad;
+- (NSString*)AufnahmeTitelVon:(NSString*) dieAufnahme;
+- (long)AufnahmeNummerVon:(NSString*) dieAufnahme;
+
+
+
 - (void)AufnahmeMarkieren:(id)sender;
 - (BOOL)AufnahmeIstMarkiertAnPfad:(NSString*)derAufnahmePfad;
 - (BOOL)AufnahmeIstVomUserMarkiertAnPfad:(NSString*)derAufnahmePfad;
@@ -334,14 +339,14 @@
 - (NSArray*)TitelMitAnzahlArrayVon:(NSString*)derLeser anProjektPfad:(NSString*)derProjektPfad;
 - (NSArray*)sortNachNummer:(NSArray*)derArray;
 - (NSArray*)sortNachABC:(NSArray*)derArray;
-- (NSString*)AufnahmeTitelVon:(NSString*) dieAufnahme;
+//- (NSString*)AufnahmeTitelVon:(NSString*) dieAufnahme;
 - (NSString*)KommentarVon:(NSString*) derKommentarString;
 - (NSString*)DatumVon:(NSString*) derKommentarString;
 - (NSString*)BewertungVon:(NSString*) derKommentarString;
 - (BOOL)AdminMarkVon:(NSString*) derKommentarString;
 - (NSString*)NoteVon:(NSString*) derKommentarString;
 - (long)UserMarkVon:(NSString*)derKommentarString;
-- (long)AufnahmeNummerVon:(NSString*) dieAufnahme;
+//- (long)AufnahmeNummerVon:(NSString*) dieAufnahme;
 - (NSString*)InitialenVon:(NSString*)derName;
 - (void)Markierungenreset;
 

@@ -868,7 +868,7 @@ enum
 
 - (IBAction)reportClear:(id)sender
 {
-   //NSLog(@"reportClear");
+   NSLog(@"reportClear");
    NSArray* tempNamenArrray=[self klickNamenArray];
    NSArray* tempTitelArray=[self klickTitelArray];
    if ([tempNamenArrray count])
